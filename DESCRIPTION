@@ -1,0 +1,12 @@
+Package: cps
+Title: Interface for the Current Population Survey
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Jay",
+           family = "Lee",
+           role = c("aut", "cre"),
+           email = "jaylee@reed.edu")
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
