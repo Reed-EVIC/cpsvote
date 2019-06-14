@@ -14,22 +14,96 @@ cpsvrs18 <- read_fwf(here('data', 'nov18pub.dat'),
                               RACE = c(139, 140),
                               HISP = c(157,158),
                               WEIGHT = c(613, 622),
-                              VOTE = c(1001, 1002),
-                              VOTEREG = c(1003, 1004),
-                              NOREGWHY = c(1005, 1006),
-                              NOVOTEWHY = c(1007, 1008),
-                              VBM = c(1009, 1010),
-                              ELEXDAY = c(1011, 1012),
-                              REGHOW = c(1013, 1014),
-                              RESIDENCE = c(1015, 1016)))
+                              VRS_VOTE = c(1001, 1002),
+                              VRS_VOTEREG = c(1003, 1004),
+                              VRS_NOREGWHY = c(1005, 1006),
+                              VRS_NOVOTEWHY = c(1007, 1008),
+                              VRS_VBM = c(1009, 1010),
+                              VRS_ELEXDAY = c(1011, 1012),
+                              VRS_REGHOW = c(1013, 1014),
+                              VRS_RESIDENCE_ORIG = c(1015, 1016)))
+
+cpsvrs16 <- read_fwf(here('data', 'nov16pub.dat'),
+                     fwf_cols(YEAR = c(18, 21),
+                              STATE = c(93, 94),
+                              AGE = c(122, 123),
+                              SEX = c(129, 130),
+                              EDU = c(137,138),
+                              RACE = c(139, 140),
+                              HISP = c(157,158),
+                              WEIGHT = c(613, 622),
+                              VRS_VOTE = c(951, 952),
+                              VRS_VOTEREG = c(953, 954),
+                              VRS_NOREGWHY = c(955, 956),
+                              VRS_NOVOTEWHY = c(957, 958),
+                              VRS_VBM = c(959, 960),
+                              VRS_ELEXDAY = c(961, 962),
+                              VRS_REGHOW = c(963, 964),
+                              VRS_RESIDENCE_ORIG = c(965, 966)))
+
+cpsvrs14 <- read_fwf(here('data', 'nov14pub.dat'),
+                     fwf_cols(YEAR = c(18, 21),
+                              STATE = c(93, 94),
+                              AGE = c(122, 123),
+                              SEX = c(129, 130),
+                              EDU = c(137,138),
+                              RACE = c(139, 140),
+                              HISP = c(157,158),
+                              WEIGHT = c(613, 622),
+                              VRS_VOTE = c(951, 952),
+                              VRS_VOTEREG = c(953, 954),
+                              VRS_NOREGWHY = c(955, 956),
+                              VRS_NOVOTEWHY = c(957, 958),
+                              VRS_VBM = c(959, 960),
+                              VRS_ELEXDAY = c(961, 962),
+                              VRS_REGHOW = c(963, 964),
+                              VRS_RESIDENCE_ORIG = c(965, 966)))
+
+cpsvrs12 <- read_fwf(here('data', 'nov12pub.dat'),
+                     fwf_cols(YEAR = c(18, 21),
+                              STATE = c(93, 94),
+                              AGE = c(122, 123),
+                              SEX = c(129, 130),
+                              EDU = c(137,138),
+                              RACE = c(139, 140),
+                              HISP = c(157,158),
+                              WEIGHT = c(613, 622),
+                              VRS_VOTE = c(951, 952),
+                              VRS_VOTEREG = c(953, 954),
+                              VRS_NOREGWHY = c(955, 956),
+                              VRS_NOVOTEWHY = c(957, 958),
+                              VRS_VBM = c(959, 960),
+                              VRS_ELEXDAY = c(961, 962),
+                              VRS_REGHOW = c(963, 964),
+                              VRS_RESIDENCE_ORIG = c(965, 966)))
+
+cpsvrs10 <- read_fwf(here('data', 'nov10pub.dat'),
+                     fwf_cols(YEAR = c(18, 21),
+                              STATE = c(93, 94),
+                              AGE = c(122, 123),
+                              SEX = c(129, 130),
+                              EDU = c(137,138),
+                              RACE = c(139, 140),
+                              HISP = c(157,158),
+                              WEIGHT = c(613, 622),
+                              VRS_VOTE = c(951, 952),
+                              VRS_VOTEREG = c(953, 954),
+                              VRS_NOREGWHY = c(955, 956),
+                              VRS_NOVOTEWHY = c(957, 958),
+                              VRS_VBM = c(959, 960),
+                              VRS_ELEXDAY = c(961, 962),
+                              VRS_REGHOW = c(963, 964),
+                              VRS_RESIDENCE_ORIG = c(965, 966)))
 
 fips <- tigris::fips_codes %>%
   select(starts_with('state')) %>%
   distinct() %>%
   filter(state_code < 57) # only states plus DC
 
-cpsvrs <- bind_rows(cpsvrs18) %>%
-  filter(WEIGHT > 0) %>% # zero-weight people have all NA codes (-1) on VRS questions
+cpsvrs_bound <- bind_rows(cpsvrs18, cpsvrs16, cpsvrs14, cpsvrs12, cpsvrs10)
+
+cpsvrs <- cpsvrs_bound %>%
+  filter(VRS_VOTE != -1) %>% # people who are OOU for the vote Q are OOU for all VRS Qs, they also have zero weight
   mutate(STATE = factor(STATE, levels = fips$state_code, labels = fips$state),
          AGE = ifelse(AGE < 0, NA, AGE),
          SEX = factor(SEX, levels = 1:2, labels = c("MALE", "FEMALE")),
@@ -78,21 +152,21 @@ cpsvrs <- bind_rows(cpsvrs18) %>%
                                   "Other 3 Race Combinations",
                                   "Other 4 and 5 Race Combinations")),
          HISP = factor(HISP, levels = 1:2, labels = c("HISPANIC", "NON_HISPANIC")),
-         VOTE = factor(VOTE, levels = c(1,2,-1,-2,-3,-9),
+         VRS_VOTE = factor(VRS_VOTE, levels = c(1,2,-1,-2,-3,-9),
                        labels = c("Yes",
                                   "No",
                                   "Not in Universe",
                                   "Don't know",
                                   "Refused",
                                   "No Response")),
-         VOTEREG = factor(VOTEREG, levels = c(1, 2, -1, -2, -3, -9),
+         VRS_VOTEREG = factor(VRS_VOTEREG, levels = c(1, 2, -1, -2, -3, -9),
                           labels = c("Yes",
                                      "No",
                                      "Not in Universe",
                                      "Don't know",
                                      "Refused",
                                      "No Response")),
-         NOREGWHY = factor(NOREGWHY, levels = c(1:9, -1, -2, -3, -9),
+         VRS_NOREGWHY = factor(VRS_NOREGWHY, levels = c(1:9, -1, -2, -3, -9),
                            labels = c("Did not meet registration deadlines",
                                       "Did not know where or how to register",
                                       "Did not meet residency requirements/did not live here long enough",
@@ -106,7 +180,7 @@ cpsvrs <- bind_rows(cpsvrs18) %>%
                                       "Don't know",
                                       "Refused",
                                       "No Response")),
-         NOVOTEWHY = factor(NOVOTEWHY, levels = c(1:11, -1, -2, -3, -9),
+         VRS_NOVOTEWHY = factor(VRS_NOVOTEWHY, levels = c(1:11, -1, -2, -3, -9),
                             labels = c("Illness or disability (own or family's)",
                                        "Out of town or away from home",
                                        "Forgot to vote (or send in absentee ballot)",
@@ -122,21 +196,21 @@ cpsvrs <- bind_rows(cpsvrs18) %>%
                                        "Don't know",
                                        "Refused",
                                        "No Response")),
-         VBM = factor(VBM, levels = c(1, 2, -1, -2, -3, -9),
+         VRS_VBM = factor(VRS_VBM, levels = c(1, 2, -1, -2, -3, -9),
                       labels = c("In person",
                                  "By mail",
                                  "Not in Universe",
                                  "Don't know",
                                  "Refused",
                                  "No Response")),
-         ELEXDAY = factor(ELEXDAY, levels = c(1, 2, -1, -2, -3, -9),
+         VRS_ELEXDAY = factor(VRS_ELEXDAY, levels = c(1, 2, -1, -2, -3, -9),
                           labels = c("On election day",
                                      "Before election day",
                                      "Not in Universe",
                                      "Don't know",
                                      "Refused",
                                      "No Response")),
-         REGHOW = factor(REGHOW, levels = c(1:9, -1, -2, -3, -9),
+         VRS_REGHOW = factor(VRS_REGHOW, levels = c(1:9, -1, -2, -3, -9),
                          labels = c("At a department of motor vehicles (for example, when obtaining a driver's license or other identification card)",
                                     "At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office)",
                                     "Registered by mail",
@@ -150,17 +224,49 @@ cpsvrs <- bind_rows(cpsvrs18) %>%
                                     "Don't know",
                                     "Refused",
                                     "No Response")),
-         RESIDENCE = factor(RESIDENCE, levels = c(1:4, -1, -2, -3, -9),
-                            labels = c("Less than 1 year",
-                                       "1-2 years",
-                                       "3-4 years",
-                                       "5 years or longer",
-                                       "Not in Universe",
-                                       "Don't know",
-                                       "Refused",
-                                       "No Response"))) %>%
+         VRS_RESIDENCE_ORIG = case_when(
+           YEAR > 2013 ~ factor(VRS_RESIDENCE_ORIG, levels = c(1:4, -1, -2, -3, -9),
+                                labels = c("Less than 1 year",
+                                           "1-2 years",
+                                           "3-4 years",
+                                           "5 years or longer",
+                                           "Not in Universe",
+                                           "Don't know",
+                                           "Refused",
+                                           "No Response")) %>% as.character.factor(),
+           YEAR < 2013 ~ factor(VRS_RESIDENCE_ORIG, levels = c(1:6, -1, -2, -3, -9),
+                                labels = c("Less than 1 month",
+                                           "1-6 months",
+                                           "7-11 months",
+                                           "1-2 years",
+                                           "3-4 years",
+                                           "5 years or longer",
+                                           "Not in Universe",
+                                           "Don't know",
+                                           "Refused",
+                                           "No Response")) %>% as.character.factor()
+           ) %>% as.factor(),
+         VRS_RESIDENCE_RECODE = forcats::fct_recode(VRS_RESIDENCE_ORIG,
+                                         `Less than 1 month` = "Less than 1 year",
+                                         `1-6 months` = "Less than 1 year",
+                                         `7-11 months` = "Less than 1 year")
+         ) %>%
   mutate_if(is.factor, forcats::fct_recode,
             NULL = "Not in Universe",
             NULL = "Refused",
             NULL = "No Response") %>% # this is people who didn't have any answer recorded
-  filter()
+  filter_at(vars(starts_with('VRS_')), any_vars(!is.na(.))) # drop anything with all NAs for the VRS questions
+
+# tests #####
+
+# years come out correctly
+unique(cpsvrs10$YEAR) == 2010
+unique(cpsvrs12$YEAR) == 2012
+unique(cpsvrs14$YEAR) == 2014
+unique(cpsvrs16$YEAR) == 2016
+unique(cpsvrs18$YEAR) == 2018
+
+# everybody who is OOU for VOTE is OOU for all VRS Qs
+not_in_univ <- filter(cpsvrs_bound, VRS_VOTE == -1) %>%
+  select(starts_with("VRS_"))
+all(not_in_univ == -1)
