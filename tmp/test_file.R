@@ -45,6 +45,18 @@ col_ends <- str_extract_all(num_range, "\\d+") %>%
   unlist() %>%
   as.numeric()
 
+vardesc <- rows %>%
+  str_remove("^\\w*") %>%
+  str_remove("\\d+") %>%
+  str_remove("\\d{1,3}[^[:alnum:]]{1,3}\\d{1,4}$") %>%
+  trimws()
+
+dict_df <- data.frame(name = varnames,
+                      width = num_width,
+                      desc = vardesc,
+                      start = col_starts,
+                      end = col_ends)
+
 # everything up until the above works for all files from 2017 to present (May 2019)
 cps_0519 <- readr::read_fwf('http://thedataweb.rm.census.gov/pub/cps/basic/201701-/may19pub.dat.gz',
                   col_positions = readr::fwf_positions(col_starts, col_ends, varnames))
