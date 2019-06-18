@@ -1,5 +1,6 @@
 library(here)
 library(dplyr)
+library(testthat)
 
 # get fips to join state names
 fips <- tigris::fips_codes %>%
@@ -89,4 +90,9 @@ cpsvrs <- mget(ls(pattern = "_factored$")) %>%
             NULL = "Not in Universe",
             NULL = "Refused",
             NULL = "No Response") %>% # this is people who didn't have any answer recorded
+  na_if("Not in Universe") %>%
+  na_if("Refused") %>%
+  na_if("No Response") %>%
   filter_at(vars(starts_with('VRS_')), any_vars(!is.na(.))) # drop anything with all NAs for the VRS questions
+
+test_file(here('tests', 'testthat', 'test-joined_data.R'))
