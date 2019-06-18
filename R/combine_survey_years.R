@@ -10,7 +10,7 @@ fips <- tigris::fips_codes %>%
 
 # run the yearly scripts
 year_scripts <- list.files(here('R', 'year_scripts'), full.names = TRUE)
-lapply(year_scripts, source)
+invisible(lapply(year_scripts, source))
 
 # run the tests for the yearly datasets
 test_file(here('tests', 'testthat', 'test-year_scripts.R'))
