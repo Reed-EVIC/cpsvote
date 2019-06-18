@@ -21,7 +21,8 @@ cpsvrs2008_orig <- readr::read_fwf(here::here('data', 'data2008.txt'),
 
 # set the factors
 cpsvrs2008_factored <- cpsvrs2008_orig %>%
-  mutate(CPS_STATE = factor(CPS_STATE, levels = fips$state_code, labels = fips$state),
+  mutate(CPS_STATE = factor(stringr::str_pad(CPS_STATE, width = 2, side = "left", pad = "0"),
+                            levels = fips$state_code, labels = fips$state),
          CPS_AGE = ifelse(CPS_AGE < 0, NA, CPS_AGE),
          CPS_SEX = factor(CPS_SEX, levels = 1:2, labels = c("MALE", "FEMALE")),
          CPS_EDU = factor(CPS_EDU, levels = 31:46,
