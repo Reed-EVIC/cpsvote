@@ -13,3 +13,7 @@ test_that("missing codes are NA", {
 test_that("no zero-weights", {
   expect_gt(min(cpsvrs$WEIGHT), 0)
 })
+
+test_that("write a test that levels don't get deleted in the refactoring", {
+  expect_true(FALSE)
+})

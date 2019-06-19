@@ -19,9 +19,11 @@ test_file(here('tests', 'testthat', 'test-year_scripts.R'))
 # interesting note here that every single person with an NA education was not in universe for voting
 # don't know what's up with that but I don't think it's a problem
 # janitor::tabyl(cpsvrs, CPS_EDU, VRS_VOTE)
-cpsvrs <- mget(ls(pattern = "_factored$")) %>%
+cpsvrs_bound <- mget(ls(pattern = "_factored$")) %>%
   bind_rows() %>%
-  filter(VRS_VOTE != "Not in Universe") %>% # people who are OOU for the vote Q are OOU for all VRS Qs, they also have zero weight
+  filter(VRS_VOTE != "Not in Universe") # people who are OOU for the vote Q are OOU for all VRS Qs, they also have zero weight
+
+cpsvrs <- cpsvrs_bound %>%
   mutate(VRS_RESIDENCE_COLLAPSE = factor(VRS_RESIDENCE,
                                 levels = c("Less than 1 month",
                                            "1-6 months",
@@ -85,7 +87,15 @@ cpsvrs <- mget(ls(pattern = "_factored$")) %>%
                                         "Not in Universe",
                                         "Don't know",
                                         "Refused",
-                                        "No Response"))) %>%
+                                        "No Response")),
+         VRS_VOTEMETHOD_COLLAPSE = case_when(
+           VRS_VOTEMETHOD == "In person on election day" ~ "Election day",
+           VRS_VOTEMETHOD == "Voted by mail (absentee)" ~ "Mail",
+           VRS_VOTEMETHOD == "In person before election day" ~ "Early",
+           VRS_VBM == "By mail" ~ "Mail",
+           VRS_VBM == "In person" & VRS_ELEXDAY == "Before election day" ~ "Early",
+           VRS_VBM == "In person" & VRS_ELEXDAY == "On election day" ~ "Election day"
+         )) %>%
   mutate_if(is.factor, forcats::fct_recode,
             NULL = "Not in Universe",
             NULL = "Refused",
