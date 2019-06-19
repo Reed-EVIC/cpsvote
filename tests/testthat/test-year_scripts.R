@@ -1,4 +1,6 @@
-for (year in seq(2006, 2018, 2)) {
+for (year in seq(1972, 2018, 2)) {
+  if(!file.exists(here('R', 'year_scripts', paste0('read', year, '.R')))) next
+
   # each file should have a unique "year of interview" field that corresponds to the survey year
   test_that(paste(year, "CPS_YEAR is unique and correct"), {
     expect_equal(unique(get(paste0('cpsvrs', year, '_orig'))$CPS_YEAR), year)
