@@ -14,6 +14,14 @@ test_that("no zero-weights", {
   expect_gt(min(cpsvrs$WEIGHT), 0)
 })
 
-test_that("write a test that levels don't get deleted in the refactoring", {
-  expect_true(FALSE)
+test_that('race is refactored fully', {
+  expect_setequal(unique(cpsvrs_bound$CPS_RACE), unique_race)
+})
+
+test_that('residence is refactored fully', {
+  expect_setequal(unique(cpsvrs_bound$VRS_RESIDENCE), unique_residence)
+})
+
+test_that('select caught all of the columns', {
+  expect_equal(colnames(cpsvrs)[ncol(cpsvrs)], "VRS_RESIDENCE_COLLAPSE")
 })
