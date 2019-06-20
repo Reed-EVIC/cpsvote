@@ -141,3 +141,11 @@ cpsvrs <- cpsvrs_bound %>%
          everything())
 
 test_file(here('tests', 'testthat', 'test-joined_data.R'))
+
+# to check the race refactoring manually
+# race_table <- janitor::tabyl(cpsvrs, CPS_RACE, CPS_RACE_COLLAPSE)
+# View(race_table)
+
+# to check the residence refactoring manually
+# residence_table <- janitor::tabyl(cpsvrs, VRS_RESIDENCE, VRS_RESIDENCE_COLLAPSE)
+# View(residence_table)
