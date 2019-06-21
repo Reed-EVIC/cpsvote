@@ -149,3 +149,5 @@ test_file(here('tests', 'testthat', 'test-joined_data.R'))
 # to check the residence refactoring manually
 # residence_table <- janitor::tabyl(cpsvrs, VRS_RESIDENCE, VRS_RESIDENCE_COLLAPSE)
 # View(residence_table)
+
+save(cpsvrs, file = 'tmp/cpsvrs.RData')
