@@ -7,15 +7,17 @@ library(gganimate)
 
 load(here('tmp', 'cpsvrs.RData'))
 
-cpsvrs_weighted <- as_survey_design(cpsvrs, weights = WEIGHT)
+cpsvrs_weighted <- cpsvrs %>%
+  filter(CPS_YEAR > 1995) %>%
+  as_survey_design(weights = WEIGHT)
 
 threevote <- cpsvrs_weighted %>%
   mutate(CPS_YEAR = factor(CPS_YEAR, ordered = TRUE)) %>%
-  filter(!is.na(VRS_VOTEMETHOD_COLLAPSE)) %>%
+  filter(!is.na(VOTEMETHOD_COLLAPSE)) %>%
   group_by(CPS_YEAR, CPS_STATE) %>%
-  summarize(`Election day` = survey_mean(VRS_VOTEMETHOD_COLLAPSE == 'Election day'),
-            Mail = survey_mean(VRS_VOTEMETHOD_COLLAPSE == 'Mail'),
-            Early = survey_mean(VRS_VOTEMETHOD_COLLAPSE == 'Early')) %>%
+  summarize(`Election day` = survey_mean(VOTEMETHOD_COLLAPSE == 'Election day'),
+            Mail = survey_mean(VOTEMETHOD_COLLAPSE == 'Mail'),
+            Early = survey_mean(VOTEMETHOD_COLLAPSE == 'Early')) %>%
   select(-ends_with('_se')) %>%
   mutate(check = `Election day` + Mail + Early)
 threevote$CPS_YEAR <- as.numeric(levels(threevote$CPS_YEAR))[threevote$CPS_YEAR]
