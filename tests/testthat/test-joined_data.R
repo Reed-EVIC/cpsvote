@@ -18,8 +18,12 @@ test_that('race is refactored fully', {
   expect_setequal(unique(cpsvrs_bound$CPS_RACE), c(NA, unique_race))
 })
 
+test_that('hispanic marker is refactored fully', {
+  expect_setequal(unique(cpsvrs_bound$CPS_HISP), unique_hisp)
+})
+
 test_that('residence is refactored fully', {
-  expect_setequal(unique(cpsvrs_bound$VRS_RESIDENCE), unique_residence)
+  expect_setequal(unique(cpsvrs_bound$VRS_RESIDENCE), c(NA, unique_residence))
 })
 
 test_that('reason for not voting is refactored fully', {

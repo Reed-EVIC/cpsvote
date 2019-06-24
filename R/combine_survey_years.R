@@ -32,6 +32,9 @@ unique_race <- c("White", "Black", "Asian or Pacific Islander", "American Indian
                  "W-B-A", "W-B-AI-A", "4 or 5 Races", "AI-HP", "W-B-HP", "W-AI-HP",
                  "Other 4 and 5 Race Combinations", "Other 3 Race Combinations",
                  "W-AI-A-HP", "B-AI-A", "White-Hawaiian")
+unique_hisp <- c("All other", "Mexican American", "Mexican (Mexicano)", "Puerto Rican",
+                 "Central or South American", "Other Spanish", "Cuban", "Chicano",
+                 "Don't know", "No response", "NON-HISPANIC", "HISPANIC")
 unique_residence <- c("Less than 1 month",
                       "1-6 months",
                       "7-11 months",
@@ -88,6 +91,10 @@ cpsvrs <- cpsvrs_bound %>%
                                       "Multiracial or Other", "Multiracial or Other", "Multiracial or Other", "Multiracial or Other", "Multiracial or Other", "Multiracial or Other",
                                       "Multiracial or Other", "Multiracial or Other",
                                       "Multiracial or Other", "Multiracial or Other", "Multiracial or Other")),
+         HISP_COLLAPSE = factor(CPS_HISP, levels = unique_hisp,
+                                labels = c("NON-HISPANIC", "HISPANIC", "HISPANIC", "HISPANIC",
+                                           "HISPANIC", "HISPANIC", "HISPANIC", "HISPANIC",
+                                           "Don't know", "No response", "NON-HISPANIC", "HISPANIC")),
          NOVOTE_COLLAPSE = factor(VRS_NOVOTEWHY, levels = unique_novote,
                                   labels = c("Not in Universe", "Forgot to vote", "Didn't like candidates or campaign issues",
                                              "Not interested", "Other", "Don't know",
@@ -138,6 +145,7 @@ cpsvrs <- cpsvrs_bound %>%
          CPS_RACE,
          RACE_COLLAPSE,
          CPS_HISP,
+         HISP_COLLAPSE,
          WEIGHT,
          VRS_VOTE,
          VRS_NOVOTEWHY,
