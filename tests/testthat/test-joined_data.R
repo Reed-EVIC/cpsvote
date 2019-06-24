@@ -15,7 +15,7 @@ test_that("no zero-weights", {
 })
 
 test_that('race is refactored fully', {
-  expect_setequal(unique(cpsvrs_bound$CPS_RACE), unique_race)
+  expect_setequal(unique(cpsvrs_bound$CPS_RACE), c(NA, unique_race))
 })
 
 test_that('residence is refactored fully', {
@@ -23,11 +23,11 @@ test_that('residence is refactored fully', {
 })
 
 test_that('reason for not voting is refactored fully', {
-  expect_setequal(unique(cpsvrs_bound$VRS_NOVOTEWHY), unique_novote)
+  expect_setequal(unique(cpsvrs_bound$VRS_NOVOTEWHY), c(NA, unique_novote))
 })
 
 test_that('registration method is refactored fully', {
-  expect_setequal(unique(cpsvrs_bound$VRS_REGHOW), unique_reghow)
+  expect_setequal(unique(cpsvrs_bound$VRS_REGHOW), c(NA, unique_reghow))
 })
 
 test_that('select caught all of the columns', {
