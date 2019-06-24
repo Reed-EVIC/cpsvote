@@ -22,6 +22,14 @@ test_that('residence is refactored fully', {
   expect_setequal(unique(cpsvrs_bound$VRS_RESIDENCE), unique_residence)
 })
 
+test_that('reason for not voting is refactored fully', {
+  expect_setequal(unique(cpsvrs_bound$VRS_NOVOTEWHY), unique_novote)
+})
+
+test_that('registration method is refactored fully', {
+  expect_setequal(unique(cpsvrs_bound$VRS_REGHOW), unique_reghow)
+})
+
 test_that('select caught all of the columns', {
-  expect_equal(colnames(cpsvrs)[ncol(cpsvrs)], "VRS_RESIDENCE_COLLAPSE")
+  expect_equal(colnames(cpsvrs)[ncol(cpsvrs)], "RESIDENCE_COLLAPSE")
 })

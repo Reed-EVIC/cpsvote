@@ -23,6 +23,7 @@ cpsvrs_bound <- mget(ls(pattern = "_factored$")) %>%
   bind_rows() %>%
   filter(VRS_VOTE != "Not in Universe") # people who are OOU for the vote Q are OOU for all VRS Qs, they also have zero weight
 
+# list all of the unique options for factoring disparate response sets (change over time) for testing
 unique_race <- c("White", "Black", "Asian or Pacific Islander", "American Indian, Aleut, Eskimo",
                  "White Only", "Black Only", "Asian Only", "Black-AI", "White-Black",
                  "White-Asian", "White-AI", "American Indian, Alaskan Native Only",
@@ -42,9 +43,29 @@ unique_residence <- c("Less than 1 month",
                       "Don't know",
                       "Refused",
                       "No Response")
+unique_novote <- c("Not in Universe", "Forgot to vote", "Did not prefer any of the candidates",
+                   "Not interested, don't care, etc.", "Other reasons", "Don't know",
+                   "Sick, disabled, or family emergency", "Could not take time off from work/school/too busy",
+                   "Had no way to get to polls", "Out of town or away from home",
+                   "Lines too long at polls", "Refused", "No Response", "Forgot to vote (or send in absentee ballot)",
+                   "Too busy, conflicting work or school schedule", "Other", "Illness or disability (own or family's)",
+                   "Not interested, felt my vote wouldn't make a difference", "Transportation problems",
+                   "Bad weather conditions", "Registration problems (i.e. didn't receive absentee ballot, not registered in current location)",
+                   "Didn't like candidates or campaign issues", "Inconvenient hours, polling place or hours or lines too long")
+
+unique_reghow <- c("Not in Universe", "Filled out form at a registration drive (for example, political rally, someone came to your door, registration drive at mall, market, fair, post office, library, store, church, etc.)",
+                   "Don't know", "At a school, hospital, or on campus", "Went to a county or government voter registration office",
+                   "Mailed in form to election office", "At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office)",
+                   "Registered at the polls on election day", "Other place/way",
+                   "Refused", "No Response", "Went to a town hall or county/government registration office",
+                   "Filled out form at a registration drive (library, post office, or someone came to your door)",
+                   "Registered by mail", "Registered at polling place (on election or primary day)",
+                   "Other", "At a department of motor vehicles (for example, when obtaining a driver's license or other identification card)",
+                   "Registered using the internet or online")
+
 
 cpsvrs <- cpsvrs_bound %>%
-  mutate(VRS_RESIDENCE_COLLAPSE = factor(VRS_RESIDENCE,
+  mutate(RESIDENCE_COLLAPSE = factor(VRS_RESIDENCE,
                                 levels = unique_residence,
                                 labels = c("Less than 1 year",
                                            "Less than 1 year",
@@ -58,7 +79,7 @@ cpsvrs <- cpsvrs_bound %>%
                                            "Refused",
                                            "No Response"),
                                 ordered = TRUE), # collapse the sub-1yr categories together
-         CPS_RACE_COLLAPSE = factor(CPS_RACE, levels = unique_race,
+         RACE_COLLAPSE = factor(CPS_RACE, levels = unique_race,
                            labels = c("White", "Black", "Asian or Pacific Islander", "American Indian or Alaskan Native",
                                       "White", "Black", "Asian or Pacific Islander", "Multiracial or Other", "Multiracial or Other",
                                       "Multiracial or Other", "Multiracial or Other", "American Indian or Alaskan Native",
@@ -67,39 +88,33 @@ cpsvrs <- cpsvrs_bound %>%
                                       "Multiracial or Other", "Multiracial or Other", "Multiracial or Other", "Multiracial or Other", "Multiracial or Other", "Multiracial or Other",
                                       "Multiracial or Other", "Multiracial or Other",
                                       "Multiracial or Other", "Multiracial or Other", "Multiracial or Other")),
+         NOVOTE_COLLAPSE = factor(VRS_NOVOTEWHY, levels = unique_novote,
+                                  labels = c("Not in Universe", "Forgot to vote", "Didn't like candidates or campaign issues",
+                                             "Not interested", "Other", "Don't know",
+                                             "Sick, disabled, or family emergency", "Schedule problems",
+                                             "Transportation problems", "Out of town or away from home",
+                                             "Inconvenient hours or long lines", "Refused", "No Response", "Forgot to vote",
+                                             "Schedule problems", "Other", "Sick, disabled, or family emergency",
+                                             "Not interested", "Transportation problems",
+                                             "Bad weather conditions", "Registration problems",
+                                             "Didn't like candidates or campaign issues", "Inconvenient hours or long lines")),
          # combine DMV question with voter reg
-         VRS_REGHOW_COLLAPSE = case_when(
+         REGHOW_COLLAPSE = case_when(
            VRS_REGDMV == "When driver's license was obtained/renewed" ~ "At a department of motor vehicles (for example, when obtaining a driver's license or other identification card)",
            VRS_REGDMV == "Don't know" ~ "Don't know",
            TRUE ~ VRS_REGHOW
          ) %>%
-           factor(levels = c("At a department of motor vehicles (for example, when obtaining a driver's license or other identification card)",
-                             "At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office)",
-                             "Registered by mail",
-                             "Registered using the internet or online",
-                             "At a school, hospital, or on campus",
-                             "Went to a town hall or county/government registration office",
-                             "Filled out form at a registration drive (library, post office, or someone came to your door)",
-                             "Registered at polling place (on election or primary day)",
-                             "Other",
-                             "Not in Universe",
-                             "Don't know",
-                             "Refused",
-                             "No Response"),
-                  labels = c("At a department of motor vehicles (for example, when obtaining a driver's license or other identification card)",
-                             "At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office)",
-                             "Registered by mail",
-                             "Registered using the internet or online",
-                             "At a school, hospital, or on campus",
-                             "Went to a town hall or county/government registration office",
-                             "Filled out form at a registration drive (library, post office, or someone came to your door)",
-                             "Registered at polling place (on election or primary day)",
-                             "Other",
-                             "Not in Universe",
-                             "Don't know",
-                             "Refused",
-                             "No Response")),
-         VRS_VOTEMETHOD_COLLAPSE = case_when(
+           factor(levels = unique_reghow,
+                  labels = c("Not in Universe", "Registration drive",
+                             "Don't know", "At a school, hospital, or on campus", "Registration office",
+                             "By mail", "Public assistance agency",
+                             "At the polls, same day", "Other",
+                             "Refused", "No Response", "Registration office",
+                             "Registration drive",
+                             "By mail", "At the polls, same day",
+                             "Other", "At DMV",
+                             "Online")),
+         VOTEMETHOD_COLLAPSE = case_when(
            VRS_VOTEMETHOD == "In person on election day" ~ "Election day",
            VRS_VOTEMETHOD == "Voted by mail (absentee)" ~ "Mail",
            VRS_VOTEMETHOD == "In person before election day" ~ "Early",
@@ -121,33 +136,35 @@ cpsvrs <- cpsvrs_bound %>%
          CPS_SEX,
          CPS_EDU,
          CPS_RACE,
-         CPS_RACE_COLLAPSE,
+         RACE_COLLAPSE,
          CPS_HISP,
          WEIGHT,
          VRS_VOTE,
          VRS_NOVOTEWHY,
+         NOVOTE_COLLAPSE,
          VRS_VOTEREG,
          VRS_NOREGWHY,
          VRS_REGHOW,
+         REGHOW_COLLAPSE,
          VRS_REGDMV,
-         VRS_REGHOW_COLLAPSE,
+         REGHOW_COLLAPSE,
          VRS_REGSINCE95,
          VRS_VOTEMETHOD,
          VRS_VBM,
          VRS_ELEXDAY,
-         VRS_VOTEMETHOD_COLLAPSE,
+         VOTEMETHOD_COLLAPSE,
          VRS_RESIDENCE,
-         VRS_RESIDENCE_COLLAPSE,
+         RESIDENCE_COLLAPSE,
          everything())
 
 test_file(here('tests', 'testthat', 'test-joined_data.R'))
 
 # to check the race refactoring manually
-# race_table <- janitor::tabyl(cpsvrs, CPS_RACE, CPS_RACE_COLLAPSE)
+# race_table <- janitor::tabyl(cpsvrs, CPS_RACE, RACE_COLLAPSE)
 # View(race_table)
 
 # to check the residence refactoring manually
-# residence_table <- janitor::tabyl(cpsvrs, VRS_RESIDENCE, VRS_RESIDENCE_COLLAPSE)
+# residence_table <- janitor::tabyl(cpsvrs, VRS_RESIDENCE, RESIDENCE_COLLAPSE)
 # View(residence_table)
 
 save(cpsvrs, file = 'tmp/cpsvrs.RData')
