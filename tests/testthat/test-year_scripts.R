@@ -11,7 +11,7 @@ for (year in seq(1972, 2018, 2)) {
   test_that(paste(year, "VRS_VOTE out of universe is always OOU"), {
     not_in_univ <- filter(get(paste0('cpsvrs', year, '_orig')), VRS_VOTE == -1) %>%
       select(starts_with("VRS_"), -VRS_RESIDENCE)
-    expect_true(all(not_in_univ == -1))
+    expect_true(all(not_in_univ == -1 | not_in_univ == -9))
   })
 }
 
