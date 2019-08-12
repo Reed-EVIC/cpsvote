@@ -1,22 +1,22 @@
 # read the file
 # start and end locations via 'docs/doc2008.pdf'
-cpsvrs2008_orig <- readr::read_fwf(here::here('data', 'data2008.txt'),
+cpsvrs2008_orig <- readr::read_fwf("~/Downloads/cpsnov08.zip",
                                    readr::fwf_cols(CPS_YEAR = c(18, 21),
-                                                   CPS_STATE = c(90, 91),
-                                                   CPS_AGE = c(115, 116),
-                                                   CPS_SEX = c(122, 123),
-                                                   CPS_EDU = c(128,129),
-                                                   CPS_RACE = c(130, 131),
-                                                   CPS_HISP = c(144,145),
-                                                   WEIGHT = c(575, 584),
-                                                   VRS_VOTE = c(886, 887),
-                                                   VRS_VOTEREG = c(888, 889),
-                                                   VRS_NOREGWHY = c(890, 891),
-                                                   VRS_NOVOTEWHY = c(892, 893),
-                                                   VRS_VBM = c(894, 895),
-                                                   VRS_ELEXDAY = c(896, 897),
-                                                   VRS_REGHOW = c(898, 899),
-                                                   VRS_RESIDENCE = c(900, 901)))
+                                                   CPS_STATE = c(93, 94),
+                                                   CPS_AGE = c(122, 123),
+                                                   CPS_SEX = c(129, 130),
+                                                   CPS_EDU = c(137, 138),
+                                                   CPS_RACE = c(139, 140),
+                                                   CPS_HISP = c(141, 142),
+                                                   WEIGHT = c(613, 622),
+                                                   VRS_VOTE = c(951,952),
+                                                   VRS_VOTEREG = c(953, 954),
+                                                   VRS_NOREGWHY = c(955, 956),
+                                                   VRS_NOVOTEWHY = c(957, 958),
+                                                   VRS_VBM = c(959, 960),
+                                                   VRS_ELEXDAY = c(961, 962),
+                                                   VRS_REGHOW = c(963, 964),
+                                                   VRS_RESIDENCE = c(965, 966)))
 
 
 # set the factors

@@ -1,7 +1,28 @@
 # read the file
 # start and end locations via 'docs/doc1994.pdf'
-cpsvrs1994_orig <- readr::read_fwf(here::here('data', 'data1994.txt'),
-                                   readr::fwf_cols(CPS_YEAR = c(67, 68),
+
+# This standard method for accessing files returns this error
+# Error in isOpen(con) : invalid connection
+
+#temp <- tempfile()
+#download.file("https://www.nber.org/cps/cpsnov94.zip",temp)
+#cpsvrs1994_orig <- readr::read_fwf(unz(temp, "cpsnov94.dat"),
+#                                   readr::fwf_cols(CPS_YEAR = c(67, 68)))
+
+
+# Accessing the zip file directly produces parsing errors
+# Warning: 22156 parsing failures.
+#row      col                expected                     actual                                    file
+#1 CPS_YEAR 66 chars between fields 44 chars until end of line 'https://www.nber.org/cps/cpsnov94.zip'
+
+#cpsvrs1994_orig <- readr::read_fwf("https://www.nber.org/cps/cpsnov94.zip",
+#                                  readr::fwf_cols(CPS_YEAR = c(67, 68)))
+
+
+# This works
+
+cpsvrs1994_orig <- readr::read_fwf("~/Downloads/cpsnov94.zip",
+                                  readr::fwf_cols(CPS_YEAR = c(67, 68),
                                                    CPS_STATE = c(93, 94),
                                                    CPS_AGE = c(122, 123),
                                                    CPS_SEX = c(129, 130),

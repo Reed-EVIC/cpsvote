@@ -1,13 +1,13 @@
 # read the file
 # start and end locations via 'docs/doc2016.pdf'
-cpsvrs2016_orig <- readr::read_fwf(here::here('data', 'data2016.txt'),
+cpsvrs2016_orig <- readr::read_fwf("~/Downloads/cpsnov2016.zip",
                                      readr::fwf_cols(CPS_YEAR = c(18, 21),
                                                      CPS_STATE = c(93, 94),
                                                      CPS_AGE = c(122, 123),
                                                      CPS_SEX = c(129, 130),
-                                                     CPS_EDU = c(137,138),
+                                                     CPS_EDU = c(137, 138),
                                                      CPS_RACE = c(139, 140),
-                                                     CPS_HISP = c(157,158),
+                                                     CPS_HISP = c(141, 142),
                                                      WEIGHT = c(613, 622),
                                                      VRS_VOTE = c(951, 952),
                                                      VRS_VOTEREG = c(953, 954),

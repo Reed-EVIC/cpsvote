@@ -1,6 +1,6 @@
 # read the file
 # start and end locations via 'docs/doc1996.pdf'
-cpsvrs1996_orig <- readr::read_fwf(here::here('data', 'data1996.txt'),
+cpsvrs1996_orig <- readr::read_fwf("~/Downloads/cpsnov96.zip",
                                    readr::fwf_cols(CPS_YEAR = c(67, 68),
                                                    CPS_STATE = c(93, 94),
                                                    CPS_AGE = c(122, 123),
