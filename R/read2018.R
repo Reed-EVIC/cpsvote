@@ -1,13 +1,14 @@
-if (!file.exists(here('raw_data', 'cpsnov2004.zip'))) {
-  download.file("https://data.nber.org/cps/cpsnov04.zip", destfile = here('raw_data', 'cpsnov2004.zip'))
+# note that NBER doesn't have this data as of 2019-08-14, so it's pulled directly from the Census FTP site
+if (!file.exists(here('raw_data', 'cpsnov2018.zip'))) {
+  download.file("http://thedataweb.rm.census.gov/pub/cps/supps/nov18pub.dat.gz", destfile = here('raw_data', 'cpsnov2018.gz'))
 }
 
-if (!file.exists(here('docs', 'cpsnov2004.pdf'))) {
-  download.file("data.nber.org/cps/cpsnov04.pdf", destfile = here('docs', 'cpsnov2004.pdf'))
+if (!file.exists(here('docs', 'cpsnov2018.pdf'))) {
+  download.file("http://www2.census.gov/programs-surveys/cps/techdocs/cpsnov18.pdf", destfile = here('docs', 'cpsnov2018.pdf'))
 }
 
 
-cpsvrs2004_orig <- readr::read_fwf(here('raw_data', 'cpsnov2004.zip'),
+cpsvrs2018_orig <- readr::read_fwf(here('raw_data', 'cpsnov2018.gz'),
                                    readr::fwf_cols(CPS_YEAR = c(18, 21),
                                                    CPS_STATE = c(93, 94),
                                                    CPS_AGE = c(122, 123),
@@ -16,17 +17,17 @@ cpsvrs2004_orig <- readr::read_fwf(here('raw_data', 'cpsnov2004.zip'),
                                                    CPS_RACE = c(139, 140),
                                                    CPS_HISP = c(157,158),
                                                    WEIGHT = c(613, 622),
-                                                   VRS_VOTE = c(877, 878),
-                                                   VRS_VOTEREG = c(879, 880),
-                                                   VRS_NOREGWHY = c(881, 882),
-                                                   VRS_NOVOTEWHY = c(883, 884),
-                                                   VRS_VBM = c(885, 886),
-                                                   VRS_ELEXDAY = c(887, 888),
-                                                   VRS_REGHOW = c(889, 890),
-                                                   VRS_RESIDENCE = c(891, 892)))
+                                                   VRS_VOTE = c(1001, 1002),
+                                                   VRS_VOTEREG = c(1003, 1004),
+                                                   VRS_NOREGWHY = c(1005, 1006),
+                                                   VRS_NOVOTEWHY = c(1007, 1008),
+                                                   VRS_VBM = c(1009, 1010),
+                                                   VRS_ELEXDAY = c(1011, 1012),
+                                                   VRS_REGHOW = c(1013, 1014),
+                                                   VRS_RESIDENCE = c(1015, 1016)))
 
 # set the factors
-cpsvrs2004_factored <- cpsvrs2004_orig %>%
+cpsvrs2018_factored <- cpsvrs2018_orig %>%
   dplyr::transmute(
     CPS_YEAR,
     CPS_STATE = factor(stringr::str_pad(CPS_STATE, width = 2, side = "left", pad = "0"),
@@ -77,15 +78,17 @@ cpsvrs2004_factored <- cpsvrs2004_orig %>%
                       labels = c("HISPANIC",
                                  "NON-HISPANIC")),
     WEIGHT,
-    VRS_VOTE = factor(VRS_VOTE, levels = c(1,2,-2,-3, -9),
+    VRS_VOTE = factor(VRS_VOTE, levels = c(1, 2, -1, -2, -3, -9),
                       labels = c("YES",
                                  "NO",
+                                 "NOT IN UNIVERSE",
                                  "DON'T KNOW",
                                  "REFUSED",
                                  "NO RESPONSE")),
-    VRS_VOTEREG = factor(VRS_VOTEREG, levels = c(1, 2, -2, -3, -9),
+    VRS_VOTEREG = factor(VRS_VOTEREG, levels = c(1, 2, -1, -2, -3, -9),
                          labels = c("YES",
                                     "NO",
+                                    "NOT IN UNIVERSE",
                                     "DON'T KNOW",
                                     "REFUSED",
                                     "NO RESPONSE")),
@@ -118,21 +121,22 @@ cpsvrs2004_factored <- cpsvrs2004_orig %>%
                                       "REFUSED", 
                                       "NO RESPONSE")),
     VRS_VBM = factor(VRS_VBM, levels = c(1:2, -2, -3, -9),
-                            labels = c("IN PERSON", 
-                                       "BY MAIL", 
-                                       "DON'T KNOW", 
-                                       "REFUSED", 
-                                       "NO RESPONSE")),
+                     labels = c("IN PERSON", 
+                                "BY MAIL", 
+                                "DON'T KNOW", 
+                                "REFUSED", 
+                                "NO RESPONSE")),
     VRS_ELEXDAY = factor(VRS_ELEXDAY, levels = c(1:2, -2, -3, -9),
-                            labels = c("ON ELECTION DAY",
-                                       "BEFORE ELECTION DAY",
-                                       "DON'T KNOW",
-                                       "REFUSED",
-                                       "NO RESPONSE")),
-    VRS_REGHOW = factor(VRS_REGHOW, levels = c(1:8, -2, -3, -9),
+                         labels = c("ON ELECTION DAY",
+                                    "BEFORE ELECTION DAY",
+                                    "DON'T KNOW",
+                                    "REFUSED",
+                                    "NO RESPONSE")),
+    VRS_REGHOW = factor(VRS_REGHOW, levels = c(1:9, -2, -3, -9),
                         labels = c("AT A DEPARTMENT OF MOTOR VEHICLES (FOR EXAMPLE, WHEN OBTAINING A DRIVER'S LICENSE OR OTHER IDENTIFICATION CARD)",
                                    "AT A PUBLIC ASSISTANCE AGENCY (FOR EXAMPLE, MEDICAID, AFDC, OR FOOD STAMPS OFFICE, AN OFFICE SERVING DISABLED PERSONS, OR AN UNEMPLOYMENT OFFICE)", 
                                    "REGISTERED BY MAIL", 
+                                   "REGISTERED USING THE INTERNET OR ONLINE",
                                    "AT A SCHOOL, HOSPITAL, OR ON CAMPUS", 
                                    "WENT TO A TOWN HALL OR COUNTY/GOVERNMENT REGISTRATION OFFICE", 
                                    "FILLED OUT FORM AT A REGISTRATION DRIVE (LIBRARY, POST OFFICE, OR SOMEONE CAME TO YOUR DOOR)", 
@@ -141,13 +145,12 @@ cpsvrs2004_factored <- cpsvrs2004_orig %>%
                                    "DON'T KNOW", 
                                    "REFUSED", 
                                    "NO RESPONSE")),
-    VRS_RESIDENCE = factor(VRS_RESIDENCE, levels = c(1:6, -2, -3, -9),
-                           labels = c("LESS THAN 1 MONTH",
-                                      "1-6 MONTHS",
-                                      "7-11 MONTHS",
+    VRS_RESIDENCE = factor(VRS_RESIDENCE, levels = c(1:4, -1, -2, -3, -9),
+                           labels = c("LESS THAN 1 YEAR",
                                       "1-2 YEARS",
                                       "3-4 YEARS",
                                       "5 YEARS OR LONGER",
+                                      "NOT IN UNIVERSE",
                                       "DON'T KNOW",
                                       "REFUSED",
                                       "NO RESPONSE"),
