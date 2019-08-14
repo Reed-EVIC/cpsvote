@@ -1,5 +1,5 @@
 # note that NBER doesn't have this data as of 2019-08-14, so it's pulled directly from the Census FTP site
-if (!file.exists(here('raw_data', 'cpsnov2018.zip'))) {
+if (!file.exists(here('raw_data', 'cpsnov2018.gz'))) {
   download.file("http://thedataweb.rm.census.gov/pub/cps/supps/nov18pub.dat.gz", destfile = here('raw_data', 'cpsnov2018.gz'))
 }
 
