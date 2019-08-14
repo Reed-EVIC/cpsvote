@@ -4,3 +4,7 @@
 .Ruserdata
 *.Rproj
 raw_data/*
+img/*
+docs/*
+.DS_Store
+tmp/cpsvrs.RDS
