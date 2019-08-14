@@ -3,7 +3,7 @@ for (year in seq(1972, 2018, 2)) {
 
   # each file should have a unique "year of interview" field that corresponds to the survey year
   test_that(paste(year, "CPS_YEAR is unique and correct"), {
-    expect_equal(unique(get(paste0('cpsvrs', year, '_orig'))$CPS_YEAR), year)
+    expect_equal(unique(get(paste0('cpsvrs', year, '_orig'))$CPS_YEAR) %% 1900, year %% 1900)
   })
 
   # if VRS_VOTE is out of universe on a respondent, all of the VRS questions should be OOU
