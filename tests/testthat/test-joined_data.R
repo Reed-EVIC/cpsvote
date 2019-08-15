@@ -7,7 +7,7 @@ test_that("nobody is NA for all VRS Qs", {
 })
 
 test_that("missing codes are NA", {
-  expect_equal(sum(unlist(cpsvrs) %in% c("No Response", "Refused", "Not in Universe")), 0)
+  expect_equal(sum(unlist(cpsvrs) %in% c("NO RESPONSE", "REFUSED", "NOT IN UNIVERSE")), 0)
 })
 
 test_that("no zero-weights", {
