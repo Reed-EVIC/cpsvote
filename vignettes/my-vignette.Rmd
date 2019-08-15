@@ -1,0 +1,25 @@
+---
+title: "CPS Voting and Registration Supplement Analysis Toolbox"
+author: 
+- name: Paul Gronke
+  affiliation: Early Voting Information Center and Professor, Reed College
+- name: Jay Lee
+  affiliation: Early Voting Information Center and Reed College '19"
+date: "`r format(Sys.time(), '%d %B %Y')`"  
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+#library(cps)
+```
