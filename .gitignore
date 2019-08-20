@@ -4,6 +4,7 @@
 .Ruserdata
 *.Rproj
 raw_data/*
+test_docs/*
 img/*
 docs/*
 .DS_Store
