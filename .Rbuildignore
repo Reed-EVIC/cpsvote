@@ -8,3 +8,4 @@
 ^img*$
 ^raw_data*$
 ^test_docs*$
+^test_data*$

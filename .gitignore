@@ -5,6 +5,7 @@
 *.Rproj
 raw_data/*
 test_docs/*
+test_data/*
 img/*
 docs/*
 .DS_Store
