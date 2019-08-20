@@ -12,12 +12,12 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
-# cps_vote
+# cpsvote
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-`cps_vote` is an R package to interface with data from the Current Population Survey (CPS) Voting and Registration Supplement, a biennial supplement to the CPS from the US Census Bureau.
+`cpsvote` is an R package to interface with data from the Current Population Survey (CPS) Voting and Registration Supplement, a biennial supplement to the CPS from the US Census Bureau.
 
 ## Sources
 

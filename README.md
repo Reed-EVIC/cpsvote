@@ -1,13 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# cps\_vote
+# cpsvote
 
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-`cps_vote` is an R package to interface with data from the Current
+`cpsvote` is an R package to interface with data from the Current
 Population Survey (CPS) Voting and Registration Supplement, a biennial
 supplement to the CPS from the US Census Bureau.
 

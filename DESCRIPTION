@@ -1,5 +1,5 @@
-Package: cps
-Title: Interface for the Current Population Survey
+Package: cpsvote
+Title: Interface for the Current Population Survey - Voting and Registration Supplement
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Jay",
