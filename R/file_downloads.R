@@ -1,11 +1,12 @@
 #' Download CPS technical documentation
 #' 
-#' @param path A file path (relative or absolute) where the files should go
+#' @param path A file path (relative or absolute) where the downloads should go.
 #' @param years Which years of documentation to download. Defaults to all 
-#' even-numbered years from 1994 to 2018
-#' @param overwrite Logical, whether to write over existing files
+#' even-numbered years from 1994 to 2018.
+#' @param overwrite Logical, whether to write over existing files or not. 
+#' Defaults to FALSE.
 #' @details 
-#' * File names will be written in the style "cps_nov2018.pdf"
+#' * File names will be written in the style "cps_nov2018.pdf".
 #' * The Voting and Registration Supplement is only conducted in even-numbered 
 #' years (since 1964), so any entry in `years` outside of this will be skipped.
 #' * Currently the package only supports downloads from 1994 onwards, so any 
@@ -34,7 +35,7 @@ download_docs <- function(path, years = seq(1994, 2018, 2), overwrite = FALSE) {
   }
   
   # years must be before 2020
-  if (any(years >= 2018)) {
+  if (any(years > 2018)) {
     warning(paste0("The Census Bureau has not yet released CPS data for years after 2018. The remaining years listed (",
                    paste(years[years <= 2018], collapse = ", "),
                    ") will be downloaded."),
