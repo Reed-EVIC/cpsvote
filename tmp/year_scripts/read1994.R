@@ -8,7 +8,7 @@ if (!file.exists(here('docs', 'cpsnov1994.pdf'))) {
 
 
 cpsvrs1994_orig <- readr::read_fwf(here('raw_data', 'cpsnov1994.zip'),
-                                  readr::fwf_cols(CPS_YEAR = c(67, 68),
+                                   readr::fwf_cols(CPS_YEAR = c(67, 68),
                                                    CPS_STATE = c(93, 94),
                                                    CPS_AGE = c(122, 123),
                                                    CPS_SEX = c(129, 130),
