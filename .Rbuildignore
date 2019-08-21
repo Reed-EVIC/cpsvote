@@ -9,3 +9,4 @@
 ^raw_data*$
 ^test_docs*$
 ^test_data*$
+^data-raw$
