@@ -16,3 +16,9 @@ supplement to the CPS from the US Census Bureau.
 1994-2016 come from the [National Bureau of Economic
 Research](https://data.nber.org/cps/). 2018 comes from the [US Census
 Bureau](https://thedataweb.rm.census.gov/ftp/cps_ftp.html).
+
+## Outputs
+
+Still working on it, but this\!
+
+![](img/vote_mode.gif)
