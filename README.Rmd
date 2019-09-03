@@ -27,4 +27,4 @@ knitr::opts_chunk$set(
 
 Still working on it, but this!
 
-![](img/vote_mode.gif)
+![](vote_mode.gif)

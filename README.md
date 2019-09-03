@@ -21,4 +21,4 @@ Bureau](https://thedataweb.rm.census.gov/ftp/cps_ftp.html).
 
 Still working on it, but this\!
 
-![](img/vote_mode.gif)
+![](vote_mode.gif)
