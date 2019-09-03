@@ -69,16 +69,35 @@ read_cps <- function(directory, years = seq(1994, 2018, 2), factored = TRUE,
   
   
   # read in the data #####
+  
 }
 
 # helper
 fips <- tigris::fips_codes %>%
   dplyr::select(dplyr::starts_with('state')) %>%
   dplyr::distinct() %>%
-  dplyr::filter(state_code < 57)
+  dplyr::filter(state_code < 57) %>%
+  dplyr::transmute(year = years[stringr::str_detect(file, as.character(years))] %>%
+                     as.character(),
+                   var = "GESTFIPS",
+                   code = as.numeric(state_code),
+                   value = state)
+
+# lapply helper for the helper
+col_refactor <- function(fct_col) {
+  # filter down the factoring lookup to only be what we need
+  factors <- dplyr::filter(factoring,
+                           year == yr,
+                           var == fct_col)
+  
+  # make the factors do their thing
+  df[[fct_col]] <<- factor(df[[fct_col]], 
+                           levels = factors$value, 
+                           ordered = fct_col %in% ordered_cols)
+}
 
 # helper
-read_year <- function(file, factored) {
+read_year <- function(file) {
   yr <- years[stringr::str_detect(file, as.character(years))]
   columns <- catalog$columns %>%
     dplyr::filter(year == yr)
@@ -94,9 +113,11 @@ read_year <- function(file, factored) {
                                                    col_names = col_names))
   
   factoring <- dplyr::filter(catalog$factoring, year == yr) %>%
-    dplyr::mutate(code = as.numeric(code))
+    dplyr::mutate(code = as.numeric(code)) %>%
+    dplyr::bind_rows(fips)
   
   if (factored) {
+    
     df <- df %>%
       dplyr::mutate(index = dplyr::row_number()) %>%
       tidyr::gather(key = "column", value = "answer", -index) %>%
@@ -107,33 +128,26 @@ read_year <- function(file, factored) {
       tidyr::spread(key = "column", value = "answer") %>%
       dplyr::select(col_names)
     
-    if ("GESTFIPS" %in% col_names) {
-      df <- dplyr::mutate(df, GESTFIPS = factor(stringr::str_pad(GESTFIPS, 
-                                                                 width = 2, 
-                                                                 side = "left", 
-                                                                 pad = "0"),
-                                                levels = fips$state_code,
-                                                labels = fips$state))
-    }
+    invisible(lapply(factor_cols, col_refactor))
+    
+    vrs_cols <- stringr::str_subset(col_names, "^P(E|R)S\\d$")
+    
+    df <- df %>%
+      dplyr::mutate(PWSSWGT = trimws(PWSSWGT),
+                    HRYEAR = as.numeric(HRYEAR)) %>%
+      dplyr::mutate_if(is.factor, forcats::fct_collapse,
+                       NULL = c(
+                         "Refused",
+                         "No response (N/A)"
+                       )) %>%
+      dplyr::na_if(-1) %>%
+      dplyr::mutate(HRYEAR = ifelse(HRYEAR < 1900, HRYEAR + 1900, as.numeric(HRYEAR)),
+                    PEAGE = as.numeric(PEAGE) %>% replace(. < 0, NA),
+                    PWSSWGT = as.numeric(PWSSWGT) / 10000) %>%
+      dplyr::filter_at(dplyr::vars(vrs_cols), dplyr::any_vars(!is.na(.)))
     
     colnames(df) <- columns$new_col
   }
   
+  return(df)
 }
-
-
-# helper for the helper
-refactor_unordered <- function(x) {
-  factor(x, 
-         levels = factors$code, 
-         labels = factors$value,
-         ordered = FALSE)
-}
-
-refactor_ordered <- function(x) {
-  factor(x, 
-         levels = factors$code, 
-         labels = factors$value,
-         ordered = TRUE)
-}
-
