@@ -16,8 +16,6 @@ read_cps <- function(directory, years = seq(1994, 2018, 2),
                      catalog = "default", 
                      join_dfs = TRUE, 
                      clean_data = TRUE) {
-  # create encompassing environment to store variables across functions
-  big_env <- new.env()
   
   # sanitize inputs #####
   
@@ -66,119 +64,135 @@ read_cps <- function(directory, years = seq(1994, 2018, 2),
   
   download_data(path = directory, years = years, overwrite = FALSE)
   
+  # list all the files in the directory to read from
   file_list <- list.files(directory, full.names = TRUE) %>%
     stringr::str_subset(paste(years, collapse = "|")) %>%
     stringr::str_subset("\\.zip$")
   
-  
-  
+  # set the lookup table to use
   if (catalog == "default") {
-    catalog <- cpsvote:::fwf_key
+    cat <- cpsvote:::fwf_key
   } else if (!is.list(catalog)) {
     warning("Catalog must be 'default' or a list. Defaulting to `catalog = 'default'`...")
-    catalog <- cpsvote:::fwf_key
+    cat <- cpsvote:::fwf_key
   } else {
-    names(catalog) <- c('columns', 'factoring')
+    cat <- catalog
+    names(cat) <- c('columns', 'factoring')
   }
   
   
   # read in the data #####
-  all_years <- lapply(file_list, read_year)
+  all_years <- lapply(X = file_list, 
+                      FUN = read_year, 
+                      yrs = years, 
+                      catalog = cat,
+                      factored = factored)
 }
 
-# lapply helper for the helper
-col_refactor <- function(fct_col) {
-  # filter down the factoring lookup to only be what we need
-  factors <- dplyr::filter(big_env$factoring,
-                           year == big_env$yr,
-                           var == fct_col)
-  
-  # make the factors do their thing
-  big_env$df[[fct_col]] <<- factor(big_env$df[[fct_col]], 
-                           levels = factors$value, 
-                           ordered = fct_col %in% big_env$ordered_cols)
-}
-
+# helper to turn one-digit FIPS into two-digit
 pad_county <- function(vec) {
   stringr::str_pad(vec, width = 3, side = "left", pad = "0")
 }
 
 
-# helper
-read_year <- function(file) {
-  big_env$yr <- years[stringr::str_detect(file, as.character(years))]
-  columns <- catalog$columns %>%
-    dplyr::filter(year == big_env$yr)
+# helper to read a single year
+read_year <- function(file,
+                      yrs,
+                      catalog,
+                      factored) {
+  # identify what year we need, from the file name
+  yr <- yrs[stringr::str_detect(file, as.character(yrs))]
+  # grab the relevant column positions for the given year
+  columns <- cat$columns %>%
+    dplyr::filter(year == yr)
   
+  # grab which columns are going to be factors, ordered or unordered
   col_names <- columns$orig_col
   factor_cols <- col_names[columns$type == "factor"]
-  big_env$ordered_cols <- col_names[stringr::str_detect(columns$notes, "ordered")] %>%
+  ordered_cols <- col_names[stringr::str_detect(columns$notes, "ordered")] %>%
     magrittr::extract(!is.na(.))
-  unordered_cols <- setdiff(factor_cols, big_env$ordered_cols)
+  unordered_cols <- setdiff(factor_cols, ordered_cols)
   
-  big_env$df <- suppressMessages(readr::read_fwf(file, 
-                                                 readr::fwf_positions(start = columns$start,
-                                                                      end = columns$end,
-                                                                      col_names = col_names)))
+  # read the actual data in, according to the column positions
+  df <- suppressMessages(readr::read_fwf(file, 
+                                         readr::fwf_positions(start = columns$start,
+                                                              end = columns$end,
+                                                              col_names = col_names)))
   
+  # get a match for all of the state codes bc I didn't want to put that in the sheet
   fips <- tigris::fips_codes %>%
     dplyr::select(dplyr::starts_with('state')) %>%
     dplyr::distinct() %>%
     dplyr::filter(state_code < 57) %>%
-    dplyr::transmute(year = years[stringr::str_detect(file, as.character(years))] %>%
+    dplyr::transmute(year = yrs[stringr::str_detect(file, as.character(yrs))] %>%
                        as.numeric(),
                      var = "GESTFIPS",
                      code = as.numeric(state_code),
                      value = state)
   
-  big_env$factoring <- dplyr::filter(catalog$factoring, year == big_env$yr) %>%
+  # get this year's factoring labels, attach the state codes
+  factoring <- dplyr::filter(cat$factoring, year == yr) %>%
     dplyr::mutate(code = as.numeric(code),
                   year = as.numeric(year)) %>%
     dplyr::bind_rows(fips)
   
+  # replace numbers with factor labels
   if (factored) {
-    
-    big_env$df <- big_env$df %>%
+    # gather numbers, left join labels, spread with the new labels
+    df <- df %>%
       dplyr::mutate(index = dplyr::row_number()) %>%
       tidyr::gather(key = "column", value = "answer", -index) %>%
       dplyr::mutate(answer = as.numeric(answer)) %>%
-      dplyr::left_join(big_env$factoring, by = c("column" = "var", "answer" = "code")) %>%
+      dplyr::left_join(factoring, by = c("column" = "var", "answer" = "code")) %>%
       dplyr::transmute(index,
                        column,
                        answer = ifelse(!is.na(value), value, answer)) %>%
       tidyr::spread(key = "column", value = "answer") %>%
       dplyr::select(col_names)
     
-    if (!any(stringr::str_detect(big_env$factoring$var, "^G(E|T)CO$"))) {
-      big_env$df <- big_env$df %>%
+    # skip FIPS county in factoring because I haven't set that up yet
+    if (!any(stringr::str_detect(factoring$var, "^G(E|T)CO$"))) {
+      df <- df %>%
         dplyr::mutate_at(stringr::str_subset(factor_cols, "^G(E|T)CO$"), pad_county)
       factor_cols <- factor_cols[!stringr::str_detect(factor_cols, "^G(E|T)CO$")]
     }
     
-    invisible(lapply(factor_cols, col_refactor))
+    # turn the character columns into a factor
+    for(name in factor_cols) {
+      # get the set of factor labels for that column
+      factors <- dplyr::filter(catalog,
+                               year == yr,
+                               var == name)
+      # factor the column with the labels, ordered status
+      df[[factor_col]] <- factor(df[[factor_col]], 
+                                 levels = factors$value, 
+                                 ordered = name %in% ordered_cols)
+    }
     
+    # identify which columns are VRS specific
     vrs_cols <- stringr::str_subset(col_names, "^P(E|R)S\\d$")
     
-    big_env$df <- big_env$df %>%
-      # dplyr::mutate(PWSSWGT = trimws(PWSSWGT),
-      #               HRYEAR = as.numeric(HRYEAR)) %>%
+    # pull all of the non-response factor levels and -1s into NA
+    # then remove all the rows that are NA for all of the VRS columns
+    df <- df %>%
       dplyr::mutate_if(is.factor, forcats::fct_collapse,
                        NULL = c(
                          "Refused",
                          "No response (N/A)"
                        )) %>%
-      dplyr::na_if(-1) %>%
-      # dplyr::mutate(HRYEAR = ifelse(HRYEAR < 1900, HRYEAR + 1900, as.numeric(HRYEAR)),
+      dplyr::na_if(-1) # %>%
+      # dplyr::filter_at(dplyr::vars(vrs_cols), dplyr::any_vars(!is.na(.))) %>%
+      # dplyr::mutate(PWSSWGT = trimws(PWSSWGT),
+      #               HRYEAR = as.numeric(HRYEAR),
+      #               HRYEAR = ifelse(HRYEAR < 1900, HRYEAR + 1900, as.numeric(HRYEAR)),
       #               PEAGE = as.numeric(PEAGE) %>% replace(. < 0, NA),
-      #               PWSSWGT = as.numeric(PWSSWGT) / 10000) %>%
-      dplyr::filter_at(dplyr::vars(vrs_cols), dplyr::any_vars(!is.na(.)))
+      #               PWSSWGT = as.numeric(PWSSWGT) / 10000)
     
-    colnames(big_env$df) <- columns$new_col
-  } else {
-    colnames(big_env$df) <- columns$orig_col
+    # rename df cols with the new names from the catalog
+    colnames(df) <- columns$new_col
   }
   
-  message(big_env$yr, " file read")
+  message(yr, " file read")
   
-  return(big_env$df)
+  return(df)
 }
