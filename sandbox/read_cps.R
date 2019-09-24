@@ -1,12 +1,21 @@
 #' read in CPS data
-#' @param directory
-#' @param years
-#' @param factored
-#' @param factor_list
+#' @param directory The folder where the CPS data files live. These files must 
+#' follow a naming scheme that contains the 4-digit year of the results in 
+#' question, and have a ".zip" extension.
+#' @param years Which years to read in.
+#' @param factored Whether the data (in numeric form) should be converted to 
+#' the equivalent factor values or not. This will also rename columns according 
+#' to the `catalog` argument.
+#' @param catalog Which columns to read, and how to assign factor labels. The 
+#' default value is "default", which reads from the list `cpsvote:::fwf_key`.
 #' @param join_dfs
+#' @param clean_data
 #' @export
-read_cps <- function(directory, years = seq(1994, 2018, 2), factored = TRUE, 
-                     catalog = "default", join_dfs = c("cleaned", "raw", "list")) {
+read_cps <- function(directory, years = seq(1994, 2018, 2), 
+                     factored = TRUE, 
+                     catalog = "default", 
+                     join_dfs = TRUE, 
+                     clean_data = TRUE) {
   # create encompassing environment to store variables across functions
   big_env <- new.env()
   
@@ -60,6 +69,8 @@ read_cps <- function(directory, years = seq(1994, 2018, 2), factored = TRUE,
   file_list <- list.files(directory, full.names = TRUE) %>%
     stringr::str_subset(paste(years, collapse = "|")) %>%
     stringr::str_subset("\\.zip$")
+  
+  
   
   if (catalog == "default") {
     catalog <- cpsvote:::fwf_key
