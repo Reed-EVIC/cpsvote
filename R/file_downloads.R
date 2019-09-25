@@ -88,7 +88,7 @@ download_docs <- function(path, years = seq(1994, 2018, 2), overwrite = FALSE) {
   download.file(url_names, file_names, quiet = TRUE)
   
   message(paste0(length(file_names), " file(s) downloaded to ", path, 
-                 ", years ", paste(years, collapse = ", ")))
+                 ", year(s) ", paste(years, collapse = ", ")))
   
 }
 
@@ -161,7 +161,7 @@ download_data <- function(path, years = seq(1994, 2018, 2), overwrite = FALSE) {
   dir.create(path, showWarnings = FALSE)
   file_names <- paste0(path, 
                        ifelse(stringr::str_detect(path, "/$"), "", "/"), 
-                       paste0("cps_nov", years, ".zip"))
+                       paste0("cps_nov", years, ifelse(years == 2018, ".gz", ".zip")))
   
   # remove years / file names that already exist, if overwrite is FALSE
   if (!overwrite) {
@@ -184,6 +184,6 @@ download_data <- function(path, years = seq(1994, 2018, 2), overwrite = FALSE) {
   download.file(url_names, file_names, quiet = TRUE)
   
   message(paste0(length(file_names), " file(s) downloaded to ", path, 
-                 ", years ", paste(years, collapse = ", ")))
+                 ", year(s) ", paste(years, collapse = ", ")))
   
 }
