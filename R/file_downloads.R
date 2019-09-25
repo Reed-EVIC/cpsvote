@@ -75,7 +75,7 @@ download_docs <- function(path, years = seq(1994, 2018, 2), overwrite = FALSE) {
   
   # if they're all gone, stop
   if (length(years) == 0) {
-    message("No files downloaded")
+    message("No documentation files downloaded")
     return()
   } 
   
@@ -171,7 +171,7 @@ download_data <- function(path, years = seq(1994, 2018, 2), overwrite = FALSE) {
   
   # if they're all gone, stop
   if (length(years) == 0) {
-    message("No files downloaded")
+    message("No data files downloaded")
     return()
   } 
   
