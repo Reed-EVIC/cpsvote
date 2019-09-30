@@ -1,6 +1,6 @@
 #` Load a single CPS file
 #' @param file Where the fwf or zip (or gz) file for this year's data lives
-#' @param yr Which year is being read; defaults to 4-digit year in file name
+#' @param year Which year is being read; defaults to 4-digit year in file name
 #' #' @param factored Whether the data (in numeric form) should be converted to 
 #' the equivalent factor values or not. This will also rename columns according 
 #' to the `catalog` argument.
@@ -8,9 +8,13 @@
 #' default value is "default", which reads from the list `cpsvote:::fwf_key`.
 #' @export
 read_year <- function(file,
-                      yr = as.numeric(stringr::str_extract(file, "\\d{4}")),
+                      year = as.numeric(stringr::str_extract(file, "\\d{4}")),
                       factored = TRUE,
                       catalog = "default") {
+  if (!(year %in% seq(1994, 2018, 2))) {
+    stop("Currently, this package only supports even-numbered years from 1994 to 2018.")
+  }
+  
   # set the lookup table to use
   if (catalog == "default") {
     catalog <- cpsvote:::fwf_key
@@ -20,6 +24,9 @@ read_year <- function(file,
   } else {
     names(catalog) <- c('columns', 'factoring')
   }
+  
+  # set this so that it doesn't read all columns
+  yr <- year
   
   # grab the relevant column positions for the given year
   columns <- catalog$columns %>%
@@ -43,7 +50,7 @@ read_year <- function(file,
     dplyr::select(dplyr::starts_with('state')) %>%
     dplyr::distinct() %>%
     dplyr::filter(state_code < 57) %>%
-    dplyr::transmute(year = yr %>%
+    dplyr::transmute(year = year %>%
                        as.numeric(),
                      var = "GESTFIPS",
                      code = as.numeric(state_code),
@@ -82,7 +89,7 @@ read_year <- function(file,
     for(name in factor_cols) {
       # get the set of factor labels for that column
       factors <- dplyr::filter(factoring,
-                               year == yr,
+                               year == year,
                                var == name)
       # factor the column with the labels, ordered status
       df[[name]] <- factor(df[[name]], 
@@ -118,7 +125,7 @@ read_year <- function(file,
     colnames(df) <- columns$new_col
   }
   
-  message(yr, " file read")
+  message(year, " file read")
   
   return(df)
 }
@@ -142,11 +149,11 @@ read_year <- function(file,
 #' different years and should not be naively joined otherwise.
 #' @param clean_data
 #' @export
-read_cps <- function(data_dir, years = seq(1994, 2018, 2),  
+read_cps <- function(data_dir = "cps_data", years = seq(1994, 2018, 2),  
                      factored = TRUE, 
                      catalog = "default",
                      join_dfs = factored, 
-                     clean_data = TRUE) {
+                     clean_data = join_dfs) {
   
   # sanitize inputs #####
   
@@ -191,6 +198,10 @@ read_cps <- function(data_dir, years = seq(1994, 2018, 2),
     return()
   }
   
+  if (factored == F & join_dfs = TRUE) {
+    warning("Column meanings change across years, so joining without factoring is inadvisable.")
+  }
+  
   # download data, define files and factors #####
   
   download_data(path = data_dir, years = years, overwrite = FALSE)
@@ -207,7 +218,7 @@ read_cps <- function(data_dir, years = seq(1994, 2018, 2),
   # read in the data #####
   all_years <- mapply(FUN = read_year, 
                       file = file_list,
-                      yr = years, 
+                      year = years, 
                       MoreArgs = list(catalog = catalog, 
                                       factored = factored)
   )
