@@ -13,7 +13,9 @@
 #' * Currently the package only supports downloads from 1994 onwards, so any 
 #' entry in `years` before 1994 will be skipped.
 #' @export
-download_docs <- function(path, years = seq(1994, 2018, 2), overwrite = FALSE) {
+download_docs <- function(path = "cps_docs", 
+                          years = seq(1994, 2018, 2),
+                          overwrite = FALSE) {
   
   # sanitize inputs #####
   
@@ -108,7 +110,9 @@ download_docs <- function(path, years = seq(1994, 2018, 2), overwrite = FALSE) {
 #' * Currently the package only supports downloads from 1994 onwards, so any 
 #' entry in `years` before 1994 will be skipped.
 #' @export
-download_data <- function(path, years = seq(1994, 2018, 2), overwrite = FALSE) {
+download_data <- function(path = "cps_data", 
+                          years = seq(1994, 2018, 2), 
+                          overwrite = FALSE) {
   
   # sanitize inputs #####
   
