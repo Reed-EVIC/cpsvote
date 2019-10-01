@@ -153,7 +153,7 @@ read_cps <- function(data_dir = "cps_data", years = seq(1994, 2018, 2),
                      factored = TRUE, 
                      catalog = "default",
                      join_dfs = factored, 
-                     clean_data = join_dfs) {
+                     combine_factors = join_dfs) {
   
   # sanitize inputs #####
   
@@ -198,8 +198,19 @@ read_cps <- function(data_dir = "cps_data", years = seq(1994, 2018, 2),
     return()
   }
   
-  if (factored == F & join_dfs = TRUE) {
-    warning("Column meanings change across years, so joining without factoring is inadvisable.")
+  if (factored == F & join_dfs == TRUE) {
+    warning("Column meanings change across years, so joining without factoring is inadvisable. ",
+            "Setting `join_dfs = FALSE`...",
+            immediate. = T)
+    join_dfs <- FALSE
+  }
+  
+  if ((factored == F | join_dfs == F) & combine_factors == T) {
+    warning("Factor levels must be present (`factored = TRUE`) ", 
+            "and in the same data set (`join_dfs = TRUE`) to combine. ", 
+            "Setting `combine_factors = FALSE`...",
+            immediate. = T)
+    combine_factors <- FALSE
   }
   
   # download data, define files and factors #####
@@ -212,18 +223,71 @@ read_cps <- function(data_dir = "cps_data", years = seq(1994, 2018, 2),
   file_list <- list.files(data_dir, full.names = TRUE) %>%
     stringr::str_subset(paste(years, collapse = "|")) %>%
     stringr::str_subset("\\.(zip|gz)$")
-
+  
   
   
   # read in the data #####
-  all_years <- mapply(FUN = read_year, 
+  all_years_list <- mapply(FUN = read_year, 
                       file = file_list,
                       year = years, 
                       MoreArgs = list(catalog = catalog, 
                                       factored = factored)
   )
   
-  names(all_years) <- years
+  names(all_years_list) <- years
   
-  return(all_years)
+  
+  if(join_dfs == TRUE) {
+    all_years <- suppressWarnings(dplyr::bind_rows(all_years_list, .id = "file"))
+    if(combine_factors == TRUE) {
+      all_years <- combine_factors(all_years)
+    }
+  } else {
+    final_data <- all_years_list
+  }
+  
+  return(final_data)
+}
+
+
+
+combine_factors <- function(data) {
+  dat2 <- dplyr::mutate(data,
+                        CPS_AGE = as.numeric(CPS_AGE),
+                        CPS_SEX = toupper(CPS_SEX) %>% factor(),
+                        CPS_EDU = toupper(CPS_EDU) %>% 
+                          factor(levels = c("LESS THAN 1ST GRADE",
+                                            "1ST, 2ND, 3RD OR 4TH GRADE",
+                                            "5TH OR 6TH GRADE",
+                                            "7TH OR 8TH GRADE",
+                                            "9TH GRADE",
+                                            "10TH GRADE",
+                                            "11TH GRADE",
+                                            "12TH GRADE NO DIPLOMA",
+                                            "HIGH SCHOOL GRAD-DIPLOMA OR EQUIV (GED)",
+                                            "SOME COLLEGE BUT NO DEGREE",
+                                            "ASSOCIATE DEGREE-OCCUPATIONAL/VOCATIONAL",
+                                            "ASSOCIATE DEGREE-ACADEMIC PROGRAM",
+                                            "BACHELOR'S DEGREE (EX: BA, AB, BS)",
+                                            "MASTER'S DEGREE (EX: MA, MS, MENG, MED, MSW)",
+                                            "PROFESSIONAL SCHOOL DEG (EX: MD, DDS, DVM)",
+                                            "DOCTORATE DEGREE (EX: PHD, EDD)"),
+                                 ordered = TRUE),
+                        CPS_RACE = toupper(CPS_RACE),
+                        CPS_RACE_COLLAPSE = CPS_RACE %>%
+                          factor() %>%
+                          forcats::fct_collapse(
+                            "WHITE" = c("WHITE",
+                                        "WHITE ONLY"),
+                            "BLACK" = c("BLACK",
+                                        "BLACK ONLY"),
+                            "ASIAN OR PACIFIC ISLANDER" = c("ASIAN OR PACIFIC ISLANDER",
+                                                            "HAWAIIAN/PACIFIC ISLANDER ONLY",
+                                                            "ASIAN ONLY"),
+                            "AMERICAN INDIAN OR ALASKAN NATIVE" = c("AMERICAN INDIAN, ALEUT, ESKIMO",
+                                                                    "AMERICAN INDIAN, ALASKAN NATIVE ONLY"),
+                            group_other = TRUE
+                          ) %>%
+                          forcats::fct_recode("MULTIRACIAL OR OTHER" = "Other")
+                        )
 }
