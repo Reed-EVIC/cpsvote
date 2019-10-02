@@ -242,6 +242,7 @@ read_cps <- function(data_dir = "cps_data", years = seq(1994, 2018, 2),
     if(combine_factors == TRUE) {
       all_years <- combine_factors(all_years)
     }
+    final_data <- all_years
   } else {
     final_data <- all_years_list
   }
@@ -252,42 +253,64 @@ read_cps <- function(data_dir = "cps_data", years = seq(1994, 2018, 2),
 
 
 combine_factors <- function(data) {
-  dat2 <- dplyr::mutate(data,
-                        CPS_AGE = as.numeric(CPS_AGE),
-                        CPS_SEX = toupper(CPS_SEX) %>% factor(),
-                        CPS_EDU = toupper(CPS_EDU) %>% 
-                          factor(levels = c("LESS THAN 1ST GRADE",
-                                            "1ST, 2ND, 3RD OR 4TH GRADE",
-                                            "5TH OR 6TH GRADE",
-                                            "7TH OR 8TH GRADE",
-                                            "9TH GRADE",
-                                            "10TH GRADE",
-                                            "11TH GRADE",
-                                            "12TH GRADE NO DIPLOMA",
-                                            "HIGH SCHOOL GRAD-DIPLOMA OR EQUIV (GED)",
-                                            "SOME COLLEGE BUT NO DEGREE",
-                                            "ASSOCIATE DEGREE-OCCUPATIONAL/VOCATIONAL",
-                                            "ASSOCIATE DEGREE-ACADEMIC PROGRAM",
-                                            "BACHELOR'S DEGREE (EX: BA, AB, BS)",
-                                            "MASTER'S DEGREE (EX: MA, MS, MENG, MED, MSW)",
-                                            "PROFESSIONAL SCHOOL DEG (EX: MD, DDS, DVM)",
-                                            "DOCTORATE DEGREE (EX: PHD, EDD)"),
-                                 ordered = TRUE),
-                        CPS_RACE = toupper(CPS_RACE),
-                        CPS_RACE_COLLAPSE = CPS_RACE %>%
-                          factor() %>%
-                          forcats::fct_collapse(
-                            "WHITE" = c("WHITE",
-                                        "WHITE ONLY"),
-                            "BLACK" = c("BLACK",
-                                        "BLACK ONLY"),
-                            "ASIAN OR PACIFIC ISLANDER" = c("ASIAN OR PACIFIC ISLANDER",
-                                                            "HAWAIIAN/PACIFIC ISLANDER ONLY",
-                                                            "ASIAN ONLY"),
-                            "AMERICAN INDIAN OR ALASKAN NATIVE" = c("AMERICAN INDIAN, ALEUT, ESKIMO",
-                                                                    "AMERICAN INDIAN, ALASKAN NATIVE ONLY"),
-                            group_other = TRUE
-                          ) %>%
-                          forcats::fct_recode("MULTIRACIAL OR OTHER" = "Other")
-                        )
+  dat2 <- dplyr::transmute(data,
+                           # file name
+                           file,
+                           # year of survey
+                           CPS_YEAR,
+                           # state
+                           CPS_STATE,
+                           # age
+                           CPS_AGE = as.numeric(CPS_AGE),
+                           # sex
+                           CPS_SEX = toupper(CPS_SEX) %>% factor(),
+                           # education
+                           CPS_EDU = toupper(CPS_EDU) %>% 
+                             factor(levels = c("LESS THAN 1ST GRADE",
+                                               "1ST, 2ND, 3RD OR 4TH GRADE",
+                                               "5TH OR 6TH GRADE",
+                                               "7TH OR 8TH GRADE",
+                                               "9TH GRADE",
+                                               "10TH GRADE",
+                                               "11TH GRADE",
+                                               "12TH GRADE NO DIPLOMA",
+                                               "HIGH SCHOOL GRAD-DIPLOMA OR EQUIV (GED)",
+                                               "SOME COLLEGE BUT NO DEGREE",
+                                               "ASSOCIATE DEGREE-OCCUPATIONAL/VOCATIONAL",
+                                               "ASSOCIATE DEGREE-ACADEMIC PROGRAM",
+                                               "BACHELOR'S DEGREE (EX: BA, AB, BS)",
+                                               "MASTER'S DEGREE (EX: MA, MS, MENG, MED, MSW)",
+                                               "PROFESSIONAL SCHOOL DEG (EX: MD, DDS, DVM)",
+                                               "DOCTORATE DEGREE (EX: PHD, EDD)"),
+                                    ordered = TRUE),
+                           # race
+                           CPS_RACE = toupper(CPS_RACE),
+                           CPS_RACE_COLLAPSE = CPS_RACE %>%
+                             factor() %>%
+                             forcats::fct_collapse(
+                               "WHITE" = c("WHITE",
+                                           "WHITE ONLY"),
+                               "BLACK" = c("BLACK",
+                                           "BLACK ONLY"),
+                               "ASIAN OR PACIFIC ISLANDER" = c("ASIAN OR PACIFIC ISLANDER",
+                                                               "HAWAIIAN/PACIFIC ISLANDER ONLY",
+                                                               "ASIAN ONLY"),
+                               "AMERICAN INDIAN OR ALASKAN NATIVE" = c("AMERICAN INDIAN, ALEUT, ESKIMO",
+                                                                       "AMERICAN INDIAN, ALASKAN NATIVE ONLY"),
+                               group_other = TRUE
+                               ) %>%
+                             forcats::fct_recode("MULTIRACIAL OR OTHER" = "Other"),
+                           # hispanic status - correct typo
+                           CPS_HISP = toupper(CPS_HISP) %>%
+                             factor(levels = c("NON-HIPSANIC", "HISPANIC", "NON-HISPANIC"),
+                                    labels = c("NON-HISPANIC", "HISPANIC", "NON-HISPANIC")),
+                           # weight
+                           WEIGHT,
+                           # voted in recent general election
+                           VRS_VOTE = forcats::fct_relabel(VRS_VOTE, toupper),
+                           # registered to vote
+                           VRS_REG = forcats::fct_relabel(VRS_REG, toupper),
+                           # when in the day you voted
+                           VRS_VOTE_TIME
+                           )
 }
