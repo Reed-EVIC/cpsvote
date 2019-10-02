@@ -4,7 +4,8 @@
 \alias{download_data}
 \title{Download CPS microdata}
 \usage{
-download_data(path, years = seq(1994, 2018, 2), overwrite = FALSE)
+download_data(path = "cps_data", years = seq(1994, 2018, 2),
+  overwrite = FALSE)
 }
 \arguments{
 \item{path}{A file path (relative or absolute) where the downloads should go.}

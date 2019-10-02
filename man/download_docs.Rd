@@ -4,7 +4,8 @@
 \alias{download_docs}
 \title{Download CPS technical documentation}
 \usage{
-download_docs(path, years = seq(1994, 2018, 2), overwrite = FALSE)
+download_docs(path = "cps_docs", years = seq(1994, 2018, 2),
+  overwrite = FALSE)
 }
 \arguments{
 \item{path}{A file path (relative or absolute) where the downloads should go.}
