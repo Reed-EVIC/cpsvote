@@ -296,12 +296,16 @@ combine_factors <- function(data) {
                                            "BLACK ONLY"),
                                "ASIAN OR PACIFIC ISLANDER" = c("ASIAN OR PACIFIC ISLANDER",
                                                                "HAWAIIAN/PACIFIC ISLANDER ONLY",
-                                                               "ASIAN ONLY"),
+                                                               "ASIAN ONLY", 
+                                                               "ASIAN-HP"),
                                "AMERICAN INDIAN OR ALASKAN NATIVE" = c("AMERICAN INDIAN, ALEUT, ESKIMO",
                                                                        "AMERICAN INDIAN, ALASKAN NATIVE ONLY"),
-                               group_other = TRUE
-                               ) %>%
-                             forcats::fct_recode("MULTIRACIAL OR OTHER" = "Other"),
+                               "MULTIRACIAL OR OTHER" = c("OTHER - SPECIFY", "WHITE-AI", "WHITE-ASIAN", "WHITE-BLACK", "W-B-AI", "BLACK-ASIAN", "BLACK-AI", 
+                                                          "WHITE-HAWAIIAN", "W-A-HP", "2 OR 3 RACES", "AI-ASIAN", 
+                                                          "W-AI-A", "4 OR 5 RACES", "BLACK-HP", "W-B-A", "W-B-AI-A", "WHITE-HP", 
+                                                          "AI-HP", "OTHER 4 AND 5 RACE COMBINATIONS", "W-B-HP", "W-AI-HP", 
+                                                          "OTHER 3 RACE COMBINATIONS", "W-AI-A-HP", "B-AI-A")
+                               ),
                            # hispanic status - correct typo
                            CPS_HISP = toupper(CPS_HISP) %>%
                              factor(levels = c("NON-HIPSANIC", "HISPANIC", "NON-HISPANIC"),
@@ -387,6 +391,7 @@ combine_factors <- function(data) {
                                                                "OTHER"),
                                                    "DON'T KNOW" = c("DON'T KNOW")
                                                    ),
+                           VRS_REG_SINCE95,
                            
                            # how long lived in current home
                            VRS_RESIDENCE = toupper(VRS_RESIDENCE),
