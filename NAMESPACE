@@ -3,4 +3,6 @@
 export("%>%")
 export(download_data)
 export(download_docs)
+export(read_cps)
+export(read_year)
 importFrom(magrittr,"%>%")
