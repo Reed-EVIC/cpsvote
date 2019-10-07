@@ -262,7 +262,7 @@ read_cps <- function(data_dir = "cps_data",
     all_years <- suppressWarnings(dplyr::bind_rows(all_years_list, .id = "file"))
     if(combine_factors == TRUE) {
       # combine all the factors, pretty manually
-      all_years <- dplyr::transmute(all_years_list,
+      all_years <- dplyr::transmute(all_years,
                                # file name
                                file,
                                # year of survey
