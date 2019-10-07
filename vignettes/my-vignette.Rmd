@@ -1,10 +1,6 @@
 ---
 title: "CPS_VRS: A Social Science Toolbox For Using the Current Population Survey's Voting and Registration Supplement"
-author: 
-- name: Paul Gronke
-  affiliation: Early Voting Information Center and Professor, Reed College
-- name: Jay Lee
-  affiliation: Early Voting Information Center and Reed College '19"
+
 date: "`r format(Sys.time(), '%d %B %Y')`"  
 output: rmarkdown::html_vignette
 vignette: >
@@ -50,7 +46,7 @@ The content of the CPS VRS has changed over time, in some cases in response to r
 
 From 1996 and forward, the content has remained relatively constant, but sometimes the Census has changed the location, names, and even the coding for individual variables. It is very important that anyone using multiple years of the CPS VRS pay extremely close attention to the coding choices that were made in each year. 
 
-*The `CPS` package does most of this work for you, while still retaining the data in its original format.*
+**The `CPS` package does most of this work for you, while still retaining the data in its original format.**
 
 ### Survey Design and Survey Weights
 
@@ -65,28 +61,28 @@ Critically, the CPS is designed to generate national *and* state estimates, and 
 
 A recently released package, `srvyr`, provides "dplyr-like syntax for summary statistics of survey data" ( [srvyr at CRAN](https://cran.r-project.org/web/packages/srvyr/)). `srvyr` acts as a wrapper around `survey` and makes many of the commands more easy to apply.
 
-*The `CPS` package provides the commands you will need from `srvyr` to correctly weight your data.* 
+**The `CPS` package provides the commands you will need from `srvyr` to correctly weight your data.** 
 
 ### CPS VRS Coding Choices For Voter Turnout
 
 Finally, there is an "idiosyncratic" coding decision that the CPS has made regarding voter turnout that was documented by two scholars, Aram Hur and Christopher Achen, in a 2013 article titled ["Coding Voter Turnout Responses in the Current Population Survey"](https://academic.oup.com/poq/article/77/4/985/1843466/). From the abstract of that article:
 
-_"The Voting and Registration Supplement to the Current Population Survey (CPS) employs a large sample size and has a very high response rate, and thus is often regarded as the gold standard among turnout surveys. In 2008, however, the CPS inaccurately estimated that presidential turnout had undergone a small decrease from 2004. We show that growing nonresponse plus a long-standing but idiosyncratic Census coding decision was responsible. We suggest that to cope with nonresponse and overreporting, users of the Voting Supplement sample should weight it to reflect actual state vote counts."_
+>"The Voting and Registration Supplement to the Current Population Survey (CPS) employs a large sample size and has a very high response rate, and thus is often regarded as the gold standard among turnout surveys. In 2008, however, the CPS inaccurately estimated that presidential turnout had undergone a small decrease from 2004. We show that growing nonresponse plus a long-standing but idiosyncratic Census coding decision was responsible. We suggest that to cope with nonresponse and overreporting, users of the Voting Supplement sample should weight it to reflect actual state vote counts."
 
 Because some users of the `CPS` package may not be able to access this article, we reproduce the critical sections below:
 
-_In its official reports, however, the CPS does not follow the conventional academic coding rules for turnout responses. Instead, it treats Don’t Know, Refused, and No Response as indicating that the respondent did not vote. ... The Census Bureau’s decision to count the No Response individuals as nonvoters is consequential. No Response alone makes up 11.2 percent of the 2008 sample. Coding all of them, plus Don’t Know and Refused, as nonvoters reduces the estimated turnout rate by nearly 10 percentage points, cancelling most of the 12-point overreport in the original data._
+>In its official reports, however, the CPS does not follow the conventional academic coding rules for turnout responses. Instead, it treats Don’t Know, Refused, and No Response as indicating that the respondent did not vote. ... The Census Bureau’s decision to count the No Response individuals as nonvoters is consequential. No Response alone makes up 11.2 percent of the 2008 sample. Coding all of them, plus Don’t Know and Refused, as nonvoters reduces the estimated turnout rate by nearly 10 percentage points, cancelling most of the 12-point overreport in the original data.
 
 
 However, Hur and Achen suggest a more complex adjustment to the data:
 
-_We recommend dropping all categories of missing turnout response, and then poststratifying the remaining CPS sample so that the survey turnout rate in each state matches the corresponding state VEP turnout_
+>We recommend dropping all categories of missing turnout response, and then poststratifying the remaining CPS sample so that the survey turnout rate in each state matches the corresponding state VEP turnout.
 
 Professor Michael McDonald of the University of Florida helpfully provides guidance on this more complex procedure. He provides <Commentary, Guidelines, and Stata Code>[link](http://www.electproject.org/home/voter-turnout/cps-methodology) at his website. 
 
 Future versions of `CPS` may add this functionality. 
 
-*The `CPS` package uses the Census oding scheme in the turnout variable.*
+**The `CPS` package uses the Census coding scheme in the turnout variable.**
 
 
 ```{r setup}
