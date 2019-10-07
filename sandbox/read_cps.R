@@ -1,4 +1,5 @@
-#` Load a single CPS file
+#' Load a single CPS file
+#' @description Read a single year of data from the CPS
 #' @param file Where the fwf or zip (or gz) file for this year's data lives
 #' @param year Which year is being read; defaults to 4-digit year in file name
 #' #' @param factored Whether the data (in numeric form) should be converted to 
@@ -134,9 +135,9 @@ read_year <- function(file,
 
 #' Read in CPS data
 #' @description Load data from the Current Population Survey
-#' @param data_dir The folder where the CPS data files live. These files must 
+#' @param data_dir The folder where the CPS data files live. These files should  
 #' follow a naming scheme that contains the 4-digit year of the results in 
-#' question, and have a ".zip" extension.
+#' question, and have a ".zip" or ".gz" extension.
 #' @param years Which years to read in.
 #' @param factored Whether the data (in numeric form) should be converted to 
 #' the equivalent factor values or not. This will also rename columns according 
@@ -147,9 +148,13 @@ read_year <- function(file,
 #' or leave them as a list of data frames. This will default to the value of 
 #' `factored`, because the raw column names represent different questions in 
 #' different years and should not be naively joined otherwise.
-#' @param clean_data
+#' @param combine_factors Whether to merge the changing factor levels over time 
+#' into one consistent set of factors. This will default to the value of 
+#' `join_dfs`, and is only set up for the default data on the complete set of 
+#' years (even-numbered years from 1994-2018).
 #' @export
-read_cps <- function(data_dir = "cps_data", years = seq(1994, 2018, 2),  
+read_cps <- function(data_dir = "cps_data", 
+                     years = seq(1994, 2018, 2),  
                      factored = TRUE, 
                      catalog = "default",
                      join_dfs = factored, 
@@ -205,9 +210,23 @@ read_cps <- function(data_dir = "cps_data", years = seq(1994, 2018, 2),
     join_dfs <- FALSE
   }
   
+  if (length(years) == 1 & join_dfs == TRUE) {
+    warning("Cannot join only one data frame. ",
+            "Setting `join_dfs = FALSE`...",
+            immediate. = T)
+    join_dfs <- FALSE
+  }
+  
   if ((factored == F | join_dfs == F) & combine_factors == T) {
     warning("Factor levels must be present (`factored = TRUE`) ", 
             "and in the same data set (`join_dfs = TRUE`) to combine. ", 
+            "Setting `combine_factors = FALSE`...",
+            immediate. = T)
+    combine_factors <- FALSE
+  }
+  
+  if ((!setequal(years, seq(1994, 2018, 2)) | catalog != "default") & combine_factors == TRUE) {
+    warning("`combine_factors` is only set up when all years are present and the default catalog is used. ", 
             "Setting `combine_factors = FALSE`...",
             immediate. = T)
     combine_factors <- FALSE
@@ -231,16 +250,179 @@ read_cps <- function(data_dir = "cps_data", years = seq(1994, 2018, 2),
                       file = file_list,
                       year = years, 
                       MoreArgs = list(catalog = catalog, 
-                                      factored = factored)
+                                      factored = factored),
+                      SIMPLIFY = FALSE
   )
-  
-  names(all_years_list) <- years
-  
+  # single-year calls spit out a list, but we want a df
+  if(length(all_years_list) == 1) all_years_list <- all_years_list[[1]]
+  # name the list elements with the year they represent
+  if (!is.data.frame(all_years_list)) names(all_years_list) <- years
   
   if(join_dfs == TRUE) {
     all_years <- suppressWarnings(dplyr::bind_rows(all_years_list, .id = "file"))
     if(combine_factors == TRUE) {
-      all_years <- combine_factors(all_years)
+      # combine all the factors, pretty manually
+      all_years <- dplyr::transmute(all_years_list,
+                               # file name
+                               file,
+                               # year of survey
+                               CPS_YEAR,
+                               # state
+                               CPS_STATE,
+                               # county
+                               CPS_COUNTY,
+                               # age
+                               CPS_AGE = as.numeric(CPS_AGE),
+                               # sex
+                               CPS_SEX = toupper(CPS_SEX) %>% factor(),
+                               # education
+                               CPS_EDU = toupper(CPS_EDU) %>% 
+                                 factor(levels = c("LESS THAN 1ST GRADE",
+                                                   "1ST, 2ND, 3RD OR 4TH GRADE",
+                                                   "5TH OR 6TH GRADE",
+                                                   "7TH OR 8TH GRADE",
+                                                   "9TH GRADE",
+                                                   "10TH GRADE",
+                                                   "11TH GRADE",
+                                                   "12TH GRADE NO DIPLOMA",
+                                                   "HIGH SCHOOL GRAD-DIPLOMA OR EQUIV (GED)",
+                                                   "SOME COLLEGE BUT NO DEGREE",
+                                                   "ASSOCIATE DEGREE-OCCUPATIONAL/VOCATIONAL",
+                                                   "ASSOCIATE DEGREE-ACADEMIC PROGRAM",
+                                                   "BACHELOR'S DEGREE (EX: BA, AB, BS)",
+                                                   "MASTER'S DEGREE (EX: MA, MS, MENG, MED, MSW)",
+                                                   "PROFESSIONAL SCHOOL DEG (EX: MD, DDS, DVM)",
+                                                   "DOCTORATE DEGREE (EX: PHD, EDD)"),
+                                        ordered = TRUE),
+                               # race
+                               CPS_RACE = toupper(CPS_RACE),
+                               CPS_RACE_C = CPS_RACE %>%
+                                 factor() %>%
+                                 forcats::fct_collapse(
+                                   "WHITE" = c("WHITE",
+                                               "WHITE ONLY"),
+                                   "BLACK" = c("BLACK",
+                                               "BLACK ONLY"),
+                                   "ASIAN OR PACIFIC ISLANDER" = c("ASIAN OR PACIFIC ISLANDER",
+                                                                   "HAWAIIAN/PACIFIC ISLANDER ONLY",
+                                                                   "ASIAN ONLY", 
+                                                                   "ASIAN-HP"),
+                                   "AMERICAN INDIAN OR ALASKAN NATIVE" = c("AMERICAN INDIAN, ALEUT, ESKIMO",
+                                                                           "AMERICAN INDIAN, ALASKAN NATIVE ONLY"),
+                                   "MULTIRACIAL OR OTHER" = c("OTHER - SPECIFY", "WHITE-AI", "WHITE-ASIAN", "WHITE-BLACK", "W-B-AI", "BLACK-ASIAN", "BLACK-AI", 
+                                                              "WHITE-HAWAIIAN", "W-A-HP", "2 OR 3 RACES", "AI-ASIAN", 
+                                                              "W-AI-A", "4 OR 5 RACES", "BLACK-HP", "W-B-A", "W-B-AI-A", "WHITE-HP", 
+                                                              "AI-HP", "OTHER 4 AND 5 RACE COMBINATIONS", "W-B-HP", "W-AI-HP", 
+                                                              "OTHER 3 RACE COMBINATIONS", "W-AI-A-HP", "B-AI-A")
+                                 ),
+                               # hispanic status - correct typo
+                               CPS_HISP = toupper(CPS_HISP) %>%
+                                 factor(levels = c("NON-HIPSANIC", "HISPANIC", "NON-HISPANIC"),
+                                        labels = c("NON-HISPANIC", "HISPANIC", "NON-HISPANIC")),
+                               # weight
+                               WEIGHT,
+                               
+                               # voted in recent general election
+                               VRS_VOTE = forcats::fct_relabel(VRS_VOTE, toupper),
+                               # if not, why?
+                               VRS_VOTE_WHYNOT = toupper(VRS_VOTE_WHYNOT),
+                               VRS_VOTE_WHYNOT_C = factor(VRS_VOTE_WHYNOT) %>%
+                                 forcats::fct_collapse("SICK, DISABLED, OR FAMILY EMERGENCY" = c("ILLNESS OR DISABILITY (OWN OR FAMILY'S)",
+                                                                                                 "SICK, DISABLED, OR FAMILY EMERGENCY"),
+                                                       "OUT OF TOWN OR AWAY FROM HOME" = c("OUT OF TOWN OR AWAY FROM HOME"),
+                                                       "FORGOT TO VOTE" = c("FORGOT TO VOTE",
+                                                                            "FORGOT TO VOTE (OR SEND IN ABSENTEE BALLOT)"),
+                                                       "NOT INTERESTED" = c("NOT INTERESTED, DON'T CARE, ETC.",
+                                                                            "NOT INTERESTED, FELT MY VOTE WOULDN'T MAKE A DIFFERENCE"),
+                                                       "SCHEDULE PROBLEMS" = c("COULD NOT TAKE TIME OFF FROM WORK/SCHOOL/TOO BUSY",
+                                                                               "TOO BUSY, CONFLICTING WORK OR SCHOOL SCHEDULE"),
+                                                       "TRANSPORTATION PROBLEMS" = c("HAD NO WAY TO GET TO POLLS",
+                                                                                     "TRANSPORTATION PROBLEMS"),
+                                                       "DIDN'T LIKE CANDIDATES OR CAMPAIGN ISSUES" = c("DID NOT PREFER ANY OF THE CANDIDATES",
+                                                                                                       "DIDN'T LIKE CANDIDATES OR CAMPAIGN ISSUES"),
+                                                       "REGISTRATION PROBLEMS" = c("REGISTRATION PROBLEMS (I.E., DIDN'T RECEVIE ABSENTEE BALLOT, NOT REGISTERED IN CURRENT LOCATION)",
+                                                                                   "REGISTRATION PROBLEMS (I.E., DIDN'T RECEIVE ABSENTEE BALLOT, NOT REGISTERED IN CURRENT LOCATION)",
+                                                                                   "REGISTRATION PROBLEMS (I.E. DIDN'T RECEIVE ABSENTEE BALLOT, NOT REGISTERED IN CURRENT LOCATION)"),
+                                                       "BAD WEATHER CONDITIONS" = c("BAD WEATHER CONDITIONS"),
+                                                       "INCONVENIENT HOURS OR LONG LINES" = c("LINES TOO LONG AT POLLS",
+                                                                                              "INCONVENIENT POLLING PLACE OR HOURS OR LINES TOO LONG",
+                                                                                              "INCONVENIENT HOURS, POLLING PLACE OR HOURS OR LINES TOO LONG"),
+                                                       "OTHER" = c("OTHER REASONS",
+                                                                   "OTHER")
+                                 ),
+                               # how did you vote? in person, early, absentee
+                               VRS_VOTE_HOW = forcats::fct_relabel(VRS_VOTE_HOW, toupper),
+                               # did you vote by mail or in person?
+                               VRS_VOTE_MAIL = forcats::fct_relabel(VRS_VOTE_MAIL, toupper),
+                               # did you vote day of or early?
+                               VRS_VOTE_DAY = forcats::fct_relabel(VRS_VOTE_DAY, toupper),
+                               # collapse these
+                               VRS_VOTE_HOW_C = dplyr::case_when(
+                                 VRS_VOTE_HOW == "IN PERSON ON ELECTION DAY" ~ "ELECTION DAY",
+                                 VRS_VOTE_HOW == "VOTED BY MAIL (ABSENTEE)" ~ "MAIL",
+                                 VRS_VOTE_HOW == "IN PERSON BEFORE ELECTION DAY" ~ "EARLY",
+                                 VRS_VOTE_MAIL == "BY MAIL" ~ "MAIL",
+                                 VRS_VOTE_MAIL == "IN PERSON" & VRS_VOTE_DAY == "BEFORE ELECTION DAY" ~ "EARLY",
+                                 VRS_VOTE_MAIL == "IN PERSON" & VRS_VOTE_DAY == "ON ELECTION DAY" ~ "ELECTION DAY"
+                               ) %>% factor(),
+                               # when in the day did you vote?
+                               VRS_VOTE_TIME,
+                               
+                               # registered to vote
+                               VRS_REG = forcats::fct_relabel(VRS_REG, toupper),
+                               # if not, why?
+                               VRS_REG_WHYNOT = forcats::fct_relabel(VRS_REG_WHYNOT, toupper),
+                               # how did you register?
+                               VRS_REG_HOW = toupper(VRS_REG_HOW),
+                               VRS_REG_DMV = forcats::fct_relabel(VRS_REG_DMV, toupper),
+                               VRS_REG_HOW_C = dplyr::case_when(
+                                 VRS_REG_DMV == "WHEN DRIVER'S LICENSE WAS OBTAINED/RENEWED" ~ "AT A DEPARTMENT OF MOTOR VEHICLES (FOR EXAMPLE, WHEN OBTAINING A DRIVER'S LICENSE OR OTHER IDENTIFICATION CARD)",
+                                 VRS_REG_DMV == "DON'T KNOW" ~ "DON'T KNOW",
+                                 TRUE ~ VRS_REG_HOW
+                               ) %>% factor() %>%
+                                 forcats::fct_collapse("AT DMV" = c("AT A DEPARTMENT OF MOTOR VEHICLES (FOR EXAMPLE, WHEN OBTAINING A DRIVER'S LICENSE OR OTHER IDENTIFICATION CARD)"),
+                                                       "AT A PUBLIC ASSISTANCE AGENCY" = c("AT A PUBLIC ASSISTANCE AGENCY (FOR EXAMPLE, MEDICAID, AFDC, OR FOOD STAMP UNEMPLOYMENT OFFICE, OFFICE SERVING DISABLED PERSONS)",
+                                                                                           "AT A PUBLIC ASSISTANCE AGENCY (FOR EXAMPLE, MEDICAID, AFDC, OR FOOD STAMPS OFFICE, AN OFFICE SERVING DISABLED PERSONS, OR AN UNEMPLOYMENT OFFICE)",
+                                                                                           "AT A PUBLIC ASSISTANCE AGENCY (FOR EXAMPLE, A MEDICAID, AFDC, OR FOOD STAMPS OFFICE, AN OFFICE SERVING DISABLED PERSONS, OR AN UNEMPLOYMENT OFFICE",
+                                                                                           "AT A PUBLIC ASSISTANCE AGENCY (FOR EXAMPLE, A MEDICAID, AFDC, OR FOOD STAMPS OFFICE, AN OFFICE SERVING DISABLED PERSONS, OR AN UNEMPLOYMENT OFFICE)"),
+                                                       "BY MAIL" = c("MAILED IN FORM TO ELECTIONS OFFICE",
+                                                                     "REGISTERED BY MAIL"),
+                                                       "ONLINE" = c("REGISTERED USING THE INTERNET OR ONLINE"),
+                                                       "AT A SCHOOL, HOSPITAL, OR ON CAMPUS" = c("AT A SCHOOL, HOSPITAL, OR ON CAMPUS"),
+                                                       "REGISTRATION OFFICE" = c("WENT TO A COUNTY OR GOVERNMENT VOTER REGISTRATION OFFICE",
+                                                                                 "WENT TO A TOWN HALL OR COUNTY/GOVERNMENT REGISTRATION OFFICE"),
+                                                       "REGISTRATION DRIVE" = c("FILLED OUT FORM AT A REGISTRATION DRIVE (FOR EXAMPLE, POLITICAL RALLY, SOMEONE CAME TO YOUR DOOR, REGISTRATION DRIVE AT MALL, MARKET, FAIR, POST OFFICE, LIBRARY, STORE, CHURCH, ETC.)",
+                                                                                "FILLED OUT FORM AT A REGISTRATION DRIVE (LIBRARY, POST OFFICE, OR SOMEONE CAME TO YOUR DOOR)"),
+                                                       "AT THE POLLS, SAME DAY" = c("REGISTERED AT THE POLLS ON ELECTION DAY",
+                                                                                    "REGISTERED AT POLLINGPLACE (ON ELECTION OR PRIMARY DAY)",
+                                                                                    "REGISTERED AT POLLING PLACE (ON ELECTION OR PRIMARY DAY)"),
+                                                       "OTHER" = c("OTHER PLACE/WAY",
+                                                                   "OTHER"),
+                                                       "DON'T KNOW" = c("DON'T KNOW")
+                                 ),
+                               VRS_REG_SINCE95,
+                               
+                               # how long lived in current home
+                               VRS_RESIDENCE = toupper(VRS_RESIDENCE),
+                               VRS_RESIDENCE_C = factor(VRS_RESIDENCE,
+                                                        levels = c("LESS THAN 1 MONTH",
+                                                                   "1-6 MONTHS",
+                                                                   "7-11 MONTHS",
+                                                                   "LESS THAN 1 YEAR",
+                                                                   "1-2 YEARS",
+                                                                   "3-4 YEARS",
+                                                                   "5 YEARS OR LONGER",
+                                                                   "DON'T KNOW"),
+                                                        labels = c("LESS THAN 1 YEAR",
+                                                                   "LESS THAN 1 YEAR",
+                                                                   "LESS THAN 1 YEAR",
+                                                                   "LESS THAN 1 YEAR",
+                                                                   "1-2 YEARS",
+                                                                   "3-4 YEARS",
+                                                                   "5 YEARS OR LONGER",
+                                                                   "DON'T KNOW"),
+                                                        ordered = TRUE)
+      )
     }
     final_data <- all_years
   } else {
@@ -248,170 +430,4 @@ read_cps <- function(data_dir = "cps_data", years = seq(1994, 2018, 2),
   }
   
   return(final_data)
-}
-
-
-
-combine_factors <- function(data) {
-  dat2 <- dplyr::transmute(data,
-                           # file name
-                           file,
-                           # year of survey
-                           CPS_YEAR,
-                           # state
-                           CPS_STATE,
-                           # county
-                           CPS_COUNTY,
-                           # age
-                           CPS_AGE = as.numeric(CPS_AGE),
-                           # sex
-                           CPS_SEX = toupper(CPS_SEX) %>% factor(),
-                           # education
-                           CPS_EDU = toupper(CPS_EDU) %>% 
-                             factor(levels = c("LESS THAN 1ST GRADE",
-                                               "1ST, 2ND, 3RD OR 4TH GRADE",
-                                               "5TH OR 6TH GRADE",
-                                               "7TH OR 8TH GRADE",
-                                               "9TH GRADE",
-                                               "10TH GRADE",
-                                               "11TH GRADE",
-                                               "12TH GRADE NO DIPLOMA",
-                                               "HIGH SCHOOL GRAD-DIPLOMA OR EQUIV (GED)",
-                                               "SOME COLLEGE BUT NO DEGREE",
-                                               "ASSOCIATE DEGREE-OCCUPATIONAL/VOCATIONAL",
-                                               "ASSOCIATE DEGREE-ACADEMIC PROGRAM",
-                                               "BACHELOR'S DEGREE (EX: BA, AB, BS)",
-                                               "MASTER'S DEGREE (EX: MA, MS, MENG, MED, MSW)",
-                                               "PROFESSIONAL SCHOOL DEG (EX: MD, DDS, DVM)",
-                                               "DOCTORATE DEGREE (EX: PHD, EDD)"),
-                                    ordered = TRUE),
-                           # race
-                           CPS_RACE = toupper(CPS_RACE),
-                           CPS_RACE_C = CPS_RACE %>%
-                             factor() %>%
-                             forcats::fct_collapse(
-                               "WHITE" = c("WHITE",
-                                           "WHITE ONLY"),
-                               "BLACK" = c("BLACK",
-                                           "BLACK ONLY"),
-                               "ASIAN OR PACIFIC ISLANDER" = c("ASIAN OR PACIFIC ISLANDER",
-                                                               "HAWAIIAN/PACIFIC ISLANDER ONLY",
-                                                               "ASIAN ONLY", 
-                                                               "ASIAN-HP"),
-                               "AMERICAN INDIAN OR ALASKAN NATIVE" = c("AMERICAN INDIAN, ALEUT, ESKIMO",
-                                                                       "AMERICAN INDIAN, ALASKAN NATIVE ONLY"),
-                               "MULTIRACIAL OR OTHER" = c("OTHER - SPECIFY", "WHITE-AI", "WHITE-ASIAN", "WHITE-BLACK", "W-B-AI", "BLACK-ASIAN", "BLACK-AI", 
-                                                          "WHITE-HAWAIIAN", "W-A-HP", "2 OR 3 RACES", "AI-ASIAN", 
-                                                          "W-AI-A", "4 OR 5 RACES", "BLACK-HP", "W-B-A", "W-B-AI-A", "WHITE-HP", 
-                                                          "AI-HP", "OTHER 4 AND 5 RACE COMBINATIONS", "W-B-HP", "W-AI-HP", 
-                                                          "OTHER 3 RACE COMBINATIONS", "W-AI-A-HP", "B-AI-A")
-                               ),
-                           # hispanic status - correct typo
-                           CPS_HISP = toupper(CPS_HISP) %>%
-                             factor(levels = c("NON-HIPSANIC", "HISPANIC", "NON-HISPANIC"),
-                                    labels = c("NON-HISPANIC", "HISPANIC", "NON-HISPANIC")),
-                           # weight
-                           WEIGHT,
-                           
-                           # voted in recent general election
-                           VRS_VOTE = forcats::fct_relabel(VRS_VOTE, toupper),
-                           # if not, why?
-                           VRS_VOTE_WHYNOT = toupper(VRS_VOTE_WHYNOT),
-                           VRS_VOTE_WHYNOT_C = factor(VRS_VOTE_WHYNOT) %>%
-                             forcats::fct_collapse("SICK, DISABLED, OR FAMILY EMERGENCY" = c("ILLNESS OR DISABILITY (OWN OR FAMILY'S)",
-                                                                                             "SICK, DISABLED, OR FAMILY EMERGENCY"),
-                                                   "OUT OF TOWN OR AWAY FROM HOME" = c("OUT OF TOWN OR AWAY FROM HOME"),
-                                                   "FORGOT TO VOTE" = c("FORGOT TO VOTE",
-                                                                        "FORGOT TO VOTE (OR SEND IN ABSENTEE BALLOT)"),
-                                                   "NOT INTERESTED" = c("NOT INTERESTED, DON'T CARE, ETC.",
-                                                                        "NOT INTERESTED, FELT MY VOTE WOULDN'T MAKE A DIFFERENCE"),
-                                                   "SCHEDULE PROBLEMS" = c("COULD NOT TAKE TIME OFF FROM WORK/SCHOOL/TOO BUSY",
-                                                                           "TOO BUSY, CONFLICTING WORK OR SCHOOL SCHEDULE"),
-                                                   "TRANSPORTATION PROBLEMS" = c("HAD NO WAY TO GET TO POLLS",
-                                                                                 "TRANSPORTATION PROBLEMS"),
-                                                   "DIDN'T LIKE CANDIDATES OR CAMPAIGN ISSUES" = c("DID NOT PREFER ANY OF THE CANDIDATES",
-                                                                                                   "DIDN'T LIKE CANDIDATES OR CAMPAIGN ISSUES"),
-                                                   "REGISTRATION PROBLEMS" = c("REGISTRATION PROBLEMS (I.E., DIDN'T RECEVIE ABSENTEE BALLOT, NOT REGISTERED IN CURRENT LOCATION)",
-                                                                               "REGISTRATION PROBLEMS (I.E., DIDN'T RECEIVE ABSENTEE BALLOT, NOT REGISTERED IN CURRENT LOCATION)",
-                                                                               "REGISTRATION PROBLEMS (I.E. DIDN'T RECEIVE ABSENTEE BALLOT, NOT REGISTERED IN CURRENT LOCATION)"),
-                                                   "BAD WEATHER CONDITIONS" = c("BAD WEATHER CONDITIONS"),
-                                                   "INCONVENIENT HOURS OR LONG LINES" = c("LINES TOO LONG AT POLLS",
-                                                                                          "INCONVENIENT POLLING PLACE OR HOURS OR LINES TOO LONG",
-                                                                                          "INCONVENIENT HOURS, POLLING PLACE OR HOURS OR LINES TOO LONG"),
-                                                   "OTHER" = c("OTHER REASONS",
-                                                               "OTHER")
-                                                   ),
-                           # how did you vote? in person, early, absentee
-                           VRS_VOTE_HOW = forcats::fct_relabel(VRS_VOTE_HOW, toupper),
-                           # did you vote by mail or in person?
-                           VRS_VOTE_MAIL = forcats::fct_relabel(VRS_VOTE_MAIL, toupper),
-                           # did you vote day of or early?
-                           VRS_VOTE_DAY = forcats::fct_relabel(VRS_VOTE_DAY, toupper),
-                           # collapse these
-                           VRS_VOTE_HOW_C = dplyr::case_when(
-                             VRS_VOTE_HOW == "IN PERSON ON ELECTION DAY" ~ "ELECTION DAY",
-                             VRS_VOTE_HOW == "VOTED BY MAIL (ABSENTEE)" ~ "MAIL",
-                             VRS_VOTE_HOW == "IN PERSON BEFORE ELECTION DAY" ~ "EARLY",
-                             VRS_VOTE_MAIL == "BY MAIL" ~ "MAIL",
-                             VRS_VOTE_MAIL == "IN PERSON" & VRS_VOTE_DAY == "BEFORE ELECTION DAY" ~ "EARLY",
-                             VRS_VOTE_MAIL == "IN PERSON" & VRS_VOTE_DAY == "ON ELECTION DAY" ~ "ELECTION DAY"
-                           ) %>% factor(),
-                           # when in the day did you vote?
-                           VRS_VOTE_TIME,
-                           
-                           # registered to vote
-                           VRS_REG = forcats::fct_relabel(VRS_REG, toupper),
-                           # if not, why?
-                           VRS_REG_WHYNOT = forcats::fct_relabel(VRS_REG_WHYNOT, toupper),
-                           # how did you register?
-                           VRS_REG_HOW = toupper(VRS_REG_HOW),
-                           VRS_REG_DMV = forcats::fct_relabel(VRS_REG_DMV, toupper),
-                           VRS_REG_HOW_C = dplyr::case_when(
-                             VRS_REG_DMV == "WHEN DRIVER'S LICENSE WAS OBTAINED/RENEWED" ~ "AT A DEPARTMENT OF MOTOR VEHICLES (FOR EXAMPLE, WHEN OBTAINING A DRIVER'S LICENSE OR OTHER IDENTIFICATION CARD)",
-                             VRS_REG_DMV == "DON'T KNOW" ~ "DON'T KNOW",
-                             TRUE ~ VRS_REG_HOW
-                           ) %>% factor() %>%
-                             forcats::fct_collapse("AT DMV" = c("AT A DEPARTMENT OF MOTOR VEHICLES (FOR EXAMPLE, WHEN OBTAINING A DRIVER'S LICENSE OR OTHER IDENTIFICATION CARD)"),
-                                                   "AT A PUBLIC ASSISTANCE AGENCY" = c("AT A PUBLIC ASSISTANCE AGENCY (FOR EXAMPLE, MEDICAID, AFDC, OR FOOD STAMP UNEMPLOYMENT OFFICE, OFFICE SERVING DISABLED PERSONS)",
-                                                                                       "AT A PUBLIC ASSISTANCE AGENCY (FOR EXAMPLE, MEDICAID, AFDC, OR FOOD STAMPS OFFICE, AN OFFICE SERVING DISABLED PERSONS, OR AN UNEMPLOYMENT OFFICE)",
-                                                                                       "AT A PUBLIC ASSISTANCE AGENCY (FOR EXAMPLE, A MEDICAID, AFDC, OR FOOD STAMPS OFFICE, AN OFFICE SERVING DISABLED PERSONS, OR AN UNEMPLOYMENT OFFICE",
-                                                                                       "AT A PUBLIC ASSISTANCE AGENCY (FOR EXAMPLE, A MEDICAID, AFDC, OR FOOD STAMPS OFFICE, AN OFFICE SERVING DISABLED PERSONS, OR AN UNEMPLOYMENT OFFICE)"),
-                                                   "BY MAIL" = c("MAILED IN FORM TO ELECTIONS OFFICE",
-                                                                 "REGISTERED BY MAIL"),
-                                                   "ONLINE" = c("REGISTERED USING THE INTERNET OR ONLINE"),
-                                                   "AT A SCHOOL, HOSPITAL, OR ON CAMPUS" = c("AT A SCHOOL, HOSPITAL, OR ON CAMPUS"),
-                                                   "REGISTRATION OFFICE" = c("WENT TO A COUNTY OR GOVERNMENT VOTER REGISTRATION OFFICE",
-                                                                             "WENT TO A TOWN HALL OR COUNTY/GOVERNMENT REGISTRATION OFFICE"),
-                                                   "REGISTRATION DRIVE" = c("FILLED OUT FORM AT A REGISTRATION DRIVE (FOR EXAMPLE, POLITICAL RALLY, SOMEONE CAME TO YOUR DOOR, REGISTRATION DRIVE AT MALL, MARKET, FAIR, POST OFFICE, LIBRARY, STORE, CHURCH, ETC.)",
-                                                                            "FILLED OUT FORM AT A REGISTRATION DRIVE (LIBRARY, POST OFFICE, OR SOMEONE CAME TO YOUR DOOR)"),
-                                                   "AT THE POLLS, SAME DAY" = c("REGISTERED AT THE POLLS ON ELECTION DAY",
-                                                                                "REGISTERED AT POLLINGPLACE (ON ELECTION OR PRIMARY DAY)",
-                                                                                "REGISTERED AT POLLING PLACE (ON ELECTION OR PRIMARY DAY)"),
-                                                   "OTHER" = c("OTHER PLACE/WAY",
-                                                               "OTHER"),
-                                                   "DON'T KNOW" = c("DON'T KNOW")
-                                                   ),
-                           VRS_REG_SINCE95,
-                           
-                           # how long lived in current home
-                           VRS_RESIDENCE = toupper(VRS_RESIDENCE),
-                           VRS_RESIDENCE_C = factor(VRS_RESIDENCE,
-                                                    levels = c("LESS THAN 1 MONTH",
-                                                               "1-6 MONTHS",
-                                                               "7-11 MONTHS",
-                                                               "LESS THAN 1 YEAR",
-                                                               "1-2 YEARS",
-                                                               "3-4 YEARS",
-                                                               "5 YEARS OR LONGER",
-                                                               "DON'T KNOW"),
-                                                    labels = c("LESS THAN 1 YEAR",
-                                                               "LESS THAN 1 YEAR",
-                                                               "LESS THAN 1 YEAR",
-                                                               "LESS THAN 1 YEAR",
-                                                               "1-2 YEARS",
-                                                               "3-4 YEARS",
-                                                               "5 YEARS OR LONGER",
-                                                               "DON'T KNOW"),
-                                                    ordered = TRUE)
-                           )
 }
