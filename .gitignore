@@ -9,4 +9,6 @@ img/*
 cps_docs/*
 .DS_Store
 tmp/cpsvrs.RDS
+inst/doc
+Icon?
 .gitignore
