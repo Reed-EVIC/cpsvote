@@ -4,9 +4,11 @@
 .Ruserdata
 *.Rproj
 raw_data/*
+cps_data/*
 img/*
-docs/*
+cps_docs/*
 .DS_Store
 tmp/cpsvrs.RDS
 inst/doc
 Icon?
+.gitignore
