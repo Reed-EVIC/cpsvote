@@ -18,10 +18,10 @@ read_year <- function(file,
   
   # set the lookup table to use
   if (catalog == "default") {
-    catalog <- cpsvote:::fwf_key
+    catalog <- fwf_key
   } else if (!is.list(catalog)) {
     warning("Catalog must be 'default' or a list. Defaulting to `catalog = 'default'`...")
-    catalog <- cpsvote:::fwf_key
+    catalog <- fwf_key
   } else {
     names(catalog) <- c('columns', 'factoring')
   }
