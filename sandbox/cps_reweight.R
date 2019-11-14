@@ -1,4 +1,10 @@
 library(srvyr)
+library(dplyr)
+library(ggplot2)
+devtools::load_all()
+
+data(cps)
+vep <- cpsvote::vep
 
 states <- data.frame(name = c(state.name, "District of Columbia"),
                      abb = c(state.abb, "DC"))
