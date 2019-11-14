@@ -4,7 +4,7 @@ title: "CPS_VRS: A Social Science Toolbox For Using the Current Population Surve
 date: "`r format(Sys.time(), '%d %B %Y')`"  
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{my-vignette}
+  %\VignetteIndexEntry{cps}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
