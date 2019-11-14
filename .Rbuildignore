@@ -7,6 +7,6 @@
 ^sandbox*$
 ^img*$
 ^raw_data*$
-^test_docs*$
-^test_data*$
+^cps_docs*$
+^cps_data*$
 ^data-raw$
