@@ -78,7 +78,7 @@ However, Hur and Achen suggest a more complex adjustment to the data:
 
 >We recommend dropping all categories of missing turnout response, and then poststratifying the remaining CPS sample so that the survey turnout rate in each state matches the corresponding state VEP turnout.
 
-Professor Michael McDonald of the University of Florida helpfully provides guidance on this more complex procedure. He provides <Commentary, Guidelines, and Stata Code>[link](http://www.electproject.org/home/voter-turnout/cps-methodology) at his website. 
+Professor Michael McDonald of the University of Florida helpfully provides guidance on this more complex procedure. He provides commentary, guidelines, and Stata code at his [website](http://www.electproject.org/home/voter-turnout/cps-methodology). 
 
 Future versions of `CPS` may add this functionality. 
 
