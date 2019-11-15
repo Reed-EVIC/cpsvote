@@ -10,9 +10,9 @@
 #' Additionally, it is designed to join and weight according to the default 
 #' column names as used in the included `cps` data set - so it will throw an 
 #' error if the required column names are not present. For custom data sets, 
-#' access the internal data set `cpsvote::reweight` and join the two on year, 
-#' state, and reported voting. Then multiply the existing weight column by the 
-#' reweighting factor to obtain a correct weight to calculate turnout.
+#' load the provided data set `reweight` and join the two on year, state, and 
+#' reported voting. Then multiply the existing weight column by the reweighting 
+#' factor to obtain a correct weight to calculate turnout.
 cps_reweight <- function(data) {
   if (!all(c("CPS_YEAR", "CPS_STATE", "VRS_VOTE") %in% colnames(data))) {
     stop("The following vars must be included in `data` in order to join: ",

@@ -21,7 +21,7 @@ information on this reweighting, see \code{vignette("cps")}.
 Additionally, it is designed to join and weight according to the default
 column names as used in the included \code{cps} data set - so it will throw an
 error if the required column names are not present. For custom data sets,
-access the internal data set \code{cpsvote::reweight} and join the two on year,
-state, and reported voting. Then multiply the existing weight column by the
-reweighting factor to obtain a correct weight to calculate turnout.
+load the provided data set \code{reweight} and join the two on year, state, and
+reported voting. Then multiply the existing weight column by the reweighting
+factor to obtain a correct weight to calculate turnout.
 }
