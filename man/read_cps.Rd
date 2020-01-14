@@ -4,9 +4,14 @@
 \alias{read_cps}
 \title{Read in CPS data}
 \usage{
-read_cps(data_dir = "cps_data", years = seq(1994, 2018, 2),
-  factored = TRUE, catalog = "default", join_dfs = factored,
-  combine_factors = join_dfs)
+read_cps(
+  data_dir = "cps_data",
+  years = seq(1994, 2018, 2),
+  factored = TRUE,
+  catalog = "default",
+  join_dfs = factored,
+  combine_factors = join_dfs
+)
 }
 \arguments{
 \item{data_dir}{The folder where the CPS data files live. These files should

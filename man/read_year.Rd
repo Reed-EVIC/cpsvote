@@ -4,8 +4,12 @@
 \alias{read_year}
 \title{Load a single CPS file}
 \usage{
-read_year(file, year = as.numeric(stringr::str_extract(file,
-  "\\\\d{4}")), factored = TRUE, catalog = "default")
+read_year(
+  file,
+  year = as.numeric(stringr::str_extract(file, "\\\\d{4}")),
+  factored = TRUE,
+  catalog = "default"
+)
 }
 \arguments{
 \item{file}{Where the fwf or zip (or gz) file for this year's data lives}
