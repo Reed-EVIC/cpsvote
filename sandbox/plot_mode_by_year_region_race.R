@@ -62,7 +62,7 @@ cps_weight %>%
         legend.text = element_text(size = 10)) +
   ylab("") + xlab("") 
 
-ggsave("vote_modes_by_year.png")
+ggsave("sandbox/vote_modes_by_year.png")
   
 # Graph 2: Rate of Early In Person Voting By Year
 cps_weight %>%
@@ -85,7 +85,7 @@ cps_weight %>%
         legend.title = element_text(size = 12, face = "bold"),
         legend.text = element_text(size = 10)) 
 
-ggsave("early_voting_by_year.png")
+ggsave("sandbox/early_voting_by_year.png")
 
 # Graph 3: Rate of Vote at Home By Year
 cps_weight %>%
@@ -108,7 +108,7 @@ cps_weight %>%
         legend.text = element_text(size = 10)) +
   ylab("") + xlab("")  
 
-ggsave("vote_at_home_by_year.png")
+ggsave("sandbox/vote_at_home_by_year.png")
 
 # Graph 4a: Focus on East North Central Census Division
 cps_weight %>%
@@ -131,7 +131,7 @@ cps_weight %>%
         legend.text = element_text(size = 10)) +
   ylab("") + xlab("")  
 
-ggsave("east_north_central_vah.png")
+ggsave("sandbox/east_north_central_vah.png")
 
 # Graph 4b: Focus on East North Central Census Division
 cps_weight %>%
@@ -154,4 +154,4 @@ cps_weight %>%
         legend.text = element_text(size = 10)) +
   ylab("") + xlab("")  
 
-ggsave("east_north_central_early.png")
+ggsave("sandbox/east_north_central_early.png")

@@ -23,6 +23,13 @@ knitr::opts_chunk$set(
 
 1994-2016 come from the [National Bureau of Economic Research](https://data.nber.org/cps/). 2018 comes from the [US Census Bureau](https://thedataweb.rm.census.gov/ftp/cps_ftp.html).
 
+## Testing
+
+1. `devtools::load_all()` will load the package
+2. `cpsvote::download_data(path = "dir", years = seq(start,end,sequence))` will download data
+3. `cpsvote::read_cps()` will read all data files (1994 - 2018)
+4. `cpsvote::read_cps(path = "dir", years = seq(start,end,sequence)` will read data into memory
+
 ## Outputs
 
 Still working on it, but this!

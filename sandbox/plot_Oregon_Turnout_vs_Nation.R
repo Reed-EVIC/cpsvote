@@ -5,6 +5,7 @@ library(ggplot2)
 library(ggthemes)
 library(scales)
 library(tidyverse)
+library(forcats)
 
 # Data transformations prior to setting up the survey design
 
@@ -35,7 +36,16 @@ cps <- cps %>%
       CPS_STATE %in% c("WA", "OR", "CA", "AK", "HI") ~ "Pacific"),
     voted = case_when(
       VRS_VOTE == "YES" ~ 1,
-      VRS_VOTE == "NO" ~ 0)
+      VRS_VOTE == "NO" ~ 0),
+    racecat =  fct_collapse(cps$CPS_RACE_C, 
+                            White = levels(cps$CPS_RACE_C)[5], 
+                            Black = levels(cps$CPS_RACE_C)[4], 
+                            Other = levels(cps$CPS_RACE_C)[1:3]),
+    agecat = case_when(
+      cps$CPS_AGE >= 18 & cps$CPS_AGE <= 25 ~ "18-25", 
+      cps$CPS_AGE <= 26 & cps$CPS_AGE <= 50 ~ "26-50",
+      cps$CPS_AGE <= 51 & cps$CPS_AGE <= 64 ~ "51-64",
+      cps$CPS_AGE >= 65 ~ "65+")
     )
 
 #
@@ -57,7 +67,8 @@ oregon_turnout <- cps_weight %>%
   summarize(value = survey_mean(voted, na.rm = TRUE)) %>%
   mutate(category = "Oregon")
 
-ggplot(rbind(national_turnout, oregon_turnout), aes(x = CPS_YEAR, y = value, col = category)) +
+ggplot(rbind(national_turnout, oregon_turnout), 
+       aes(x = CPS_YEAR, y = value, col = category)) +
   geom_line(size = 1.5) +
   geom_point(aes(x = CPS_YEAR, y = value, color = category), size = 2) +
   theme_minimal() +
@@ -71,3 +82,45 @@ ggplot(rbind(national_turnout, oregon_turnout), aes(x = CPS_YEAR, y = value, col
         legend.title = element_text(size = 12, face = "bold"),
         legend.text = element_text(size = 10)) +
   ylab("") + xlab("") 
+
+ggsave("sandbox/oregon_turnout_vs_national.png")
+
+cps_weight %>%
+  filter(CPS_YEAR > 1994 & CPS_STATE == "OR") %>%
+  group_by(CPS_YEAR, racecat) %>%
+  summarize(value = survey_mean(voted, na.rm = TRUE)) %>%
+  ggplot(aes(x = CPS_YEAR, y = value, col = racecat)) +
+  geom_line(size = 1.5) +
+  geom_point(aes(x = CPS_YEAR, y = value, color = racecat), size = 2) +
+  theme_minimal() +
+  scale_x_continuous(breaks = seq(1996, 2018, by = 2)) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "Oregon Voter Turnout by Race, 1996 - 2018", 
+       subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
+       color = "Race") +
+  theme(plot.title = element_text(size = 20, family = "Times", face = "bold.italic", colour = "red"),
+        legend.background = element_rect(),
+        legend.title = element_text(size = 12, face = "bold"),
+        legend.text = element_text(size = 10)) +
+  ylab("") + xlab("") 
+ggsave("sandbox/oregon_turnout_by_race.png")
+
+cps_weight %>%
+  filter(CPS_YEAR > 1994 & CPS_STATE == "OR" & !is.na(agecat)) %>%
+  group_by(CPS_YEAR, agecat) %>%
+  summarize(value = survey_mean(voted, na.rm = TRUE)) %>%
+  ggplot(aes(x = CPS_YEAR, y = value, col = agecat)) +
+  geom_line(size = 1.5) +
+  geom_point(aes(x = CPS_YEAR, y = value, color = agecat), size = 2) +
+  theme_minimal() +
+  scale_x_continuous(breaks = seq(1996, 2018, by = 2)) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "Oregon Voter Turnout by Age Groups, 1996 - 2018", 
+       subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
+       color = "Age") +
+  theme(plot.title = element_text(size = 20, family = "Times", face = "bold.italic", colour = "red"),
+        legend.background = element_rect(),
+        legend.title = element_text(size = 12, face = "bold"),
+        legend.text = element_text(size = 10)) +
+  ylab("") + xlab("") 
+ggsave("sandbox/oregon_turnout_by_age.png")
