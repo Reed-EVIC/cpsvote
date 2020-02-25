@@ -50,20 +50,72 @@ cps_weight %>%
   summarize(value = survey_mean(na.rm = TRUE)) %>%
   ggplot(aes(x = CPS_YEAR, y = value, fill = VRS_VOTE_HOW_C, group = VRS_VOTE_HOW_C)) +
   geom_bar(stat = "identity", position = "dodge") +
-  theme_minimal() +
   scale_x_continuous(breaks = seq(1996, 2018, by = 2)) +
   scale_y_continuous(labels = scales::percent) +
   labs(title = "The Growth of Early Voting, 1996 - 2018", 
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
-       fill = "Mode of Voting") +
+       fill = "Mode of Voting",
+       y = "",
+       x = "") +
+  theme_minimal() +
   theme(plot.title = element_text(size = 20, family = "Times", face = "bold.italic", colour = "red"),
-        legend.background = element_rect(),
+        legend.position = c(.1,.8), 
+        legend.background = element_rect(), 
         legend.title = element_text(size = 12, face = "bold"),
-        legend.text = element_text(size = 10)) +
-  ylab("") + xlab("") 
-
-ggsave("sandbox/vote_modes_by_year.png")
+        legend.text = element_text(size = 10)) 
   
+ggsave("sandbox/vote_modes_by_year_barchart.png")
+
+# Graph 1a: Rate of All Modes of Voting By Year (line graph)
+
+cps_weight %>%
+  filter(CPS_YEAR > 1994 & !is.na(VRS_VOTE_HOW_C)) %>%
+  group_by(CPS_YEAR, VRS_VOTE_HOW_C) %>%
+  summarize(value = survey_mean(na.rm = TRUE)) %>%
+  ggplot(aes(x = CPS_YEAR, y = value, col = VRS_VOTE_HOW_C, group = VRS_VOTE_HOW_C)) +
+  geom_line(size = 1.5) +
+  geom_point(aes(x = CPS_YEAR, y = value, color = VRS_VOTE_HOW_C), size = 2) +
+  scale_x_continuous(breaks = seq(1996, 2018, by = 2)) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "The Growth of Early Voting, 1996 - 2018", 
+       subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
+       color = "Mode of Voting",
+       y = "",
+       x = "") +
+  theme_minimal() +
+  theme(plot.title = element_text(size = 20, family = "Times", face = "bold.italic", colour = "red"),
+        legend.position = c(.15,.8), 
+        legend.background = element_rect(), 
+        legend.title = element_text(size = 12, face = "bold"),
+        legend.text = element_text(size = 10)) 
+
+ggsave("sandbox/vote_modes_by_year_linegraph.png")
+
+# Graph 1a: Rate of All Modes of Voting By Year (line graph)
+
+cps_weight %>%
+  filter(CPS_YEAR > 1994 & !is.na(VRS_VOTE_HOW_C) & CPS_STATE == "NC") %>%
+  group_by(CPS_YEAR, VRS_VOTE_HOW_C) %>%
+  summarize(value = survey_mean(na.rm = TRUE)) %>%
+  ggplot(aes(x = CPS_YEAR, y = value, col = VRS_VOTE_HOW_C, group = VRS_VOTE_HOW_C)) +
+  geom_line(size = 1.5) +
+  geom_point(aes(x = CPS_YEAR, y = value, color = VRS_VOTE_HOW_C), size = 2) +
+  scale_x_continuous(breaks = seq(1996, 2018, by = 2)) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "The Growth of Early Voting in NC,\n1996 - 2018", 
+       subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
+       color = "Mode of Voting",
+       y = "",
+       x = "") +
+  theme_minimal() +
+  theme(plot.title = element_text(size = 20, family = "Times", face = "bold.italic", colour = "red"),
+        legend.position = c(.15,.75), 
+        legend.background = element_rect(), 
+        legend.title = element_text(size = 12, face = "bold"),
+        legend.text = element_text(size = 10)) 
+  
+ggsave("sandbox/vote_modes_by_year_NClinegraph.png")
+
 # Graph 2: Rate of Early In Person Voting By Year
 cps_weight %>%
   filter(CPS_YEAR > 1994 & !is.na(census_region)) %>%
@@ -81,11 +133,11 @@ cps_weight %>%
        color = "Region") +
   ylab("") + xlab("") + 
   theme(plot.title = element_text(size = 20, family = "Times", face = "bold.italic", colour = "red"),
-        legend.position = c(.1,.8), legend.background = element_rect(),  
+        legend.position = c(.15,.8), legend.background = element_rect(),  
         legend.title = element_text(size = 12, face = "bold"),
         legend.text = element_text(size = 10)) 
 
-ggsave("sandbox/early_voting_by_year.png")
+ggsave("sandbox/early_voting_by_year_by_region.png")
 
 # Graph 3: Rate of Vote at Home By Year
 cps_weight %>%
