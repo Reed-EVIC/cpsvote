@@ -2,7 +2,7 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.Rmd. Please edit the Rmd file -->
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -23,12 +23,33 @@ knitr::opts_chunk$set(
 
 1994-2016 come from the [National Bureau of Economic Research](https://data.nber.org/cps/). 2018 comes from the [US Census Bureau](https://thedataweb.rm.census.gov/ftp/cps_ftp.html).
 
-## Testing
+## Instructions for Alpha Testing
 
-1. `devtools::load_all()` will load the package
+### Basic Command List
+
+1. `devtools::load_all()` will load the package and all the associated functions
 2. `cpsvote::download_data(path = "dir", years = seq(start,end,sequence))` will download data
-3. `cpsvote::read_cps()` will read all data files (1994 - 2018)
-4. `cpsvote::read_cps(path = "dir", years = seq(start,end,sequence)` will read data into memory
+  i) Example: `cpsvote::download_data()` will download all data files from established repositories (data.nber.org/cps/cpsnov for 
+  years 1994 - 2016; thedataweb.rm.census.gov/pub/cps/supps/ for 2018) and place the files in the default download path ("./cps_data").
+  ii) Example: `cpsvote::download_data(path = "~/mydata/CPS", years = seq(2000, 2014, 4))` will download the 2000, 2004, 2008, and 2012 CPS 
+  and place them in the path "~/mydata/CPS".
+3. `cpsvote::read_cps(data_dir = "dir", years = seq(start,end,sequence))` will read CPS data files located in "data_dir" into memory. 
+The file names need to  be unmodified from what is stored at data.nber.org and thedataweb.rm.census.gov
+  i) Example: `cps_vote <- cpsvote::read_cps()` will read all data files (1994 - 2018) from the default directory ("./cps_data"), recode columns
+  to a common coding scheme (see the "Codebook" vignette) [**JAY SHOULD THIS BE A LINKED HTML**], and merge into a single data frame labeled
+  "cps_vote". 
+  ii) Example: `cps_vote <- cpsvote::read_cps(data_dir = "~/mydata/CPS), years = seq(1994, 2000, 2))` will load CPS from 1994, 1996, 1998, and 2000, 
+  assuming  the data files are stored in "~/mydata/CPS", perform recodes, merge, and label "cps_vote".  
+  
+### Recommended First Steps
+
+Follow the default steps to downlaod all CPS files from 1994 - 2018, store them locally, load the files into memory, and conduct a series of
+data transformation steps. 
+
+1. `devtools:load_all()`
+2. `cpsvote::download_data()` (Only necessary if using the package for the first time; after that, the files will already be downloaded and you 
+can skip this step)
+3. `cps_vote <- cpsvote::read_cps()` Will read all available years into memory.
 
 ## Outputs
 
