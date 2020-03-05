@@ -59,6 +59,11 @@ that illustrate different applications.
        b) Example: `cps_vote <- cpsvote::read_cps(data_dir = "~/mydata/CPS), years = seq(1994, 2000, 2))` will load CPS from 1994, 1996, 1998, and 2000, 
   assuming  the data files are stored in "~/mydata/CPS", perform recodes, merge, and label "cps_vote".  
   
+4. *Download documentation*
+   i) `cpsvote::download_docs()` downloads all documentation files, and places them in "./cps_docs"
+   ii) `cpsvote::download_docs(path = "dir", years = seq(start, end, seqquence)` allows you to control the target directory and 
+   years for the documentation.
+  
 ### Recommended First Steps
 
 The steps shown below install the package locally, downlaod all CPS files from 1994 - 2018, load the files into memory, and results in a data frame
