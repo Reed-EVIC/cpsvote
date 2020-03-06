@@ -91,10 +91,77 @@ Hur and Achen suggest a complex post-stratification adjustment to the data that 
 >We recommend dropping all categories of missing turnout response, and then poststratifying the remaining CPS sample so that the survey turnout rate in each state matches the corresponding state VEP turnout.
 
 Professor Michael McDonald of the University of Florida helpfully provides guidance on this more complex procedure. He provides <Commentary, Guidelines, and Stata Code>[link](http://www.electproject.org/home/voter-turnout/cps-methodology) at his website. 
+At the time of this writing (March 3, 2020), we have not yet integrated the Hur and Achen corrections into the `cpsvote` package, but have plans to do so in the future.
 
+## Getting Started
 
+### A Quick Guide
 
+The steps shown below install the package locally, downlaod all CPS files from 1994 - 2018, load the files into memory, and results in a data frame
+with CPS Voting and Registration Supplement data from 1994-2018. 
 
-```{r setup}
+1. `remotes::install_github(https://github.com/Reed-EVIC/cpsvote)`
+2. `library(cpsvote)`
+3. `cpsvote::download_data()` (Only necessary if using the package for the first time; after that, the files will already be downloaded and you 
+can skip this step)
+4. `cps_vote <- cpsvote::read_cps()` Will read all available years into memory, places it in a data frame named `cps_vote`
+
+### Advanced Guide
+
+1. *Install the Package*
+   ii) `remotes::install_github(https://github.com/Reed-EVIC/cpsvote)`
+
+2. *Download the CPS Files*
+    i) `cpsvote` will download the CPS files directly from two federal data repositories (data.nber.org/cps/cpsnov for 
+  years 1994 - 2016; thedataweb.rm.census.gov/pub/cps/supps/ for 2018). By default `cpsvote` will create a new subdirectory
+  in your working directory names "./cps_data" and store the compressed data files in that location.
+    ii) If you choose to download data files and store them in a separate location, `cpsvote` can only process files that retain
+  the original file name. See the "Data Description" vignette for a list of the expected file names.
+    iii) `cpsvote::download_data(path = "dir", years = seq(start,end,sequence))` will download data
+         a) Example: `cpsvote::download_data()` will download all data files  and place the files in the default download path ("./cps_data").
+         b) Example: `cpsvote::download_data(path = "~/mydata/CPS", years = seq(2000, 2014, 4))` will download the 2000, 2004, 2008, and 2012 CPS 
+  and place them in the path "~/mydata/CPS".
+
+3. *Import the Data Into R and Create a Dataframe*
+   i) `cpsvote` performs a series of data transformations that produce a set of comparably coded variables across all of the survey years. These
+  variables are listed in the "Data Description" vignette.
+   ii) `cpsvote::read_cps(data_dir = "dir", years = seq(start,end,sequence))` will read CPS data files located in "data_dir" into memory.  A reminder
+  that the file names need to  be unmodified from what is stored at data.nber.org and thedataweb.rm.census.gov
+       a) Example: `cps_vote <- cpsvote::read_cps()` will read all data files (1994 - 2018) from the default directory ("./cps_data"), recode columns
+  to a common coding scheme, and merge into a single data frame labeled
+  "cps_vote". 
+       b) Example: `cps_vote <- cpsvote::read_cps(data_dir = "~/mydata/CPS), years = seq(1994, 2000, 2))` will load CPS from 1994, 1996, 1998, and 2000, 
+  assuming  the data files are stored in "~/mydata/CPS", perform recodes, merge, and label "cps_vote".  
+  
+4. *Download documentation*
+   i) `cpsvote::download_docs()` downloads all documentation files, and places them in "./cps_docs"
+   ii) `cpsvote::download_docs(path = "dir", years = seq(start, end, seqquence)` allows you to control the target directory and 
+   years for the documentation.
+  
+### Sample Usage: Voter Turnout in 2016
+
+```{r setup, echo = TRUE}
 #library(cps)
+cpsvote::download_data(years = 2016) # Download the 2016 CPS
+cps2016 <- cpsvote::read_cps(years = 2016) # Read in CPS 2016. Ignore the warning since we don't care
+                                           # about joining any files
+
+## SURVEY WEIGHTS
+# The CPS data MUST be weighted. The "weighting" vignette provides additional information 
+                # about using using the survey or srvyr packages to produce valid statistical results
+
+library(survey)
+library(srvyr)  
+
+cps2016_w1 <-                                             # SURVEY Package Syntax
+    svydesign( 
+        ~ 1 , 
+        data = cps, 
+        weights = ~ WEIGHT
+    )
+
+cps2016_w2 <- as_survey_design(cps2016, weights = WEIGHT) #SRVYR Package Syntax
+
+
+
 ```
