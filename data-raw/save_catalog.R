@@ -1,9 +1,9 @@
-catalog <- readxl::read_excel(here::here('data-raw', 'catalog.xlsx'), sheet = 1)
+catalog <- readxl::read_excel(here::here('data-raw', 'CPS_catalog.xlsx'), sheet = 1)
 
 years <- unique(catalog$year)
 
 read_year_sheet <- function(year) {
-  readxl::read_excel(here::here('data-raw', 'catalog.xlsx'), 
+  readxl::read_excel(here::here('data-raw', 'CPS_catalog.xlsx'), 
                      sheet = as.character(year), 
                      col_types = "text")
 }

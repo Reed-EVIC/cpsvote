@@ -8,15 +8,54 @@
 #' @param catalog Which columns to read, and how to assign factor labels. The 
 #' default value is "default", which reads from the list `cpsvote:::fwf_key`.
 #' @export
+
+##############################################################################################3
+# READ_YEAR FUNCTION
+# 
+# Reads indivudla CPS Files in order to determine the columns to read, formatting, set
+# up factoring and other recodes. This function provides internal information that is utillized
+# later to create a "merged" CPS output data frams. 
+#
+# The function draws on fwf_key, which is a list that is created by "save_catalog.R". This script 
+# which uses as input information entered on an Excel spreadsheet (CPS_catalog.xlsx). 
+# The spreadsheet documents, for each year of the CPS/VRS
+#
+#     Year, CPS Variable Name, CPSVote Variable name, Starting Column, Ending Column, 
+#     variable type, Extended description, Notes
+#
+# This information is contained in individual tabs labeled by year, and a master tab that merges
+#  the information for all years. Long run maintainance of the package will require updating
+#  the CPS_catalog spreadsheet as new CPS VRS are released. 
+# 
+# The user can specify a list of CPS Years, or take the default. 
+#  The propoer column locations for data for each CPS Yeqr are in a data frame within "fwf_key", 
+#  which will either be the default list of years / columns, or will be dynamically built 
+#  from the user-entered list of years.
+#
+#   As of 3/2020, the default CPS/VRS to be read are 1994 - 2018
+#
+# The function uses the other infomraiton in catalog to determine the data type for each column,
+# determine which columns should be convered to factors, and create informative labels for the
+# factor levels. This information is a second data frame within "fwf_key"
+#
+##############################################################################################3
+
+
+#####  READ_YEAR Function statts here 
+#####
 read_year <- function(file,
                       year = as.numeric(stringr::str_extract(file, "\\d{4}")),
                       factored = TRUE,
                       catalog = "default") {
   if (!(year %in% seq(1994, 2018, 2))) {
     stop("Currently, this package only supports even-numbered years from 1994 to 2018.")
-  }
+    }
   
-  # set the lookup table to use
+  #
+  # Set the lookup table (i.e. CPS years) to import, either the default or the list
+  # provided by the user
+  #
+  
   if (catalog == "default") {
     catalog <- fwf_key
   } else if (!is.list(catalog)) {
@@ -33,6 +72,8 @@ read_year <- function(file,
   columns <- catalog$columns %>%
     dplyr::filter(year == yr)
   
+  # COLUMN FORMATS
+  #
   # grab which columns are going to be factors, ordered or unordered
   col_names <- columns$orig_col
   factor_cols <- col_names[columns$type == "factor"]
@@ -40,12 +81,22 @@ read_year <- function(file,
     magrittr::extract(!is.na(.))
   unordered_cols <- setdiff(factor_cols, ordered_cols)
   
+  ########################################
+  # FILE IMPORT
+  ######################################
+  
   # read the actual data in, according to the column positions
   df <- suppressMessages(readr::read_fwf(file, 
                                          readr::fwf_positions(start = columns$start,
                                                               end = columns$end,
                                                               col_names = col_names)))
+ 
+  ########################################
+  # COLUMN RECODES
+  ######################################  
   
+  # QUICK CODE TO GRAB A LIST OF STATE FIPS CODES
+  #
   # get a match for all of the state codes bc I didn't want to put that in the sheet
   fips <- tigris::fips_codes %>%
     dplyr::select(dplyr::starts_with('state')) %>%
@@ -57,6 +108,8 @@ read_year <- function(file,
                      code = as.numeric(state_code),
                      value = state)
   
+  # VALUE LABELS TAKEN FROM CATALOG --> OUTPUT DATA FACTOR LABELS
+  #
   # get this year's factoring labels, attach the state codes
   factoring <- dplyr::filter(catalog$factoring, year == yr) %>%
     dplyr::mutate(code = as.numeric(code),
@@ -64,6 +117,7 @@ read_year <- function(file,
     dplyr::bind_rows(fips)
   
   # replace numbers with factor labels
+  # Retain some unrecoded columns
   if (factored) {
     # gather numbers, left join labels, spread with the new labels
     df <- df %>%
@@ -101,8 +155,14 @@ read_year <- function(file,
     # identify which columns are VRS specific
     vrs_cols <- stringr::str_subset(col_names, "^P(E|R)S\\d$")
     
+    # RECODE ALL MISSING RESPONSES AND
+    # REMOVE ALL CASES THAT ARE NOT IN CPS/VRS UNIVERSE
+    
+            # VOTE TURNOUT CODING BELOW
+    
     # pull all of the non-response factor levels and -1s into NA
     # then remove all the rows that are NA for all of the VRS columns
+    
     df <- df %>%
       dplyr::mutate_if(is.factor, forcats::fct_collapse,
                        NULL = c(
@@ -131,6 +191,9 @@ read_year <- function(file,
   return(df)
 }
 
+#####################################
+#####  READ_YEAR FUNCTION ENDS HERE #
+#####################################
 
 
 #' Read in CPS data
