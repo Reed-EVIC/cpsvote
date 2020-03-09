@@ -84,7 +84,7 @@ download_docs <- function(path = "cps_docs",
   url_names <- dplyr::case_when(
     years < 2011 ~ paste0("data.nber.org/cps/cpsnov", stringr::str_sub(years, 3, 4), ".pdf"),
     years < 2017 ~ paste0("data.nber.org/cps/cpsnov", years, ".pdf"),
-    years == 2018 ~ "https://www2.census.gov/programs-surveys/cps/techdocs/cpsnov18.pdf"
+    years == 2018 ~ paste0("data.nber.org/cps/cpsnov", stringr::str_sub(years, 3, 4), ".pdf")
   )
   
   download.file(url_names, file_names, quiet = TRUE)
@@ -182,7 +182,7 @@ download_data <- function(path = "cps_data",
   url_names <- dplyr::case_when(
     years < 2011 ~ paste0("data.nber.org/cps/cpsnov", stringr::str_sub(years, 3, 4), ".zip"),
     years < 2017 ~ paste0("data.nber.org/cps/cpsnov", years, ".zip"),
-    years == 2018 ~ "thedataweb.rm.census.gov/pub/cps/supps/nov18pub.dat.gz"
+    years == 2018 ~ paste0("data.nber.org/cps/nov", stringr::str_sub(years, 3, 4), "pub.zip")
   )
   
   download.file(url_names, file_names, quiet = TRUE)
