@@ -1,0 +1,205 @@
+﻿year,col_name,new_name,start_pos,end_pos,col_type,description,notes
+1994,HRYEAR,CPS_YEAR,67,68,numeric,YEAR OF INTERVIEW,"Value is 94, must add 1900"
+1994,GESTFIPS,CPS_STATE,93,94,factor,FEDERAL INFORMATION PROCESSING STANDARDS (FIPS) STATE CODE,ordered
+1994,PEAGE,CPS_AGE,122,123,numeric,PERSONS AGE AS OF THE END OF SURVEY WEEK,topcoded at 90
+1994,PESEX,CPS_SEX,129,130,factor,SEX,
+1994,PEEDUCA,CPS_EDU,137,138,factor,HIGHEST LEVEL OF SCHOOL COMPLETED OR DEGREE RECEIVED,ordered
+1994,PERACE,CPS_RACE,139,140,factor,RACE,
+1994,PRHSPNON,CPS_HISP,157,158,factor,HISPANIC OR NON-HISPANIC,
+1994,PWSSWGT,WEIGHT,613,622,numeric,FINAL WEIGHT,"4 implied decimals; must divide by 10,000"
+1994,PES3,VRS_VOTE,817,818,factor,In any election some people are not able to vote because they are sick or busy or have some other reason and others do not want to vote. Did (you/name) vote in the election held on November 8th?,
+1994,PES4,VRS_REG,819,820,factor,(Were you/Was name) registered to vote in the November 8th election?,"EDITED UNIVERSE: PES3 = 2, -2, -3"
+1994,PES5,VRS_VOTE_TIME,821,822,factor,At what time of day did (you/name) vote?,EDITED UNIVERSE: PES3 = 1; ordered
+1994,PES6,VRS_RESIDENCE,823,824,factor,How long (have you/has name) lived at this address?,ordered
+1996,HRYEAR,CPS_YEAR,67,68,numeric,YEAR OF INTERVIEW,"Value is 96, must add 1900"
+1996,GESTFIPS,CPS_STATE,93,94,factor,FEDERAL INFORMATION PROCESSING STANDARDS (FIPS) STATE CODE,ordered
+1996,PEAGE,CPS_AGE,122,123,numeric,PERSONS AGE AS OF THE END OF SURVEY WEEK,topcoded at 90
+1996,PESEX,CPS_SEX,129,130,factor,SEX,
+1996,PEEDUCA,CPS_EDU,137,138,factor,HIGHEST LEVEL OF SCHOOL COMPLETED OR DEGREE RECEIVED,ordered
+1996,PERACE,CPS_RACE,139,140,factor,RACE,
+1996,PRHSPNON,CPS_HISP,157,158,factor,HISPANIC OR NON-HISPANIC,
+1996,PWSSWGT,WEIGHT,613,622,numeric,FINAL WEIGHT,"4 implied decimals; must divide by 10,000"
+1996,PES1,VRS_VOTE,815,816,factor,"In any election some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November 5?",
+1996,PES2,VRS_REG,817,818,factor,(Were you/Was name) registered to vote in the November 5 election?,"EDITED UNIVERSE: PES1 = 2, -2, -3, -9"
+1996,PES3,VRS_VOTE_WHYNOT,819,820,factor,What was the main reason (you/name) did not vote?,EDITED UNIVERSE: PES1 = 2 and PES2 = 1
+1996,PES4,VRS_VOTE_HOW,821,822,factor,"How did (you/name) vote? Did (you/he/she) vote in person on election day, in person before election day, or by mail?",EDITED UNIVERSE: PES1 = 1
+1996,PES5,VRS_REG_SINCE95,823,824,factor,"Did (you/name) register to vote after January 1, 1995?",EDITED UNIVERSE: PES1 = 1 or PES2 = 1
+1996,PES6,VRS_REG_DMV,825,826,factor,"There are various ways people can register to vote. Did (you/name) register to vote when (you/he/she) obtained or renewed (your/his/her) driver's license, or did (you/he/she) register in some other way?",EDITED UNIVERSE: PES5 = 1
+1996,PES7,VRS_REG_HOW,827,828,factor,How did you register to vote?,EDITED UNIVERSE: PES6 = 2
+1996,PES8,VRS_RESIDENCE,829,830,factor,How long (have you/has name) lived at this address?,ordered
+1998,HRYEAR4,CPS_YEAR,18,21,numeric,YEAR OF INTERVIEW,
+1998,GESTFIPS,CPS_STATE,93,94,factor,FEDERAL INFORMATION PROCESSING STANDARDS (FIPS) STATE CODE,ordered
+1998,PEAGE,CPS_AGE,122,123,numeric,PERSONS AGE AS OF THE END OF SURVEY WEEK,topcoded at 90
+1998,PESEX,CPS_SEX,129,130,factor,SEX,
+1998,PEEDUCA,CPS_EDU,137,138,factor,HIGHEST LEVEL OF SCHOOL COMPLETED OR DEGREE RECEIVED,ordered
+1998,PERACE,CPS_RACE,139,140,factor,RACE,
+1998,PRHSPNON,CPS_HISP,157,158,factor,HISPANIC OR NON-HISPANIC,
+1998,PWSSWGT,WEIGHT,613,622,numeric,FINAL WEIGHT,"4 implied decimals; must divide by 10,000"
+1998,PES1,VRS_VOTE,857,858,factor,"In any election some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November 3?",
+1998,PES2,VRS_REG,859,860,factor,(Were you/Was name) registered to vote in the November 3 election?,"EDITED UNIVERSE: PES1 = 2, -2, -3, -9"
+1998,PES3,VRS_VOTE_WHYNOT,861,862,factor,What was the main reason (you/name) did not vote?,EDITED UNIVERSE: PES1 = 2 and PES2 = 1
+1998,PES4,VRS_VOTE_HOW,863,864,factor,"How did (you/name) vote? Did (you/he/she) vote in person on election day, in person before election day, or by mail?",EDITED UNIVERSE: PES1 = 1
+1998,PES5,VRS_REG_SINCE95,865,866,factor,"Did (you/name) register to vote after January 1, 1995?",EDITED UNIVERSE: PES1 = 1 or PES2 = 1
+1998,PES6,VRS_REG_DMV,867,868,factor,"There are various ways people can register to vote. Did (you/name) register to vote when (you/he/she) obtained or renewed (your/his/her) driver's license, or did (you/he/she) register in some other way?",EDITED UNIVERSE: PES5 = 1
+1998,PES7,VRS_REG_HOW,869,870,factor,How did you register to vote?,EDITED UNIVERSE: PES6 = 2
+1998,PES8,VRS_RESIDENCE,871,872,factor,How long (have you/has name) lived at this address?,ordered
+2000,HRYEAR4,CPS_YEAR,18,21,numeric,YEAR OF INTERVIEW,
+2000,GESTFIPS,CPS_STATE,93,94,factor,FEDERAL INFORMATION PROCESSING STANDARDS (FIPS) STATE CODE,ordered
+2000,PEAGE,CPS_AGE,122,123,numeric,PERSONS AGE AS OF THE END OF SURVEY WEEK,topcoded at 90
+2000,PESEX,CPS_SEX,129,130,factor,SEX,
+2000,PEEDUCA,CPS_EDU,137,138,factor,HIGHEST LEVEL OF SCHOOL COMPLETED OR DEGREE RECEIVED,ordered
+2000,PERACE,CPS_RACE,139,140,factor,RACE,
+2000,PRHSPNON,CPS_HISP,157,158,factor,HISPANIC OR NON-HISPANIC,
+2000,PWSSWGT,WEIGHT,613,622,numeric,FINAL WEIGHT,"4 implied decimals; must divide by 10,000"
+2000,PES1,VRS_VOTE,857,858,factor,"In any election some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November 7?",
+2000,PES2,VRS_REG,859,860,factor,(Were you/Was name) registered to vote in the November 7 election?,"EDITED UNIVERSE: PES1 = 2, -2, -3, -9"
+2000,PES3,VRS_VOTE_WHYNOT,861,862,factor,What was the main reason (you/name) did not vote?,EDITED UNIVERSE: PES1 = 2 and PES2 = 1
+2000,PES4,VRS_VOTE_HOW,863,864,factor,"How did (you/name) vote? Did (you/he/she) vote in person on election day, in person before election day, or by mail?",EDITED UNIVERSE: PES1 = 1
+2000,PES5,VRS_REG_SINCE95,865,866,factor,"Did (you/name) register to vote after January 1, 1995?",EDITED UNIVERSE: PES1 = 1 or PES2 = 1
+2000,PES6,VRS_REG_DMV,867,868,factor,"There are various ways people can register to vote. Did (you/name) register to vote when (you/he/she) obtained or renewed (your/his/her) driver's license, or did (you/he/she) register in some other way?",EDITED UNIVERSE: PES5 = 1
+2000,PES7,VRS_REG_HOW,869,870,factor,How did you register to vote?,EDITED UNIVERSE: PES6 = 2
+2000,PES8,VRS_RESIDENCE,871,872,factor,How long (have you/has name) lived at this address?,ordered
+2002,HRYEAR4,CPS_YEAR,18,21,numeric,YEAR OF INTERVIEW,
+2002,GESTFIPS,CPS_STATE,93,94,factor,FEDERAL INFORMATION PROCESSING STANDARDS (FIPS) STATE CODE,ordered
+2002,PEAGE,CPS_AGE,122,123,numeric,PERSONS AGE AS OF THE END OF SURVEY WEEK,topcoded at 90
+2002,PESEX,CPS_SEX,129,130,factor,SEX,
+2002,PEEDUCA,CPS_EDU,137,138,factor,HIGHEST LEVEL OF SCHOOL COMPLETED OR DEGREE RECEIVED,ordered
+2002,PERACE,CPS_RACE,139,140,factor,RACE,
+2002,PRHSPNON,CPS_HISP,157,158,factor,HISPANIC OR NON-HISPANIC,
+2002,PWSSWGT,WEIGHT,613,622,numeric,FINAL WEIGHT,"4 implied decimals; must divide by 10,000"
+2002,PES1,VRS_VOTE,857,858,factor,"In any election some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November 5?",
+2002,PES2,VRS_REG,859,860,factor,(Were you/Was name) registered to vote in the November 5 election?,"EDITED UNIVERSE: PES1 = 2, -2, -3, -9"
+2002,PES3,VRS_VOTE_WHYNOT,861,862,factor,What was the main reason (you/name) did not vote?,EDITED UNIVERSE: PES1 = 2 and PES2 = 1
+2002,PES4,VRS_VOTE_HOW,863,864,factor,"How did (you/name) vote? Did (you/he/she) vote in person on election day, in person before election day, or by mail?",EDITED UNIVERSE: PES1 = 1
+2002,PES5,VRS_REG_SINCE95,865,866,factor,"Did (you/name) register to vote after January 1, 1995?",EDITED UNIVERSE: PES1 = 1 or PES2 = 1
+2002,PES6,VRS_REG_DMV,867,868,factor,"There are various ways people can register to vote. Did (you/name) register to vote when (you/he/she) obtained or renewed (your/his/her) driver's license, or did (you/he/she) register in some other way?",EDITED UNIVERSE: PES5 = 1
+2002,PES7,VRS_REG_HOW,869,870,factor,How did you register to vote?,EDITED UNIVERSE: PES6 = 2
+2002,PES8,VRS_RESIDENCE,871,872,factor,How long (have you/has name) lived at this address?,ordered
+2004,HRYEAR4,CPS_YEAR,18,21,numeric,YEAR OF INTERVIEW,
+2004,GESTFIPS,CPS_STATE,93,94,factor,FEDERAL INFORMATION PROCESSING STANDARDS (FIPS) STATE CODE,ordered
+2004,PEAGE,CPS_AGE,122,123,numeric,PERSONS AGE AS OF THE END OF SURVEY WEEK,topcoded at 80
+2004,PESEX,CPS_SEX,129,130,factor,SEX,
+2004,PEEDUCA,CPS_EDU,137,138,factor,HIGHEST LEVEL OF SCHOOL COMPLETED OR DEGREE RECEIVED,ordered
+2004,PTDTRACE,CPS_RACE,139,140,factor,RACE,factoring expands this year
+2004,PEHSPNON,CPS_HISP,157,158,factor,HISPANIC OR NON-HISPANIC,
+2004,PWSSWGT,WEIGHT,613,622,numeric,FINAL WEIGHT,"4 implied decimals; must divide by 10,000"
+2004,PES1,VRS_VOTE,877,878,factor,"In any election some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November 2, 2004?",
+2004,PES2,VRS_REG,879,880,factor,"(Were you/Was name) registered to vote in the November 2, 2004 election?","EDITED UNIVERSE: PES1 = 2, -2, -3, -9 "
+2004,PES3,VRS_REG_WHYNOT,881,882,factor,Which of the following was the MAIN reason (you/name) (was/were) not registered to vote?,EDITED UNIVERSE: PES2 = 2
+2004,PES4,VRS_VOTE_WHYNOT,883,884,factor,What was the main reason (you/name) did not vote?,"EDITED UNIVERSE: PES1 = 2, PES2 = 1 "
+2004,PES5,VRS_VOTE_MAIL,885,886,factor,Did (you/name) vote in person or did you vote by mail?,EDITED UNIVERSE: PES1 = 1 
+2004,PES6,VRS_VOTE_DAY,887,888,factor,Was that on Election Day or before Election day?,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9 "
+2004,PES7,VRS_REG_HOW,889,890,factor,There are various ways people can register to vote. How did (you/name) register to vote?,"EDITED UNIVERSE: PES6 = 1,2,-2,-3,-9; PES4 = 1-11, -2,-3,-9 "
+2004,PES8,VRS_RESIDENCE,891,892,factor,How long (have you/has name) lived at this address?,ordered
+2006,HRYEAR4,CPS_YEAR,18,21,numeric,YEAR OF INTERVIEW,
+2006,GESTFIPS,CPS_STATE,93,94,factor,FEDERAL INFORMATION PROCESSING STANDARDS (FIPS) STATE CODE,ordered
+2006,PEAGE,CPS_AGE,122,123,numeric,PERSONS AGE AS OF THE END OF SURVEY WEEK,"topcoded at 80 (80-84), 85 (85+)"
+2006,PESEX,CPS_SEX,129,130,factor,SEX,
+2006,PEEDUCA,CPS_EDU,137,138,factor,HIGHEST LEVEL OF SCHOOL COMPLETED OR DEGREE RECEIVED,ordered
+2006,PTDTRACE,CPS_RACE,139,140,factor,RACE,
+2006,PEHSPNON,CPS_HISP,157,158,factor,HISPANIC OR NON-HISPANIC,
+2006,PWSSWGT,WEIGHT,613,622,numeric,FINAL WEIGHT,"4 implied decimals; must divide by 10,000"
+2006,PES1,VRS_VOTE,951,952,factor,"In any election some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November 7, 2006?",
+2006,PES2,VRS_REG,953,954,factor,"(Were you/Was name) registered to vote in the November 7, 2006 election?","EDITED UNIVERSE: PES1 = 2, -2, -3, -9 "
+2006,PES3,VRS_REG_WHYNOT,955,956,factor,Which of the following was the MAIN reason (you/name) (was/were) not registered to vote?,EDITED UNIVERSE: PES2 = 2 
+2006,PES4,VRS_VOTE_WHYNOT,957,958,factor,What was the main reason (you/name) did not vote?,"EDITED UNIVERSE: PES1 = 2, PES2 = 1 "
+2006,PES5,VRS_VOTE_MAIL,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail?,EDITED UNIVERSE: PES1 = 1
+2006,PES6,VRS_VOTE_DAY,961,962,factor,Was that on election day or before election day?,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9 "
+2006,PES7,VRS_REG_HOW,963,964,factor,"There are various places and ways people can register to vote. The last time (you/name) registered, how did (you/name) register to vote? ","EDITED UNIVERSE: PES6 = 1,2,-2,-3,-9; PES4 = 1-11, -2,-3,-9 "
+2006,PES8,VRS_RESIDENCE,965,966,factor,How long (have you/has name) lived at this address? ,ordered
+2008,HRYEAR4,CPS_YEAR,18,21,numeric,YEAR OF INTERVIEW,
+2008,GESTFIPS,CPS_STATE,93,94,factor,FEDERAL INFORMATION PROCESSING STANDARDS (FIPS) STATE CODE,ordered
+2008,PEAGE,CPS_AGE,122,123,numeric,PERSONS AGE AS OF THE END OF SURVEY WEEK,"topcoded at 80 (80-84), 85 (85+)"
+2008,PESEX,CPS_SEX,129,130,factor,SEX,
+2008,PEEDUCA,CPS_EDU,137,138,factor,HIGHEST LEVEL OF SCHOOL COMPLETED OR DEGREE RECEIVED,ordered
+2008,PTDTRACE,CPS_RACE,139,140,factor,RACE,
+2008,PEHSPNON,CPS_HISP,157,158,factor,HISPANIC OR NON-HISPANIC,
+2008,PWSSWGT,WEIGHT,613,622,numeric,FINAL WEIGHT,"4 implied decimals; must divide by 10,000"
+2008,PES1,VRS_VOTE,951,952,factor,"In any election, some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November 4, 2008? ",
+2008,PES2,VRS_REG,953,954,factor,"(Were you/Was name) registered to vote in the November 4, 2008 election? ","EDITED UNIVERSE: PES1 = 2, -2, -3, -9 "
+2008,PES3,VRS_REG_WHYNOT,955,956,factor,Which of the following was the MAIN reason (you/name) (were/was) not registered to vote? ,EDITED UNIVERSE: PES2 = 2 
+2008,PES4,VRS_VOTE_WHYNOT,957,958,factor,What was the main reason (you/name) did not vote? ,"EDITED UNIVERSE: PES1 = 2, PES2 = 1"
+2008,PES5,VRS_VOTE_MAIL,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail? ,EDITED UNIVERSE: PES1 = 1 
+2008,PES6,VRS_VOTE_DAY,961,962,factor,Was that on election day or before election day? ,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9 "
+2008,PES7,VRS_REG_HOW,963,964,factor,"There are various places and ways people can register to vote. The last time (you/name) registered, how did (you/name) register to vote?","EDITED UNIVERSE: PES6 = 1,2,-2,-3,-9; PES4 = 1-11, -2,-3,-9"
+2008,PES8,VRS_RESIDENCE,965,966,factor,How long (have you/has name) lived at this address? ,ordered
+2010,HRYEAR4,CPS_YEAR,18,21,numeric,YEAR OF INTERVIEW,
+2010,GESTFIPS,CPS_STATE,93,94,factor,FEDERAL INFORMATION PROCESSING STANDARDS (FIPS) STATE CODE,ordered
+2010,PEAGE,CPS_AGE,122,123,numeric,PERSONS AGE AS OF THE END OF SURVEY WEEK,"topcoded at 80 (80-84), 85 (85+)"
+2010,PESEX,CPS_SEX,129,130,factor,SEX,
+2010,PEEDUCA,CPS_EDU,137,138,factor,HIGHEST LEVEL OF SCHOOL COMPLETED OR DEGREE RECEIVED,ordered
+2010,PTDTRACE,CPS_RACE,139,140,factor,RACE,
+2010,PEHSPNON,CPS_HISP,157,158,factor,HISPANIC OR NON-HISPANIC,
+2010,PWSSWGT,WEIGHT,613,622,numeric,FINAL WEIGHT,"4 implied decimals; must divide by 10,000"
+2010,PES1,VRS_VOTE,951,952,factor,"In any election, some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November 2, 2010? ",
+2010,PES2,VRS_REG,953,954,factor,"(Were you/Was name) registered to vote in the November 2, 2010 election? ","EDITED UNIVERSE: PES1 = 2, -2, -3, -9 "
+2010,PES3,VRS_REG_WHYNOT,955,956,factor,Which of the following was the MAIN reason (you/name) (were/was) not registered to vote? ,EDITED UNIVERSE: PES2 = 2 
+2010,PES4,VRS_VOTE_WHYNOT,957,958,factor,What was the main reason (you/name) did not vote? ,"EDITED UNIVERSE: PES1 = 2, PES2 = 1"
+2010,PES5,VRS_VOTE_MAIL,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail? ,EDITED UNIVERSE: PES1 = 1 
+2010,PES6,VRS_VOTE_DAY,961,962,factor,Was that on election day or before election day? ,"EDITED UNIVERSE: PES5 = 1,2,-2,-3,-9 "
+2010,PES7,VRS_REG_HOW,963,964,factor,"There are various places and ways people can register to vote. The last time (you/name) registered, how did (you/name) register to vote?",EDITED UNIVERSE: PES1 = 1 or PES2 = 1 
+2010,PES8,VRS_RESIDENCE,965,966,factor,How long (have you/has name) lived at this address? ,ordered
+2012,HRYEAR4,CPS_YEAR,18,21,numeric,YEAR OF INTERVIEW,
+2012,GESTFIPS,CPS_STATE,93,94,factor,FEDERAL INFORMATION PROCESSING STANDARDS (FIPS) STATE CODE,ordered
+2012,PRTAGE,CPS_AGE,122,123,numeric,PERSONS AGE,"topcoded at 80 (80-84), 85 (85+)"
+2012,PESEX,CPS_SEX,129,130,factor,SEX,
+2012,PEEDUCA,CPS_EDU,137,138,factor,HIGHEST LEVEL OF SCHOOL COMPLETED OR DEGREE RECEIVED,ordered
+2012,PTDTRACE,CPS_RACE,139,140,factor,RACE,
+2012,PEHSPNON,CPS_HISP,157,158,factor,HISPANIC OR NON-HISPANIC,
+2012,PWSSWGT,WEIGHT,613,622,numeric,FINAL WEIGHT,"4 implied decimals; must divide by 10,000"
+2012,PES1,VRS_VOTE,951,952,factor,"In any election, some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November 6, 2012? ",
+2012,PES2,VRS_REG,953,954,factor,"(Were you/Was name) registered to vote in the November 6, 2012 election? ","EDITED UNIVERSE: PES1 = 2, -2, -3, -9"
+2012,PES3,VRS_REG_WHYNOT,955,956,factor,Which of the following was the MAIN reason (you/name) (were/was) not registered to vote? ,EDITED UNIVERSE: PES2 = 2 
+2012,PES4,VRS_VOTE_WHYNOT,957,958,factor,What was the main reason (you/name) did not vote? ,"EDITED UNIVERSE: PES1 = 2, PES2 = 1 "
+2012,PES5,VRS_VOTE_MAIL,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail? ,EDITED UNIVERSE: PES1 = 1 
+2012,PES6,VRS_VOTE_DAY,961,962,factor,Was that on election day or before election day? ,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9"
+2012,PES7,VRS_REG_HOW,963,964,factor,"There are various places and ways people can register to vote. The last time (you/name) registered, how did (you/name) register to vote? ",EDITED UNIVERSE: PES1= 1 or PES2=1 
+2012,PES8,VRS_RESIDENCE,965,966,factor,How long (have you/has name) lived at this address? ,ordered
+2014,HRYEAR4,CPS_YEAR,18,21,numeric,YEAR OF INTERVIEW,
+2014,GESTFIPS,CPS_STATE,93,94,factor,FEDERAL INFORMATION PROCESSING STANDARDS (FIPS) STATE CODE,ordered
+2014,PRTAGE,CPS_AGE,122,123,numeric,PERSONS AGE,"topcoded at 80 (80-84), 85 (85+)"
+2014,PESEX,CPS_SEX,129,130,factor,SEX,
+2014,PEEDUCA,CPS_EDU,137,138,factor,HIGHEST LEVEL OF SCHOOL COMPLETED OR DEGREE RECEIVED,ordered
+2014,PTDTRACE,CPS_RACE,139,140,factor,RACE,
+2014,PEHSPNON,CPS_HISP,157,158,factor,HISPANIC OR NON-HISPANIC,
+2014,PWSSWGT,WEIGHT,613,622,numeric,FINAL WEIGHT,"4 implied decimals; must divide by 10,000"
+2014,PES1,VRS_VOTE,951,952,factor,"In any election, some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November X, XXXX?",
+2014,PES2,VRS_REG,953,954,factor,"(Were you/Was name) registered to vote in the November X, XXXX election?","EDITED UNIVERSE: PES1 = 2, -2, -3, -9"
+2014,PES3,VRS_REG_WHYNOT,955,956,factor,Which of the following was the MAIN reason (you/name) (were/was) not registered to vote?,EDITED UNIVERSE: PES2 = 2
+2014,PES4,VRS_VOTE_WHYNOT,957,958,factor,What was the main reason (you/name) did not vote?,EDITED UNIVERSE: PES1 = 2 and PES2 = 1
+2014,PES5,VRS_VOTE_MAIL,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail?,EDITED UNIVERSE: PES1 = 1
+2014,PES6,VRS_VOTE_DAY,961,962,factor,Was that on election day or before election day?,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9"
+2014,PES7,VRS_REG_HOW,963,964,factor,"There are various places and ways people can register to vote. The last time (you/name) registered, how did (you/name) register to vote?",EDITED UNIVERSE: PES1 = 1 or PES2 = 1
+2014,PRS8,VRS_RESIDENCE,965,966,factor,How long (have you/has name) lived at this address?,factoring contracts this year; ordered
+2016,HRYEAR4,CPS_YEAR,18,21,numeric,YEAR OF INTERVIEW,
+2016,GESTFIPS,CPS_STATE,93,94,factor,FEDERAL INFORMATION PROCESSING STANDARDS (FIPS) STATE CODE,ordered
+2016,PRTAGE,CPS_AGE,122,123,numeric,PERSONS AGE,"topcoded at 80 (80-84), 85 (85+)"
+2016,PESEX,CPS_SEX,129,130,factor,SEX,
+2016,PEEDUCA,CPS_EDU,137,138,factor,HIGHEST LEVEL OF SCHOOL COMPLETED OR DEGREE RECEIVED,ordered
+2016,PTDTRACE,CPS_RACE,139,140,factor,RACE,
+2016,PEHSPNON,CPS_HISP,157,158,factor,HISPANIC OR NON-HISPANIC,
+2016,PWSSWGT,WEIGHT,613,622,numeric,FINAL WEIGHT,"4 implied decimals; must divide by 10,000"
+2016,PES1,VRS_VOTE,951,952,factor,"In any election, some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November X, XXXX? ",
+2016,PES2,VRS_REG,953,954,factor,"(Were you/Was name) registered to vote in the November X, XXXX election? ","EDITED UNIVERSE: PES1 = 2, -2, -3, -9 "
+2016,PES3,VRS_REG_WHYNOT,955,956,factor,Which of the following was the MAIN reason (you/name) (were/was) not registered to vote? ,EDITED UNIVERSE: PES2 = 2
+2016,PES4,VRS_VOTE_WHYNOT,957,958,factor,What was the main reason (you/name) did not vote? ,EDITED UNIVERSE: PES1 = 2 and PES2 = 1 
+2016,PES5,VRS_VOTE_MAIL,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail? ,EDITED UNIVERSE: PES1 = 1
+2016,PES6,VRS_VOTE_DAY,961,962,factor,Was that on election day or before election day? ,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9"
+2016,PES7,VRS_REG_HOW,963,964,factor,"There are various places and ways people can register to vote. The last time (you/name) registered, how did (you/name) register tovote? ",EDITED UNIVERSE: PES1 = 1 or PES2 = 1 
+2016,PRS8,VRS_RESIDENCE,965,966,factor,How long (have you/has name) lived at this address? ,ordered
+2018,HRYEAR4,CPS_YEAR,18,21,numeric,YEAR OF INTERVIEW,
+2018,GESTFIPS,CPS_STATE,93,94,factor,FEDERAL INFORMATION PROCESSING STANDARDS (FIPS) STATE CODE,ordered
+2018,PRTAGE,CPS_AGE,122,123,numeric,PERSONS AGE,"topcoded at 80 (80-84), 85 (85+)"
+2018,PESEX,CPS_SEX,129,130,factor,SEX,
+2018,PEEDUCA,CPS_EDU,137,138,factor,HIGHEST LEVEL OF SCHOOL COMPLETED OR DEGREE RECEIVED,ordered
+2018,PTDTRACE,CPS_RACE,139,140,factor,RACE,
+2018,PEHSPNON,CPS_HISP,157,158,factor,HISPANIC OR NON-HISPANIC,
+2018,PWSSWGT,WEIGHT,613,622,numeric,FINAL WEIGHT,"4 implied decimals; must divide by 10,000"
+2018,PES1,VRS_VOTE,1001,1002,factor,"In any election, some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November X, XXXX? ",
+2018,PES2,VRS_REG,1003,1004,factor,"(Were you/Was name) registered to vote in the November X, XXXX election? ","EDITED UNIVERSE: PES1 = 2, -2, -3, -9 "
+2018,PES3,VRS_REG_WHYNOT,1005,1006,factor,Which of the following was the MAIN reason (you/name) (were/was) not registered to vote? ,EDITED UNIVERSE: PES2 = 2
+2018,PES4,VRS_VOTE_WHYNOT,1007,1008,factor,What was the main reason (you/name) did not vote? ,EDITED UNIVERSE: PES1 = 2 and PES2 = 1 
+2018,PES5,VRS_VOTE_MAIL,1009,1010,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail? ,EDITED UNIVERSE: PES1 = 1
+2018,PES6,VRS_VOTE_DAY,1011,1012,factor,Was that on election day or before election day? ,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9"
+2018,PES7,VRS_REG_HOW,1013,1014,factor,"There are various places and ways people can register to vote. The last time (you/name) registered, how did (you/name) register to vote? ",EDITED UNIVERSE: PES1 = 1 or PES2 = 1 
+2018,PES8,VRS_RESIDENCE,1015,1016,factor,How long (have you/has name) lived at this address? ,ordered
