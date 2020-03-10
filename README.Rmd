@@ -75,6 +75,19 @@ with CPS Voting and Registration Supplement data from 1994-2018.
 can skip this step)
 4. `cps_vote <- cpsvote::read_cps()` Will read all available years into memory, places it in a data frame named `cps_vote`
 
+## Advanced Use: Manually Adding Variables to the Output Dataset 
+
+We do not recommend adding variables at this time. However, if you wish to modify `cpsvote` to add variables from individual years of the CPS, follow
+these steps. To identify the names, column locations, and factor levels for new variables, please refer to the documentation for individual
+years of the CPS. 
+
+1. Open the Excel sheet `CPS_catalog.xlsx` (in "data-raw" subdirectory). The `master` tab contains the names and column locations for the variables to be read by `cpsvote`. The individual year tabs (e.g. `1994`, `1996`, ..., `2018`) contain the factor levels ("value labels").
+2. On the `master` tab, you must enter at a minimum the `year` (column B), the `orig_col` (column C), the `start` col (column D), and the `end` col (column D). 
+3. On the individual year tabs, enter factor levels as appropriate *if* you want these factor levels to be included in the output data. *Important note*, if factor levels change over the years, the levels are not recoded so as to be comparable for these new variables. New variables may be
+added to `cpsvote` in the future, and we will assure that levels are comparable across years 
+
+Once you have completed these steps, you *must source the `save_catalog.R` script, or else `fwf_key` will not be updated to include your new columns. 
+
 ## Outputs
 
 Still working on it, but this!
