@@ -1,11 +1,14 @@
 #' Load a single CPS file
 #' @description Read one year of data from the Current Population Survey
-#' @param file Where the fwf or zip/gz file for this year's data lives
+#' 
+#' @param file Where the fixed-width or zip/gz file for this year's data lives
 #' @param year Which year is being read; defaults to 4-digit year in file name
 #' @param cols Which columns to read. This must be a data frame, with required 
 #' columns `start_pos` and `end_pos`. The default value is `cps_cols`, which 
-#' reads from the list `cpsvote::cps_cols`. See (vignettes/read_specs.html) for 
+#' reads from the list `cpsvote::cps_cols`. See \url{vignettes/read_specs.html} for 
 #' details about how to specify a different set of `cols`.
+#' 
+#' @return a data frame, with dimensions depending on the year and columns specified
 #' @export
 read_year <- function(file,
                       cols = cps_cols,
@@ -91,6 +94,7 @@ read_year <- function(file,
 
 #' Read in CPS data
 #' @description Load multiple years of data from the Current Population Survey
+#' 
 #' @param dir The folder where the CPS data files live. These files should  
 #' follow a naming scheme that contains the 4-digit year of the results in 
 #' question, and have a ".zip" or ".gz" extension.
@@ -98,10 +102,12 @@ read_year <- function(file,
 #' in `dir` whose names contain these 4-digit years.
 #' #' @param cols Which columns to read. This must be a data frame, with required 
 #' columns `start_pos`,`end_pos`, and `year`. The default value is `cps_cols`, 
-#' which reads from the list `cpsvote::cps_cols`. See (vignettes/read_specs.html) 
+#' which reads from the list `cpsvote::cps_cols`. See \url{vignettes/read_specs.html} 
 #' for details about how to specify a different set of `cols`.
 #' @param join_dfs Whether to combine all of the years into a single data frame, 
 #' or leave them as a list of data frames.
+#' 
+#' @return a data frame, or list of data frames
 #' @export
 read_cps <- function(dir = "cps_data",
                      years = seq(1994, 2018, 2),

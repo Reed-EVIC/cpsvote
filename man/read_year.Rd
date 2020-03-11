@@ -11,14 +11,17 @@ read_year(
 )
 }
 \arguments{
-\item{file}{Where the fwf or zip/gz file for this year's data lives}
+\item{file}{Where the fixed-width or zip/gz file for this year's data lives}
 
 \item{cols}{Which columns to read. This must be a data frame, with required
 columns \code{start_pos} and \code{end_pos}. The default value is \code{cps_cols}, which
-reads from the list \code{cpsvote::cps_cols}. See (vignettes/read_specs.html) for
+reads from the list \code{cpsvote::cps_cols}. See \url{vignettes/read_specs.html} for
 details about how to specify a different set of \code{cols}.}
 
 \item{year}{Which year is being read; defaults to 4-digit year in file name}
+}
+\value{
+a data frame, with dimensions depending on the year and columns specified
 }
 \description{
 Read one year of data from the Current Population Survey

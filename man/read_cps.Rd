@@ -20,11 +20,14 @@ question, and have a ".zip" or ".gz" extension.}
 in \code{dir} whose names contain these 4-digit years.
 #' @param cols Which columns to read. This must be a data frame, with required
 columns \code{start_pos},\code{end_pos}, and \code{year}. The default value is \code{cps_cols},
-which reads from the list \code{cpsvote::cps_cols}. See (vignettes/read_specs.html)
+which reads from the list \code{cpsvote::cps_cols}. See \url{vignettes/read_specs.html}
 for details about how to specify a different set of \code{cols}.}
 
 \item{join_dfs}{Whether to combine all of the years into a single data frame,
 or leave them as a list of data frames.}
+}
+\value{
+a data frame, or list of data frames
 }
 \description{
 Load multiple years of data from the Current Population Survey
