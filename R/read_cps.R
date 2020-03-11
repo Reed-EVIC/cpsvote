@@ -174,11 +174,9 @@ read_cps <- function(dir = "cps_data",
                       MoreArgs = list(cols = cols),
                       SIMPLIFY = FALSE
   )
-  # single-year calls spit out a list, but we want a df
-  if(length(all_years_list) == 1) all_years_list <- all_years_list[[1]]
   
   # name the list elements with their file name inside of the common dir
-  if (!is.data.frame(all_years_list)) names(all_years_list) <- file_list
+  names(all_years_list) <- file_list
   
   if(join_dfs == TRUE) {
     final_data <- suppressWarnings(dplyr::bind_rows(all_years_list, .id = "file"))
