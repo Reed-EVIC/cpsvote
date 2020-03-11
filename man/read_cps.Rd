@@ -5,37 +5,27 @@
 \title{Read in CPS data}
 \usage{
 read_cps(
-  data_dir = "cps_data",
+  dir = "cps_data",
   years = seq(1994, 2018, 2),
-  factored = TRUE,
-  catalog = "default",
-  join_dfs = factored,
-  combine_factors = join_dfs
+  cols = cps_cols,
+  join_dfs = TRUE
 )
 }
 \arguments{
-\item{data_dir}{The folder where the CPS data files live. These files should
+\item{dir}{The folder where the CPS data files live. These files should
 follow a naming scheme that contains the 4-digit year of the results in
 question, and have a ".zip" or ".gz" extension.}
 
-\item{years}{Which years to read in.}
-
-\item{factored}{Whether the data (in numeric form) should be converted to
-the equivalent factor values or not. This will also rename columns according
-to the \code{catalog} argument.
-#' @param catalog Which columns to read, and how to assign factor labels. The
-default value is "default", which reads from the list \code{cpsvote:::fwf_key}.}
+\item{years}{Which years to read in. Thie function will read data from files
+in \code{dir} whose names contain these 4-digit years.
+#' @param cols Which columns to read. This must be a data frame, with required
+columns \code{start_pos},\code{end_pos}, and \code{year}. The default value is \code{cps_cols},
+which reads from the list \code{cpsvote::cps_cols}. See (vignettes/read_specs.html)
+for details about how to specify a different set of \code{cols}.}
 
 \item{join_dfs}{Whether to combine all of the years into a single data frame,
-or leave them as a list of data frames. This will default to the value of
-\code{factored}, because the raw column names represent different questions in
-different years and should not be naively joined otherwise.}
-
-\item{combine_factors}{Whether to merge the changing factor levels over time
-into one consistent set of factors. This will default to the value of
-\code{join_dfs}, and is only set up for the default data on the complete set of
-years (even-numbered years from 1994-2018).}
+or leave them as a list of data frames.}
 }
 \description{
-Load data from the Current Population Survey
+Load multiple years of data from the Current Population Survey
 }

@@ -6,22 +6,20 @@
 \usage{
 read_year(
   file,
-  year = as.numeric(stringr::str_extract(file, "\\\\d{4}")),
-  factored = TRUE,
-  catalog = "default"
+  cols = cps_cols,
+  year = as.numeric(stringr::str_extract(file, "\\\\d{4}"))
 )
 }
 \arguments{
-\item{file}{Where the fwf or zip (or gz) file for this year's data lives}
+\item{file}{Where the fwf or zip/gz file for this year's data lives}
 
-\item{year}{Which year is being read; defaults to 4-digit year in file name
-#' @param factored Whether the data (in numeric form) should be converted to
-the equivalent factor values or not. This will also rename columns according
-to the \code{catalog} argument.}
+\item{cols}{Which columns to read. This must be a data frame, with required
+columns \code{start_pos} and \code{end_pos}. The default value is \code{cps_cols}, which
+reads from the list \code{cpsvote::cps_cols}. See (vignettes/read_specs.html) for
+details about how to specify a different set of \code{cols}.}
 
-\item{catalog}{Which columns to read, and how to assign factor labels. The
-default value is "default", which reads from the list \code{cpsvote:::fwf_key}.}
+\item{year}{Which year is being read; defaults to 4-digit year in file name}
 }
 \description{
-Read a single year of data from the CPS
+Read one year of data from the Current Population Survey
 }
