@@ -77,7 +77,7 @@ download_docs <- function(path = "cps_docs",
   
   # if they're all gone, stop
   if (length(years) == 0) {
-    message("No documentation files downloaded")
+    message("No new documentation files downloaded")
     return()
   } 
   
@@ -89,8 +89,8 @@ download_docs <- function(path = "cps_docs",
   
   download.file(url_names, file_names, quiet = TRUE)
   
-  message(paste0(length(file_names), " file(s) downloaded to ", path, 
-                 ", year(s) ", paste(years, collapse = ", ")))
+  message(paste0(length(file_names), " new file(s) downloaded to ", path, 
+                 "; year(s) ", paste(years, collapse = ", ")))
   
 }
 
@@ -175,7 +175,7 @@ download_data <- function(path = "cps_data",
   
   # if they're all gone, stop
   if (length(years) == 0) {
-    message("No data files downloaded")
+    message("No new data files downloaded")
     return()
   } 
   
@@ -187,7 +187,7 @@ download_data <- function(path = "cps_data",
   
   download.file(url_names, file_names, quiet = TRUE)
   
-  message(paste0(length(file_names), " file(s) downloaded to ", path, 
-                 ", year(s) ", paste(years, collapse = ", ")))
+  message(paste0(length(file_names), " new file(s) downloaded to ", path, 
+                 "; year(s) ", paste(years, collapse = ", ")))
   
 }
