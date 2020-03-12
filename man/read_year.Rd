@@ -7,6 +7,7 @@
 read_year(
   file,
   cols = cps_cols,
+  names_col = "new_name",
   year = as.numeric(stringr::str_extract(file, "\\\\d{4}"))
 )
 }
@@ -17,6 +18,9 @@ read_year(
 columns \code{start_pos} and \code{end_pos}. The default value is \code{cps_cols}, which
 reads from the list \code{cpsvote::cps_cols}. See \url{vignettes/read_specs.html} for
 details about how to specify a different set of \code{cols}.}
+
+\item{names_col}{The column in \code{cols} that contains column names for the
+specified columns. If none exists, use \code{names_col = NULL}}
 
 \item{year}{Which year is being read; defaults to 4-digit year in file name}
 }

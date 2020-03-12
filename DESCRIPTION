@@ -21,4 +21,7 @@ VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.0
 Imports: 
-    magrittr
+    magrittr,
+    readr,
+    dplyr,
+    stringr
