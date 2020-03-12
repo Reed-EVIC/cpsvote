@@ -8,7 +8,8 @@ read_cps(
   dir = "cps_data",
   years = seq(1994, 2018, 2),
   cols = cps_cols,
-  join_dfs = TRUE
+  names_col = "new_name",
+  join_dfs = FALSE
 )
 }
 \arguments{
@@ -17,11 +18,15 @@ follow a naming scheme that contains the 4-digit year of the results in
 question, and have a ".zip" or ".gz" extension.}
 
 \item{years}{Which years to read in. Thie function will read data from files
-in \code{dir} whose names contain these 4-digit years.
-#' @param cols Which columns to read. This must be a data frame, with required
+in \code{dir} whose names contain these 4-digit years.}
+
+\item{cols}{Which columns to read. This must be a data frame, with required
 columns \code{start_pos},\code{end_pos}, and \code{year}. The default value is \code{cps_cols},
 which reads from the list \code{cpsvote::cps_cols}. See \url{vignettes/read_specs.html}
 for details about how to specify a different set of \code{cols}.}
+
+\item{names_col}{The column in \code{cols} that contains column names for the
+specified columns. If none exists, use \code{names_col = NULL}}
 
 \item{join_dfs}{Whether to combine all of the years into a single data frame,
 or leave them as a list of data frames.}

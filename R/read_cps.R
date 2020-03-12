@@ -2,16 +2,19 @@
 #' @description Read one year of data from the Current Population Survey
 #' 
 #' @param file Where the fixed-width or zip/gz file for this year's data lives
-#' @param year Which year is being read; defaults to 4-digit year in file name
 #' @param cols Which columns to read. This must be a data frame, with required 
 #' columns `start_pos` and `end_pos`. The default value is `cps_cols`, which 
 #' reads from the list `cpsvote::cps_cols`. See \url{vignettes/read_specs.html} for 
 #' details about how to specify a different set of `cols`.
+#' @param names_col The column in `cols` that contains column names for the 
+#' specified columns. If none exists, use `names_col = NULL`
+#' @param year Which year is being read; defaults to 4-digit year in file name
 #' 
 #' @return a data frame, with dimensions depending on the year and columns specified
 #' @export
 read_year <- function(file,
                       cols = cps_cols,
+                      names_col = "new_name",
                       year = as.numeric(stringr::str_extract(file, "\\d{4}"))) {
   # error messages, sanitize data ----
   
@@ -27,6 +30,9 @@ read_year <- function(file,
       year <- cols$year[1]
     }
   }
+  
+  # if the given names_col isn't in cols, break
+  if (isFALSE(names_col %in% colnames(cols))) stop("Column `", names_col, "` not found in `cols`")
   
   # filter cols down to the given year
   cols <- cols[cols$year == year, ]
@@ -71,7 +77,7 @@ read_year <- function(file,
     readr::fwf_positions(
       start = cols$start_pos,
       end = cols$end_pos,
-      col_names = cols$col_name
+      col_names = cols[[names_col]]
       ),
     col_types = paste0(rep("i", nrow(cols)), collapse = "") 
     # read everything as an integer - this will turn 01 FIPS into 1
@@ -100,10 +106,12 @@ read_year <- function(file,
 #' question, and have a ".zip" or ".gz" extension.
 #' @param years Which years to read in. Thie function will read data from files 
 #' in `dir` whose names contain these 4-digit years.
-#' #' @param cols Which columns to read. This must be a data frame, with required 
+#' @param cols Which columns to read. This must be a data frame, with required 
 #' columns `start_pos`,`end_pos`, and `year`. The default value is `cps_cols`, 
 #' which reads from the list `cpsvote::cps_cols`. See \url{vignettes/read_specs.html} 
 #' for details about how to specify a different set of `cols`.
+#' @param names_col The column in `cols` that contains column names for the 
+#' specified columns. If none exists, use `names_col = NULL`
 #' @param join_dfs Whether to combine all of the years into a single data frame, 
 #' or leave them as a list of data frames.
 #' 
@@ -112,7 +120,8 @@ read_year <- function(file,
 read_cps <- function(dir = "cps_data",
                      years = seq(1994, 2018, 2),
                      cols = cps_cols,
-                     join_dfs = TRUE) {
+                     names_col = "new_name",
+                     join_dfs = FALSE) {
   
   # sanitize inputs #####
   
@@ -171,15 +180,18 @@ read_cps <- function(dir = "cps_data",
   all_years_list <- mapply(FUN = read_year, 
                       file = file.path(dir, file_list),
                       year = years, 
-                      MoreArgs = list(cols = cols),
+                      MoreArgs = list(cols = cols,
+                                      names_col = names_col),
                       SIMPLIFY = FALSE
   )
   
   # name the list elements with their file name inside of the common dir
   names(all_years_list) <- file_list
   
-  if(join_dfs == TRUE) {
-    final_data <- suppressWarnings(dplyr::bind_rows(all_years_list, .id = "file"))
+  if (join_dfs == TRUE) {
+    warning("The column names provided by the CPS do not refer to the same question across all years. ",
+            "Be cautious that you are joining columns which correspond across years.")
+    final_data <- suppressWarnings(dplyr::bind_rows(all_years_list, .id = "FILE"))
   } else {
     final_data <- all_years_list
   }
