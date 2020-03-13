@@ -10,7 +10,7 @@
 #' @param factors A data frame containing the label codes to be applied
 #' @param names_col Which column of `factors` contains the column names of `data`
 #' 
-#' @return
+#' @return CPS data with factor labels in place of the raw numeric data
 #' @export
 label_cps <- function(data, 
                       factors = cps_factors, 
