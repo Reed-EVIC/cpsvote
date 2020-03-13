@@ -10,3 +10,4 @@
 ^cps_docs*$
 ^cps_data*$
 ^data-raw$
+^\.travis\.yml$

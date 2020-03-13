@@ -12,9 +12,11 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
+
 # cpsvote
 
 <!-- badges: start -->
+[![Travis build status](https://travis-ci.org/Reed-EVIC/cpsvote.svg?branch=master)](https://travis-ci.org/Reed-EVIC/cpsvote)
 <!-- badges: end -->
 
 `cpsvote` is an R package to interface with data from the Current Population Survey (CPS) Voting and Registration Supplement, a biennial supplement to the CPS from the US Census Bureau.
