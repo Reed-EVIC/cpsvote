@@ -9,7 +9,7 @@ read_cps(
   years = seq(1994, 2018, 2),
   cols = cps_cols,
   names_col = "new_name",
-  join_dfs = FALSE
+  join_dfs = TRUE
 )
 }
 \arguments{
@@ -29,7 +29,7 @@ for details about how to specify a different set of \code{cols}.}
 specified columns. If none exists, use \code{names_col = NULL}}
 
 \item{join_dfs}{Whether to combine all of the years into a single data frame,
-or leave them as a list of data frames.}
+or leave them as a list of data frames. Defaults to \code{TRUE} with a warning.}
 }
 \value{
 a data frame, or list of data frames
