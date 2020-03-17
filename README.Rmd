@@ -19,11 +19,23 @@ knitr::opts_chunk$set(
 [![Travis build status](https://travis-ci.org/Reed-EVIC/cpsvote.svg?branch=master)](https://travis-ci.org/Reed-EVIC/cpsvote)
 <!-- badges: end -->
 
-`cpsvote` is an R package to interface with data from the Current Population Survey (CPS) Voting and Registration Supplement, a biennial supplement to the CPS from the US Census Bureau.
+`cpsvote` is an R package to interface with data from the Current Population Survey (CPS) Voting and Registration Supplement, a biennial supplement to the monthly CPS.
 
 ## Sources
 
-1994-2016 come from the [National Bureau of Economic Research](https://data.nber.org/cps/). 2018 comes from the [US Census Bureau](https://thedataweb.rm.census.gov/ftp/cps_ftp.html).
+All years of data come from the [National Bureau of Economic Research](https://data.nber.org/cps/), and the CPS is administered by the US Census Bureau and Bureau of Labor Statistics (BLS).
+
+## Process
+
+There are a few main things this package can do
+
+1. Download the CPS data (`cps_download_data`, `cps_download_docs`)
+
+2. Load the raw, numeric CPS data into R (`cps_read`)
+
+3. Help you apply the correct factor labels to this numeric data (`cps_label`)
+
+4. Access a "basic" version of the CPS that we have included with the package (`cps_load_basic`)
 
 ## Outputs
 
