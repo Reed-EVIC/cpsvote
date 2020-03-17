@@ -4,7 +4,7 @@
 \alias{label_cps}
 \title{Apply factor levels to raw CPS data}
 \usage{
-label_cps(data, factors = cps_factors, names_col = "new_name")
+label_cps(data, factors = cpsvote::cps_factors, names_col = "new_name")
 }
 \arguments{
 \item{data}{The raw CPS data that factors should be applied to}

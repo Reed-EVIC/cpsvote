@@ -7,7 +7,7 @@
 read_cps(
   dir = "cps_data",
   years = seq(1994, 2018, 2),
-  cols = cps_cols,
+  cols = cpsvote::cps_cols,
   names_col = "new_name",
   join_dfs = TRUE
 )

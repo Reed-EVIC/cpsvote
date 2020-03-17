@@ -14,6 +14,8 @@
 #' reported voting. Then multiply the existing weight column by the reweighting 
 #' factor to obtain a correct weight to calculate turnout.
 cps_reweight <- function(data) {
+  reweight <- cps_prop <- vep_prop <- WEIGHT <- REWEIGHT <- NULL
+  
   if (!all(c("CPS_YEAR", "CPS_STATE", "VRS_VOTE") %in% colnames(data))) {
     stop("The following vars must be included in `data` in order to join: ",
          "'CPS_YEAR', 'CPS_STATE', 'VRS_VOTE'")

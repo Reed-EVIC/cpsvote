@@ -13,8 +13,10 @@
 #' @return CPS data with factor labels in place of the raw numeric data
 #' @export
 label_cps <- function(data, 
-                      factors = cps_factors, 
+                      factors = cpsvote::cps_factors, 
                       names_col = "new_name") {
+  YEAR <- YEAR4 <- year <- index <- NULL
+  
   data <- data %>%
     dplyr::mutate(index = dplyr::row_number(),
                   YEAR4 = YEAR %% 1900 + 1900) # fix the two-digit year problem

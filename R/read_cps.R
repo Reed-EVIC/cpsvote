@@ -13,7 +13,7 @@
 #' @return a data frame, with dimensions depending on the year and columns specified
 #' @export
 read_year <- function(file,
-                      cols = cps_cols,
+                      cols = cpsvote::cps_cols,
                       names_col = "new_name",
                       year = as.numeric(stringr::str_extract(file, "\\d{4}"))) {
   # error messages, sanitize data ----
@@ -119,11 +119,12 @@ read_year <- function(file,
 #' @export
 read_cps <- function(dir = "cps_data",
                      years = seq(1994, 2018, 2),
-                     cols = cps_cols,
+                     cols = cpsvote::cps_cols,
                      names_col = "new_name",
                      join_dfs = TRUE) {
   
   # sanitize inputs #####
+  
   
   # years must be numeric
   if (!is.numeric(years)) stop('Argument "years" must be numeric')

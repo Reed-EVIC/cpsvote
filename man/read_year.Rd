@@ -6,7 +6,7 @@
 \usage{
 read_year(
   file,
-  cols = cps_cols,
+  cols = cpsvote::cps_cols,
   names_col = "new_name",
   year = as.numeric(stringr::str_extract(file, "\\\\d{4}"))
 )
