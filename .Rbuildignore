@@ -11,3 +11,4 @@
 ^cps_data*$
 ^data-raw$
 ^\.travis\.yml$
+^*Icon*$
