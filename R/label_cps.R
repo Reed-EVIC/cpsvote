@@ -25,7 +25,7 @@ label_cps <- function(data,
                       na_vals = c("-1", "BLANK", "NOT IN UNIVERSE", "NO RESPONSE (N/A)", "NO RESPONSE"),
                       expand_year = TRUE,
                       rescale_weight = TRUE) {
-  YEAR <- YEAR4 <- year <- index <- NULL
+  YEAR <- YEAR4 <- year <- index <- WEIGHT <- NULL
   
   data <- data %>%
     dplyr::mutate(index = dplyr::row_number(),

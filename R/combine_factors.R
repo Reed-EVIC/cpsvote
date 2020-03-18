@@ -20,6 +20,8 @@
 #' "REFUSED" to the end of each factor's level set
 #' @export
 combine_factors <- function(data, move_levels = TRUE) {
+  RACE <- HISPANIC <- VRS_RESIDENCE <- VRS_VOTE_WHYNOT <- VRS_REG_METHOD <- NULL
+  
   output <- data %>%
     dplyr::mutate(RACE = forcats::fct_collapse(RACE, # try to consolidate RACE
                                                "WHITE" = c("WHITE", 
