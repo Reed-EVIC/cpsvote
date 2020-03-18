@@ -190,8 +190,10 @@ read_cps <- function(dir = "cps_data",
   names(all_years_list) <- file_list
   
   if (join_dfs == TRUE) {
-    warning("The column names provided by the CPS do not refer to the same question across all years. ",
-            "Be cautious that you are joining columns which correspond across years.")
+    if (length(years) > 1) {
+      warning("The column names provided by the CPS do not refer to the same question across all years. ",
+              "Be cautious that you are joining columns which correspond across years.")
+    }
     final_data <- suppressWarnings(dplyr::bind_rows(all_years_list, .id = "FILE"))
   } else {
     final_data <- all_years_list
