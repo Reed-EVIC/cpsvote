@@ -15,7 +15,8 @@ cps_load_basic <- function(datadir = "cps_data",
                            outdir = NULL) {
   output <- cps_read(dir = datadir) %>%
     cps_label() %>%
-    cps_refactor()
+    cps_refactor() %>%
+    cps_recode_vote()
   
   if(!is.null(outdir)) {
     saveRDS(output, file = file.path(outdir, "cps_basic.RData"))

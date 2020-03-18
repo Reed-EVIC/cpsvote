@@ -107,3 +107,40 @@ cps_refactor <- function(data, move_levels = TRUE) {
 # check_years <- function(var) {
 #   table(data[[var]], data$YEAR)
 # }
+
+
+#' recode the voting variable for turnout calculations
+#' 
+#' When the CPS calculates voter turnout, they consider the values "Don't know", 
+#' "Refused", and "No response" to be non-voters, that is they lump these in 
+#' with "No". With increased levels of survey non-response in recent years, this 
+#' has caused turnout estimates to artificially deflate when compared to 
+#' measures of voter turnout from state election offices. This function adds two 
+#' recodes of the original voting variable, one which applies the CPS recoding 
+#' where multiple categories map to "No", and one which follows the guidelines 
+#' from Achen & Hur (2013) of setting these categories to `NA`. See the Vignette 
+#' for more information on this process.
+#' @param data the input data set
+#' @param vote_col which column contains the voting variable
+#' @param items which items should be "No" in the CPS coding and `NA` in the 
+#' Achen & Hur coding
+#' 
+#' @return `data` with two columns attached, `cps_turnout` and `achenhur_turnout`,
+#' voting variables recoded according to the process above
+#' @export
+cps_recode_vote <- function(data, 
+                            vote_col = "VRS_VOTE",
+                            items = c("DON'T KNOW", "REFUSED", "NO RESPONSE")) {
+  output <- data %>%
+    dplyr::mutate(cps_turnout = forcats::fct_collapse(.data[[vote_col]], "NO" = items) %>% # recode the items as NO
+                    forcats::fct_other(keep = c("YES", "NO")) %>% # send everything that's not Y/N to "Other"
+                    forcats::fct_expand("Other") %>% # if there are no Others, add the level (to avoid warning in  next step)
+                    forcats::fct_collapse(NULL = "Other"), # drop all Other
+                  achenhur_turnout = forcats::fct_other(.data[[vote_col]], keep = c("YES", "NO")) %>% # send everything that's not Y/N to "Other"
+                    forcats::fct_expand("Other") %>% # if there are no Others, add the level (to avoid warning in  next step)
+                    forcats::fct_collapse(NULL = "Other") # drop all Other
+    )
+  
+  output
+}
+

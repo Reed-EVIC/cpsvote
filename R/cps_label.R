@@ -22,7 +22,7 @@
 cps_label <- function(data, 
                       factors = cpsvote::cps_factors, 
                       names_col = "new_name",
-                      na_vals = c("-1", "BLANK", "NOT IN UNIVERSE", "NO RESPONSE (N/A)", "NO RESPONSE"),
+                      na_vals = c("-1", "BLANK", "NOT IN UNIVERSE"),
                       expand_year = TRUE,
                       rescale_weight = TRUE) {
   YEAR <- YEAR4 <- year <- index <- WEIGHT <- NULL
