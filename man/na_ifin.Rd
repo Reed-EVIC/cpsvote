@@ -6,6 +6,11 @@
 \usage{
 na_ifin(x, y)
 }
+\arguments{
+\item{x}{the vector to be checked}
+
+\item{y}{the values which should be replaced with NA}
+}
 \description{
 vectorized \code{na_if}
 }

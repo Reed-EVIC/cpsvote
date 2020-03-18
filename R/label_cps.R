@@ -77,6 +77,8 @@ label_cps <- function(data,
 
 #' vectorized \code{na_if}
 #' 
+#' @param x the vector to be checked
+#' @param y the values which should be replaced with NA
 na_ifin <- function(x, y) {
   x[x %in% y] <- NA
   x
