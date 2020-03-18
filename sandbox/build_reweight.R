@@ -30,7 +30,7 @@ vep_side <- vep %>%
             NO = 1 - YES) %>%
   tidyr::gather(key = "vote", value = "vep_prop", YES, NO)
 
-reweight <- full_join(cps_side, vep_side,
+cps_reweight <- full_join(cps_side, vep_side,
                        by = c("CPS_YEAR" = 'year',
                               "CPS_STATE" = 'state',
                               "VRS_VOTE" = "vote")) %>%
@@ -40,6 +40,6 @@ reweight <- full_join(cps_side, vep_side,
          VRS_VOTE = factor(VRS_VOTE, levels = levels(cps$VRS_VOTE)))
 
 
-usethis::use_data(reweight, overwrite = TRUE)
+usethis::use_data(cps_reweight, overwrite = TRUE)
 
 devtools::document()
