@@ -26,4 +26,5 @@ Imports:
     readr,
     dplyr,
     stringr,
-    forcats
+    forcats,
+    rlang

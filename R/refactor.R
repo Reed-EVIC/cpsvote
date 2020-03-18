@@ -127,6 +127,7 @@ cps_refactor <- function(data, move_levels = TRUE) {
 #' 
 #' @return `data` with two columns attached, `cps_turnout` and `achenhur_turnout`,
 #' voting variables recoded according to the process above
+#' @importFrom rlang .data
 #' @export
 cps_recode_vote <- function(data, 
                             vote_col = "VRS_VOTE",
