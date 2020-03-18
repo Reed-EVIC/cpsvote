@@ -19,7 +19,7 @@
 #' 
 #' @return CPS data with factor labels in place of the raw numeric data
 #' @export
-label_cps <- function(data, 
+cps_label <- function(data, 
                       factors = cpsvote::cps_factors, 
                       names_col = "new_name",
                       na_vals = c("-1", "BLANK", "NOT IN UNIVERSE", "NO RESPONSE (N/A)", "NO RESPONSE"),

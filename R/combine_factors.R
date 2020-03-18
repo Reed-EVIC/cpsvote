@@ -13,13 +13,13 @@
 #' Take this function with a grain of salt, as it depends on some exact variable 
 #' names you may or may not be using, and recode variables as needed for your 
 #' own uses. To explore exactly how these variables were recoded, you can run 
-#' `table(data$RACE, combine_factors(data)$RACE)` in the console, substituting 
+#' `table(data$RACE, cps_refactor(data)$RACE)` in the console, substituting 
 #' your column of interest in for `RACE`.
 #' @param data A dataset containing already-labelled CPS data
 #' @param move_levels Whether to move the levels "OTHER", "DON'T KNOW", and 
 #' "REFUSED" to the end of each factor's level set
 #' @export
-combine_factors <- function(data, move_levels = TRUE) {
+cps_refactor <- function(data, move_levels = TRUE) {
   RACE <- HISPANIC <- VRS_RESIDENCE <- VRS_VOTE_WHYNOT <- VRS_REG_METHOD <- NULL
   
   output <- data %>%

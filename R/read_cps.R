@@ -12,7 +12,7 @@
 #' 
 #' @return a data frame, with dimensions depending on the year and columns specified
 #' @export
-read_year <- function(file,
+cps_read_year <- function(file,
                       cols = cpsvote::cps_cols,
                       names_col = "new_name",
                       year = as.numeric(stringr::str_extract(file, "\\d{4}"))) {
@@ -99,7 +99,9 @@ read_year <- function(file,
 
 
 #' Read in CPS data
-#' @description Load multiple years of data from the Current Population Survey
+#' @description Load multiple years of data from the Current Population Survey. 
+#' This function will also downlaod the data for you, if it is not present in 
+#' the given `dir`.
 #' 
 #' @param dir The folder where the CPS data files live. These files should  
 #' follow a naming scheme that contains the 4-digit year of the results in 
@@ -117,7 +119,7 @@ read_year <- function(file,
 #' 
 #' @return a data frame, or list of data frames
 #' @export
-read_cps <- function(dir = "cps_data",
+cps_read <- function(dir = "cps_data",
                      years = seq(1994, 2018, 2),
                      cols = cpsvote::cps_cols,
                      names_col = "new_name",
@@ -169,7 +171,7 @@ read_cps <- function(dir = "cps_data",
   
   # download data, define files and factors #####
   
-  download_data(path = dir, years = years, overwrite = FALSE)
+  cps_download_data(path = dir, years = years, overwrite = FALSE)
 
   message("Reading ", length(years), " data file(s)...")
   
@@ -178,7 +180,7 @@ read_cps <- function(dir = "cps_data",
     stringr::str_subset(paste(years, collapse = "|"))
   
   # read in the data #####
-  all_years_list <- mapply(FUN = read_year, 
+  all_years_list <- mapply(FUN = cps_read_year, 
                       file = file.path(dir, file_list),
                       year = years, 
                       MoreArgs = list(cols = cols,
