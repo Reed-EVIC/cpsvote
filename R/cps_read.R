@@ -196,7 +196,8 @@ cps_read <- function(dir = "cps_data",
       warning("The column names provided by the CPS do not refer to the same question across all years. ",
               "Be cautious that you are joining columns which correspond across years.")
     }
-    final_data <- suppressWarnings(dplyr::bind_rows(all_years_list, .id = "FILE"))
+    final_data <- suppressWarnings(dplyr::bind_rows(all_years_list, .id = "FILE")) %>%
+      dplyr::mutate(FILE = as.factor(FILE))
   } else {
     final_data <- all_years_list
   }
