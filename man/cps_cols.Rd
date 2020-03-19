@@ -4,7 +4,8 @@
 \name{cps_cols}
 \alias{cps_cols}
 \title{Sample column specifications for reading CPS data}
-\format{A data frame with 204 rows and 8 columns:
+\format{
+A data frame with 204 rows and 8 columns:
 \describe{
 \item{year}{year}
 \item{cps_name}{original column name as given by the CPS}
@@ -15,7 +16,8 @@ sensibly across multiple years}
 \item{col_type}{whether the column is character, numeric, or a factor}
 \item{description}{the question text/description from the CPS}
 \item{notes}{any notes for question administration or analysis}
-}}
+}
+}
 \usage{
 cps_cols
 }

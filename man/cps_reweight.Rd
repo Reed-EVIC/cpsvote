@@ -4,7 +4,8 @@
 \name{cps_reweight}
 \alias{cps_reweight}
 \title{Calculations to reweight properly for voter turnout}
-\format{A tibble with 1,326 rows and 6 columns:
+\format{
+A tibble with 1,326 rows and 6 columns:
 \describe{
 \item{YEAR}{year}
 \item{STATE}{state}
@@ -12,7 +13,8 @@
 \item{vep_turnout}{proportion of turnout indicator, calculated by McDonald}
 \item{cps_turnout}{proportion of turnout indicator, calculated by CPS}
 \item{reweight}{the factor by which to scale original CPS weights}
-}}
+}
+}
 \source{
 Turnout data from \url{http://www.electproject.org/home/voter-turnout/voter-turnout-data}
 }

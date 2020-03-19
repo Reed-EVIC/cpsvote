@@ -4,7 +4,8 @@
 \name{cps_sample_10k}
 \alias{cps_sample_10k}
 \title{A sample of the full CPS dataset}
-\format{A tibble with 10,000 rows and 24 columns:
+\format{
+A tibble with 10,000 rows and 24 columns:
 \describe{
 \item{FILE}{Which default file the case came from}
 \item{YEAR}{Year of interview}
@@ -34,7 +35,8 @@ self-reported}
 calculation}
 \item{turnout_weight}{Adjusted weight for calculating voter turnout (per
 Achen & Hur)}
-}}
+}
+}
 \usage{
 cps_sample_10k
 }

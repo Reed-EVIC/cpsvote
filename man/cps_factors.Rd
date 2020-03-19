@@ -4,7 +4,8 @@
 \name{cps_factors}
 \alias{cps_factors}
 \title{Sample factor specifications for reading CPS data}
-\format{A data frame with 204 rows and 8 columns:
+\format{
+A data frame with 204 rows and 8 columns:
 \describe{
 \item{year}{year}
 \item{cps_name}{original column name as given by the CPS}
@@ -12,7 +13,8 @@
 sensibly across multiple years}
 \item{code}{the numeric code contained in the raw CPS data}
 \item{value}{the character value corresponding to each numeric code}
-}}
+}
+}
 \usage{
 cps_factors
 }

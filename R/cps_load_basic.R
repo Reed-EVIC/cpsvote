@@ -21,7 +21,7 @@ cps_load_basic <- function(datadir = "cps_data",
     cps_reweight_turnout()
   
   if(!is.null(outdir)) {
-    saveRDS(output, file = file.path(outdir, "cps_basic.RData"))
+    saveRDS(output, file = file.path(outdir, "cps_basic.rds"))
   }
   
   output
