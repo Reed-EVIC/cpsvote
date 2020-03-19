@@ -12,3 +12,5 @@ tmp/cpsvrs.RDS
 inst/doc
 *Icon?
 .gitignore
+doc
+Meta
