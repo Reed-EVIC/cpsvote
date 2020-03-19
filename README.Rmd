@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 `cpsvote` provides an automated method for downloading, recoding, and merging selected years of the Current Population Survey's 
-Voting and Registration Supplement, a biennial large-N survey about voter registration, voting, and non-voting in United States Federal Elections. The
+Voting and Registration Supplement, a biennial large-$N$ survey about voter registration, voting, and non-voting in United States federal elections. The
 package provides documentation for appropriate use of sample weights to generate statistical estimates. The package includes multiple vignettes
 that illustrate different applications. 
 
@@ -30,7 +30,7 @@ All years of data come from the [National Bureau of Economic Research (NBER)](ht
 
 ## Process
 
-A few main functions of this package are to:
+A few main purposess of this package are to:
 
 1. Download the CPS data (`cps_download_data`) and documentation (`cps_download_docs`) from NBER
 
@@ -47,65 +47,126 @@ For help with these, see the documentation for these functions and the vignettes
 ### Basic Use Information
 
 1. *Install the Package*
-   i) If you are a primary developer / contributor and are using a localized version control system, create your version control project
+   i) If you are a tester, you can install the package using `remotes`:
+      
+    ```{r eval = FALSE}
+    remotes::install_github("Reed-EVIC/cpsvote")
+    library(cpsvote)
+    ```
+      
+      
+   ii) If you are a primary developer / contributor and are using a localized version control system, create your version control project
   using this URL: https://github.com/Reed-EVIC/cpsvote.git. 
       a) `devtools::load_all()` will load the package and all the associated functions.
-   ii) If you are a tester, you may follow the procedure above, or else you can install the package using `remotes`:
-      b) `remotes::install_github(https://github.com/Reed-EVIC/cpsvote)`
+
+2. *Quickly view some CPS data*
+    i) There is far more data included in the full CPS than we could include here, but there are two options to view a  subset of the CPS data with ease.
+        a) Running `data(cpsvote::cps_sample_10k)` will load a 10,000 row sample of selected CPS columns into your environment.
+        b) Running `cpsvote::cps_load_basic()` will download the data, and provide you all rows and a selected set of CPS columns, and allow you to save a copy locally for speed in the future.
   
-2. *Download the CPS Files*
-    i) `cpsvote` will download the CPS files directly from two federal data repositories (data.nber.org/cps/cpsnov for 
-  years 1994 - 2016; thedataweb.rm.census.gov/pub/cps/supps/ for 2018). By default `cpsvote` will create a new subdirectory
-  in your working directory names "./cps_data" and store the compressed data files in that location.
+3. *Download the CPS Files*
+    i) `cpsvote` will download the CPS files directly from a federal data repository (http://data.nber.org/data/current-population-survey-data.html for 
+  years 1994 - 2018). By default `cpsvote` will create a new subdirectory
+  in your working directory named "cps_data" and store the compressed data files in that location.
     ii) If you choose to download data files and store them in a separate location, `cpsvote` can only process files that retain
   the original file name. See the "Data Description" vignette for a list of the expected file names.
-    iii) `cpsvote::download_data(path = "dir", years = seq(start,end,sequence))` will download data
-         a) Example: `cpsvote::download_data()` will download all data files  and place the files in the default download path ("./cps_data").
-         b) Example: `cpsvote::download_data(path = "~/mydata/CPS", years = seq(2000, 2014, 4))` will download the 2000, 2004, 2008, and 2012 CPS 
+    iii) `cpsvote::cps_download_data(path = "dir", years = seq(start,end,sequence))` will download data
+         a) Example: `cpsvote::cps_download_data()` will download all data files and place the files in the default download path ("./cps_data").
+         b) Example: `cpsvote::cps_download_data(path = "~/mydata/CPS", years = seq(2000, 2014, 4))` will download the 2000, 2004, 2008, and 2012 CPS 
   and place them in the path "~/mydata/CPS".
+    iv) `cpsvote::cps_download_docs()` downloads all documentation files, and places them in "./cps_docs"
+    v) `cpsvote::cps_download_docs(path = "dir", years = seq(start, end, seqquence)` allows you to control the target directory and 
+   years for the documentation.
 
-3. *Import the Data Into R and Create a Dataframe*
+4. *Import the Data Into R and Create a Data Frame*
    i) `cpsvote` performs a series of data transformations that produce a set of comparably coded variables across all of the survey years. These
   variables are listed in the "Data Description" vignette.
-   ii) `cpsvote::read_cps(data_dir = "dir", years = seq(start,end,sequence))` will read CPS data files located in "data_dir" into memory.  A reminder
-  that the file names need to  be unmodified from what is stored at data.nber.org and thedataweb.rm.census.gov
-       a) Example: `cps_vote <- cpsvote::read_cps()` will read all data files (1994 - 2018) from the default directory ("./cps_data"), recode columns
-  to a common coding scheme, and merge into a single data frame labeled
+   ii) `cpsvote::read_cps(dir = "dir", years = seq(start,end,sequence))` will read CPS data files located in "dir" into memory. A reminder
+  that the file names must contain the 4-digit year associated with their data in order to be read easily.
+       a) Example: `cps_vote <- cpsvote::cps_read()` will read all data files (1994 - 2018) from the default directory ("./cps_data"), and merge into a single data frame called
   "cps_vote". 
-       b) Example: `cps_vote <- cpsvote::read_cps(data_dir = "~/mydata/CPS), years = seq(1994, 2000, 2))` will load CPS from 1994, 1996, 1998, and 2000, 
-  assuming  the data files are stored in "~/mydata/CPS", perform recodes, merge, and label "cps_vote".  
-  
-4. *Download documentation*
-   i) `cpsvote::download_docs()` downloads all documentation files, and places them in "./cps_docs"
-   ii) `cpsvote::download_docs(path = "dir", years = seq(start, end, seqquence)` allows you to control the target directory and 
-   years for the documentation.
+       b) Example: `cps_vote <- cpsvote::cps_read(data_dir = "~/mydata/CPS", years = seq(1994, 2000, 2))` will load CPS data from 1994, 1996, 1998, and 2000, 
+  assuming the data files are stored in "~/mydata/CPS", and merge into the object "cps_vote".
+
+5. *Attach proper labels to the numeric data*
+    i) By default, the CPS comes with numeric data values. These correspond to factor codes as detailed in the survey documentation. The `cps_label` function applies given factor codes to this numeric data in order to make it human-readable.
+
+6. *Attach proper turnout modifiers*
+    i) Certain steps have to be taken to properly reweight the CPS for voter turnout analyses. The functions `cps_recode_vote` and `cps_reweight_turnout` help to redo these codings to appropriately calculate voter turnout.
   
 ### Recommended First Steps
 
-The steps shown below install the package locally, downlaod all CPS files from 1994 - 2018, load the files into memory, and results in a data frame
+The steps shown below install the package locally, download all CPS files from 1994 - 2018, load the files into memory, and results in a data frame
 with CPS Voting and Registration Supplement data from 1994-2018. 
 
-1. `remotes::install_github(https://github.com/Reed-EVIC/cpsvote)`
+1. `remotes::install_github("Reed-EVIC/cpsvote")`
 2. `library(cpsvote)`
-3. `cpsvote::download_data()` (Only necessary if using the package for the first time; after that, the files will already be downloaded and you 
+3. `cpsvote::cps_download_data()` (Only necessary if using the package for the first time; after that, the files will already be downloaded and you 
 can skip this step)
-4. `cps_vote <- cpsvote::read_cps()` Will read all available years into memory, places it in a data frame named `cps_vote`
+4. `cps_vote <- cpsvote::cps_read()` Will read all available years into memory, merging them in a data frame named `cps_vote`
 
 ## Advanced Use: Manually Adding Variables to the Output Dataset 
 
-We do not recommend adding variables at this time. However, if you wish to modify `cpsvote` to add variables from individual years of the CPS, follow
-these steps. To identify the names, column locations, and factor levels for new variables, please refer to the documentation for individual
-years of the CPS. 
+Adding variables at this time is tricky, and we can't guarantee yet that it will work smoothly. However, if you wish to modify `cpsvote` to add variables from individual years of the CPS, you can make edited versions of the included objects `cps_cols` and `cps_factors`. To identify the names, column locations, and factor levels for new variables, please refer to the documentation for individual
+years of the CPS (`cpsvote::cps_download_docs()`). 
 
-1. Open the Excel sheet `CPS_catalog.xlsx` (in "data-raw" subdirectory). The `master` tab contains the names and column locations for the variables to be read by `cpsvote`. The individual year tabs (e.g. `1994`, `1996`, ..., `2018`) contain the factor levels ("value labels").
-2. On the `master` tab, you must enter at a minimum the `year` (column B), the `orig_col` (column C), the `start` col (column D), and the `end` col (column D). 
-3. On the individual year tabs, enter factor levels as appropriate *if* you want these factor levels to be included in the output data. *Important note*, if factor levels change over the years, the levels are not recoded so as to be comparable for these new variables. New variables may be
-added to `cpsvote` in the future, and we will assure that levels are comparable across years 
+For an example, let's say that I wanted to add annual family income in 2006 and 2008 to the default data. First, I would define the column positions and factor levels for income and add them to the default `cps_cols` and `cps_factors`.
 
-Once you have completed these steps, you *must source the `save_catalog.R` script, or else `fwf_key` will not be updated to include your new columns. 
+```{r}
+library(cpsvote)
+library(dplyr)
 
-## Outputs
+income_cols <- data.frame(
+  year = c(2006, 2008),
+  cps_name = "HUFAMINC",
+  new_name = "INCOME",
+  start_pos = 39,
+  end_pos = 40,
+  stringsAsFactors = FALSE
+)
 
-Still working on it, but this!
+income_factors <- data.frame(
+  year = c(rep(2006, 16), rep(2008, 16)),
+  cps_name = "HUFAMINC",
+  new_name = "INCOME",
+  code = c(1:16, 1:16),
+  value = rep(c("LESS THAN $5,000",
+                "5,000 TO 7,499",
+                "7,500 TO 9,999",
+                "10,000 TO 12,499",
+                "12,500 TO 14,999",
+                "15,000 TO 19,999",
+                "20,000 TO 24,999",
+                "25,000 TO 29,999",
+                "30,000 TO 34,999",
+                "35,000 TO 39,999",
+                "40,000 TO 49,999",
+                "50,000 TO 59,999",
+                "60,000 TO 74,999",
+                "75,000 TO 99,999",
+                "100,000 TO 149,999",
+                "150,000 OR MORE"), 2),
+  stringsAsFactors = FALSE
+)
 
-![](vote_mode.gif)
+my_cols <- bind_rows(cps_cols, income_cols)
+my_factors <- bind_rows(cps_factors, income_factors)
+```
+
+Then, I read in the 2006 and 2008 CPS data using my new column data, and factor it with my new factor data.
+
+```{r}
+cps_income <- cps_read(years = c(2006, 2008),
+                       cols = my_cols) %>%
+  cps_label(factors = my_factors)
+```
+
+Now we can look at the unweighted breakdown of income by year.
+
+```{r}
+janitor::tabyl(cps_income, INCOME, YEAR)
+```
+
+## Examples of CPS data analysis
+
+![](img/vote_mode.gif)
