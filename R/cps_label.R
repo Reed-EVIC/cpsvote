@@ -67,7 +67,9 @@ cps_label <- function(data,
     dplyr::mutate_if(function(y) !is.numeric(y), function(x) na_ifin(x, toupper(na_vals))) %>% # drop other na values
     dplyr::mutate_if(is.factor, forcats::fct_drop) %>% # if it's a factor, remove tha NA factor values
     dplyr::mutate(YEAR = dplyr::case_when(expand_year ~ as.integer(YEAR %% 1900 + 1900), TRUE ~ YEAR), # fix the two-digit year if asked
-                  WEIGHT = dplyr::case_when(rescale_weight ~ WEIGHT / 10000, TRUE ~ as.double(WEIGHT))) # fix the 4-decimal weight if asked
+                  WEIGHT = dplyr::case_when(is.na(WEIGHT) ~ 0,
+                                            rescale_weight ~ WEIGHT / 10000, 
+                                            TRUE ~ as.double(WEIGHT))) # fix the 4-decimal weight if asked
   
   
   return(output)
