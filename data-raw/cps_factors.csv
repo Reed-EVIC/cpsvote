@@ -482,11 +482,11 @@ year,cps_name,new_name,code,value
 2004,PES5,VRS_VOTE_MAIL,-2,Don't know 
 2004,PES5,VRS_VOTE_MAIL,-3,Refused 
 2004,PES5,VRS_VOTE_MAIL,-9,No Response 
-2004,PES6,VRS_VOTE_DAY,1,On election day 
-2004,PES6,VRS_VOTE_DAY,2,Before election day 
-2004,PES6,VRS_VOTE_DAY,-2,Don't know 
-2004,PES6,VRS_VOTE_DAY,-3,Refused 
-2004,PES6,VRS_VOTE_DAY,-9,No Response 
+2004,PES6,VRS_VOTE_EDAY,1,On election day 
+2004,PES6,VRS_VOTE_EDAY,2,Before election day 
+2004,PES6,VRS_VOTE_EDAY,-2,Don't know 
+2004,PES6,VRS_VOTE_EDAY,-3,Refused 
+2004,PES6,VRS_VOTE_EDAY,-9,No Response 
 2004,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card) "
 2004,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office "
 2004,PES7,VRS_REG_METHOD,3,Registered by mail 
@@ -589,11 +589,11 @@ year,cps_name,new_name,code,value
 2006,PES5,VRS_VOTE_MAIL,-2,Don't know 
 2006,PES5,VRS_VOTE_MAIL,-3,Refused 
 2006,PES5,VRS_VOTE_MAIL,-9,No response 
-2006,PES6,VRS_VOTE_DAY,1,On election day 
-2006,PES6,VRS_VOTE_DAY,2,Before election day 
-2006,PES6,VRS_VOTE_DAY,-2,Don't know 
-2006,PES6,VRS_VOTE_DAY,-3,Refused 
-2006,PES6,VRS_VOTE_DAY,-9,No response 
+2006,PES6,VRS_VOTE_EDAY,1,On election day 
+2006,PES6,VRS_VOTE_EDAY,2,Before election day 
+2006,PES6,VRS_VOTE_EDAY,-2,Don't know 
+2006,PES6,VRS_VOTE_EDAY,-3,Refused 
+2006,PES6,VRS_VOTE_EDAY,-9,No response 
 2006,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card)"
 2006,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office) "
 2006,PES7,VRS_REG_METHOD,3,Registered by mail 
@@ -696,11 +696,11 @@ year,cps_name,new_name,code,value
 2008,PES5,VRS_VOTE_MAIL,-2,Don't know 
 2008,PES5,VRS_VOTE_MAIL,-3,Refused 
 2008,PES5,VRS_VOTE_MAIL,-9,No Response 
-2008,PES6,VRS_VOTE_DAY,1,On election day 
-2008,PES6,VRS_VOTE_DAY,2,Before election day 
-2008,PES6,VRS_VOTE_DAY,-2,Don't know 
-2008,PES6,VRS_VOTE_DAY,-3,Refused 
-2008,PES6,VRS_VOTE_DAY,-9,No Response 
+2008,PES6,VRS_VOTE_EDAY,1,On election day 
+2008,PES6,VRS_VOTE_EDAY,2,Before election day 
+2008,PES6,VRS_VOTE_EDAY,-2,Don't know 
+2008,PES6,VRS_VOTE_EDAY,-3,Refused 
+2008,PES6,VRS_VOTE_EDAY,-9,No Response 
 2008,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card) "
 2008,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office) "
 2008,PES7,VRS_REG_METHOD,3,Registered by mail 
@@ -803,11 +803,11 @@ year,cps_name,new_name,code,value
 2010,PES5,VRS_VOTE_MAIL,-2,Don't know 
 2010,PES5,VRS_VOTE_MAIL,-3,Refused 
 2010,PES5,VRS_VOTE_MAIL,-9,No Response 
-2010,PES6,VRS_VOTE_DAY,1,On election day 
-2010,PES6,VRS_VOTE_DAY,2,Before election day 
-2010,PES6,VRS_VOTE_DAY,-2,Don't know 
-2010,PES6,VRS_VOTE_DAY,-3,Refused 
-2010,PES6,VRS_VOTE_DAY,-9,No Response 
+2010,PES6,VRS_VOTE_EDAY,1,On election day 
+2010,PES6,VRS_VOTE_EDAY,2,Before election day 
+2010,PES6,VRS_VOTE_EDAY,-2,Don't know 
+2010,PES6,VRS_VOTE_EDAY,-3,Refused 
+2010,PES6,VRS_VOTE_EDAY,-9,No Response 
 2010,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card) "
 2010,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office) "
 2010,PES7,VRS_REG_METHOD,3,Registered by mail 
@@ -916,11 +916,11 @@ year,cps_name,new_name,code,value
 2012,PES5,VRS_VOTE_MAIL,-2,Don't know 
 2012,PES5,VRS_VOTE_MAIL,-3,Refused 
 2012,PES5,VRS_VOTE_MAIL,-9,No Response
-2012,PES6,VRS_VOTE_DAY,1,On election day
-2012,PES6,VRS_VOTE_DAY,2,Before election day 
-2012,PES6,VRS_VOTE_DAY,-2,Don't know
-2012,PES6,VRS_VOTE_DAY,-3,Refused
-2012,PES6,VRS_VOTE_DAY,-9,No Response 
+2012,PES6,VRS_VOTE_EDAY,1,On election day
+2012,PES6,VRS_VOTE_EDAY,2,Before election day 
+2012,PES6,VRS_VOTE_EDAY,-2,Don't know
+2012,PES6,VRS_VOTE_EDAY,-3,Refused
+2012,PES6,VRS_VOTE_EDAY,-9,No Response 
 2012,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card)"
 2012,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office) "
 2012,PES7,VRS_REG_METHOD,3,Registered by mail
@@ -1034,12 +1034,12 @@ year,cps_name,new_name,code,value
 2014,PES5,VRS_VOTE_MAIL,-2,Don't know
 2014,PES5,VRS_VOTE_MAIL,-3,Refused
 2014,PES5,VRS_VOTE_MAIL,-9,No Response
-2014,PES6,VRS_VOTE_DAY,1,On election day
-2014,PES6,VRS_VOTE_DAY,2,Before election day
-2014,PES6,VRS_VOTE_DAY,-1,Not in Universe
-2014,PES6,VRS_VOTE_DAY,-2,Don't know
-2014,PES6,VRS_VOTE_DAY,-3,Refused
-2014,PES6,VRS_VOTE_DAY,-9,No Response
+2014,PES6,VRS_VOTE_EDAY,1,On election day
+2014,PES6,VRS_VOTE_EDAY,2,Before election day
+2014,PES6,VRS_VOTE_EDAY,-1,Not in Universe
+2014,PES6,VRS_VOTE_EDAY,-2,Don't know
+2014,PES6,VRS_VOTE_EDAY,-3,Refused
+2014,PES6,VRS_VOTE_EDAY,-9,No Response
 2014,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card)"
 2014,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office)"
 2014,PES7,VRS_REG_METHOD,3,Registered by mail
@@ -1153,12 +1153,12 @@ year,cps_name,new_name,code,value
 2016,PES5,VRS_VOTE_MAIL,-2,Don't know
 2016,PES5,VRS_VOTE_MAIL,-3,Refused
 2016,PES5,VRS_VOTE_MAIL,-9,No Response 
-2016,PES6,VRS_VOTE_DAY,1,On election day
-2016,PES6,VRS_VOTE_DAY,2,Before election day 
-2016,PES6,VRS_VOTE_DAY,-1,Not in Universe
-2016,PES6,VRS_VOTE_DAY,-2,Don't know
-2016,PES6,VRS_VOTE_DAY,-3,Refused
-2016,PES6,VRS_VOTE_DAY,-9,No Response 
+2016,PES6,VRS_VOTE_EDAY,1,On election day
+2016,PES6,VRS_VOTE_EDAY,2,Before election day 
+2016,PES6,VRS_VOTE_EDAY,-1,Not in Universe
+2016,PES6,VRS_VOTE_EDAY,-2,Don't know
+2016,PES6,VRS_VOTE_EDAY,-3,Refused
+2016,PES6,VRS_VOTE_EDAY,-9,No Response 
 2016,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card)"
 2016,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office) "
 2016,PES7,VRS_REG_METHOD,3,Registered by mail
@@ -1272,12 +1272,12 @@ year,cps_name,new_name,code,value
 2018,PES5,VRS_VOTE_MAIL,-2,Don't know
 2018,PES5,VRS_VOTE_MAIL,-3,Refused
 2018,PES5,VRS_VOTE_MAIL,-9,No Response 
-2018,PES6,VRS_VOTE_DAY,1,On election day
-2018,PES6,VRS_VOTE_DAY,2,Before election day 
-2018,PES6,VRS_VOTE_DAY,-1,Not in Universe
-2018,PES6,VRS_VOTE_DAY,-2,Don't know
-2018,PES6,VRS_VOTE_DAY,-3,Refused
-2018,PES6,VRS_VOTE_DAY,-9,No Response 
+2018,PES6,VRS_VOTE_EDAY,1,On election day
+2018,PES6,VRS_VOTE_EDAY,2,Before election day 
+2018,PES6,VRS_VOTE_EDAY,-1,Not in Universe
+2018,PES6,VRS_VOTE_EDAY,-2,Don't know
+2018,PES6,VRS_VOTE_EDAY,-3,Refused
+2018,PES6,VRS_VOTE_EDAY,-9,No Response 
 2018,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card)"
 2018,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office)"
 2018,PES7,VRS_REG_METHOD,3,Registered by mail 
