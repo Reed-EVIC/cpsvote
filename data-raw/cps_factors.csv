@@ -1,0 +1,1964 @@
+year,cps_name,new_name,code,value
+1994,PESEX,SEX,1,Male
+1994,PESEX,SEX,2,Female
+1994,PEEDUCA,EDUCATION,31,Less Than 1st Grade
+1994,PEEDUCA,EDUCATION,32,"1st, 2nd, 3rd Or 4th Grade"
+1994,PEEDUCA,EDUCATION,33,5th Or 6th Grade
+1994,PEEDUCA,EDUCATION,34,7th Or 8th Grade
+1994,PEEDUCA,EDUCATION,35,9th Grade
+1994,PEEDUCA,EDUCATION,36,10th Grade
+1994,PEEDUCA,EDUCATION,37,11th Grade
+1994,PEEDUCA,EDUCATION,38,12th Grade No Diploma
+1994,PEEDUCA,EDUCATION,39,High School Grad-diploma Or Equiv (Ged)
+1994,PEEDUCA,EDUCATION,40,Some College But No Degree
+1994,PEEDUCA,EDUCATION,41,Associate Degree-Occupational/Vocational
+1994,PEEDUCA,EDUCATION,42,Associate Degree-Academic Program
+1994,PEEDUCA,EDUCATION,43,"Bachelor's Degree (Ex: BA, AB, BS)"
+1994,PEEDUCA,EDUCATION,44,"Master's Degree (Ex: MA, MS, MENG, MED, MSW)"
+1994,PEEDUCA,EDUCATION,45,"Professional School Deg (Ex: MD, DDS, DVM)"
+1994,PEEDUCA,EDUCATION,46,"Doctorate Degree (Ex: PHD, EDD)"
+1994,PERACE,RACE,1,White
+1994,PERACE,RACE,2,Black
+1994,PERACE,RACE,3,"American Indian, Aleut, Eskimo"
+1994,PERACE,RACE,4,Asian Or Pacific Islander
+1994,PERACE,RACE,5,Other - Specify
+1994,PRHSPNON,HISPANIC,1,Hispanic
+1994,PRHSPNON,HISPANIC,2,Non-Hipsanic
+1994,PES3,VRS_VOTE,1,Yes
+1994,PES3,VRS_VOTE,2,No
+1994,PES3,VRS_VOTE,-2,Don't Know
+1994,PES3,VRS_VOTE,-3,Refused
+1994,PES4,VRS_REG,1,Yes
+1994,PES4,VRS_REG,2,No
+1994,PES4,VRS_REG,-2,Don't Know
+1994,PES4,VRS_REG,-3,Refused
+1994,PES4,VRS_REG,-9,No response (N/A)
+1994,PES5,VRS_VOTE_TIME,1,Before noon
+1994,PES5,VRS_VOTE_TIME,2,Noon to 4 p.m.
+1994,PES5,VRS_VOTE_TIME,3,4 p.m. to 6 p.m.
+1994,PES5,VRS_VOTE_TIME,4,After 6 p.m.
+1994,PES5,VRS_VOTE_TIME,5,Voted absentee
+1994,PES5,VRS_VOTE_TIME,-2,Don't Know
+1994,PES5,VRS_VOTE_TIME,-3,Refused
+1994,PES5,VRS_VOTE_TIME,-9,No response (N/A)
+1994,PES6,VRS_RESIDENCE,1,Less than 1 month
+1994,PES6,VRS_RESIDENCE,2,1-6 months
+1994,PES6,VRS_RESIDENCE,3,7-11 months
+1994,PES6,VRS_RESIDENCE,4,1-2 years
+1994,PES6,VRS_RESIDENCE,5,3-4 years
+1994,PES6,VRS_RESIDENCE,6,5 years or longer
+1994,PES6,VRS_RESIDENCE,-2,Don't Know
+1994,PES6,VRS_RESIDENCE,-3,Refused
+1996,PESEX,SEX,01,Male
+1996,PESEX,SEX,02,Female
+1996,PEEDUCA,EDUCATION,31,Less Than 1st Grade
+1996,PEEDUCA,EDUCATION,32,"1st, 2nd, 3rd Or 4th Grade"
+1996,PEEDUCA,EDUCATION,33,5th Or 6th Grade
+1996,PEEDUCA,EDUCATION,34,7th Or 8th Grade
+1996,PEEDUCA,EDUCATION,35,9th Grade
+1996,PEEDUCA,EDUCATION,36,10th Grade
+1996,PEEDUCA,EDUCATION,37,11th Grade
+1996,PEEDUCA,EDUCATION,38,12th Grade No Diploma
+1996,PEEDUCA,EDUCATION,39,High School Grad-Diploma Or Equiv (Ged)
+1996,PEEDUCA,EDUCATION,40,Some College But No Degree
+1996,PEEDUCA,EDUCATION,41,Associate Degree-Occupational/Vocational
+1996,PEEDUCA,EDUCATION,42,Associate Degree-Academic Program
+1996,PEEDUCA,EDUCATION,43,"Bachelor's Degree (Ex: Ba, Ab, Bs)"
+1996,PEEDUCA,EDUCATION,44,"Master's Degree (Ex: Ma, Ms, Meng, Med, Msw)"
+1996,PEEDUCA,EDUCATION,45,"Professional School Deg (Ex: Md, Dds, Dvm)"
+1996,PEEDUCA,EDUCATION,46,"Doctorate Degree (Ex: Phd, Edd)"
+1996,PERACE,RACE,01,White
+1996,PERACE,RACE,02,Black
+1996,PERACE,RACE,03,"American Indian, Aleut, Eskimo"
+1996,PERACE,RACE,04,Asian Or Pacific Islander
+1996,PERACE,RACE,05,Other - Specify
+1996,PRHSPNON,HISPANIC,01,Hispanic
+1996,PRHSPNON,HISPANIC,02,Non-Hipsanic
+1996,PES1,VRS_VOTE,1,Yes
+1996,PES1,VRS_VOTE,2,No
+1996,PES1,VRS_VOTE,-1,blank
+1996,PES1,VRS_VOTE,-2,Don't Know
+1996,PES1,VRS_VOTE,-3,Refused
+1996,PES1,VRS_VOTE,-9,No Response
+1996,PES2,VRS_REG,1,Yes
+1996,PES2,VRS_REG,2,No
+1996,PES2,VRS_REG,-1,blank
+1996,PES2,VRS_REG,-2,Don't Know
+1996,PES2,VRS_REG,-3,Refused
+1996,PES2,VRS_REG,-9,No Response
+1996,PES3,VRS_VOTE_WHYNOT,1,Had no way to get to polls
+1996,PES3,VRS_VOTE_WHYNOT,2,Could not take time off from work/school/too busy
+1996,PES3,VRS_VOTE_WHYNOT,3,Out of town or away from home
+1996,PES3,VRS_VOTE_WHYNOT,4,"Sick, disabled, or family emergency"
+1996,PES3,VRS_VOTE_WHYNOT,5,Did not prefer any of the candidates
+1996,PES3,VRS_VOTE_WHYNOT,6,"Not interested, don't care, etc."
+1996,PES3,VRS_VOTE_WHYNOT,7,Forgot to vote
+1996,PES3,VRS_VOTE_WHYNOT,8,Other reasons
+1996,PES3,VRS_VOTE_WHYNOT,9,Lines too long at polls
+1996,PES3,VRS_VOTE_WHYNOT,-1,blank
+1996,PES3,VRS_VOTE_WHYNOT,-2,Don't know
+1996,PES3,VRS_VOTE_WHYNOT,-3,Refused
+1996,PES3,VRS_VOTE_WHYNOT,-9,No Response
+1996,PES4,VRS_VOTE_METHOD,1,In person on election day
+1996,PES4,VRS_VOTE_METHOD,2,In person before election day
+1996,PES4,VRS_VOTE_METHOD,3,Voted by mail (absentee)
+1996,PES4,VRS_VOTE_METHOD,-1,blank
+1996,PES4,VRS_VOTE_METHOD,-2,Don't know
+1996,PES4,VRS_VOTE_METHOD,-3,Refused
+1996,PES4,VRS_VOTE_METHOD,-9,No Response
+1996,PES5,VRS_REG_SINCE95,1,Yes
+1996,PES5,VRS_REG_SINCE95,2,No
+1996,PES5,VRS_REG_SINCE95,-1,blank
+1996,PES5,VRS_REG_SINCE95,-2,Don't know
+1996,PES5,VRS_REG_SINCE95,-3,Refused
+1996,PES5,VRS_REG_SINCE95,-9,No Response
+1996,PES6,VRS_REG_DMV,1,When driver's license was obtained/renewed
+1996,PES6,VRS_REG_DMV,2,Some other way
+1996,PES6,VRS_REG_DMV,-1,blank
+1996,PES6,VRS_REG_DMV,-2,Don't know
+1996,PES6,VRS_REG_DMV,-3,Refused
+1996,PES7,VRS_REG_METHOD,1,"At a public assistance agency (for example, Medicaid, AFDC, or Food Stamp Unemployment office, office serving disabled persons)"
+1996,PES7,VRS_REG_METHOD,2,Mailed in form to elections office
+1996,PES7,VRS_REG_METHOD,3,"At a school, hospital, or on campus"
+1996,PES7,VRS_REG_METHOD,4,Went to a county or government voter registration office
+1996,PES7,VRS_REG_METHOD,5,"Filled out form at a registration drive (for example, political rally, someone came to your door, registration drive at mall, market, fair, post office, library, store, church, etc.)"
+1996,PES7,VRS_REG_METHOD,6,Other place/way
+1996,PES7,VRS_REG_METHOD,7,Registered at the polls on election day
+1996,PES7,VRS_REG_METHOD,-1,blank
+1996,PES7,VRS_REG_METHOD,-2,Don't know
+1996,PES7,VRS_REG_METHOD,-3,Refused
+1996,PES7,VRS_REG_METHOD,-9,No Response
+1996,PES8,VRS_RESIDENCE,1,Less than 1 month
+1996,PES8,VRS_RESIDENCE,2,1-6 months
+1996,PES8,VRS_RESIDENCE,3,7-11 months
+1996,PES8,VRS_RESIDENCE,4,1-2 years
+1996,PES8,VRS_RESIDENCE,5,3-4 years
+1996,PES8,VRS_RESIDENCE,6,5 years or longer
+1996,PES8,VRS_RESIDENCE,-1,blank
+1996,PES8,VRS_RESIDENCE,-2,Don't know
+1996,PES8,VRS_RESIDENCE,-3,Refused
+1996,PES8,VRS_RESIDENCE,-9,No Response
+1998,PESEX,SEX,1,Male
+1998,PESEX,SEX,2,Female
+1998,PEEDUCA,EDUCATION,31,Less Than 1st Grade
+1998,PEEDUCA,EDUCATION,32,"1st, 2nd, 3rd Or 4th Grade"
+1998,PEEDUCA,EDUCATION,33,5th Or 6th Grade
+1998,PEEDUCA,EDUCATION,34,7th Or 8th Grade
+1998,PEEDUCA,EDUCATION,35,9th Grade
+1998,PEEDUCA,EDUCATION,36,10th Grade
+1998,PEEDUCA,EDUCATION,37,11th Grade
+1998,PEEDUCA,EDUCATION,38,12th Grade No Diploma
+1998,PEEDUCA,EDUCATION,39,High School Grad-Diploma Or Equiv (GED)
+1998,PEEDUCA,EDUCATION,40,Some College But No Degree
+1998,PEEDUCA,EDUCATION,41,Associate Degree-Occupational/Vocational
+1998,PEEDUCA,EDUCATION,42,Associate Degree-Academic Program 
+1998,PEEDUCA,EDUCATION,43,"Bachelor's Degree (Ex: BA, AB, BS) "
+1998,PEEDUCA,EDUCATION,44,"Master's Degree (Ex: MA, MS, MENG, MED, MSW)"
+1998,PEEDUCA,EDUCATION,45,"Professional School Deg (Ex: MD, DDS, DVM)"
+1998,PEEDUCA,EDUCATION,46,"Doctorate Degree (Ex: PHD, EDD) "
+1998,PERACE,RACE,1,White
+1998,PERACE,RACE,2,Black
+1998,PERACE,RACE,3,"American Indian, Aleut, Eskimo "
+1998,PERACE,RACE,4,Asian Or Pacific Islander 
+1998,PRHSPNON,HISPANIC,1,Hispanic
+1998,PRHSPNON,HISPANIC,2,Non-Hispanic
+1998,PES1,VRS_VOTE,1,Yes
+1998,PES1,VRS_VOTE,2,No
+1998,PES1,VRS_VOTE,-1,blank
+1998,PES1,VRS_VOTE,-2,Don't Know
+1998,PES1,VRS_VOTE,-3,Refused
+1998,PES1,VRS_VOTE,-9,No Response
+1998,PES2,VRS_REG,1,Yes
+1998,PES2,VRS_REG,2,No
+1998,PES2,VRS_REG,-1,blank
+1998,PES2,VRS_REG,-2,Don't Know
+1998,PES2,VRS_REG,-3,Refused
+1998,PES2,VRS_REG,-9,No Response
+1998,PES3,VRS_VOTE_WHYNOT,1,"Too busy, conflicting work or school schedule"
+1998,PES3,VRS_VOTE_WHYNOT,2,"Not interested, felt my vote wouldn't make a difference"
+1998,PES3,VRS_VOTE_WHYNOT,3,Illness or disability (own or family's) 
+1998,PES3,VRS_VOTE_WHYNOT,4,Didn't like candidates or campaign issues 
+1998,PES3,VRS_VOTE_WHYNOT,5,Out of town or away from home
+1998,PES3,VRS_VOTE_WHYNOT,6,Forgot to vote (or send in absentee ballot) 
+1998,PES3,VRS_VOTE_WHYNOT,7,Transportation problems
+1998,PES3,VRS_VOTE_WHYNOT,8,Inconvenient polling place or hours or lines too long
+1998,PES3,VRS_VOTE_WHYNOT,9,"Registration problems (i.e., didn't recevie absentee ballot, not registered in current location)"
+1998,PES3,VRS_VOTE_WHYNOT,10,Bad weather conditions
+1998,PES3,VRS_VOTE_WHYNOT,11,Other
+1998,PES3,VRS_VOTE_WHYNOT,-1,blank
+1998,PES3,VRS_VOTE_WHYNOT,-2,Don't know
+1998,PES3,VRS_VOTE_WHYNOT,-3,Refused
+1998,PES3,VRS_VOTE_WHYNOT,-9,No Response
+1998,PES4,VRS_VOTE_METHOD,1,In person on election day
+1998,PES4,VRS_VOTE_METHOD,2,In person before election day
+1998,PES4,VRS_VOTE_METHOD,3,Voted by mail (absentee) 
+1998,PES4,VRS_VOTE_METHOD,-1,blank
+1998,PES4,VRS_VOTE_METHOD,-2,Don't know
+1998,PES4,VRS_VOTE_METHOD,-3,Refused
+1998,PES4,VRS_VOTE_METHOD,-9,No Response
+1998,PES5,VRS_REG_SINCE95,1,Yes
+1998,PES5,VRS_REG_SINCE95,2,No
+1998,PES5,VRS_REG_SINCE95,-1,blank
+1998,PES5,VRS_REG_SINCE95,-2,Don't know
+1998,PES5,VRS_REG_SINCE95,-3,Refused
+1998,PES5,VRS_REG_SINCE95,-9,No Response
+1998,PES6,VRS_REG_DMV,1,When driver's license was obtained/renewed 
+1998,PES6,VRS_REG_DMV,2,Some other way
+1998,PES6,VRS_REG_DMV,-1,blank
+1998,PES6,VRS_REG_DMV,-2,Don't know
+1998,PES6,VRS_REG_DMV,-3,Refused 
+1998,PES7,VRS_REG_METHOD,1,"At a public assistance agency (for example, Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office)"
+1998,PES7,VRS_REG_METHOD,2,Registered by mail
+1998,PES7,VRS_REG_METHOD,3,"At a school, hospital, or on campus "
+1998,PES7,VRS_REG_METHOD,4,Went to a town hall or county/government registration office
+1998,PES7,VRS_REG_METHOD,5,"Filled out form at a registration drive (library, post office, or someone came to your door)"
+1998,PES7,VRS_REG_METHOD,6,Registered at pollingplace (on election or primary day)
+1998,PES7,VRS_REG_METHOD,7,Other
+1998,PES7,VRS_REG_METHOD,-1,blank
+1998,PES7,VRS_REG_METHOD,-2,Don't know
+1998,PES7,VRS_REG_METHOD,-3,Refused
+1998,PES7,VRS_REG_METHOD,-9,No Response
+1998,PES8,VRS_RESIDENCE,1,Less than 1 month 
+1998,PES8,VRS_RESIDENCE,2,1-6 months 
+1998,PES8,VRS_RESIDENCE,3,7-11 months 
+1998,PES8,VRS_RESIDENCE,4,1-2 years 
+1998,PES8,VRS_RESIDENCE,5,3-4 years 
+1998,PES8,VRS_RESIDENCE,6,5 years or longer 
+1998,PES8,VRS_RESIDENCE,-1,blank
+1998,PES8,VRS_RESIDENCE,-2,Don't know 
+1998,PES8,VRS_RESIDENCE,-3,Refused 
+1998,PES8,VRS_RESIDENCE,-9,No Response 
+2000,PESEX,SEX,1,MALE
+2000,PESEX,SEX,2,FEMALE
+2000,PEEDUCA,EDUCATION,31,LESS THAN 1ST GRADE 
+2000,PEEDUCA,EDUCATION,32,"1ST, 2ND, 3RD OR 4TH GRADE "
+2000,PEEDUCA,EDUCATION,33,5TH OR 6TH GRADE 
+2000,PEEDUCA,EDUCATION,34,7TH OR 8TH GRADE 
+2000,PEEDUCA,EDUCATION,35,9TH GRADE 
+2000,PEEDUCA,EDUCATION,36,10TH GRADE 
+2000,PEEDUCA,EDUCATION,37,11TH GRADE 
+2000,PEEDUCA,EDUCATION,38,12TH GRADE NO DIPLOMA 
+2000,PEEDUCA,EDUCATION,39,HIGH SCHOOL GRAD-DIPLOMA OR EQUIV (GED)
+2000,PEEDUCA,EDUCATION,40,SOME COLLEGE BUT NO DEGREE 
+2000,PEEDUCA,EDUCATION,41,ASSOCIATE DEGREE-OCCUPATIONAL/VOCATIONAL
+2000,PEEDUCA,EDUCATION,42,ASSOCIATE DEGREE-ACADEMIC PROGRAM 
+2000,PEEDUCA,EDUCATION,43,"BACHELOR'S DEGREE (EX: BA, AB, BS)"
+2000,PEEDUCA,EDUCATION,44,"MASTER'S DEGREE (EX: MA, MS, MEng, MEd, MSW)"
+2000,PEEDUCA,EDUCATION,45,"PROFESSIONAL SCHOOL DEG (EX: MD, DDS, DVM)"
+2000,PEEDUCA,EDUCATION,46,"DOCTORATE DEGREE (EX: PhD, EdD) "
+2000,PERACE,RACE,1,WHITE 
+2000,PERACE,RACE,2,BLACK 
+2000,PERACE,RACE,3,"AMERICAN INDIAN, ALEUT, ESKIMO "
+2000,PERACE,RACE,4,ASIAN OR PACIFIC ISLANDER 
+2000,PRHSPNON,HISPANIC,1,HISPANIC 
+2000,PRHSPNON,HISPANIC,2,NON-HIPSANIC 
+2000,PES1,VRS_VOTE,1,Yes
+2000,PES1,VRS_VOTE,2,No
+2000,PES1,VRS_VOTE,-1,blank
+2000,PES1,VRS_VOTE,-2,Don't Know
+2000,PES1,VRS_VOTE,-3,Refused
+2000,PES1,VRS_VOTE,-9,No Response
+2000,PES2,VRS_REG,1,Yes
+2000,PES2,VRS_REG,2,No
+2000,PES2,VRS_REG,-1,blank
+2000,PES2,VRS_REG,-2,Don't Know
+2000,PES2,VRS_REG,-3,Refused
+2000,PES2,VRS_REG,-9,No Response
+2000,PES3,VRS_VOTE_WHYNOT,1,Illness or disability (own or family's) 
+2000,PES3,VRS_VOTE_WHYNOT,2,Out of town or away from home 
+2000,PES3,VRS_VOTE_WHYNOT,3,Forgot to vote (or send in absentee ballot) 
+2000,PES3,VRS_VOTE_WHYNOT,4,"Not interested, felt my vote wouldn't make a difference"
+2000,PES3,VRS_VOTE_WHYNOT,5,"Too busy, conflicting work or school schedule "
+2000,PES3,VRS_VOTE_WHYNOT,6,Transportation problems 
+2000,PES3,VRS_VOTE_WHYNOT,7,Didn't like candidates or campaign issues 
+2000,PES3,VRS_VOTE_WHYNOT,8,"Registration problems (i.e., didn't recevie absentee ballot, not registered in current location)"
+2000,PES3,VRS_VOTE_WHYNOT,9,Bad weather conditions 
+2000,PES3,VRS_VOTE_WHYNOT,10,Inconvenient polling place or hours or lines too long
+2000,PES3,VRS_VOTE_WHYNOT,11,Other
+2000,PES3,VRS_VOTE_WHYNOT,-1,blank
+2000,PES3,VRS_VOTE_WHYNOT,-2,Don't know
+2000,PES3,VRS_VOTE_WHYNOT,-3,Refused
+2000,PES3,VRS_VOTE_WHYNOT,-9,No Response
+2000,PES4,VRS_VOTE_METHOD,1,In person on election day 
+2000,PES4,VRS_VOTE_METHOD,2,In person before election day 
+2000,PES4,VRS_VOTE_METHOD,3,Voted by mail (absentee) 
+2000,PES4,VRS_VOTE_METHOD,-1,blank
+2000,PES4,VRS_VOTE_METHOD,-2,Don't know 
+2000,PES4,VRS_VOTE_METHOD,-3,Refused 
+2000,PES4,VRS_VOTE_METHOD,-9,No Response 
+2000,PES5,VRS_REG_SINCE95,1,Yes
+2000,PES5,VRS_REG_SINCE95,2,No
+2000,PES5,VRS_REG_SINCE95,-1,blank
+2000,PES5,VRS_REG_SINCE95,-2,Don't know
+2000,PES5,VRS_REG_SINCE95,-3,Refused
+2000,PES5,VRS_REG_SINCE95,-9,No Response
+2000,PES6,VRS_REG_DMV,1,When driver's license was obtained/renewed 
+2000,PES6,VRS_REG_DMV,2,Some other way 
+2000,PES6,VRS_REG_DMV,-1,blank
+2000,PES6,VRS_REG_DMV,-2,Don't know 
+2000,PES6,VRS_REG_DMV,-3,Refused 
+2000,PES7,VRS_REG_METHOD,1,"At a public assistance agency (for example, Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office)"
+2000,PES7,VRS_REG_METHOD,2,Registered by mail 
+2000,PES7,VRS_REG_METHOD,3,"At a school, hospital, or on campus "
+2000,PES7,VRS_REG_METHOD,4,Went to a town hall or county/government registration office
+2000,PES7,VRS_REG_METHOD,5,"Filled out form at a registration drive (library, post office, or someone came to your door)"
+2000,PES7,VRS_REG_METHOD,6,Registered at pollingplace (on election or primary day)
+2000,PES7,VRS_REG_METHOD,7,Other 
+2000,PES7,VRS_REG_METHOD,-1,blank
+2000,PES7,VRS_REG_METHOD,-2,Don't know
+2000,PES7,VRS_REG_METHOD,-3,Refused
+2000,PES7,VRS_REG_METHOD,-9,No Response
+2000,PES8,VRS_RESIDENCE,1,Less than 1 month
+2000,PES8,VRS_RESIDENCE,2,1-6 months
+2000,PES8,VRS_RESIDENCE,3,7-11 months
+2000,PES8,VRS_RESIDENCE,4,1-2 years
+2000,PES8,VRS_RESIDENCE,5,3-4 years
+2000,PES8,VRS_RESIDENCE,6,5 years or longer
+2000,PES8,VRS_RESIDENCE,-1,blank
+2000,PES8,VRS_RESIDENCE,-2,Don't know
+2000,PES8,VRS_RESIDENCE,-3,Refused
+2000,PES8,VRS_RESIDENCE,-9,No Response
+2002,PESEX,SEX,1,MALE
+2002,PESEX,SEX,2,FEMALE
+2002,PEEDUCA,EDUCATION,31,LESS THAN 1ST GRADE 
+2002,PEEDUCA,EDUCATION,32,"1ST, 2ND, 3RD OR 4TH GRADE "
+2002,PEEDUCA,EDUCATION,33,5TH OR 6TH GRADE 
+2002,PEEDUCA,EDUCATION,34,7TH OR 8TH GRADE 
+2002,PEEDUCA,EDUCATION,35,9TH GRADE 
+2002,PEEDUCA,EDUCATION,36,10TH GRADE 
+2002,PEEDUCA,EDUCATION,37,11TH GRADE 
+2002,PEEDUCA,EDUCATION,38,12TH GRADE NO DIPLOMA 
+2002,PEEDUCA,EDUCATION,39,HIGH SCHOOL GRAD-DIPLOMA OR EQUIV (GED)
+2002,PEEDUCA,EDUCATION,40,SOME COLLEGE BUT NO DEGREE 
+2002,PEEDUCA,EDUCATION,41,ASSOCIATE DEGREE-OCCUPATIONAL/VOCATIONAL
+2002,PEEDUCA,EDUCATION,42,ASSOCIATE DEGREE-ACADEMIC PROGRAM 
+2002,PEEDUCA,EDUCATION,43,"BACHELOR'S DEGREE (EX: BA, AB, BS)"
+2002,PEEDUCA,EDUCATION,44,"MASTER'S DEGREE (EX: MA, MS, MEng, MEd, MSW)"
+2002,PEEDUCA,EDUCATION,45,"PROFESSIONAL SCHOOL DEG (EX: MD, DDS, DVM)"
+2002,PEEDUCA,EDUCATION,46,"DOCTORATE DEGREE (EX: PhD, EdD) "
+2002,PERACE,RACE,1,WHITE 
+2002,PERACE,RACE,2,BLACK 
+2002,PERACE,RACE,3,"AMERICAN INDIAN, ALEUT, ESKIMO "
+2002,PERACE,RACE,4,ASIAN OR PACIFIC ISLANDER 
+2002,PRHSPNON,HISPANIC,1,HISPANIC
+2002,PRHSPNON,HISPANIC,2,NON-HIPSANIC
+2002,PES1,VRS_VOTE,1,Yes
+2002,PES1,VRS_VOTE,2,No
+2002,PES1,VRS_VOTE,-2,Don't Know
+2002,PES1,VRS_VOTE,-3,Refused
+2002,PES1,VRS_VOTE,-9,No Response
+2002,PES2,VRS_REG,1,Yes
+2002,PES2,VRS_REG,2,No
+2002,PES2,VRS_REG,-2,Don't Know
+2002,PES2,VRS_REG,-3,Refused
+2002,PES2,VRS_REG,-9,No Response
+2002,PES3,VRS_VOTE_WHYNOT,1,Illness or disability (own or family's) 
+2002,PES3,VRS_VOTE_WHYNOT,2,Out of town or away from home 
+2002,PES3,VRS_VOTE_WHYNOT,3,Forgot to vote (or send in absentee ballot) 
+2002,PES3,VRS_VOTE_WHYNOT,4,"Not interested, felt my vote wouldn't make a difference"
+2002,PES3,VRS_VOTE_WHYNOT,5,"Too busy, conflicting work or school schedule "
+2002,PES3,VRS_VOTE_WHYNOT,6,Transportation problems 
+2002,PES3,VRS_VOTE_WHYNOT,7,Didn't like candidates or campaign issues 
+2002,PES3,VRS_VOTE_WHYNOT,8,"Registration problems (i.e., didn't receive absentee ballot, not registered in current location)"
+2002,PES3,VRS_VOTE_WHYNOT,9,Bad weather conditions 
+2002,PES3,VRS_VOTE_WHYNOT,10,Inconvenient polling place or hours or lines too long
+2002,PES3,VRS_VOTE_WHYNOT,11,Other 
+2002,PES3,VRS_VOTE_WHYNOT,-2,Don't know 
+2002,PES3,VRS_VOTE_WHYNOT,-3,Refused 
+2002,PES3,VRS_VOTE_WHYNOT,-9,No Response 
+2002,PES4,VRS_VOTE_METHOD,1,In person on election day 
+2002,PES4,VRS_VOTE_METHOD,2,In person before election day 
+2002,PES4,VRS_VOTE_METHOD,3,Voted by mail (absentee) 
+2002,PES4,VRS_VOTE_METHOD,-2,Don't know 
+2002,PES4,VRS_VOTE_METHOD,-3,Refused 
+2002,PES4,VRS_VOTE_METHOD,-9,No Response 
+2002,PES5,VRS_REG_SINCE95,1,Yes
+2002,PES5,VRS_REG_SINCE95,2,No
+2002,PES5,VRS_REG_SINCE95,-2,Don't know
+2002,PES5,VRS_REG_SINCE95,-3,Refused
+2002,PES5,VRS_REG_SINCE95,-9,No Response
+2002,PES6,VRS_REG_DMV,1,When driver's license was obtained/renewed 
+2002,PES6,VRS_REG_DMV,2,Some other way 
+2002,PES6,VRS_REG_DMV,-2,Don't know 
+2002,PES6,VRS_REG_DMV,-3,Refused 
+2002,PES7,VRS_REG_METHOD,1,"At a public assistance agency (for example, Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office)"
+2002,PES7,VRS_REG_METHOD,2,Registered by mail 
+2002,PES7,VRS_REG_METHOD,3,"At a school, hospital, or on campus "
+2002,PES7,VRS_REG_METHOD,4,Went to a town hall or county/government registration office
+2002,PES7,VRS_REG_METHOD,5,"Filled out form at a registration drive (library, post office, or someone came to your door)"
+2002,PES7,VRS_REG_METHOD,6,Registered at pollingplace (on election or primary day)
+2002,PES7,VRS_REG_METHOD,7,Other 
+2002,PES7,VRS_REG_METHOD,-2,Don't know 
+2002,PES7,VRS_REG_METHOD,-3,Refused 
+2002,PES7,VRS_REG_METHOD,-9,No Response 
+2002,PES8,VRS_RESIDENCE,1,Less than 1 month
+2002,PES8,VRS_RESIDENCE,2,1-6 months 
+2002,PES8,VRS_RESIDENCE,3,7-11 months 
+2002,PES8,VRS_RESIDENCE,4,1-2 years 
+2002,PES8,VRS_RESIDENCE,5,3-4 years 
+2002,PES8,VRS_RESIDENCE,6,5 years or longer 
+2002,PES8,VRS_RESIDENCE,-2,Don't know 
+2002,PES8,VRS_RESIDENCE,-3,Refused 
+2002,PES8,VRS_RESIDENCE,-9,No Response 
+2004,PESEX,SEX,1,MALE
+2004,PESEX,SEX,2,FEMALE
+2004,PEEDUCA,EDUCATION,31,LESS THAN 1ST GRADE 
+2004,PEEDUCA,EDUCATION,32,"1ST, 2ND, 3RD OR 4TH GRADE "
+2004,PEEDUCA,EDUCATION,33,5TH OR 6TH GRADE 
+2004,PEEDUCA,EDUCATION,34,7TH OR 8TH GRADE 
+2004,PEEDUCA,EDUCATION,35,9TH GRADE 
+2004,PEEDUCA,EDUCATION,36,10TH GRADE 
+2004,PEEDUCA,EDUCATION,37,11TH GRADE 
+2004,PEEDUCA,EDUCATION,38,12TH GRADE NO DIPLOMA 
+2004,PEEDUCA,EDUCATION,39,HIGH SCHOOL GRAD-DIPLOMA OR EQUIV (GED)
+2004,PEEDUCA,EDUCATION,40,SOME COLLEGE BUT NO DEGREE 
+2004,PEEDUCA,EDUCATION,41,ASSOCIATE DEGREE-OCCUPATIONAL/VOCATIONAL
+2004,PEEDUCA,EDUCATION,42,ASSOCIATE DEGREE-ACADEMIC PROGRAM
+2004,PEEDUCA,EDUCATION,43,"BACHELOR'S DEGREE (EX: BA, AB, BS) "
+2004,PEEDUCA,EDUCATION,44,"MASTER'S DEGREE (EX: MA, MS, Meng, MEd, MSW)"
+2004,PEEDUCA,EDUCATION,45,"PROFESSIONAL SCHOOL DEG (EX: MD, DDS, DVM)"
+2004,PEEDUCA,EDUCATION,46,"DOCTORATE DEGREE (EX: PhD, EdD)"
+2004,PTDTRACE,RACE,01,White Only 
+2004,PTDTRACE,RACE,02,Black Only 
+2004,PTDTRACE,RACE,03,"American Indian, Alaskan Native Only "
+2004,PTDTRACE,RACE,04,Asian Only 
+2004,PTDTRACE,RACE,05,Hawaiian/Pacific Islander Only 
+2004,PTDTRACE,RACE,06,White-Black 
+2004,PTDTRACE,RACE,07,White-AI 
+2004,PTDTRACE,RACE,08,White-Asian 
+2004,PTDTRACE,RACE,09,White-Hawaiian 
+2004,PTDTRACE,RACE,10,Black-AI 
+2004,PTDTRACE,RACE,11,Black-Asian 
+2004,PTDTRACE,RACE,12,Black-HP 
+2004,PTDTRACE,RACE,13,AI-Asian 
+2004,PTDTRACE,RACE,14,Asian-HP 
+2004,PTDTRACE,RACE,15,W-B-AI 
+2004,PTDTRACE,RACE,16,W-B-A 
+2004,PTDTRACE,RACE,17,W-AI-A 
+2004,PTDTRACE,RACE,18,W-A-HP 
+2004,PTDTRACE,RACE,19,W-B-AI-A 
+2004,PTDTRACE,RACE,20,2 or 3 Races 
+2004,PTDTRACE,RACE,21,4 or 5 Races 
+2004,PEHSPNON,HISPANIC,1,HISPANIC
+2004,PEHSPNON,HISPANIC,2,NON-HIPSANIC
+2004,PES1,VRS_VOTE,1,Yes 
+2004,PES1,VRS_VOTE,2,No 
+2004,PES1,VRS_VOTE,-2,Don't Know 
+2004,PES1,VRS_VOTE,-3,Refused 
+2004,PES1,VRS_VOTE,-9,No Response 
+2004,PES2,VRS_REG,1,Yes 
+2004,PES2,VRS_REG,2,No 
+2004,PES2,VRS_REG,-2,Don't Know 
+2004,PES2,VRS_REG,-3,Refused 
+2004,PES2,VRS_REG,-9,No Response 
+2004,PES3,VRS_REG_WHYNOT,1,Did not meet registration deadlines 
+2004,PES3,VRS_REG_WHYNOT,2,Did not know where or how to register 
+2004,PES3,VRS_REG_WHYNOT,3,Did not meet residency requirements/did not live here long enough
+2004,PES3,VRS_REG_WHYNOT,4,Permanent illness or disability 
+2004,PES3,VRS_REG_WHYNOT,5,Difficulty with English 
+2004,PES3,VRS_REG_WHYNOT,6,Not interested in the election or not involved in politics
+2004,PES3,VRS_REG_WHYNOT,7,My vote would not make a difference 
+2004,PES3,VRS_REG_WHYNOT,8,Not eligible to vote 
+2004,PES3,VRS_REG_WHYNOT,9,Other reason 
+2004,PES3,VRS_REG_WHYNOT,-2,Don't know 
+2004,PES3,VRS_REG_WHYNOT,-3,Refused 
+2004,PES3,VRS_REG_WHYNOT,-9,No Response 
+2004,PES4,VRS_VOTE_WHYNOT,1,Illness or disability (own or family's) 
+2004,PES4,VRS_VOTE_WHYNOT,2,Out of town or away from home 
+2004,PES4,VRS_VOTE_WHYNOT,3,Forgot to vote (or send in absentee ballot) 
+2004,PES4,VRS_VOTE_WHYNOT,4,"Not interested, felt my vote wouldn't make a difference"
+2004,PES4,VRS_VOTE_WHYNOT,5,"Too busy, conflicting work or school schedule "
+2004,PES4,VRS_VOTE_WHYNOT,6,Transportation problems 
+2004,PES4,VRS_VOTE_WHYNOT,7,Didn't like candidates or campaign issues 
+2004,PES4,VRS_VOTE_WHYNOT,8,"Registration problems (i.e. didn't receive absentee ballot, not registered in current location)"
+2004,PES4,VRS_VOTE_WHYNOT,9,Bad weather conditions 
+2004,PES4,VRS_VOTE_WHYNOT,10,"Inconvenient hours, polling place or hours or lines too long "
+2004,PES4,VRS_VOTE_WHYNOT,11,Other 
+2004,PES4,VRS_VOTE_WHYNOT,-2,Don't know 
+2004,PES4,VRS_VOTE_WHYNOT,-3,Refused 
+2004,PES4,VRS_VOTE_WHYNOT,-9,No Response 
+2004,PES5,VRS_VOTE_MAIL,1,In person 
+2004,PES5,VRS_VOTE_MAIL,2,By mail 
+2004,PES5,VRS_VOTE_MAIL,-2,Don't know 
+2004,PES5,VRS_VOTE_MAIL,-3,Refused 
+2004,PES5,VRS_VOTE_MAIL,-9,No Response 
+2004,PES6,VRS_VOTE_EDAY,1,On election day 
+2004,PES6,VRS_VOTE_EDAY,2,Before election day 
+2004,PES6,VRS_VOTE_EDAY,-2,Don't know 
+2004,PES6,VRS_VOTE_EDAY,-3,Refused 
+2004,PES6,VRS_VOTE_EDAY,-9,No Response 
+2004,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card) "
+2004,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office "
+2004,PES7,VRS_REG_METHOD,3,Registered by mail 
+2004,PES7,VRS_REG_METHOD,4,"At a school, hospital, or on campus "
+2004,PES7,VRS_REG_METHOD,5,Went to a town hall or county/government registration office
+2004,PES7,VRS_REG_METHOD,6,"Filled out form at a registration drive (library, post office, or someone came to your door)"
+2004,PES7,VRS_REG_METHOD,7,Registered at polling place (on election or primary day)
+2004,PES7,VRS_REG_METHOD,8,Other 
+2004,PES7,VRS_REG_METHOD,-2,Don't know 
+2004,PES7,VRS_REG_METHOD,-3,Refused 
+2004,PES7,VRS_REG_METHOD,-9,No Response 
+2004,PES8,VRS_RESIDENCE,1,Less than 1 month 
+2004,PES8,VRS_RESIDENCE,2,1-6 months 
+2004,PES8,VRS_RESIDENCE,3,7-11 months 
+2004,PES8,VRS_RESIDENCE,4,1-2 years 
+2004,PES8,VRS_RESIDENCE,5,3-4 years 
+2004,PES8,VRS_RESIDENCE,6,5 years or longer 
+2004,PES8,VRS_RESIDENCE,-2,Don't know 
+2004,PES8,VRS_RESIDENCE,-3,Refused 
+2004,PES8,VRS_RESIDENCE,-9,No Response 
+2006,PESEX,SEX,1,MALE
+2006,PESEX,SEX,2,FEMALE
+2006,PEEDUCA,EDUCATION,31,LESS THAN 1ST GRADE 
+2006,PEEDUCA,EDUCATION,32,"1ST, 2ND, 3RD OR 4TH GRADE "
+2006,PEEDUCA,EDUCATION,33,5TH OR 6TH GRADE 
+2006,PEEDUCA,EDUCATION,34,7TH OR 8TH GRADE 
+2006,PEEDUCA,EDUCATION,35,9TH GRADE 
+2006,PEEDUCA,EDUCATION,36,10TH GRADE 
+2006,PEEDUCA,EDUCATION,37,11TH GRADE 
+2006,PEEDUCA,EDUCATION,38,12TH GRADE NO DIPLOMA 
+2006,PEEDUCA,EDUCATION,39,HIGH SCHOOL GRAD-DIPLOMA OR EQUIV (GED)
+2006,PEEDUCA,EDUCATION,40,SOME COLLEGE BUT NO DEGREE 
+2006,PEEDUCA,EDUCATION,41,ASSOCIATE DEGREE-OCCUPATIONAL/VOCATIONAL
+2006,PEEDUCA,EDUCATION,42,ASSOCIATE DEGREE-ACADEMIC PROGRAM 
+2006,PEEDUCA,EDUCATION,43,"BACHELOR'S DEGREE (EX: BA, AB, BS) "
+2006,PEEDUCA,EDUCATION,44,"MASTER'S DEGREE (EX: MA, MS, MEng, MEd, MSW)"
+2006,PEEDUCA,EDUCATION,45,"PROFESSIONAL SCHOOL DEG (EX: MD, DDS, DVM)"
+2006,PEEDUCA,EDUCATION,46,"DOCTORATE DEGREE (EX: PhD, EdD) "
+2006,PTDTRACE,RACE,01,White Only
+2006,PTDTRACE,RACE,02,Black Only
+2006,PTDTRACE,RACE,03,"American Indian, Alaskan Native Only "
+2006,PTDTRACE,RACE,04,Asian Only
+2006,PTDTRACE,RACE,05,Hawaiian/Pacific Islander Only
+2006,PTDTRACE,RACE,06,White-Black
+2006,PTDTRACE,RACE,07,White-AI
+2006,PTDTRACE,RACE,08,White-Asian
+2006,PTDTRACE,RACE,09,White-Hawaiian
+2006,PTDTRACE,RACE,10,Black-AI
+2006,PTDTRACE,RACE,11,Black-Asian
+2006,PTDTRACE,RACE,12,Black-HP
+2006,PTDTRACE,RACE,13,AI-Asian
+2006,PTDTRACE,RACE,14,Asian-HP
+2006,PTDTRACE,RACE,15,W-B-AI
+2006,PTDTRACE,RACE,16,W-B-A
+2006,PTDTRACE,RACE,17,W-AI-A
+2006,PTDTRACE,RACE,18,W-A-HP
+2006,PTDTRACE,RACE,19,W-B-AI-A
+2006,PTDTRACE,RACE,20,2 or 3 Races
+2006,PTDTRACE,RACE,21,4 or 5 Races 
+2006,PEHSPNON,HISPANIC,1,HISPANIC
+2006,PEHSPNON,HISPANIC,2,NON-HIPSANIC
+2006,PES1,VRS_VOTE,1,Yes
+2006,PES1,VRS_VOTE,2,No
+2006,PES1,VRS_VOTE,-2,Don't Know
+2006,PES1,VRS_VOTE,-3,Refused
+2006,PES1,VRS_VOTE,-9,No response
+2006,PES2,VRS_REG,1,Yes
+2006,PES2,VRS_REG,2,No
+2006,PES2,VRS_REG,-2,Don't Know
+2006,PES2,VRS_REG,-3,Refused
+2006,PES2,VRS_REG,-9,No response
+2006,PES3,VRS_REG_WHYNOT,1,Did not meet registration deadlines 
+2006,PES3,VRS_REG_WHYNOT,2,Did not know where or how to register 
+2006,PES3,VRS_REG_WHYNOT,3,Did not meet residency requirements/did not live here long enough
+2006,PES3,VRS_REG_WHYNOT,4,Permanent illness or disability 
+2006,PES3,VRS_REG_WHYNOT,5,Difficulty with English 
+2006,PES3,VRS_REG_WHYNOT,6,Not interested in the election or not involved in politics
+2006,PES3,VRS_REG_WHYNOT,7,My vote would not make a difference 
+2006,PES3,VRS_REG_WHYNOT,8,Not eligible to vote 
+2006,PES3,VRS_REG_WHYNOT,9,Other reason 
+2006,PES3,VRS_REG_WHYNOT,-2,Don't know 
+2006,PES3,VRS_REG_WHYNOT,-3,Refused 
+2006,PES3,VRS_REG_WHYNOT,-9,No response 
+2006,PES4,VRS_VOTE_WHYNOT,1,Illness or disability (own or family's) 
+2006,PES4,VRS_VOTE_WHYNOT,2,Out of town or away from home 
+2006,PES4,VRS_VOTE_WHYNOT,3,Forgot to vote (or send in absentee ballot) 
+2006,PES4,VRS_VOTE_WHYNOT,4,"Not interested, felt my vote wouldn't make a difference"
+2006,PES4,VRS_VOTE_WHYNOT,5,"Too busy, conflicting work or school schedule "
+2006,PES4,VRS_VOTE_WHYNOT,6,Transportation problems 
+2006,PES4,VRS_VOTE_WHYNOT,7,Didn't like candidates or campaign issues 
+2006,PES4,VRS_VOTE_WHYNOT,8,"Registration problems (i.e. didn't receive absentee ballot, not registered in current location)"
+2006,PES4,VRS_VOTE_WHYNOT,9,Bad weather conditions 
+2006,PES4,VRS_VOTE_WHYNOT,10,"Inconvenient hours, polling place or hours or lines too long "
+2006,PES4,VRS_VOTE_WHYNOT,11,Other 
+2006,PES4,VRS_VOTE_WHYNOT,-2,Don't know 
+2006,PES4,VRS_VOTE_WHYNOT,-3,Refused 
+2006,PES4,VRS_VOTE_WHYNOT,-9,No response 
+2006,PES5,VRS_VOTE_MAIL,1,In person 
+2006,PES5,VRS_VOTE_MAIL,2,By mail 
+2006,PES5,VRS_VOTE_MAIL,-2,Don't know 
+2006,PES5,VRS_VOTE_MAIL,-3,Refused 
+2006,PES5,VRS_VOTE_MAIL,-9,No response 
+2006,PES6,VRS_VOTE_EDAY,1,On election day 
+2006,PES6,VRS_VOTE_EDAY,2,Before election day 
+2006,PES6,VRS_VOTE_EDAY,-2,Don't know 
+2006,PES6,VRS_VOTE_EDAY,-3,Refused 
+2006,PES6,VRS_VOTE_EDAY,-9,No response 
+2006,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card)"
+2006,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office) "
+2006,PES7,VRS_REG_METHOD,3,Registered by mail 
+2006,PES7,VRS_REG_METHOD,4,"At a school, hospital, or on campus "
+2006,PES7,VRS_REG_METHOD,5,Went to a town hall or county/government registration office
+2006,PES7,VRS_REG_METHOD,6,"Filled out form at a registration drive (library, post office, or someone came to your door)"
+2006,PES7,VRS_REG_METHOD,7,Registered at polling place (on election or primary day)
+2006,PES7,VRS_REG_METHOD,8,Other 
+2006,PES7,VRS_REG_METHOD,-2,Don't know 
+2006,PES7,VRS_REG_METHOD,-3,Refused 
+2006,PES7,VRS_REG_METHOD,-9,No response 
+2006,PES8,VRS_RESIDENCE,1,Less than 1 month 
+2006,PES8,VRS_RESIDENCE,2,1-6 months 
+2006,PES8,VRS_RESIDENCE,3,7-11 months 
+2006,PES8,VRS_RESIDENCE,4,1-2 years 
+2006,PES8,VRS_RESIDENCE,5,3-4 years 
+2006,PES8,VRS_RESIDENCE,6,5 years or longer 
+2006,PES8,VRS_RESIDENCE,-2,Don't know 
+2006,PES8,VRS_RESIDENCE,-3,Refused 
+2006,PES8,VRS_RESIDENCE,-9,No response 
+2008,PESEX,SEX,1,MALE
+2008,PESEX,SEX,2,FEMALE
+2008,PEEDUCA,EDUCATION,31,LESS THAN 1ST GRADE 
+2008,PEEDUCA,EDUCATION,32,"1ST, 2ND, 3RD OR 4TH GRADE "
+2008,PEEDUCA,EDUCATION,33,5TH OR 6TH GRADE 
+2008,PEEDUCA,EDUCATION,34,7TH OR 8TH GRADE 
+2008,PEEDUCA,EDUCATION,35,9TH GRADE 
+2008,PEEDUCA,EDUCATION,36,10TH GRADE 
+2008,PEEDUCA,EDUCATION,37,11TH GRADE 
+2008,PEEDUCA,EDUCATION,38,12TH GRADE NO DIPLOMA 
+2008,PEEDUCA,EDUCATION,39,HIGH SCHOOL GRAD-DIPLOMA OR EQUIV (GED)
+2008,PEEDUCA,EDUCATION,40,SOME COLLEGE BUT NO DEGREE 
+2008,PEEDUCA,EDUCATION,41,ASSOCIATE DEGREE-OCCUPATIONAL/VOCATIONAL
+2008,PEEDUCA,EDUCATION,42,ASSOCIATE DEGREE-ACADEMIC PROGRAM
+2008,PEEDUCA,EDUCATION,43,"BACHELOR'S DEGREE (EX: BA, AB, BS) "
+2008,PEEDUCA,EDUCATION,44,"MASTER'S DEGREE (EX: MA, MS, MEng, MEd, MSW)"
+2008,PEEDUCA,EDUCATION,45,"PROFESSIONAL SCHOOL DEG (EX: MD, DDS, DVM)"
+2008,PEEDUCA,EDUCATION,46,"DOCTORATE DEGREE (EX: PhD, EdD) "
+2008,PTDTRACE,RACE,01,White Only 
+2008,PTDTRACE,RACE,02,Black Only 
+2008,PTDTRACE,RACE,03,"American Indian, Alaskan Native Only "
+2008,PTDTRACE,RACE,04,Asian Only 
+2008,PTDTRACE,RACE,05,Hawaiian/Pacific Islander Only 
+2008,PTDTRACE,RACE,06,White-Black 
+2008,PTDTRACE,RACE,07,White-AI 
+2008,PTDTRACE,RACE,08,White-Asian 
+2008,PTDTRACE,RACE,09,White-Hawaiian 
+2008,PTDTRACE,RACE,10,Black-AI 
+2008,PTDTRACE,RACE,11,Black-Asian 
+2008,PTDTRACE,RACE,12,Black-HP 
+2008,PTDTRACE,RACE,13,AI-Asian 
+2008,PTDTRACE,RACE,14,Asian-HP 
+2008,PTDTRACE,RACE,15,W-B-AI 
+2008,PTDTRACE,RACE,16,W-B-A 
+2008,PTDTRACE,RACE,17,W-AI-A 
+2008,PTDTRACE,RACE,18,W-A-HP 
+2008,PTDTRACE,RACE,19,W-B-AI-A 
+2008,PTDTRACE,RACE,20,2 or 3 Races 
+2008,PTDTRACE,RACE,21,4 or 5 Races 
+2008,PEHSPNON,HISPANIC,1,HISPANIC
+2008,PEHSPNON,HISPANIC,2,NON-HIPSANIC
+2008,PES1,VRS_VOTE,1,Yes 
+2008,PES1,VRS_VOTE,2,No 
+2008,PES1,VRS_VOTE,-2,Don't Know 
+2008,PES1,VRS_VOTE,-3,Refused 
+2008,PES1,VRS_VOTE,-9,No Response 
+2008,PES2,VRS_REG,1,Yes 
+2008,PES2,VRS_REG,2,No 
+2008,PES2,VRS_REG,-2,Don't Know 
+2008,PES2,VRS_REG,-3,Refused 
+2008,PES2,VRS_REG,-9,No Response 
+2008,PES3,VRS_REG_WHYNOT,1,Did not meet registration deadlines 
+2008,PES3,VRS_REG_WHYNOT,2,Did not know where or how to register 
+2008,PES3,VRS_REG_WHYNOT,3,Did not meet residency requirements/did not live here long enough
+2008,PES3,VRS_REG_WHYNOT,4,Permanent illness or disability 
+2008,PES3,VRS_REG_WHYNOT,5,Difficulty with English 
+2008,PES3,VRS_REG_WHYNOT,6,Not interested in the election or not involved in politics
+2008,PES3,VRS_REG_WHYNOT,7,My vote would not make a difference 
+2008,PES3,VRS_REG_WHYNOT,8,Not eligible to vote 
+2008,PES3,VRS_REG_WHYNOT,9,Other reason 
+2008,PES3,VRS_REG_WHYNOT,-2,Don't know 
+2008,PES3,VRS_REG_WHYNOT,-3,Refused 
+2008,PES3,VRS_REG_WHYNOT,-9,No Response 
+2008,PES4,VRS_VOTE_WHYNOT,1,Illness or disability (own or family's) 
+2008,PES4,VRS_VOTE_WHYNOT,2,Out of town or away from home 
+2008,PES4,VRS_VOTE_WHYNOT,3,Forgot to vote (or send in absentee ballot) 
+2008,PES4,VRS_VOTE_WHYNOT,4,"Not interested, felt my vote wouldn't make a difference"
+2008,PES4,VRS_VOTE_WHYNOT,5,"Too busy, conflicting work or school schedule "
+2008,PES4,VRS_VOTE_WHYNOT,6,Transportation problems 
+2008,PES4,VRS_VOTE_WHYNOT,7,Didn't like candidates or campaign issues 
+2008,PES4,VRS_VOTE_WHYNOT,8,"Registration problems (i.e. didn't receive absentee ballot, not registered in current location)"
+2008,PES4,VRS_VOTE_WHYNOT,9,Bad weather conditions 
+2008,PES4,VRS_VOTE_WHYNOT,10,"Inconvenient hours, polling place or hours or lines too long "
+2008,PES4,VRS_VOTE_WHYNOT,11,Other 
+2008,PES4,VRS_VOTE_WHYNOT,-2,Don't know 
+2008,PES4,VRS_VOTE_WHYNOT,-3,Refused 
+2008,PES4,VRS_VOTE_WHYNOT,-9,No Response 
+2008,PES5,VRS_VOTE_MAIL,1,In person 
+2008,PES5,VRS_VOTE_MAIL,2,By mail 
+2008,PES5,VRS_VOTE_MAIL,-2,Don't know 
+2008,PES5,VRS_VOTE_MAIL,-3,Refused 
+2008,PES5,VRS_VOTE_MAIL,-9,No Response 
+2008,PES6,VRS_VOTE_EDAY,1,On election day 
+2008,PES6,VRS_VOTE_EDAY,2,Before election day 
+2008,PES6,VRS_VOTE_EDAY,-2,Don't know 
+2008,PES6,VRS_VOTE_EDAY,-3,Refused 
+2008,PES6,VRS_VOTE_EDAY,-9,No Response 
+2008,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card) "
+2008,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office) "
+2008,PES7,VRS_REG_METHOD,3,Registered by mail 
+2008,PES7,VRS_REG_METHOD,4,"At a school, hospital, or on campus "
+2008,PES7,VRS_REG_METHOD,5,Went to a town hall or county/government registration office
+2008,PES7,VRS_REG_METHOD,6,"Filled out form at a registration drive (library, post office, or someone came to your door)"
+2008,PES7,VRS_REG_METHOD,7,Registered at polling place (on election or primary day)
+2008,PES7,VRS_REG_METHOD,8,Other 
+2008,PES7,VRS_REG_METHOD,-2,Don't know 
+2008,PES7,VRS_REG_METHOD,-3,Refused 
+2008,PES7,VRS_REG_METHOD,-9,No Response 
+2008,PES8,VRS_RESIDENCE,1,Less than 1 month 
+2008,PES8,VRS_RESIDENCE,2,1-6 months 
+2008,PES8,VRS_RESIDENCE,3,7-11 months 
+2008,PES8,VRS_RESIDENCE,4,1-2 years 
+2008,PES8,VRS_RESIDENCE,5,3-4 years 
+2008,PES8,VRS_RESIDENCE,6,5 years or longer 
+2008,PES8,VRS_RESIDENCE,-2,Don't know 
+2008,PES8,VRS_RESIDENCE,-3,Refused 
+2008,PES8,VRS_RESIDENCE,-9,No Response 
+2010,PESEX,SEX,1,MALE
+2010,PESEX,SEX,2,FEMALE
+2010,PEEDUCA,EDUCATION,31,LESS THAN 1ST GRADE 
+2010,PEEDUCA,EDUCATION,32,"1ST, 2ND, 3RD OR 4TH GRADE "
+2010,PEEDUCA,EDUCATION,33,5TH OR 6TH GRADE 
+2010,PEEDUCA,EDUCATION,34,7TH OR 8TH GRADE 
+2010,PEEDUCA,EDUCATION,35,9TH GRADE 
+2010,PEEDUCA,EDUCATION,36,10TH GRADE 
+2010,PEEDUCA,EDUCATION,37,11TH GRADE 
+2010,PEEDUCA,EDUCATION,38,12TH GRADE NO DIPLOMA 
+2010,PEEDUCA,EDUCATION,39,HIGH SCHOOL GRAD-DIPLOMA OR EQUIV (GED)
+2010,PEEDUCA,EDUCATION,40,SOME COLLEGE BUT NO DEGREE 
+2010,PEEDUCA,EDUCATION,41,ASSOCIATE DEGREE-OCCUPATIONAL/VOCATIONAL
+2010,PEEDUCA,EDUCATION,42,ASSOCIATE DEGREE-ACADEMIC PROGRAM
+2010,PEEDUCA,EDUCATION,43,"BACHELOR'S DEGREE (EX: BA, AB, BS) "
+2010,PEEDUCA,EDUCATION,44,"MASTER'S DEGREE (EX: MA, MS, MEng, MEd, MSW)"
+2010,PEEDUCA,EDUCATION,45,"PROFESSIONAL SCHOOL DEG (EX: MD, DDS, DVM)"
+2010,PEEDUCA,EDUCATION,46,"DOCTORATE DEGREE (EX: PhD, EdD) "
+2010,PTDTRACE,RACE,01,White Only 
+2010,PTDTRACE,RACE,02,Black Only 
+2010,PTDTRACE,RACE,03,"American Indian, Alaskan Native Only "
+2010,PTDTRACE,RACE,04,Asian Only 
+2010,PTDTRACE,RACE,05,Hawaiian/Pacific Islander Only 
+2010,PTDTRACE,RACE,06,White-Black 
+2010,PTDTRACE,RACE,07,White-AI 
+2010,PTDTRACE,RACE,08,White-Asian 
+2010,PTDTRACE,RACE,09,White-Hawaiian 
+2010,PTDTRACE,RACE,10,Black-AI 
+2010,PTDTRACE,RACE,11,Black-Asian 
+2010,PTDTRACE,RACE,12,Black-HP 
+2010,PTDTRACE,RACE,13,AI-Asian 
+2010,PTDTRACE,RACE,14,Asian-HP 
+2010,PTDTRACE,RACE,15,W-B-AI 
+2010,PTDTRACE,RACE,16,W-B-A 
+2010,PTDTRACE,RACE,17,W-AI-A 
+2010,PTDTRACE,RACE,18,W-A-HP 
+2010,PTDTRACE,RACE,19,W-B-AI-A 
+2010,PTDTRACE,RACE,20,2 or 3 Races 
+2010,PTDTRACE,RACE,21,4 or 5 Races 
+2010,PEHSPNON,HISPANIC,1,HISPANIC 
+2010,PEHSPNON,HISPANIC,2,NON-HIPSANIC 
+2010,PES1,VRS_VOTE,1,Yes 
+2010,PES1,VRS_VOTE,2,No 
+2010,PES1,VRS_VOTE,-2,Don't Know 
+2010,PES1,VRS_VOTE,-3,Refused 
+2010,PES1,VRS_VOTE,-9,No Response 
+2010,PES2,VRS_REG,1,Yes 
+2010,PES2,VRS_REG,2,No 
+2010,PES2,VRS_REG,-2,Don't Know 
+2010,PES2,VRS_REG,-3,Refused 
+2010,PES2,VRS_REG,-9,No Response 
+2010,PES3,VRS_REG_WHYNOT,1,Did not meet registration deadlines 
+2010,PES3,VRS_REG_WHYNOT,2,Did not know where or how to register 
+2010,PES3,VRS_REG_WHYNOT,3,Did not meet residency requirements/did not live here long enough
+2010,PES3,VRS_REG_WHYNOT,4,Permanent illness or disability 
+2010,PES3,VRS_REG_WHYNOT,5,Difficulty with English 
+2010,PES3,VRS_REG_WHYNOT,6,Not interested in the election or not involved in politics
+2010,PES3,VRS_REG_WHYNOT,7,My vote would not make a difference 
+2010,PES3,VRS_REG_WHYNOT,8,Not eligible to vote 
+2010,PES3,VRS_REG_WHYNOT,9,Other reason 
+2010,PES3,VRS_REG_WHYNOT,-2,Don't know 
+2010,PES3,VRS_REG_WHYNOT,-3,Refused 
+2010,PES3,VRS_REG_WHYNOT,-9,No Response 
+2010,PES4,VRS_VOTE_WHYNOT,1,Illness or disability (own or family's) 
+2010,PES4,VRS_VOTE_WHYNOT,2,Out of town or away from home 
+2010,PES4,VRS_VOTE_WHYNOT,3,Forgot to vote (or send in absentee ballot) 
+2010,PES4,VRS_VOTE_WHYNOT,4,"Not interested, felt my vote wouldn't make a difference"
+2010,PES4,VRS_VOTE_WHYNOT,5,"Too busy, conflicting work or school schedule "
+2010,PES4,VRS_VOTE_WHYNOT,6,Transportation problems 
+2010,PES4,VRS_VOTE_WHYNOT,7,Didn't like candidates or campaign issues 
+2010,PES4,VRS_VOTE_WHYNOT,8,"Registration problems (i.e. didn't receive absentee ballot, not registered in current location)"
+2010,PES4,VRS_VOTE_WHYNOT,9,Bad weather conditions 
+2010,PES4,VRS_VOTE_WHYNOT,10,"Inconvenient hours, polling place or hours or lines too long "
+2010,PES4,VRS_VOTE_WHYNOT,11,Other 
+2010,PES4,VRS_VOTE_WHYNOT,-2,Don't know 
+2010,PES4,VRS_VOTE_WHYNOT,-3,Refused 
+2010,PES4,VRS_VOTE_WHYNOT,-9,No Response 
+2010,PES5,VRS_VOTE_MAIL,1,In person 
+2010,PES5,VRS_VOTE_MAIL,2,By mail 
+2010,PES5,VRS_VOTE_MAIL,-2,Don't know 
+2010,PES5,VRS_VOTE_MAIL,-3,Refused 
+2010,PES5,VRS_VOTE_MAIL,-9,No Response 
+2010,PES6,VRS_VOTE_EDAY,1,On election day 
+2010,PES6,VRS_VOTE_EDAY,2,Before election day 
+2010,PES6,VRS_VOTE_EDAY,-2,Don't know 
+2010,PES6,VRS_VOTE_EDAY,-3,Refused 
+2010,PES6,VRS_VOTE_EDAY,-9,No Response 
+2010,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card) "
+2010,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office) "
+2010,PES7,VRS_REG_METHOD,3,Registered by mail 
+2010,PES7,VRS_REG_METHOD,4,Registered using the Internet or online 
+2010,PES7,VRS_REG_METHOD,5,"At a school, hospital, or on campus "
+2010,PES7,VRS_REG_METHOD,6,Went to a town hall or county/government registration office
+2010,PES7,VRS_REG_METHOD,7,"Filled out form at a registration drive (library, post office, or someone came to your door)"
+2010,PES7,VRS_REG_METHOD,8,Registered at polling place (on election or primary day)
+2010,PES7,VRS_REG_METHOD,9,Other 
+2010,PES7,VRS_REG_METHOD,-2,Don't know 
+2010,PES7,VRS_REG_METHOD,-3,Refused 
+2010,PES7,VRS_REG_METHOD,-9,No Response 
+2010,PES8,VRS_RESIDENCE,1,Less than 1 month 
+2010,PES8,VRS_RESIDENCE,2,1-6 months 
+2010,PES8,VRS_RESIDENCE,3,7-11 months 
+2010,PES8,VRS_RESIDENCE,4,1-2 years 
+2010,PES8,VRS_RESIDENCE,5,3-4 years 
+2010,PES8,VRS_RESIDENCE,6,5 years or longer 
+2010,PES8,VRS_RESIDENCE,-2,Don't know 
+2010,PES8,VRS_RESIDENCE,-3,Refused 
+2010,PES8,VRS_RESIDENCE,-9,No Response 
+2012,PESEX,SEX,1,MALE
+2012,PESEX,SEX,2,FEMALE
+2012,PEEDUCA,EDUCATION,31,LESS THAN 1ST GRADE 
+2012,PEEDUCA,EDUCATION,32,"1ST, 2ND, 3RD OR 4TH GRADE "
+2012,PEEDUCA,EDUCATION,33,5TH OR 6TH GRADE 
+2012,PEEDUCA,EDUCATION,34,7TH OR 8TH GRADE 
+2012,PEEDUCA,EDUCATION,35,9TH GRADE 
+2012,PEEDUCA,EDUCATION,36,10TH GRADE 
+2012,PEEDUCA,EDUCATION,37,11TH GRADE 
+2012,PEEDUCA,EDUCATION,38,12TH GRADE NO DIPLOMA 
+2012,PEEDUCA,EDUCATION,39,HIGH SCHOOL GRAD-DIPLOMA OR EQUIV (GED) 
+2012,PEEDUCA,EDUCATION,40,SOME COLLEGE BUT NO DEGREE 
+2012,PEEDUCA,EDUCATION,41,ASSOCIATE DEGREE-OCCUPATIONAL/VOCATIONAL 
+2012,PEEDUCA,EDUCATION,42,ASSOCIATE DEGREE-ACADEMIC PROGRAM 
+2012,PEEDUCA,EDUCATION,43,"BACHELOR'S DEGREE (EX: BA, AB, BS) "
+2012,PEEDUCA,EDUCATION,44,"MASTER'S DEGREE (EX: MA, MS, MEng, MEd, MSW) "
+2012,PEEDUCA,EDUCATION,45,"PROFESSIONAL SCHOOL DEG (EX: MD, DDS, DVM) "
+2012,PEEDUCA,EDUCATION,46,"DOCTORATE DEGREE (EX: PhD, EdD) "
+2012,PTDTRACE,RACE,01,White Only 
+2012,PTDTRACE,RACE,02,Black Only 
+2012,PTDTRACE,RACE,03,"American Indian, Alaskan Native Only "
+2012,PTDTRACE,RACE,04,Asian Only 
+2012,PTDTRACE,RACE,05,Hawaiian/Pacific Islander Only 
+2012,PTDTRACE,RACE,06,White-Black 
+2012,PTDTRACE,RACE,07,White-AI 
+2012,PTDTRACE,RACE,08,White-Asian 
+2012,PTDTRACE,RACE,09,White-HP 
+2012,PTDTRACE,RACE,10,Black-AI 
+2012,PTDTRACE,RACE,11,Black-Asian 
+2012,PTDTRACE,RACE,12,Black-HP 
+2012,PTDTRACE,RACE,13,AI-Asian 
+2012,PTDTRACE,RACE,14,AI-HP 
+2012,PTDTRACE,RACE,15,Asian-HP 
+2012,PTDTRACE,RACE,16,W-B-AI 
+2012,PTDTRACE,RACE,17,W-B-A 
+2012,PTDTRACE,RACE,18,W-B-HP 
+2012,PTDTRACE,RACE,19,W-AI-A 
+2012,PTDTRACE,RACE,20,W-AI-HP 
+2012,PTDTRACE,RACE,21,W-A-HP 
+2012,PTDTRACE,RACE,22,B-AI-A 
+2012,PTDTRACE,RACE,23,W-B-AI-A 
+2012,PTDTRACE,RACE,24,W-AI-A-HP 
+2012,PTDTRACE,RACE,25,Other 3 Race Combinations 
+2012,PTDTRACE,RACE,26,Other 4 and 5 Race Combinations 
+2012,PEHSPNON,HISPANIC,1,HISPANIC 
+2012,PEHSPNON,HISPANIC,2,NON-HIPSANIC 
+2012,PES1,VRS_VOTE,1,Yes
+2012,PES1,VRS_VOTE,2,No
+2012,PES1,VRS_VOTE,-2,Don't Know 
+2012,PES1,VRS_VOTE,-3,Refused
+2012,PES1,VRS_VOTE,-9,No Response 
+2012,PES2,VRS_REG,1,Yes
+2012,PES2,VRS_REG,2,No
+2012,PES2,VRS_REG,-2,Don't Know 
+2012,PES2,VRS_REG,-3,Refused
+2012,PES2,VRS_REG,-9,No Response 
+2012,PES3,VRS_REG_WHYNOT,1,Did not meet registration deadlines
+2012,PES3,VRS_REG_WHYNOT,2,Did not know where or how to register
+2012,PES3,VRS_REG_WHYNOT,3,Did not meet residency requirements/did not live here long enough 
+2012,PES3,VRS_REG_WHYNOT,4,Permanent illness or disability
+2012,PES3,VRS_REG_WHYNOT,5,Difficulty with English
+2012,PES3,VRS_REG_WHYNOT,6,Not interested in the election or not involved in politics
+2012,PES3,VRS_REG_WHYNOT,7,My vote would not make a difference
+2012,PES3,VRS_REG_WHYNOT,8,Not eligible to vote
+2012,PES3,VRS_REG_WHYNOT,9,Other reason
+2012,PES3,VRS_REG_WHYNOT,-2,Don't know
+2012,PES3,VRS_REG_WHYNOT,-3,Refused
+2012,PES3,VRS_REG_WHYNOT,-9,No Response 
+2012,PES4,VRS_VOTE_WHYNOT,1,Illness or disability (own or family's)
+2012,PES4,VRS_VOTE_WHYNOT,2,Out of town or away from home
+2012,PES4,VRS_VOTE_WHYNOT,3,Forgot to vote (or send in absentee ballot)
+2012,PES4,VRS_VOTE_WHYNOT,4,"Not interested, felt my vote wouldn't make a difference"
+2012,PES4,VRS_VOTE_WHYNOT,5,"Too busy, conflicting work or school schedule"
+2012,PES4,VRS_VOTE_WHYNOT,6,Transportation problems
+2012,PES4,VRS_VOTE_WHYNOT,7,Didn't like candidates or campaign issues
+2012,PES4,VRS_VOTE_WHYNOT,8,"Registration problems (i.e. didn't receive absentee ballot, not registered in current location) "
+2012,PES4,VRS_VOTE_WHYNOT,9,Bad weather conditions
+2012,PES4,VRS_VOTE_WHYNOT,10,"Inconvenient hours, polling place or hours or lines too long"
+2012,PES4,VRS_VOTE_WHYNOT,11,Other
+2012,PES4,VRS_VOTE_WHYNOT,-2,Don't know
+2012,PES4,VRS_VOTE_WHYNOT,-3,Refused
+2012,PES4,VRS_VOTE_WHYNOT,-9,No Response 
+2012,PES5,VRS_VOTE_MAIL,1,In person
+2012,PES5,VRS_VOTE_MAIL,2,By mail
+2012,PES5,VRS_VOTE_MAIL,-2,Don't know 
+2012,PES5,VRS_VOTE_MAIL,-3,Refused 
+2012,PES5,VRS_VOTE_MAIL,-9,No Response
+2012,PES6,VRS_VOTE_EDAY,1,On election day
+2012,PES6,VRS_VOTE_EDAY,2,Before election day 
+2012,PES6,VRS_VOTE_EDAY,-2,Don't know
+2012,PES6,VRS_VOTE_EDAY,-3,Refused
+2012,PES6,VRS_VOTE_EDAY,-9,No Response 
+2012,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card)"
+2012,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office) "
+2012,PES7,VRS_REG_METHOD,3,Registered by mail
+2012,PES7,VRS_REG_METHOD,4,Registered using the Internet or online
+2012,PES7,VRS_REG_METHOD,5,"At a school, hospital, or on campus"
+2012,PES7,VRS_REG_METHOD,6,Went to a town hall or county/government registration office
+2012,PES7,VRS_REG_METHOD,7,"Filled out form at a registration drive (library, post office, or someone came to your door) "
+2012,PES7,VRS_REG_METHOD,8,Registered at polling place (on election or primary day)
+2012,PES7,VRS_REG_METHOD,9,Other
+2012,PES7,VRS_REG_METHOD,-2,Don't know
+2012,PES7,VRS_REG_METHOD,-3,Refused
+2012,PES7,VRS_REG_METHOD,-9,No Response 
+2012,PES8,VRS_RESIDENCE,1,Less than 1 month 
+2012,PES8,VRS_RESIDENCE,2,1-6 months
+2012,PES8,VRS_RESIDENCE,3,7-11 months
+2012,PES8,VRS_RESIDENCE,4,1-2 years 
+2012,PES8,VRS_RESIDENCE,5,3-4 years
+2012,PES8,VRS_RESIDENCE,6,5 years or longer 
+2012,PES8,VRS_RESIDENCE,-2,Don't know
+2012,PES8,VRS_RESIDENCE,-3,Refused
+2012,PES8,VRS_RESIDENCE,-9,No Response 
+2014,PESEX,SEX,1,MALE
+2014,PESEX,SEX,2,FEMALE
+2014,PEEDUCA,EDUCATION,31,LESS THAN 1ST GRADE
+2014,PEEDUCA,EDUCATION,32,"1ST, 2ND, 3RD OR 4TH GRADE"
+2014,PEEDUCA,EDUCATION,33,5TH OR 6TH GRADE
+2014,PEEDUCA,EDUCATION,34,7TH OR 8TH GRADE
+2014,PEEDUCA,EDUCATION,35,9TH GRADE
+2014,PEEDUCA,EDUCATION,36,10TH GRADE
+2014,PEEDUCA,EDUCATION,37,11TH GRADE
+2014,PEEDUCA,EDUCATION,38,12TH GRADE NO DIPLOMA
+2014,PEEDUCA,EDUCATION,39,HIGH SCHOOL GRAD-DIPLOMA OR EQUIV (GED)
+2014,PEEDUCA,EDUCATION,40,SOME COLLEGE BUT NO DEGREE
+2014,PEEDUCA,EDUCATION,41,ASSOCIATE DEGREE-OCCUPATIONAL/VOCATIONAL
+2014,PEEDUCA,EDUCATION,42,ASSOCIATE DEGREE-ACADEMIC PROGRAM
+2014,PEEDUCA,EDUCATION,43,"BACHELOR'S DEGREE (EX: BA, AB, BS)"
+2014,PEEDUCA,EDUCATION,44,"MASTER'S DEGREE (EX: MA, MS, MEng, MEd, MSW)"
+2014,PEEDUCA,EDUCATION,45,"PROFESSIONAL SCHOOL DEG (EX: MD, DDS, DVM)"
+2014,PEEDUCA,EDUCATION,46,"DOCTORATE DEGREE (EX: PhD, EdD)"
+2014,PTDTRACE,RACE,01,White Only
+2014,PTDTRACE,RACE,02,Black Only
+2014,PTDTRACE,RACE,03,"American Indian, Alaskan Native Only"
+2014,PTDTRACE,RACE,04,Asian Only
+2014,PTDTRACE,RACE,05,Hawaiian/Pacific Islander Only
+2014,PTDTRACE,RACE,06,White-Black
+2014,PTDTRACE,RACE,07,White-AI
+2014,PTDTRACE,RACE,08,White-Asian
+2014,PTDTRACE,RACE,09,White-HP
+2014,PTDTRACE,RACE,10,Black-AI
+2014,PTDTRACE,RACE,11,Black-Asian
+2014,PTDTRACE,RACE,12,Black-HP
+2014,PTDTRACE,RACE,13,AI-Asian
+2014,PTDTRACE,RACE,14,AI-HP
+2014,PTDTRACE,RACE,15,Asian-HP
+2014,PTDTRACE,RACE,16,W-B-AI
+2014,PTDTRACE,RACE,17,W-B-A
+2014,PTDTRACE,RACE,18,W-B-HP
+2014,PTDTRACE,RACE,19,W-AI-A
+2014,PTDTRACE,RACE,20,W-AI-HP
+2014,PTDTRACE,RACE,21,W-A-HP
+2014,PTDTRACE,RACE,22,B-AI-A
+2014,PTDTRACE,RACE,23,W-B-AI-A
+2014,PTDTRACE,RACE,24,W-AI-A-HP
+2014,PTDTRACE,RACE,25,Other 3 Race Combinations
+2014,PTDTRACE,RACE,26,Other 4 and 5 Race Combinations
+2014,PEHSPNON,HISPANIC,1,HISPANIC
+2014,PEHSPNON,HISPANIC,2,NON-HISPANIC
+2014,PES1,VRS_VOTE,1,Yes
+2014,PES1,VRS_VOTE,2,No
+2014,PES1,VRS_VOTE,-1,Not in Universe
+2014,PES1,VRS_VOTE,-2,Don't Know
+2014,PES1,VRS_VOTE,-3,Refused
+2014,PES1,VRS_VOTE,-9,No Response
+2014,PES2,VRS_REG,1,Yes
+2014,PES2,VRS_REG,2,No
+2014,PES2,VRS_REG,-1,Not in Universe
+2014,PES2,VRS_REG,-2,Don't Know
+2014,PES2,VRS_REG,-3,Refused
+2014,PES2,VRS_REG,-9,No Response
+2014,PES3,VRS_REG_WHYNOT,1,Did not meet registration deadlines
+2014,PES3,VRS_REG_WHYNOT,2,Did not know where or how to register
+2014,PES3,VRS_REG_WHYNOT,3,Did not meet residency requirements/did not live here long enough
+2014,PES3,VRS_REG_WHYNOT,4,Permanent illness or disability
+2014,PES3,VRS_REG_WHYNOT,5,Difficulty with English
+2014,PES3,VRS_REG_WHYNOT,6,Not interested in the election or not involved in politics
+2014,PES3,VRS_REG_WHYNOT,7,My vote would not make a difference
+2014,PES3,VRS_REG_WHYNOT,8,Not eligible to vote
+2014,PES3,VRS_REG_WHYNOT,9,Other reason
+2014,PES3,VRS_REG_WHYNOT,-1,Not in Universe
+2014,PES3,VRS_REG_WHYNOT,-2,Don't know
+2014,PES3,VRS_REG_WHYNOT,-3,Refused
+2014,PES3,VRS_REG_WHYNOT,-9,No Response
+2014,PES4,VRS_VOTE_WHYNOT,1,Illness or disability (own or family's)
+2014,PES4,VRS_VOTE_WHYNOT,2,Out of town or away from home
+2014,PES4,VRS_VOTE_WHYNOT,3,Forgot to vote (or send in absentee ballot)
+2014,PES4,VRS_VOTE_WHYNOT,4,"Not interested, felt my vote wouldn't make a difference"
+2014,PES4,VRS_VOTE_WHYNOT,5,"Too busy, conflicting work or school schedule"
+2014,PES4,VRS_VOTE_WHYNOT,6,Transportation problems
+2014,PES4,VRS_VOTE_WHYNOT,7,Didn't like candidates or campaign issues
+2014,PES4,VRS_VOTE_WHYNOT,8,"Registration problems (i.e. didn't receive absentee ballot, not registered in current location)"
+2014,PES4,VRS_VOTE_WHYNOT,9,Bad weather conditions
+2014,PES4,VRS_VOTE_WHYNOT,10,"Inconvenient hours, polling place or hours or lines too long"
+2014,PES4,VRS_VOTE_WHYNOT,11,Other
+2014,PES4,VRS_VOTE_WHYNOT,-1,Not in Universe
+2014,PES4,VRS_VOTE_WHYNOT,-2,Don't know
+2014,PES4,VRS_VOTE_WHYNOT,-3,Refused
+2014,PES4,VRS_VOTE_WHYNOT,-9,No Response
+2014,PES5,VRS_VOTE_MAIL,1,In person
+2014,PES5,VRS_VOTE_MAIL,2,By mail
+2014,PES5,VRS_VOTE_MAIL,-1,Not in Universe
+2014,PES5,VRS_VOTE_MAIL,-2,Don't know
+2014,PES5,VRS_VOTE_MAIL,-3,Refused
+2014,PES5,VRS_VOTE_MAIL,-9,No Response
+2014,PES6,VRS_VOTE_EDAY,1,On election day
+2014,PES6,VRS_VOTE_EDAY,2,Before election day
+2014,PES6,VRS_VOTE_EDAY,-1,Not in Universe
+2014,PES6,VRS_VOTE_EDAY,-2,Don't know
+2014,PES6,VRS_VOTE_EDAY,-3,Refused
+2014,PES6,VRS_VOTE_EDAY,-9,No Response
+2014,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card)"
+2014,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office)"
+2014,PES7,VRS_REG_METHOD,3,Registered by mail
+2014,PES7,VRS_REG_METHOD,4,Registered using the internet or online
+2014,PES7,VRS_REG_METHOD,5,"At a school, hospital, or on campus"
+2014,PES7,VRS_REG_METHOD,6,Went to a town hall or county/government registration office
+2014,PES7,VRS_REG_METHOD,7,"Filled out form at a registration drive (library, post office, or someone came to your door)"
+2014,PES7,VRS_REG_METHOD,8,Registered at polling place (on election or primary day)
+2014,PES7,VRS_REG_METHOD,9,Other
+2014,PES7,VRS_REG_METHOD,-1,Not in Universe
+2014,PES7,VRS_REG_METHOD,-2,Don't know
+2014,PES7,VRS_REG_METHOD,-3,Refused
+2014,PES7,VRS_REG_METHOD,-9,No Response
+2014,PRS8,VRS_RESIDENCE,1,Less than 1 year
+2014,PRS8,VRS_RESIDENCE,2,1-2 years
+2014,PRS8,VRS_RESIDENCE,3,3-4 years
+2014,PRS8,VRS_RESIDENCE,4,5 years or longer
+2014,PRS8,VRS_RESIDENCE,-1,Not in Universe
+2014,PRS8,VRS_RESIDENCE,-2,Don't know
+2014,PRS8,VRS_RESIDENCE,-3,Refused
+2014,PRS8,VRS_RESIDENCE,-9,No Response
+2016,PESEX,SEX,1,MALE
+2016,PESEX,SEX,2,FEMALE
+2016,PEEDUCA,EDUCATION,31,LESS THAN 1ST GRADE 
+2016,PEEDUCA,EDUCATION,32,"1ST, 2ND, 3RD OR 4TH GRADE "
+2016,PEEDUCA,EDUCATION,33,5TH OR 6TH GRADE 
+2016,PEEDUCA,EDUCATION,34,7TH OR 8TH GRADE 
+2016,PEEDUCA,EDUCATION,35,9TH GRADE 
+2016,PEEDUCA,EDUCATION,36,10TH GRADE 
+2016,PEEDUCA,EDUCATION,37,11TH GRADE 
+2016,PEEDUCA,EDUCATION,38,12TH GRADE NO DIPLOMA 
+2016,PEEDUCA,EDUCATION,39,HIGH SCHOOL GRAD-DIPLOMA OR EQUIV (GED) 
+2016,PEEDUCA,EDUCATION,40,SOME COLLEGE BUT NO DEGREE 
+2016,PEEDUCA,EDUCATION,41,ASSOCIATE DEGREE-OCCUPATIONAL/VOCATIONAL 
+2016,PEEDUCA,EDUCATION,42,ASSOCIATE DEGREE-ACADEMIC PROGRAM 
+2016,PEEDUCA,EDUCATION,43,"BACHELOR'S DEGREE (EX: BA, AB, BS) "
+2016,PEEDUCA,EDUCATION,44,"MASTER'S DEGREE (EX: MA, MS, MEng, MEd, MSW) "
+2016,PEEDUCA,EDUCATION,45,"PROFESSIONAL SCHOOL DEG (EX: MD, DDS, DVM) "
+2016,PEEDUCA,EDUCATION,46,"DOCTORATE DEGREE (EX: PhD, EdD) "
+2016,PTDTRACE,RACE,01,White Only 
+2016,PTDTRACE,RACE,02,Black Only 
+2016,PTDTRACE,RACE,03,"American Indian, Alaskan Native Only "
+2016,PTDTRACE,RACE,04,Asian Only 
+2016,PTDTRACE,RACE,05,Hawaiian/Pacific Islander Only 
+2016,PTDTRACE,RACE,06,White-Black 
+2016,PTDTRACE,RACE,07,White-AI 
+2016,PTDTRACE,RACE,08,White-Asian 
+2016,PTDTRACE,RACE,09,White-HP 
+2016,PTDTRACE,RACE,10,Black-AI 
+2016,PTDTRACE,RACE,11,Black-Asian 
+2016,PTDTRACE,RACE,12,Black-HP 
+2016,PTDTRACE,RACE,13,AI-Asian 
+2016,PTDTRACE,RACE,14,AI-HP 
+2016,PTDTRACE,RACE,15,Asian-HP 
+2016,PTDTRACE,RACE,16,W-B-AI 
+2016,PTDTRACE,RACE,17,W-B-A 
+2016,PTDTRACE,RACE,18,W-B-HP 
+2016,PTDTRACE,RACE,19,W-AI-A 
+2016,PTDTRACE,RACE,20,W-AI-HP 
+2016,PTDTRACE,RACE,21,W-A-HP 
+2016,PTDTRACE,RACE,22,B-AI-A 
+2016,PTDTRACE,RACE,23,W-B-AI-A 
+2016,PTDTRACE,RACE,24,W-AI-A-HP 
+2016,PTDTRACE,RACE,25,Other 3 Race Combinations 
+2016,PTDTRACE,RACE,26,Other 4 and 5 Race Combinations 
+2016,PEHSPNON,HISPANIC,1,HISPANIC 
+2016,PEHSPNON,HISPANIC,2,NON-HISPANIC 
+2016,PES1,VRS_VOTE,1,Yes
+2016,PES1,VRS_VOTE,2,No
+2016,PES1,VRS_VOTE,-1,Not in Universe 
+2016,PES1,VRS_VOTE,-2,Don't Know
+2016,PES1,VRS_VOTE,-3,Refused
+2016,PES1,VRS_VOTE,-9,No Response 
+2016,PES2,VRS_REG,1,Yes
+2016,PES2,VRS_REG,2,No
+2016,PES2,VRS_REG,-1,Not in Universe 
+2016,PES2,VRS_REG,-2,Don't Know
+2016,PES2,VRS_REG,-3,Refused
+2016,PES2,VRS_REG,-9,No Response 
+2016,PES3,VRS_REG_WHYNOT,1,Did not meet registration deadlines
+2016,PES3,VRS_REG_WHYNOT,2,Did not know where or how to register
+2016,PES3,VRS_REG_WHYNOT,3,Did not meet residency requirements/did not live here long enough 
+2016,PES3,VRS_REG_WHYNOT,4,Permanent illness or disability
+2016,PES3,VRS_REG_WHYNOT,5,Difficulty with English
+2016,PES3,VRS_REG_WHYNOT,6,Not interested in the election or not involved in politics
+2016,PES3,VRS_REG_WHYNOT,7,My vote would not make a difference
+2016,PES3,VRS_REG_WHYNOT,8,Not eligible to vote
+2016,PES3,VRS_REG_WHYNOT,9,Other reason
+2016,PES3,VRS_REG_WHYNOT,-1,Not in Universe
+2016,PES3,VRS_REG_WHYNOT,-2,Don't know
+2016,PES3,VRS_REG_WHYNOT,-3,Refused
+2016,PES3,VRS_REG_WHYNOT,-9,No Response 
+2016,PES4,VRS_VOTE_WHYNOT,1,Illness or disability (own or family's)
+2016,PES4,VRS_VOTE_WHYNOT,2,Out of town or away from home
+2016,PES4,VRS_VOTE_WHYNOT,3,Forgot to vote (or send in absentee ballot)
+2016,PES4,VRS_VOTE_WHYNOT,4,"Not interested, felt my vote wouldn't make a difference"
+2016,PES4,VRS_VOTE_WHYNOT,5,"Too busy, conflicting work or school schedule"
+2016,PES4,VRS_VOTE_WHYNOT,6,Transportation problems
+2016,PES4,VRS_VOTE_WHYNOT,7,Didn't like candidates or campaign issues
+2016,PES4,VRS_VOTE_WHYNOT,8,"Registration problems (i.e. didn't receive absentee ballot, not registered in current location)"
+2016,PES4,VRS_VOTE_WHYNOT,9,Bad weather conditions 
+2016,PES4,VRS_VOTE_WHYNOT,10,"Inconvenient hours, polling place or hours or lines too long "
+2016,PES4,VRS_VOTE_WHYNOT,11,Other
+2016,PES4,VRS_VOTE_WHYNOT,-1,Not in Universe
+2016,PES4,VRS_VOTE_WHYNOT,-2,Don't know 
+2016,PES4,VRS_VOTE_WHYNOT,-3,Refused
+2016,PES4,VRS_VOTE_WHYNOT,-9,No Response 
+2016,PES5,VRS_VOTE_MAIL,1,In person
+2016,PES5,VRS_VOTE_MAIL,2,By mail
+2016,PES5,VRS_VOTE_MAIL,-1,Not in Universe 
+2016,PES5,VRS_VOTE_MAIL,-2,Don't know
+2016,PES5,VRS_VOTE_MAIL,-3,Refused
+2016,PES5,VRS_VOTE_MAIL,-9,No Response 
+2016,PES6,VRS_VOTE_EDAY,1,On election day
+2016,PES6,VRS_VOTE_EDAY,2,Before election day 
+2016,PES6,VRS_VOTE_EDAY,-1,Not in Universe
+2016,PES6,VRS_VOTE_EDAY,-2,Don't know
+2016,PES6,VRS_VOTE_EDAY,-3,Refused
+2016,PES6,VRS_VOTE_EDAY,-9,No Response 
+2016,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card)"
+2016,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office) "
+2016,PES7,VRS_REG_METHOD,3,Registered by mail
+2016,PES7,VRS_REG_METHOD,4,Registered using the internet or online
+2016,PES7,VRS_REG_METHOD,5,"At a school, hospital, or on campus"
+2016,PES7,VRS_REG_METHOD,6,Went to a town hall or county/government registration office
+2016,PES7,VRS_REG_METHOD,7,"Filled out form at a registration drive (library, post office, or someone came to your door) "
+2016,PES7,VRS_REG_METHOD,8,Registered at polling place (on election or primary day)
+2016,PES7,VRS_REG_METHOD,9,Other
+2016,PES7,VRS_REG_METHOD,-1,Not in Universe
+2016,PES7,VRS_REG_METHOD,-2,Don't know
+2016,PES7,VRS_REG_METHOD,-3,Refused
+2016,PES7,VRS_REG_METHOD,-9,No Response 
+2016,PRS8,VRS_RESIDENCE,1,Less than 1 year 
+2016,PRS8,VRS_RESIDENCE,2,1-2 years
+2016,PRS8,VRS_RESIDENCE,3,3-4 years
+2016,PRS8,VRS_RESIDENCE,4,5 years or longer 
+2016,PRS8,VRS_RESIDENCE,-1,Not in Universe 
+2016,PRS8,VRS_RESIDENCE,-2,Don't know 
+2016,PRS8,VRS_RESIDENCE,-3,Refused
+2016,PRS8,VRS_RESIDENCE,-9,No Response 
+2018,PESEX,SEX,1,MALE
+2018,PESEX,SEX,2,FEMALE
+2018,PEEDUCA,EDUCATION,31,LESS THAN 1ST GRADE 
+2018,PEEDUCA,EDUCATION,32,"1ST, 2ND, 3RD OR 4TH GRADE "
+2018,PEEDUCA,EDUCATION,33,5TH OR 6TH GRADE 
+2018,PEEDUCA,EDUCATION,34,7TH OR 8TH GRADE 
+2018,PEEDUCA,EDUCATION,35,9TH GRADE 
+2018,PEEDUCA,EDUCATION,36,10TH GRADE 
+2018,PEEDUCA,EDUCATION,37,11TH GRADE 
+2018,PEEDUCA,EDUCATION,38,12TH GRADE NO DIPLOMA 
+2018,PEEDUCA,EDUCATION,39,HIGH SCHOOL GRAD-DIPLOMA OR EQUIV (GED) 
+2018,PEEDUCA,EDUCATION,40,SOME COLLEGE BUT NO DEGREE 
+2018,PEEDUCA,EDUCATION,41,ASSOCIATE DEGREE-OCCUPATIONAL/VOCATIONAL 
+2018,PEEDUCA,EDUCATION,42,ASSOCIATE DEGREE-ACADEMIC PROGRAM 
+2018,PEEDUCA,EDUCATION,43,"BACHELOR'S DEGREE (EX: BA, AB, BS) "
+2018,PEEDUCA,EDUCATION,44,"MASTER'S DEGREE (EX: MA, MS, MEng, MEd, MSW) "
+2018,PEEDUCA,EDUCATION,45,"PROFESSIONAL SCHOOL DEG (EX: MD, DDS, DVM) "
+2018,PEEDUCA,EDUCATION,46,"DOCTORATE DEGREE (EX: PhD, EdD) "
+2018,PTDTRACE,RACE,1,White Only 
+2018,PTDTRACE,RACE,2,Black Only 
+2018,PTDTRACE,RACE,3,"American Indian, Alaskan Native Only "
+2018,PTDTRACE,RACE,4,Asian Only 
+2018,PTDTRACE,RACE,5,Hawaiian/Pacific Islander Only 
+2018,PTDTRACE,RACE,6,White-Black 
+2018,PTDTRACE,RACE,7,White-AI 
+2018,PTDTRACE,RACE,8,White-Asian 
+2018,PTDTRACE,RACE,9,White-HP 
+2018,PTDTRACE,RACE,10,Black-AI 
+2018,PTDTRACE,RACE,11,Black-Asian 
+2018,PTDTRACE,RACE,12,Black-HP 
+2018,PTDTRACE,RACE,13,AI-Asian 
+2018,PTDTRACE,RACE,14,AI-HP 
+2018,PTDTRACE,RACE,15,Asian-HP 
+2018,PTDTRACE,RACE,16,W-B-AI 
+2018,PTDTRACE,RACE,17,W-B-A 
+2018,PTDTRACE,RACE,18,W-B-HP 
+2018,PTDTRACE,RACE,19,W-AI-A 
+2018,PTDTRACE,RACE,20,W-AI-HP 
+2018,PTDTRACE,RACE,21,W-A-HP 
+2018,PTDTRACE,RACE,22,B-AI-A 
+2018,PTDTRACE,RACE,23,W-B-AI-A 
+2018,PTDTRACE,RACE,24,W-AI-A-HP 
+2018,PTDTRACE,RACE,25,Other 3 Race Combinations 
+2018,PTDTRACE,RACE,26,Other 4 and 5 Race Combinations 
+2018,PEHSPNON,HISPANIC,1,HISPANIC 
+2018,PEHSPNON,HISPANIC,2,NON-HISPANIC 
+2018,PES1,VRS_VOTE,1,Yes
+2018,PES1,VRS_VOTE,2,No
+2018,PES1,VRS_VOTE,-1,Not in Universe 
+2018,PES1,VRS_VOTE,-2,Don't Know
+2018,PES1,VRS_VOTE,-3,Refused
+2018,PES1,VRS_VOTE,-9,No Response 
+2018,PES2,VRS_REG,1,Yes
+2018,PES2,VRS_REG,2,No
+2018,PES2,VRS_REG,-1,Not in Universe 
+2018,PES2,VRS_REG,-2,Don't Know
+2018,PES2,VRS_REG,-3,Refused
+2018,PES2,VRS_REG,-9,No Response 
+2018,PES3,VRS_REG_WHYNOT,1,Did not meet registration deadlines
+2018,PES3,VRS_REG_WHYNOT,2,Did not know where or how to register
+2018,PES3,VRS_REG_WHYNOT,3,Did not meet residency requirements/did not live here long enough 
+2018,PES3,VRS_REG_WHYNOT,4,Permanent illness or disability
+2018,PES3,VRS_REG_WHYNOT,5,Difficulty with English
+2018,PES3,VRS_REG_WHYNOT,6,Not interested in the election or not involved in politics
+2018,PES3,VRS_REG_WHYNOT,7,My vote would not make a difference
+2018,PES3,VRS_REG_WHYNOT,8,Not eligible to vote
+2018,PES3,VRS_REG_WHYNOT,9,Other reason
+2018,PES3,VRS_REG_WHYNOT,-1,Not in Universe
+2018,PES3,VRS_REG_WHYNOT,-2,Don't know
+2018,PES3,VRS_REG_WHYNOT,-3,Refused
+2018,PES3,VRS_REG_WHYNOT,-9,No Response 
+2018,PES4,VRS_VOTE_WHYNOT,1,Illness or disability (own or family's)
+2018,PES4,VRS_VOTE_WHYNOT,2,Out of town or away from home
+2018,PES4,VRS_VOTE_WHYNOT,3,Forgot to vote (or send in absentee ballot)
+2018,PES4,VRS_VOTE_WHYNOT,4,"Not interested, felt my vote wouldn't make a difference "
+2018,PES4,VRS_VOTE_WHYNOT,5,"Too busy, conflicting work or school schedule"
+2018,PES4,VRS_VOTE_WHYNOT,6,Transportation problems
+2018,PES4,VRS_VOTE_WHYNOT,7,Didn't like candidates or campaign issues 
+2018,PES4,VRS_VOTE_WHYNOT,8,"Registration problems (i.e. didn't receive absentee ballot, not registered in current location)"
+2018,PES4,VRS_VOTE_WHYNOT,9,Bad weather conditions
+2018,PES4,VRS_VOTE_WHYNOT,10,"Inconvenient hours, polling place or hours or lines too long "
+2018,PES4,VRS_VOTE_WHYNOT,11,Other
+2018,PES4,VRS_VOTE_WHYNOT,-1,Not in Universe 
+2018,PES4,VRS_VOTE_WHYNOT,-2,Don't know
+2018,PES4,VRS_VOTE_WHYNOT,-3,Refused
+2018,PES4,VRS_VOTE_WHYNOT,-9,No Response 
+2018,PES5,VRS_VOTE_MAIL,1,In person
+2018,PES5,VRS_VOTE_MAIL,2,By mail
+2018,PES5,VRS_VOTE_MAIL,-1,Not in Universe 
+2018,PES5,VRS_VOTE_MAIL,-2,Don't know
+2018,PES5,VRS_VOTE_MAIL,-3,Refused
+2018,PES5,VRS_VOTE_MAIL,-9,No Response 
+2018,PES6,VRS_VOTE_EDAY,1,On election day
+2018,PES6,VRS_VOTE_EDAY,2,Before election day 
+2018,PES6,VRS_VOTE_EDAY,-1,Not in Universe
+2018,PES6,VRS_VOTE_EDAY,-2,Don't know
+2018,PES6,VRS_VOTE_EDAY,-3,Refused
+2018,PES6,VRS_VOTE_EDAY,-9,No Response 
+2018,PES7,VRS_REG_METHOD,1,"At a department of motor vehicles (for example, when obtaining a driver's license or other identification card)"
+2018,PES7,VRS_REG_METHOD,2,"At a public assistance agency (for example, a Medicaid, AFDC, or Food Stamps office, an office serving disabled persons, or an unemployment office)"
+2018,PES7,VRS_REG_METHOD,3,Registered by mail 
+2018,PES7,VRS_REG_METHOD,4,Registered using the internet or online 
+2018,PES7,VRS_REG_METHOD,5,"At a school, hospital, or on campus "
+2018,PES7,VRS_REG_METHOD,6,Went to a town hall or county/government registration office 
+2018,PES7,VRS_REG_METHOD,7,"Filled out form at a registration drive (library, post office, or someone came to your door)"
+2018,PES7,VRS_REG_METHOD,8,Registered at polling place (on election or primary day)
+2018,PES7,VRS_REG_METHOD,9,Other 
+2018,PES7,VRS_REG_METHOD,-1,Not in Universe 
+2018,PES7,VRS_REG_METHOD,-2,Don't know
+2018,PES7,VRS_REG_METHOD,-3,Refused
+2018,PES7,VRS_REG_METHOD,-9,No Response 
+2018,PES8,VRS_RESIDENCE,1,Less than 1 year 
+2018,PES8,VRS_RESIDENCE,2,1-2 years 
+2018,PES8,VRS_RESIDENCE,3,3-4 years
+2018,PES8,VRS_RESIDENCE,4,5 years or longer 
+2018,PES8,VRS_RESIDENCE,-1,Not in Universe 
+2018,PES8,VRS_RESIDENCE,-2,Don't know
+2018,PES8,VRS_RESIDENCE,-3,Refused
+2018,PES8,VRS_RESIDENCE,-9,No Response
+1994,GESTFIPS,STATE,1,AL
+1994,GESTFIPS,STATE,2,AK
+1994,GESTFIPS,STATE,4,AZ
+1994,GESTFIPS,STATE,5,AR
+1994,GESTFIPS,STATE,6,CA
+1994,GESTFIPS,STATE,8,CO
+1994,GESTFIPS,STATE,9,CT
+1994,GESTFIPS,STATE,10,DE
+1994,GESTFIPS,STATE,11,DC
+1994,GESTFIPS,STATE,12,FL
+1994,GESTFIPS,STATE,13,GA
+1994,GESTFIPS,STATE,15,HI
+1994,GESTFIPS,STATE,16,ID
+1994,GESTFIPS,STATE,17,IL
+1994,GESTFIPS,STATE,18,IN
+1994,GESTFIPS,STATE,19,IA
+1994,GESTFIPS,STATE,20,KS
+1994,GESTFIPS,STATE,21,KY
+1994,GESTFIPS,STATE,22,LA
+1994,GESTFIPS,STATE,23,ME
+1994,GESTFIPS,STATE,24,MD
+1994,GESTFIPS,STATE,25,MA
+1994,GESTFIPS,STATE,26,MI
+1994,GESTFIPS,STATE,27,MN
+1994,GESTFIPS,STATE,28,MS
+1994,GESTFIPS,STATE,29,MO
+1994,GESTFIPS,STATE,30,MT
+1994,GESTFIPS,STATE,31,NE
+1994,GESTFIPS,STATE,32,NV
+1994,GESTFIPS,STATE,33,NH
+1994,GESTFIPS,STATE,34,NJ
+1994,GESTFIPS,STATE,35,NM
+1994,GESTFIPS,STATE,36,NY
+1994,GESTFIPS,STATE,37,NC
+1994,GESTFIPS,STATE,38,ND
+1994,GESTFIPS,STATE,39,OH
+1994,GESTFIPS,STATE,40,OK
+1994,GESTFIPS,STATE,41,OR
+1994,GESTFIPS,STATE,42,PA
+1994,GESTFIPS,STATE,44,RI
+1994,GESTFIPS,STATE,45,SC
+1994,GESTFIPS,STATE,46,SD
+1994,GESTFIPS,STATE,47,TN
+1994,GESTFIPS,STATE,48,TX
+1994,GESTFIPS,STATE,49,UT
+1994,GESTFIPS,STATE,50,VT
+1994,GESTFIPS,STATE,51,VA
+1994,GESTFIPS,STATE,53,WA
+1994,GESTFIPS,STATE,54,WV
+1994,GESTFIPS,STATE,55,WI
+1994,GESTFIPS,STATE,56,WY
+1996,GESTFIPS,STATE,1,AL
+1996,GESTFIPS,STATE,2,AK
+1996,GESTFIPS,STATE,4,AZ
+1996,GESTFIPS,STATE,5,AR
+1996,GESTFIPS,STATE,6,CA
+1996,GESTFIPS,STATE,8,CO
+1996,GESTFIPS,STATE,9,CT
+1996,GESTFIPS,STATE,10,DE
+1996,GESTFIPS,STATE,11,DC
+1996,GESTFIPS,STATE,12,FL
+1996,GESTFIPS,STATE,13,GA
+1996,GESTFIPS,STATE,15,HI
+1996,GESTFIPS,STATE,16,ID
+1996,GESTFIPS,STATE,17,IL
+1996,GESTFIPS,STATE,18,IN
+1996,GESTFIPS,STATE,19,IA
+1996,GESTFIPS,STATE,20,KS
+1996,GESTFIPS,STATE,21,KY
+1996,GESTFIPS,STATE,22,LA
+1996,GESTFIPS,STATE,23,ME
+1996,GESTFIPS,STATE,24,MD
+1996,GESTFIPS,STATE,25,MA
+1996,GESTFIPS,STATE,26,MI
+1996,GESTFIPS,STATE,27,MN
+1996,GESTFIPS,STATE,28,MS
+1996,GESTFIPS,STATE,29,MO
+1996,GESTFIPS,STATE,30,MT
+1996,GESTFIPS,STATE,31,NE
+1996,GESTFIPS,STATE,32,NV
+1996,GESTFIPS,STATE,33,NH
+1996,GESTFIPS,STATE,34,NJ
+1996,GESTFIPS,STATE,35,NM
+1996,GESTFIPS,STATE,36,NY
+1996,GESTFIPS,STATE,37,NC
+1996,GESTFIPS,STATE,38,ND
+1996,GESTFIPS,STATE,39,OH
+1996,GESTFIPS,STATE,40,OK
+1996,GESTFIPS,STATE,41,OR
+1996,GESTFIPS,STATE,42,PA
+1996,GESTFIPS,STATE,44,RI
+1996,GESTFIPS,STATE,45,SC
+1996,GESTFIPS,STATE,46,SD
+1996,GESTFIPS,STATE,47,TN
+1996,GESTFIPS,STATE,48,TX
+1996,GESTFIPS,STATE,49,UT
+1996,GESTFIPS,STATE,50,VT
+1996,GESTFIPS,STATE,51,VA
+1996,GESTFIPS,STATE,53,WA
+1996,GESTFIPS,STATE,54,WV
+1996,GESTFIPS,STATE,55,WI
+1996,GESTFIPS,STATE,56,WY
+1998,GESTFIPS,STATE,1,AL
+1998,GESTFIPS,STATE,2,AK
+1998,GESTFIPS,STATE,4,AZ
+1998,GESTFIPS,STATE,5,AR
+1998,GESTFIPS,STATE,6,CA
+1998,GESTFIPS,STATE,8,CO
+1998,GESTFIPS,STATE,9,CT
+1998,GESTFIPS,STATE,10,DE
+1998,GESTFIPS,STATE,11,DC
+1998,GESTFIPS,STATE,12,FL
+1998,GESTFIPS,STATE,13,GA
+1998,GESTFIPS,STATE,15,HI
+1998,GESTFIPS,STATE,16,ID
+1998,GESTFIPS,STATE,17,IL
+1998,GESTFIPS,STATE,18,IN
+1998,GESTFIPS,STATE,19,IA
+1998,GESTFIPS,STATE,20,KS
+1998,GESTFIPS,STATE,21,KY
+1998,GESTFIPS,STATE,22,LA
+1998,GESTFIPS,STATE,23,ME
+1998,GESTFIPS,STATE,24,MD
+1998,GESTFIPS,STATE,25,MA
+1998,GESTFIPS,STATE,26,MI
+1998,GESTFIPS,STATE,27,MN
+1998,GESTFIPS,STATE,28,MS
+1998,GESTFIPS,STATE,29,MO
+1998,GESTFIPS,STATE,30,MT
+1998,GESTFIPS,STATE,31,NE
+1998,GESTFIPS,STATE,32,NV
+1998,GESTFIPS,STATE,33,NH
+1998,GESTFIPS,STATE,34,NJ
+1998,GESTFIPS,STATE,35,NM
+1998,GESTFIPS,STATE,36,NY
+1998,GESTFIPS,STATE,37,NC
+1998,GESTFIPS,STATE,38,ND
+1998,GESTFIPS,STATE,39,OH
+1998,GESTFIPS,STATE,40,OK
+1998,GESTFIPS,STATE,41,OR
+1998,GESTFIPS,STATE,42,PA
+1998,GESTFIPS,STATE,44,RI
+1998,GESTFIPS,STATE,45,SC
+1998,GESTFIPS,STATE,46,SD
+1998,GESTFIPS,STATE,47,TN
+1998,GESTFIPS,STATE,48,TX
+1998,GESTFIPS,STATE,49,UT
+1998,GESTFIPS,STATE,50,VT
+1998,GESTFIPS,STATE,51,VA
+1998,GESTFIPS,STATE,53,WA
+1998,GESTFIPS,STATE,54,WV
+1998,GESTFIPS,STATE,55,WI
+1998,GESTFIPS,STATE,56,WY
+2000,GESTFIPS,STATE,1,AL
+2000,GESTFIPS,STATE,2,AK
+2000,GESTFIPS,STATE,4,AZ
+2000,GESTFIPS,STATE,5,AR
+2000,GESTFIPS,STATE,6,CA
+2000,GESTFIPS,STATE,8,CO
+2000,GESTFIPS,STATE,9,CT
+2000,GESTFIPS,STATE,10,DE
+2000,GESTFIPS,STATE,11,DC
+2000,GESTFIPS,STATE,12,FL
+2000,GESTFIPS,STATE,13,GA
+2000,GESTFIPS,STATE,15,HI
+2000,GESTFIPS,STATE,16,ID
+2000,GESTFIPS,STATE,17,IL
+2000,GESTFIPS,STATE,18,IN
+2000,GESTFIPS,STATE,19,IA
+2000,GESTFIPS,STATE,20,KS
+2000,GESTFIPS,STATE,21,KY
+2000,GESTFIPS,STATE,22,LA
+2000,GESTFIPS,STATE,23,ME
+2000,GESTFIPS,STATE,24,MD
+2000,GESTFIPS,STATE,25,MA
+2000,GESTFIPS,STATE,26,MI
+2000,GESTFIPS,STATE,27,MN
+2000,GESTFIPS,STATE,28,MS
+2000,GESTFIPS,STATE,29,MO
+2000,GESTFIPS,STATE,30,MT
+2000,GESTFIPS,STATE,31,NE
+2000,GESTFIPS,STATE,32,NV
+2000,GESTFIPS,STATE,33,NH
+2000,GESTFIPS,STATE,34,NJ
+2000,GESTFIPS,STATE,35,NM
+2000,GESTFIPS,STATE,36,NY
+2000,GESTFIPS,STATE,37,NC
+2000,GESTFIPS,STATE,38,ND
+2000,GESTFIPS,STATE,39,OH
+2000,GESTFIPS,STATE,40,OK
+2000,GESTFIPS,STATE,41,OR
+2000,GESTFIPS,STATE,42,PA
+2000,GESTFIPS,STATE,44,RI
+2000,GESTFIPS,STATE,45,SC
+2000,GESTFIPS,STATE,46,SD
+2000,GESTFIPS,STATE,47,TN
+2000,GESTFIPS,STATE,48,TX
+2000,GESTFIPS,STATE,49,UT
+2000,GESTFIPS,STATE,50,VT
+2000,GESTFIPS,STATE,51,VA
+2000,GESTFIPS,STATE,53,WA
+2000,GESTFIPS,STATE,54,WV
+2000,GESTFIPS,STATE,55,WI
+2000,GESTFIPS,STATE,56,WY
+2002,GESTFIPS,STATE,1,AL
+2002,GESTFIPS,STATE,2,AK
+2002,GESTFIPS,STATE,4,AZ
+2002,GESTFIPS,STATE,5,AR
+2002,GESTFIPS,STATE,6,CA
+2002,GESTFIPS,STATE,8,CO
+2002,GESTFIPS,STATE,9,CT
+2002,GESTFIPS,STATE,10,DE
+2002,GESTFIPS,STATE,11,DC
+2002,GESTFIPS,STATE,12,FL
+2002,GESTFIPS,STATE,13,GA
+2002,GESTFIPS,STATE,15,HI
+2002,GESTFIPS,STATE,16,ID
+2002,GESTFIPS,STATE,17,IL
+2002,GESTFIPS,STATE,18,IN
+2002,GESTFIPS,STATE,19,IA
+2002,GESTFIPS,STATE,20,KS
+2002,GESTFIPS,STATE,21,KY
+2002,GESTFIPS,STATE,22,LA
+2002,GESTFIPS,STATE,23,ME
+2002,GESTFIPS,STATE,24,MD
+2002,GESTFIPS,STATE,25,MA
+2002,GESTFIPS,STATE,26,MI
+2002,GESTFIPS,STATE,27,MN
+2002,GESTFIPS,STATE,28,MS
+2002,GESTFIPS,STATE,29,MO
+2002,GESTFIPS,STATE,30,MT
+2002,GESTFIPS,STATE,31,NE
+2002,GESTFIPS,STATE,32,NV
+2002,GESTFIPS,STATE,33,NH
+2002,GESTFIPS,STATE,34,NJ
+2002,GESTFIPS,STATE,35,NM
+2002,GESTFIPS,STATE,36,NY
+2002,GESTFIPS,STATE,37,NC
+2002,GESTFIPS,STATE,38,ND
+2002,GESTFIPS,STATE,39,OH
+2002,GESTFIPS,STATE,40,OK
+2002,GESTFIPS,STATE,41,OR
+2002,GESTFIPS,STATE,42,PA
+2002,GESTFIPS,STATE,44,RI
+2002,GESTFIPS,STATE,45,SC
+2002,GESTFIPS,STATE,46,SD
+2002,GESTFIPS,STATE,47,TN
+2002,GESTFIPS,STATE,48,TX
+2002,GESTFIPS,STATE,49,UT
+2002,GESTFIPS,STATE,50,VT
+2002,GESTFIPS,STATE,51,VA
+2002,GESTFIPS,STATE,53,WA
+2002,GESTFIPS,STATE,54,WV
+2002,GESTFIPS,STATE,55,WI
+2002,GESTFIPS,STATE,56,WY
+2004,GESTFIPS,STATE,1,AL
+2004,GESTFIPS,STATE,2,AK
+2004,GESTFIPS,STATE,4,AZ
+2004,GESTFIPS,STATE,5,AR
+2004,GESTFIPS,STATE,6,CA
+2004,GESTFIPS,STATE,8,CO
+2004,GESTFIPS,STATE,9,CT
+2004,GESTFIPS,STATE,10,DE
+2004,GESTFIPS,STATE,11,DC
+2004,GESTFIPS,STATE,12,FL
+2004,GESTFIPS,STATE,13,GA
+2004,GESTFIPS,STATE,15,HI
+2004,GESTFIPS,STATE,16,ID
+2004,GESTFIPS,STATE,17,IL
+2004,GESTFIPS,STATE,18,IN
+2004,GESTFIPS,STATE,19,IA
+2004,GESTFIPS,STATE,20,KS
+2004,GESTFIPS,STATE,21,KY
+2004,GESTFIPS,STATE,22,LA
+2004,GESTFIPS,STATE,23,ME
+2004,GESTFIPS,STATE,24,MD
+2004,GESTFIPS,STATE,25,MA
+2004,GESTFIPS,STATE,26,MI
+2004,GESTFIPS,STATE,27,MN
+2004,GESTFIPS,STATE,28,MS
+2004,GESTFIPS,STATE,29,MO
+2004,GESTFIPS,STATE,30,MT
+2004,GESTFIPS,STATE,31,NE
+2004,GESTFIPS,STATE,32,NV
+2004,GESTFIPS,STATE,33,NH
+2004,GESTFIPS,STATE,34,NJ
+2004,GESTFIPS,STATE,35,NM
+2004,GESTFIPS,STATE,36,NY
+2004,GESTFIPS,STATE,37,NC
+2004,GESTFIPS,STATE,38,ND
+2004,GESTFIPS,STATE,39,OH
+2004,GESTFIPS,STATE,40,OK
+2004,GESTFIPS,STATE,41,OR
+2004,GESTFIPS,STATE,42,PA
+2004,GESTFIPS,STATE,44,RI
+2004,GESTFIPS,STATE,45,SC
+2004,GESTFIPS,STATE,46,SD
+2004,GESTFIPS,STATE,47,TN
+2004,GESTFIPS,STATE,48,TX
+2004,GESTFIPS,STATE,49,UT
+2004,GESTFIPS,STATE,50,VT
+2004,GESTFIPS,STATE,51,VA
+2004,GESTFIPS,STATE,53,WA
+2004,GESTFIPS,STATE,54,WV
+2004,GESTFIPS,STATE,55,WI
+2004,GESTFIPS,STATE,56,WY
+2006,GESTFIPS,STATE,1,AL
+2006,GESTFIPS,STATE,2,AK
+2006,GESTFIPS,STATE,4,AZ
+2006,GESTFIPS,STATE,5,AR
+2006,GESTFIPS,STATE,6,CA
+2006,GESTFIPS,STATE,8,CO
+2006,GESTFIPS,STATE,9,CT
+2006,GESTFIPS,STATE,10,DE
+2006,GESTFIPS,STATE,11,DC
+2006,GESTFIPS,STATE,12,FL
+2006,GESTFIPS,STATE,13,GA
+2006,GESTFIPS,STATE,15,HI
+2006,GESTFIPS,STATE,16,ID
+2006,GESTFIPS,STATE,17,IL
+2006,GESTFIPS,STATE,18,IN
+2006,GESTFIPS,STATE,19,IA
+2006,GESTFIPS,STATE,20,KS
+2006,GESTFIPS,STATE,21,KY
+2006,GESTFIPS,STATE,22,LA
+2006,GESTFIPS,STATE,23,ME
+2006,GESTFIPS,STATE,24,MD
+2006,GESTFIPS,STATE,25,MA
+2006,GESTFIPS,STATE,26,MI
+2006,GESTFIPS,STATE,27,MN
+2006,GESTFIPS,STATE,28,MS
+2006,GESTFIPS,STATE,29,MO
+2006,GESTFIPS,STATE,30,MT
+2006,GESTFIPS,STATE,31,NE
+2006,GESTFIPS,STATE,32,NV
+2006,GESTFIPS,STATE,33,NH
+2006,GESTFIPS,STATE,34,NJ
+2006,GESTFIPS,STATE,35,NM
+2006,GESTFIPS,STATE,36,NY
+2006,GESTFIPS,STATE,37,NC
+2006,GESTFIPS,STATE,38,ND
+2006,GESTFIPS,STATE,39,OH
+2006,GESTFIPS,STATE,40,OK
+2006,GESTFIPS,STATE,41,OR
+2006,GESTFIPS,STATE,42,PA
+2006,GESTFIPS,STATE,44,RI
+2006,GESTFIPS,STATE,45,SC
+2006,GESTFIPS,STATE,46,SD
+2006,GESTFIPS,STATE,47,TN
+2006,GESTFIPS,STATE,48,TX
+2006,GESTFIPS,STATE,49,UT
+2006,GESTFIPS,STATE,50,VT
+2006,GESTFIPS,STATE,51,VA
+2006,GESTFIPS,STATE,53,WA
+2006,GESTFIPS,STATE,54,WV
+2006,GESTFIPS,STATE,55,WI
+2006,GESTFIPS,STATE,56,WY
+2008,GESTFIPS,STATE,1,AL
+2008,GESTFIPS,STATE,2,AK
+2008,GESTFIPS,STATE,4,AZ
+2008,GESTFIPS,STATE,5,AR
+2008,GESTFIPS,STATE,6,CA
+2008,GESTFIPS,STATE,8,CO
+2008,GESTFIPS,STATE,9,CT
+2008,GESTFIPS,STATE,10,DE
+2008,GESTFIPS,STATE,11,DC
+2008,GESTFIPS,STATE,12,FL
+2008,GESTFIPS,STATE,13,GA
+2008,GESTFIPS,STATE,15,HI
+2008,GESTFIPS,STATE,16,ID
+2008,GESTFIPS,STATE,17,IL
+2008,GESTFIPS,STATE,18,IN
+2008,GESTFIPS,STATE,19,IA
+2008,GESTFIPS,STATE,20,KS
+2008,GESTFIPS,STATE,21,KY
+2008,GESTFIPS,STATE,22,LA
+2008,GESTFIPS,STATE,23,ME
+2008,GESTFIPS,STATE,24,MD
+2008,GESTFIPS,STATE,25,MA
+2008,GESTFIPS,STATE,26,MI
+2008,GESTFIPS,STATE,27,MN
+2008,GESTFIPS,STATE,28,MS
+2008,GESTFIPS,STATE,29,MO
+2008,GESTFIPS,STATE,30,MT
+2008,GESTFIPS,STATE,31,NE
+2008,GESTFIPS,STATE,32,NV
+2008,GESTFIPS,STATE,33,NH
+2008,GESTFIPS,STATE,34,NJ
+2008,GESTFIPS,STATE,35,NM
+2008,GESTFIPS,STATE,36,NY
+2008,GESTFIPS,STATE,37,NC
+2008,GESTFIPS,STATE,38,ND
+2008,GESTFIPS,STATE,39,OH
+2008,GESTFIPS,STATE,40,OK
+2008,GESTFIPS,STATE,41,OR
+2008,GESTFIPS,STATE,42,PA
+2008,GESTFIPS,STATE,44,RI
+2008,GESTFIPS,STATE,45,SC
+2008,GESTFIPS,STATE,46,SD
+2008,GESTFIPS,STATE,47,TN
+2008,GESTFIPS,STATE,48,TX
+2008,GESTFIPS,STATE,49,UT
+2008,GESTFIPS,STATE,50,VT
+2008,GESTFIPS,STATE,51,VA
+2008,GESTFIPS,STATE,53,WA
+2008,GESTFIPS,STATE,54,WV
+2008,GESTFIPS,STATE,55,WI
+2008,GESTFIPS,STATE,56,WY
+2010,GESTFIPS,STATE,1,AL
+2010,GESTFIPS,STATE,2,AK
+2010,GESTFIPS,STATE,4,AZ
+2010,GESTFIPS,STATE,5,AR
+2010,GESTFIPS,STATE,6,CA
+2010,GESTFIPS,STATE,8,CO
+2010,GESTFIPS,STATE,9,CT
+2010,GESTFIPS,STATE,10,DE
+2010,GESTFIPS,STATE,11,DC
+2010,GESTFIPS,STATE,12,FL
+2010,GESTFIPS,STATE,13,GA
+2010,GESTFIPS,STATE,15,HI
+2010,GESTFIPS,STATE,16,ID
+2010,GESTFIPS,STATE,17,IL
+2010,GESTFIPS,STATE,18,IN
+2010,GESTFIPS,STATE,19,IA
+2010,GESTFIPS,STATE,20,KS
+2010,GESTFIPS,STATE,21,KY
+2010,GESTFIPS,STATE,22,LA
+2010,GESTFIPS,STATE,23,ME
+2010,GESTFIPS,STATE,24,MD
+2010,GESTFIPS,STATE,25,MA
+2010,GESTFIPS,STATE,26,MI
+2010,GESTFIPS,STATE,27,MN
+2010,GESTFIPS,STATE,28,MS
+2010,GESTFIPS,STATE,29,MO
+2010,GESTFIPS,STATE,30,MT
+2010,GESTFIPS,STATE,31,NE
+2010,GESTFIPS,STATE,32,NV
+2010,GESTFIPS,STATE,33,NH
+2010,GESTFIPS,STATE,34,NJ
+2010,GESTFIPS,STATE,35,NM
+2010,GESTFIPS,STATE,36,NY
+2010,GESTFIPS,STATE,37,NC
+2010,GESTFIPS,STATE,38,ND
+2010,GESTFIPS,STATE,39,OH
+2010,GESTFIPS,STATE,40,OK
+2010,GESTFIPS,STATE,41,OR
+2010,GESTFIPS,STATE,42,PA
+2010,GESTFIPS,STATE,44,RI
+2010,GESTFIPS,STATE,45,SC
+2010,GESTFIPS,STATE,46,SD
+2010,GESTFIPS,STATE,47,TN
+2010,GESTFIPS,STATE,48,TX
+2010,GESTFIPS,STATE,49,UT
+2010,GESTFIPS,STATE,50,VT
+2010,GESTFIPS,STATE,51,VA
+2010,GESTFIPS,STATE,53,WA
+2010,GESTFIPS,STATE,54,WV
+2010,GESTFIPS,STATE,55,WI
+2010,GESTFIPS,STATE,56,WY
+2012,GESTFIPS,STATE,1,AL
+2012,GESTFIPS,STATE,2,AK
+2012,GESTFIPS,STATE,4,AZ
+2012,GESTFIPS,STATE,5,AR
+2012,GESTFIPS,STATE,6,CA
+2012,GESTFIPS,STATE,8,CO
+2012,GESTFIPS,STATE,9,CT
+2012,GESTFIPS,STATE,10,DE
+2012,GESTFIPS,STATE,11,DC
+2012,GESTFIPS,STATE,12,FL
+2012,GESTFIPS,STATE,13,GA
+2012,GESTFIPS,STATE,15,HI
+2012,GESTFIPS,STATE,16,ID
+2012,GESTFIPS,STATE,17,IL
+2012,GESTFIPS,STATE,18,IN
+2012,GESTFIPS,STATE,19,IA
+2012,GESTFIPS,STATE,20,KS
+2012,GESTFIPS,STATE,21,KY
+2012,GESTFIPS,STATE,22,LA
+2012,GESTFIPS,STATE,23,ME
+2012,GESTFIPS,STATE,24,MD
+2012,GESTFIPS,STATE,25,MA
+2012,GESTFIPS,STATE,26,MI
+2012,GESTFIPS,STATE,27,MN
+2012,GESTFIPS,STATE,28,MS
+2012,GESTFIPS,STATE,29,MO
+2012,GESTFIPS,STATE,30,MT
+2012,GESTFIPS,STATE,31,NE
+2012,GESTFIPS,STATE,32,NV
+2012,GESTFIPS,STATE,33,NH
+2012,GESTFIPS,STATE,34,NJ
+2012,GESTFIPS,STATE,35,NM
+2012,GESTFIPS,STATE,36,NY
+2012,GESTFIPS,STATE,37,NC
+2012,GESTFIPS,STATE,38,ND
+2012,GESTFIPS,STATE,39,OH
+2012,GESTFIPS,STATE,40,OK
+2012,GESTFIPS,STATE,41,OR
+2012,GESTFIPS,STATE,42,PA
+2012,GESTFIPS,STATE,44,RI
+2012,GESTFIPS,STATE,45,SC
+2012,GESTFIPS,STATE,46,SD
+2012,GESTFIPS,STATE,47,TN
+2012,GESTFIPS,STATE,48,TX
+2012,GESTFIPS,STATE,49,UT
+2012,GESTFIPS,STATE,50,VT
+2012,GESTFIPS,STATE,51,VA
+2012,GESTFIPS,STATE,53,WA
+2012,GESTFIPS,STATE,54,WV
+2012,GESTFIPS,STATE,55,WI
+2012,GESTFIPS,STATE,56,WY
+2014,GESTFIPS,STATE,1,AL
+2014,GESTFIPS,STATE,2,AK
+2014,GESTFIPS,STATE,4,AZ
+2014,GESTFIPS,STATE,5,AR
+2014,GESTFIPS,STATE,6,CA
+2014,GESTFIPS,STATE,8,CO
+2014,GESTFIPS,STATE,9,CT
+2014,GESTFIPS,STATE,10,DE
+2014,GESTFIPS,STATE,11,DC
+2014,GESTFIPS,STATE,12,FL
+2014,GESTFIPS,STATE,13,GA
+2014,GESTFIPS,STATE,15,HI
+2014,GESTFIPS,STATE,16,ID
+2014,GESTFIPS,STATE,17,IL
+2014,GESTFIPS,STATE,18,IN
+2014,GESTFIPS,STATE,19,IA
+2014,GESTFIPS,STATE,20,KS
+2014,GESTFIPS,STATE,21,KY
+2014,GESTFIPS,STATE,22,LA
+2014,GESTFIPS,STATE,23,ME
+2014,GESTFIPS,STATE,24,MD
+2014,GESTFIPS,STATE,25,MA
+2014,GESTFIPS,STATE,26,MI
+2014,GESTFIPS,STATE,27,MN
+2014,GESTFIPS,STATE,28,MS
+2014,GESTFIPS,STATE,29,MO
+2014,GESTFIPS,STATE,30,MT
+2014,GESTFIPS,STATE,31,NE
+2014,GESTFIPS,STATE,32,NV
+2014,GESTFIPS,STATE,33,NH
+2014,GESTFIPS,STATE,34,NJ
+2014,GESTFIPS,STATE,35,NM
+2014,GESTFIPS,STATE,36,NY
+2014,GESTFIPS,STATE,37,NC
+2014,GESTFIPS,STATE,38,ND
+2014,GESTFIPS,STATE,39,OH
+2014,GESTFIPS,STATE,40,OK
+2014,GESTFIPS,STATE,41,OR
+2014,GESTFIPS,STATE,42,PA
+2014,GESTFIPS,STATE,44,RI
+2014,GESTFIPS,STATE,45,SC
+2014,GESTFIPS,STATE,46,SD
+2014,GESTFIPS,STATE,47,TN
+2014,GESTFIPS,STATE,48,TX
+2014,GESTFIPS,STATE,49,UT
+2014,GESTFIPS,STATE,50,VT
+2014,GESTFIPS,STATE,51,VA
+2014,GESTFIPS,STATE,53,WA
+2014,GESTFIPS,STATE,54,WV
+2014,GESTFIPS,STATE,55,WI
+2014,GESTFIPS,STATE,56,WY
+2016,GESTFIPS,STATE,1,AL
+2016,GESTFIPS,STATE,2,AK
+2016,GESTFIPS,STATE,4,AZ
+2016,GESTFIPS,STATE,5,AR
+2016,GESTFIPS,STATE,6,CA
+2016,GESTFIPS,STATE,8,CO
+2016,GESTFIPS,STATE,9,CT
+2016,GESTFIPS,STATE,10,DE
+2016,GESTFIPS,STATE,11,DC
+2016,GESTFIPS,STATE,12,FL
+2016,GESTFIPS,STATE,13,GA
+2016,GESTFIPS,STATE,15,HI
+2016,GESTFIPS,STATE,16,ID
+2016,GESTFIPS,STATE,17,IL
+2016,GESTFIPS,STATE,18,IN
+2016,GESTFIPS,STATE,19,IA
+2016,GESTFIPS,STATE,20,KS
+2016,GESTFIPS,STATE,21,KY
+2016,GESTFIPS,STATE,22,LA
+2016,GESTFIPS,STATE,23,ME
+2016,GESTFIPS,STATE,24,MD
+2016,GESTFIPS,STATE,25,MA
+2016,GESTFIPS,STATE,26,MI
+2016,GESTFIPS,STATE,27,MN
+2016,GESTFIPS,STATE,28,MS
+2016,GESTFIPS,STATE,29,MO
+2016,GESTFIPS,STATE,30,MT
+2016,GESTFIPS,STATE,31,NE
+2016,GESTFIPS,STATE,32,NV
+2016,GESTFIPS,STATE,33,NH
+2016,GESTFIPS,STATE,34,NJ
+2016,GESTFIPS,STATE,35,NM
+2016,GESTFIPS,STATE,36,NY
+2016,GESTFIPS,STATE,37,NC
+2016,GESTFIPS,STATE,38,ND
+2016,GESTFIPS,STATE,39,OH
+2016,GESTFIPS,STATE,40,OK
+2016,GESTFIPS,STATE,41,OR
+2016,GESTFIPS,STATE,42,PA
+2016,GESTFIPS,STATE,44,RI
+2016,GESTFIPS,STATE,45,SC
+2016,GESTFIPS,STATE,46,SD
+2016,GESTFIPS,STATE,47,TN
+2016,GESTFIPS,STATE,48,TX
+2016,GESTFIPS,STATE,49,UT
+2016,GESTFIPS,STATE,50,VT
+2016,GESTFIPS,STATE,51,VA
+2016,GESTFIPS,STATE,53,WA
+2016,GESTFIPS,STATE,54,WV
+2016,GESTFIPS,STATE,55,WI
+2016,GESTFIPS,STATE,56,WY
+2018,GESTFIPS,STATE,1,AL
+2018,GESTFIPS,STATE,2,AK
+2018,GESTFIPS,STATE,4,AZ
+2018,GESTFIPS,STATE,5,AR
+2018,GESTFIPS,STATE,6,CA
+2018,GESTFIPS,STATE,8,CO
+2018,GESTFIPS,STATE,9,CT
+2018,GESTFIPS,STATE,10,DE
+2018,GESTFIPS,STATE,11,DC
+2018,GESTFIPS,STATE,12,FL
+2018,GESTFIPS,STATE,13,GA
+2018,GESTFIPS,STATE,15,HI
+2018,GESTFIPS,STATE,16,ID
+2018,GESTFIPS,STATE,17,IL
+2018,GESTFIPS,STATE,18,IN
+2018,GESTFIPS,STATE,19,IA
+2018,GESTFIPS,STATE,20,KS
+2018,GESTFIPS,STATE,21,KY
+2018,GESTFIPS,STATE,22,LA
+2018,GESTFIPS,STATE,23,ME
+2018,GESTFIPS,STATE,24,MD
+2018,GESTFIPS,STATE,25,MA
+2018,GESTFIPS,STATE,26,MI
+2018,GESTFIPS,STATE,27,MN
+2018,GESTFIPS,STATE,28,MS
+2018,GESTFIPS,STATE,29,MO
+2018,GESTFIPS,STATE,30,MT
+2018,GESTFIPS,STATE,31,NE
+2018,GESTFIPS,STATE,32,NV
+2018,GESTFIPS,STATE,33,NH
+2018,GESTFIPS,STATE,34,NJ
+2018,GESTFIPS,STATE,35,NM
+2018,GESTFIPS,STATE,36,NY
+2018,GESTFIPS,STATE,37,NC
+2018,GESTFIPS,STATE,38,ND
+2018,GESTFIPS,STATE,39,OH
+2018,GESTFIPS,STATE,40,OK
+2018,GESTFIPS,STATE,41,OR
+2018,GESTFIPS,STATE,42,PA
+2018,GESTFIPS,STATE,44,RI
+2018,GESTFIPS,STATE,45,SC
+2018,GESTFIPS,STATE,46,SD
+2018,GESTFIPS,STATE,47,TN
+2018,GESTFIPS,STATE,48,TX
+2018,GESTFIPS,STATE,49,UT
+2018,GESTFIPS,STATE,50,VT
+2018,GESTFIPS,STATE,51,VA
+2018,GESTFIPS,STATE,53,WA
+2018,GESTFIPS,STATE,54,WV
+2018,GESTFIPS,STATE,55,WI
+2018,GESTFIPS,STATE,56,WY

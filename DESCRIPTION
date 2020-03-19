@@ -2,20 +2,29 @@ Package: cpsvote
 Title: Interface for the Current Population Survey - Voting and Registration Supplement
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Jay",
+    c(person(given = "Jay",
            family = "Lee",
            role = c("aut", "cre"),
-           email = "jaylee@reed.edu")
+           email = "jaylee@reed.edu"),
+    person(given = "Paul",
+           family = "Gronke",
+           role = c("aut")))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 3.6.0)
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
     rmarkdown
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0
 Imports: 
-    magrittr
+    magrittr,
+    readr,
+    dplyr,
+    stringr,
+    forcats,
+    rlang

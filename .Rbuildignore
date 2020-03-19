@@ -1,4 +1,4 @@
-^cps\.Rproj$
+^cpsvote\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^README\.Rmd$
@@ -7,6 +7,9 @@
 ^sandbox*$
 ^img*$
 ^raw_data*$
-^test_docs*$
-^test_data*$
+^cps_docs*$
+^cps_data*$
 ^data-raw$
+^\.travis\.yml$
+^.*Icon.*$
+^data/cps.rda$
