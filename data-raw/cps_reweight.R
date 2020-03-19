@@ -20,7 +20,8 @@ state_fips <- maps::state.fips %>%
     state_name = c("Alaska", "Hawaii", "United States"),
     stringsAsFactors = FALSE
   )) %>%
-  arrange(fips)
+  arrange(fips) %>%
+  distinct()
 
 # get the VEP #####
 

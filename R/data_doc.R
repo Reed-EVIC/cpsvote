@@ -45,7 +45,7 @@
 #' voting-eligible population (VEP). It can be joined with CPS data to 
 #' calculate the new weights needed for analysis, using the function 
 #' `cps_reweight_turnout`.
-#' @format A tibble with 1,690 rows and 6 columns:
+#' @format A tibble with 1,326 rows and 6 columns:
 #' \describe{
 #' \item{YEAR}{year}
 #' \item{STATE}{state}
