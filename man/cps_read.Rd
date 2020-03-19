@@ -36,6 +36,6 @@ a data frame, or list of data frames
 }
 \description{
 Load multiple years of data from the Current Population Survey.
-This function will also downlaod the data for you, if it is not present in
+This function will also download the data for you, if it is not present in
 the given \code{dir}.
 }
