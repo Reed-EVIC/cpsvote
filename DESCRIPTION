@@ -23,7 +23,9 @@ Depends: R (>= 3.6.0)
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
-    rmarkdown
+    rmarkdown,
+    survey,
+    srvyr
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.1

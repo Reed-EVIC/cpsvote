@@ -6,6 +6,7 @@
 ^docs*$
 ^sandbox*$
 ^img*$
+^literature*$
 ^raw_data*$
 ^cps_docs*$
 ^cps_data*$

@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 
-The United States Census Bureau has collected information about voter registration and turnout since 1964.  The surveys are conducted every November during Federal election years, and are 
+The United States Census Bureau has collected information about voter registration and turnout since 1964.  The surveys are conducted every November during federal election years, and are 
 generally referred to as the Voting and Registration Supplement (VRS). The official website for the CPS VRS is located at https://www.census.gov/topics/public-sector/voting.html, and the "About Me" page (https://www.census.gov/topics/public-sector/voting/about.html provides more detailed information on the history of this data collection project.^[A 175 page document, "Design and Methodology: Current Population Survey" (https://www.census.gov/prod/2006pubs/tp-66.pdf), provides a very deep dive in the history and methodology of the CPS.] 
 
 The CPS VRS is an important resource to understand voter registration and voter turnout in the United States. The sample size, data quality, and
@@ -100,16 +100,16 @@ At the time of this writing (March 3, 2020), we have not yet integrated the Hur 
 The steps shown below install the package locally, downlaod all CPS files from 1994 - 2018, load the files into memory, and results in a data frame
 with CPS Voting and Registration Supplement data from 1994-2018. 
 
-1. `remotes::install_github(https://github.com/Reed-EVIC/cpsvote)`
+1. `remotes::install_github("Reed-EVIC/cpsvote")`
 2. `library(cpsvote)`
 3. `cpsvote::cps_download_data()` (Only necessary if using the package for the first time; after that, the files will already be downloaded and you 
 can skip this step)
-4. `cps_vote <- cpsvote::read_cps()` Will read all available years into memory, places it in a data frame named `cps_vote`
+4. `cps_vote <- cpsvote::cps_read()` Will read all available years into memory, places it in a data frame named `cps_vote`
 
 ### Advanced Guide
 
 1. *Install the Package*
-   ii) `remotes::install_github(https://github.com/Reed-EVIC/cpsvote)`
+   ii) `remotes::install_github("Reed-EVIC/cpsvote")`
 
 2. *Download the CPS Files*
     i) `cpsvote` will download the CPS files directly from two federal data repositories (data.nber.org/cps/cpsnov for 
@@ -125,17 +125,17 @@ can skip this step)
 3. *Import the Data Into R and Create a Dataframe*
    i) `cpsvote` performs a series of data transformations that produce a set of comparably coded variables across all of the survey years. These
   variables are listed in the "Data Description" vignette.
-   ii) `cpsvote::read_cps(data_dir = "dir", years = seq(start,end,sequence))` will read CPS data files located in "data_dir" into memory.  A reminder
+   ii) `cpsvote::cps_read(dir = "dir", years = seq(start,end,sequence))` will read CPS data files located in "data_dir" into memory.  A reminder
   that the file names need to  be unmodified from what is stored at data.nber.org and thedataweb.rm.census.gov
-       a) Example: `cps_vote <- cpsvote::read_cps()` will read all data files (1994 - 2018) from the default directory ("./cps_data"), recode columns
+       a) Example: `cps_vote <- cpsvote::cps_read()` will read all data files (1994 - 2018) from the default directory ("./cps_data"), recode columns
   to a common coding scheme, and merge into a single data frame labeled
   "cps_vote". 
-       b) Example: `cps_vote <- cpsvote::read_cps(data_dir = "~/mydata/CPS), years = seq(1994, 2000, 2))` will load CPS from 1994, 1996, 1998, and 2000, 
+       b) Example: `cps_vote <- cpsvote::cps_read(dir = "~/mydata/CPS", years = seq(1994, 2000, 2))` will load CPS from 1994, 1996, 1998, and 2000, 
   assuming  the data files are stored in "~/mydata/CPS", perform recodes, merge, and label "cps_vote".  
   
 4. *Download documentation*
    i) `cpsvote::cps_download_docs()` downloads all documentation files, and places them in "./cps_docs"
-   ii) `cpsvote::cps_download_docs(path = "dir", years = seq(start, end, seqquence)` allows you to control the target directory and 
+   ii) `cpsvote::cps_download_docs(path = "dir", years = seq(start, end, sequence)` allows you to control the target directory and 
    years for the documentation.
   
 ### Sample Usage: Voter Turnout in 2016
@@ -143,7 +143,7 @@ can skip this step)
 ```{r setup, echo = TRUE}
 #library(cps)
 cpsvote::cps_download_data(years = 2016) # Download the 2016 CPS
-cps2016 <- cpsvote::read_cps(years = 2016) # Read in CPS 2016. Ignore the warning since we don't care
+cps2016 <- cpsvote::cps_read(years = 2016) # Read in CPS 2016. Ignore the warning since we don't care
                                            # about joining any files
 
 ## SURVEY WEIGHTS
@@ -156,7 +156,7 @@ library(srvyr)
 cps2016_w1 <-                                             # SURVEY Package Syntax
     svydesign( 
         ~ 1 , 
-        data = cps, 
+        data = cps2016, 
         weights = ~ WEIGHT
     )
 
