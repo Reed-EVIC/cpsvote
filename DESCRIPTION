@@ -9,7 +9,13 @@ Authors@R:
     person(given = "Paul",
            family = "Gronke",
            role = c("aut")))
-Description: What the package does (one paragraph).
+Description: CPSVOTE provides an automated method for downloading, recoding, and merging selected years of the 
+    Current Population Survey's 
+    Voting and Registration Supplement, a large N national survey into registration, voting, and non-voting in United States 
+    Federal Elections. The
+    package provides documentation for appropriate use of sample weights to generate statistical estimates. The package 
+    includes multiple vignettes
+    that illustrate different applications. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -20,7 +26,7 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.0
+RoxygenNote: 7.0.1
 Imports: 
     magrittr,
     readr,

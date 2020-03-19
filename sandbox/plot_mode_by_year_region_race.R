@@ -34,8 +34,19 @@ cps <- cps %>%
       CPS_STATE %in% c("MT", "ID", "WY", "NV", "UT", "CO", "AZ", "NM") ~ "Mountain", 
       CPS_STATE %in% c("WA", "OR", "CA", "AK", "HI") ~ "Pacific"),
     voted = case_when(
-      VRS_VOTE == "YES" ~ 1,
-      VRS_VOTE == "NO" ~ 0)
+      VRS_VOTE == "Yes" ~ 1,
+      VRS_VOTE == "No" ~ 0),
+    voted_eip = case_when(
+      VRS_VOTE == "Yes" & VRS_VOTE_DAY == "Before election day" &
+        VRS_VOTE_MAIL == "In person" ~ 1,
+      VRS_VOTE == "Yes" ~ 0),
+    income_cats =case_when(
+      as.numeric(CPS_INCOME) <=6 ~ "Bottom 20%",
+      as.numeric(CPS_INCOME) > 6 & 
+        as.numeric(CPS_INCOME) <= 11 ~ "From 20% to median",
+      as.numeric(CPS_INCOME) > 11 &
+        as.numeric(CPS_INCOME) <=15 ~ "Median to top 15%",
+      TRUE ~ "Top 15%")
         )
 
 #
@@ -91,7 +102,7 @@ cps_weight %>%
 
 ggsave("sandbox/vote_modes_by_year_linegraph.png")
 
-# Graph 1a: Rate of All Modes of Voting By Year (line graph)
+# Graph 1a: Rate of All Modes of Voting By Year in NC (line graph)
 
 cps_weight %>%
   filter(CPS_YEAR > 1994 & !is.na(VRS_VOTE_HOW_C) & CPS_STATE == "NC") %>%
@@ -115,6 +126,50 @@ cps_weight %>%
         legend.text = element_text(size = 10)) 
   
 ggsave("sandbox/vote_modes_by_year_NClinegraph.png")
+
+cps_weight %>% 
+  filter(VRS_VOTE_DAY != "Don't know" & CPS_STATE == "NC" & CPS_RACE %in% c("White Only", "Black Only")) %>%
+  group_by(CPS_YEAR, CPS_RACE) %>%
+  summarize(value = survey_mean(voted_eip, na.rm = TRUE)) %>% 
+  ggplot(., aes(x = CPS_YEAR, y = value,  col = CPS_RACE, fill = CPS_RACE)) +
+  geom_bar(stat = "identity", position = "dodge")+
+  scale_x_continuous(breaks = seq(1996, 2018, by = 2)) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "Early Voting in NC by Race,\n1996 - 2018", 
+       subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
+       color = "Race", fill = "Race",
+       y = "",
+       x = "") +
+  theme_minimal() +
+  theme(plot.title = element_text(size = 20, family = "Times", face = "bold.italic", colour = "red"),
+        legend.position = c(.15,.75), 
+        legend.background = element_rect(), 
+        legend.title = element_text(size = 12, face = "bold"),
+        legend.text = element_text(size = 10)) 
+ggsave("sandbox/EIP_by_race_NC.png")
+
+
+cps_weight %>% 
+  filter(VRS_VOTE_DAY != "Don't know" & CPS_STATE == "NC") %>%
+  group_by(CPS_YEAR, income_cats) %>%
+  summarize(value = survey_mean(voted_eip, na.rm = TRUE)) %>% 
+  ggplot(., aes(x = CPS_YEAR, y = value,  col = income_cats, fill = income_cats)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_x_continuous(breaks = seq(2014, 2018, by = 2)) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "Early Voting in NC by Income Category,\n1996 - 2018", 
+       subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
+       color = "Income Category", fill = "Income Category",
+       y = "",
+       x = "") +
+  theme_minimal() +
+  theme(plot.title = element_text(size = 20, family = "Times", face = "bold.italic", colour = "red"),
+        legend.position = c(.15,.85), 
+        legend.background = element_rect(), 
+        legend.title = element_text(size = 12, face = "bold"),
+        legend.text = element_text(size = 10)) 
+ggsave("sandbox/EIP_by_income_NC.png")
+
 
 # Graph 2: Rate of Early In Person Voting By Year
 cps_weight %>%
@@ -161,49 +216,3 @@ cps_weight %>%
   ylab("") + xlab("")  
 
 ggsave("sandbox/vote_at_home_by_year.png")
-
-# Graph 4a: Focus on East North Central Census Division
-cps_weight %>%
-  filter(CPS_YEAR > 1994 & census_division == "East North Central") %>%
-  group_by(CPS_YEAR, CPS_STATE, VRS_VOTE_HOW_C) %>%
-  summarize(value = survey_mean(na.rm = TRUE)) %>%
-  filter(VRS_VOTE_HOW_C == "MAIL") %>%
-  ggplot(aes(x = CPS_YEAR, y = value, col = CPS_STATE, group = CPS_STATE)) +
-  geom_line(size = 1.5) +
-  geom_point(aes(x = CPS_YEAR, y = value, color = CPS_STATE), size = 2) +
-  theme_minimal() +
-  scale_x_continuous(breaks = seq(1996, 2018, by = 2)) +
-  scale_y_continuous(labels = scales::percent) +
-  labs(title = "Use of Vote At Home in the East North Central States, 1996 - 2018", 
-       subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
-       color = "Region") +
-  theme(plot.title = element_text(size = 20, family = "Times", face = "bold.italic", colour = "red"),
-        legend.position = c(.1,.8), legend.background = element_rect(),  
-        legend.title = element_text(size = 12, face = "bold"),
-        legend.text = element_text(size = 10)) +
-  ylab("") + xlab("")  
-
-ggsave("sandbox/east_north_central_vah.png")
-
-# Graph 4b: Focus on East North Central Census Division
-cps_weight %>%
-  filter(CPS_YEAR > 1994 & census_division == "East North Central") %>%
-  group_by(CPS_YEAR, CPS_STATE, VRS_VOTE_HOW_C) %>%
-  summarize(value = survey_mean(na.rm = TRUE)) %>%
-  filter(VRS_VOTE_HOW_C == "EARLY") %>%
-  ggplot(aes(x = CPS_YEAR, y = value, col = CPS_STATE, group = CPS_STATE)) +
-  geom_line(size = 1.5) +
-  geom_point(aes(x = CPS_YEAR, y = value, color = CPS_STATE), size = 2) +
-  theme_minimal() +
-  scale_x_continuous(breaks = seq(1996, 2018, by = 2)) +
-  scale_y_continuous(labels = scales::percent) +
-  labs(title = "Use of Early In Person in the East North Central States, 1996 - 2018", 
-       subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
-       color = "Region") +
-  theme(plot.title = element_text(size = 20, family = "Times", face = "bold.italic", colour = "red"),
-        legend.position = c(.1,.8), legend.background = element_rect(),  
-        legend.title = element_text(size = 12, face = "bold"),
-        legend.text = element_text(size = 10)) +
-  ylab("") + xlab("")  
-
-ggsave("sandbox/east_north_central_early.png")
