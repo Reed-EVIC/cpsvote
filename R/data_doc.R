@@ -56,3 +56,40 @@
 #' }
 #' @source Turnout data from \url{http://www.electproject.org/home/voter-turnout/voter-turnout-data}
 "cps_reweight"
+
+#' A sample of the full CPS dataset
+#' 
+#' This is a 10,000 row sample of the data that comes out of 
+#' `cpsvote::cps_load_basic`.
+#' @format A tibble with 10,000 rows and 24 columns:
+#' \describe{
+#' \item{FILE}{Which default file the case came from}
+#' \item{YEAR}{Year of interview}
+#' \item{STATE}{State postal abbreviation}
+#' \item{AGE}{Person's age as of the end of survey week; 
+#' topcoded at 90 until 2002, 80 in 2004, and 80/85 after}
+#' \item{SEX}{Binary sex}
+#' \item{EDUCATION}{Highest level of school completed or degree received}
+#' \item{RACE}{Race}
+#' \item{HISPANIC}{Hispanic status}
+#' \item{WEIGHT}{Original CPS survey weight}
+#' \item{VRS_VOTE}{Whether respondent voted in the election; self-reported}
+#' \item{VRS_REG}{Whether respondent was registered to vote in the election; 
+#' self-reported}
+#' \item{VRS_VOTE_TIME}{What time of day respondent voted}
+#' \item{VRS_RESIDENCE}{Duration of time living at current address}
+#' \item{VRS_VOTE_WHYNOT}{Reason for not voting}
+#' \item{VRS_VOTE_METHOD}{Method of voting}
+#' \item{VRS_REG_SINCE95}{Whether respondent had registered to vote since 1995}
+#' \item{VRS_REG_DMV}{Whether respondent registered at the DMV}
+#' \item{VRS_REG_METHOD}{Method of registration}
+#' \item{VRS_REG_WHYNOT}{Reason for not being registered to vote}
+#' \item{VRS_VOTE_MAIL}{Whether respondent voted by mail}
+#' \item{VRS_VOTE_EDAY}{Whether respondent voted on election day (or before)}
+#' \item{cps_turnout}{Recode of VRS_VOTE for CPS turnout calculation}
+#' \item{achenhur_turnout}{Recode of VRS_VOTE for adjusted Achen & Hur turnout 
+#' calculation}
+#' \item{turnout_weight}{Adjusted weight for calculating voter turnout (per 
+#' Achen & Hur)}
+#' }
+"cps_sample_10k"
