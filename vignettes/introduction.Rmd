@@ -102,7 +102,7 @@ with CPS Voting and Registration Supplement data from 1994-2018.
 
 1. `remotes::install_github(https://github.com/Reed-EVIC/cpsvote)`
 2. `library(cpsvote)`
-3. `cpsvote::download_data()` (Only necessary if using the package for the first time; after that, the files will already be downloaded and you 
+3. `cpsvote::cps_download_data()` (Only necessary if using the package for the first time; after that, the files will already be downloaded and you 
 can skip this step)
 4. `cps_vote <- cpsvote::read_cps()` Will read all available years into memory, places it in a data frame named `cps_vote`
 
@@ -117,9 +117,9 @@ can skip this step)
   in your working directory names "./cps_data" and store the compressed data files in that location.
     ii) If you choose to download data files and store them in a separate location, `cpsvote` can only process files that retain
   the original file name. See the "Data Description" vignette for a list of the expected file names.
-    iii) `cpsvote::download_data(path = "dir", years = seq(start,end,sequence))` will download data
-         a) Example: `cpsvote::download_data()` will download all data files  and place the files in the default download path ("./cps_data").
-         b) Example: `cpsvote::download_data(path = "~/mydata/CPS", years = seq(2000, 2014, 4))` will download the 2000, 2004, 2008, and 2012 CPS 
+    iii) `cpsvote::cps_download_data(path = "dir", years = seq(start,end,sequence))` will download data
+         a) Example: `cpsvote::cps_download_data()` will download all data files  and place the files in the default download path ("./cps_data").
+         b) Example: `cpsvote::cps_download_data(path = "~/mydata/CPS", years = seq(2000, 2014, 4))` will download the 2000, 2004, 2008, and 2012 CPS 
   and place them in the path "~/mydata/CPS".
 
 3. *Import the Data Into R and Create a Dataframe*
@@ -134,15 +134,15 @@ can skip this step)
   assuming  the data files are stored in "~/mydata/CPS", perform recodes, merge, and label "cps_vote".  
   
 4. *Download documentation*
-   i) `cpsvote::download_docs()` downloads all documentation files, and places them in "./cps_docs"
-   ii) `cpsvote::download_docs(path = "dir", years = seq(start, end, seqquence)` allows you to control the target directory and 
+   i) `cpsvote::cps_download_docs()` downloads all documentation files, and places them in "./cps_docs"
+   ii) `cpsvote::cps_download_docs(path = "dir", years = seq(start, end, seqquence)` allows you to control the target directory and 
    years for the documentation.
   
 ### Sample Usage: Voter Turnout in 2016
 
 ```{r setup, echo = TRUE}
 #library(cps)
-cpsvote::download_data(years = 2016) # Download the 2016 CPS
+cpsvote::cps_download_data(years = 2016) # Download the 2016 CPS
 cps2016 <- cpsvote::read_cps(years = 2016) # Read in CPS 2016. Ignore the warning since we don't care
                                            # about joining any files
 
