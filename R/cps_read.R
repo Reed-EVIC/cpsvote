@@ -124,7 +124,7 @@ cps_read <- function(dir = "cps_data",
                      cols = cpsvote::cps_cols,
                      names_col = "new_name",
                      join_dfs = TRUE) {
-  
+  FILE <- NULL
   # sanitize inputs #####
   
   
