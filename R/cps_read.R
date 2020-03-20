@@ -100,7 +100,7 @@ cps_read_year <- function(file,
 
 #' Read in CPS data
 #' @description Load multiple years of data from the Current Population Survey. 
-#' This function will also downlaod the data for you, if it is not present in 
+#' This function will also download the data for you, if it is not present in 
 #' the given `dir`.
 #' 
 #' @param dir The folder where the CPS data files live. These files should  

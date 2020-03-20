@@ -1,0 +1,107 @@
+---
+title: "Read Additional CPS Variables"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{add variables}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(knitr)
+library(kableExtra)
+```
+
+```{r setup, message=FALSE}
+library(cpsvote)
+library(dplyr)
+```
+
+The basic mechanism of reading the CPS depends on two included data sets: 
+
+- `cps_cols`, containing information about column positions in the raw CPS files
+- `cps_factors`, containing information about the factor levels for the raw numeric codes
+
+These contain a set of default data for some commonly-used variables in the CPS. Across years, there have been many changes in the questions asked by the CPS, their possible responses, and where they are located in the data. For example, in 1996 the question asking how long a respondent had lived in their current residence was called `PES6`, occupied positions 823-824, and had six valid responses: less than 1 month, 1-6 months, 7-11 months, 1-2 years, 3-4 years, and 5 years or longer. In 2014, this same question was called `PES8`, occupied positions 965-966, and had replaced the first three categories from 1996 with one response "less than 1 year". This illustrates how important it is to provide the correct column specification and factor levels for any variable you want to read in.
+
+All that being said, let's explore how you can add some more variables to your data. In this example, we'll read in the 2006-2008 CPS data with family income as an additional variable. First, we need to specify which column positions contain the family income variable in those years. This is obtained from the 2006 and 2008 documentation files, which you can download with `cps_download_docs()`.
+
+```{r}
+income_cols <- data.frame(
+  year = c(2006, 2008),
+  cps_name = "HUFAMINC",
+  new_name = "FAM_INCOME",
+  start_pos = 39,
+  end_pos = 40,
+  stringsAsFactors = FALSE
+)
+```
+
+```{r echo = FALSE}
+kable(income_cols) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+```
+
+We should then specify which factor levels are needed for those years of data. This is also obtained from the 2006 and 2008 documentation files.
+
+```{r}
+income_factors <- data.frame(
+  year = c(rep(2006, 16), rep(2008, 16)),
+  cps_name = "HUFAMINC",
+  new_name = "FAM_INCOME",
+  code = c(1:16, 1:16),
+  value = rep(c("LESS THAN $5,000",
+                "5,000 TO 7,499",
+                "7,500 TO 9,999",
+                "10,000 TO 12,499",
+                "12,500 TO 14,999",
+                "15,000 TO 19,999",
+                "20,000 TO 24,999",
+                "25,000 TO 29,999",
+                "30,000 TO 34,999",
+                "35,000 TO 39,999",
+                "40,000 TO 49,999",
+                "50,000 TO 59,999",
+                "60,000 TO 74,999",
+                "75,000 TO 99,999",
+                "100,000 TO 149,999",
+                "150,000 OR MORE"), 2),
+  stringsAsFactors = FALSE
+)
+```
+
+```{r echo = FALSE}
+kable(income_factors) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+```
+
+To read income in with our default data, we bind these to the bottom of the included data sets.
+
+```{r}
+my_cols <- bind_rows(cps_cols, income_cols)
+my_factors <- bind_rows(cps_factors, income_factors)
+```
+
+Then we can read in the CPS data with our new column specifications and factor it according to the updated factors.
+
+```{r}
+cps_income <- cps_read(years = c(2006, 2008),
+                       dir = "cps_data",
+                       cols = my_cols) %>%
+  cps_label(factors = my_factors)
+
+str(cps_income)
+```
+
+One note: the warning from `cps_read` appears when `join_dfs = TRUE` (which is a default). The intention is to remind the user that variable names change across years, and to urge caution in only joining the correct columns.
+
+This is a simple (unweighted) breakdown of family income responses in 2006 and 2008.
+
+```{r}
+table(cps_income$FAM_INCOME, cps_income$YEAR)
+```
+
