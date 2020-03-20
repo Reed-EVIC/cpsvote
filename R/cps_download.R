@@ -87,7 +87,7 @@ cps_download_docs <- function(path = "cps_docs",
     years == 2018 ~ paste0("data.nber.org/cps/cpsnov", stringr::str_sub(years, 3, 4), ".pdf")
   )
   
-  utils::download.file(url_names, file_names, quiet = TRUE)
+  utils::download.file(url_names, file_names, quiet = TRUE, method = "libcurl")
   
   message(paste0(length(file_names), " new file(s) downloaded to ", path, 
                  "; year(s) ", paste(years, collapse = ", ")))
@@ -185,7 +185,7 @@ cps_download_data <- function(path = "cps_data",
     years == 2018 ~ paste0("data.nber.org/cps/nov", stringr::str_sub(years, 3, 4), "pub.zip")
   )
   
-  utils::download.file(url_names, file_names, quiet = TRUE)
+  utils::download.file(url_names, file_names, quiet = TRUE, method = "libcurl")
   
   message(paste0(length(file_names), " new file(s) downloaded to ", path, 
                  "; year(s) ", paste(years, collapse = ", ")))
