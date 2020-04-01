@@ -61,7 +61,7 @@ For help with these, see the documentation for these functions and the vignettes
 
 2. *Quickly view some CPS data*
     i) There is far more data included in the full CPS than we could include here, but there are two options to view a  subset of the CPS data with ease.
-        a) Running `data(cpsvote::cps_sample_10k)` will load a 10,000 row sample of selected CPS columns into your environment.
+        a) Running `data(cps_sample_10k, package = 'cpsvote')` will load a 10,000 row sample of selected CPS columns into your environment.
         b) Running `cpsvote::cps_load_basic()` will download the data, and provide you all rows and a selected set of CPS columns, and allow you to save a copy locally for speed in the future.
   
 3. *Download the CPS Files*

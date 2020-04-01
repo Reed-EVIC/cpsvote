@@ -66,8 +66,9 @@ analyses that are possible with the CPS.
     1)  There is far more data included in the full CPS than we could
         include here, but there are two options to view a subset of the
         CPS data with ease.
-        1)  Running `data(cpsvote::cps_sample_10k)` will load a 10,000
-            row sample of selected CPS columns into your environment.
+        1)  Running `data(cps_sample_10k, package = 'cpsvote')` will
+            load a 10,000 row sample of selected CPS columns into your
+            environment.
         2)  Running `cpsvote::cps_load_basic()` will download the data,
             and provide you all rows and a selected set of CPS columns,
             and allow you to save a copy locally for speed in the
