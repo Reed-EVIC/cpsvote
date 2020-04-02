@@ -12,6 +12,16 @@ cps_reweight_turnout <- function(data) {
   reweight <- cpsvote::cps_reweight %>%
     dplyr::select(YEAR, STATE, response, reweight) %>%
     dplyr::mutate(YEAR = as.integer(YEAR))
+  
+  if(is.numeric(data$achenhur_turnout)) {
+    reweight <- reweight %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(response = as.numeric(response),
+                    STATE = unique(cps_factors$code[cps_factors$value == STATE]),
+                    YEAR = dplyr::case_when(YEAR < 1998 ~ as.integer(YEAR %% 1900),
+                                     TRUE ~ YEAR))
+  }
+  
   output <- data %>%
     dplyr::left_join(reweight, by = c("YEAR", "STATE", "achenhur_turnout" = "response")) %>%
     dplyr::mutate(reweight = dplyr::coalesce(reweight, 1), # if it's missing, just return the original
