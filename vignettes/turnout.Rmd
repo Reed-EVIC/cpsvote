@@ -88,7 +88,6 @@ Professor Michael McDonald of the University of Florida helpfully provides guida
 The Hur and Achen corrections have been integrated into the `cpsvote` package. Please read [turnout](turnout.html) for the commands and additional documentation. 
 
 
-
 ### Sample Usage: Voter Turnout in 2016
 
 ```{r setup2, echo = TRUE}
