@@ -1,0 +1,118 @@
+---
+title: "Turnout Estimates in cpsvote"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{turnout estimates}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(knitr)
+library(kableExtra)
+```
+
+```{r setup, message=FALSE}
+library(cpsvote)
+library(dplyr)
+```
+
+The CPS has long been an important source of data to estimate voting turnout in the United States as a whole
+and in the fifty states. However, there are two challenges to use the CPS VRS for estimating voter turnout. 
+The first is an idiosyncratic coding method that the Census has used to code voting turnout that needs to be
+recognized by the user, or else basic descriptive statistics will not match those reported by the Census in
+its documentation and reports. The second is a more complicated methodological issue that involves changes 
+in the rate of non-response and resulting biases in CPS's turnout estimates. 
+
+Both statistical adjustments need to be made in order to produce valid estimates of turnout. The `cpsvote` packages provides turnout measures that incorporate the correct coding and provides an adjusted sample
+weight that corrects for response bias. 
+
+## Coding the Turnout Variable
+
+The CPS has long used an "idiosyncratic" coding rule for reporting turnout, derived from the answer
+to question "PES1" since 1996 (in 1994, the question was labeled "PES3"). The rule was carefully documented by two scholars, Aram Hur and Christopher Achen, in a 2013 article titled ["Coding Voter Turnout Responses in the Current Population Survey"](https://academic.oup.com/poq/article/77/4/985/1843466/). The coding rule
+is not clear from the CPS documentation, and without correct coding, any turnout estimates that are produced
+will not match those reported by the CPS. 
+
+In the CPS codebook, the variable is reported in this way (from the 2016 documentation): 
+
+In any election, some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November X, XXXX?
+
+\begin{tabular}{llll}
+NAME &   SIZE &  DESCRIPTION &  LOCATION  \\
+PES1 &   2    &  \parbox{2in}{In any election, some people are  not able to vote because they are 
+sick or busy or have some other reason, and others do not want to vote. Did (you/name) 
+vote in the election held on Tuesday, November X, XXXX?}  & 951-952 \\
+ & & EDITED UNIVERSE: & \\
+ & & & \\
+ & & \parbox{2in}{PRTAGE >=18 and PRCITSHP = 1, 2, 3, or 4} & \\
+ & & & \\
+ & & VALID ENTRIES: & \\
+ & & & \\
+ & & 1  Yes & \\
+ & & 2  No  & \\
+& & -1 Not in Universe & \\ 
+& & -2 Don't Know & \\
+& & -3 Refused & \\
+& & -9 No Response & 
+\end{tabular}
+
+Because some users of the `CPSvote` package may not be able to access this article, we reproduce the critical section from Hur and Achen (2013) that describes the coding choices below:
+
+>In its official reports, however, the CPS does not follow the conventional academic coding rules for turnout responses. Instead, it treats Don’t Know, Refused, and No Response as indicating that the respondent did not vote. ... The Census Bureau’s decision to count the No Response individuals as nonvoters is consequential. No Response alone makes up 11.2 percent of the 2008 sample. Coding all of them, plus Don’t Know and Refused, as nonvoters reduces the estimated turnout rate by nearly 10 percentage points, cancelling most of the 12-point overreport in the original data.
+
+**The `CPSvote` package uses the Census coding scheme in the turnout variable.**
+
+DOCUMENT THE COMMAND HERE. 
+
+From Hur and Achen (2013) abstract:
+
+>"The Voting and Registration Supplement to the Current Population Survey (CPS) employs a large sample size and has a very high response rate, and thus is often regarded as the gold standard among turnout surveys. In 2008, however, the CPS inaccurately estimated that presidential turnout had undergone a small decrease from 2004. We show that growing nonresponse plus a long-standing but idiosyncratic Census coding decision was responsible. We suggest that to cope with nonresponse and overreporting, users of the Voting Supplement sample should weight it to reflect actual state vote counts."
+
+
+### Bias in Turnout Estimates
+
+A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper^[Michael McDonald, 2014, "What's Wrong with the CPS?", Paper presented at the Annual Meeting of the American Political Science Association.] and at the [http://www.electproject.org/home/voter-turnout/cps-methodology](United States Elections Project's CPS Over-Report and Non-Response Bias Correction) page is that, over time, two biases have crept into the CPS, one from increasing non-response rates, the second from over-reports of turnout. 
+
+Hur and Achen suggest a complex post-stratification adjustment to the data that will adjust for these biases:
+
+>We recommend dropping all categories of missing turnout response, and then poststratifying the remaining CPS sample so that the survey turnout rate in each state matches the corresponding state VEP turnout.
+
+Professor Michael McDonald of the University of Florida helpfully provides guidance on this more complex procedure. He provides <Commentary, Guidelines, and Stata Code>[link](http://www.electproject.org/home/voter-turnout/cps-methodology) at his website. 
+
+The Hur and Achen corrections have been integrated into the `cpsvote` package. Please read [turnout](turnout.html) for the commands and additional documentation. 
+
+
+
+### Sample Usage: Voter Turnout in 2016
+
+```{r setup2, echo = TRUE}
+#library(cps)
+cpsvote::cps_download_data(years = 2016) # Download the 2016 CPS
+cps2016 <- cpsvote::cps_read(years = 2016) # Read in CPS 2016. Ignore the warning since we don't care
+                                           # about joining any files
+
+## SURVEY WEIGHTS
+# The CPS data MUST be weighted. The "weighting" vignette provides additional information 
+                # about using using the survey or srvyr packages to produce valid statistical results
+
+library(survey)
+library(srvyr)  
+
+cps2016_w1 <-                                             # SURVEY Package Syntax
+    svydesign( 
+        ~ 1 , 
+        data = cps2016, 
+        weights = ~ WEIGHT
+    )
+
+cps2016_w2 <- as_survey_design(cps2016, weights = WEIGHT) #SRVYR Package Syntax
+
+
+
+```
