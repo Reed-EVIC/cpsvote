@@ -71,6 +71,22 @@ cps_label <- function(data,
                                             rescale_weight ~ WEIGHT / 10000, 
                                             TRUE ~ as.double(WEIGHT))) # fix the 4-decimal weight if asked
   
+  # bonus columns in case this happens after the vote reweighting
+  if("turnout_weight" %in% colnames(output)) {
+    output <- mutate(output, turnout_weight = dplyr::case_when(is.na(turnout_weight) ~ 0,
+                                                       rescale_weight ~ turnout_weight / 10000, 
+                                                       TRUE ~ as.double(turnout_weight)))
+  }
+  if("cps_turnout" %in% colnames(output)) {
+    output <- mutate(output, cps_turnout = factor(cps_turnout,
+                                                  levels = 1:2,
+                                                  labels = c("YES", "NO")))
+  }
+  if("achenhur_turnout" %in% colnames(output)) {
+    output <- mutate(output, achenhur_turnout = factor(achenhur_turnout,
+                                                  levels = 1:2,
+                                                  labels = c("YES", "NO")))
+  }
   
   return(output)
 }
