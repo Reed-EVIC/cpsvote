@@ -132,16 +132,28 @@ cps_refactor <- function(data, move_levels = TRUE) {
 cps_recode_vote <- function(data, 
                             vote_col = "VRS_VOTE",
                             items = c("DON'T KNOW", "REFUSED", "NO RESPONSE")) {
-  output <- suppressWarnings( # this is a dumb suppress but I really can't figure out why `fct_other` is throwing it
-    dplyr::mutate(data,
-                  cps_turnout = forcats::fct_collapse(.data[[vote_col]], "NO" = items) %>% # recode the items as NO
-                    forcats::fct_other(keep = c("YES", "NO")) %>% # send everything that's not Y/N to "Other"
-                    forcats::fct_expand("Other") %>% # if there are no Others, add the level (to avoid warning in  next step)
-                    forcats::fct_collapse(NULL = "Other"), # drop all Other
-                  achenhur_turnout = forcats::fct_other(.data[[vote_col]], keep = c("YES", "NO")) %>% # send everything that's not Y/N to "Other"
-                    forcats::fct_expand("Other") %>% # if there are no Others, add the level (to avoid warning in  next step)
-                    forcats::fct_collapse(NULL = "Other") # drop all Other
-    ))
+  if (is.numeric(data[[vote_col]])) {
+    output <- dplyr::mutate(data,
+                            cps_turnout = dplyr::case_when(
+                              .data[[vote_col]] %in% c(1) ~ 1,
+                              .data[[vote_col]] %in% c(2, -2, -3, -9) ~ 2
+                            ),
+                            achenhur_turnout = dplyr::case_when(
+                              .data[[vote_col]] %in% c(1) ~ 1,
+                              .data[[vote_col]] %in% c(2) ~ 2
+                            ))
+  } else {
+    output <- suppressWarnings( # this is a dumb suppress but I really can't figure out why `fct_other` is throwing it
+      dplyr::mutate(data,
+                    cps_turnout = forcats::fct_collapse(.data[[vote_col]], "NO" = items) %>% # recode the items as NO
+                      forcats::fct_other(keep = c("YES", "NO")) %>% # send everything that's not Y/N to "Other"
+                      forcats::fct_expand("Other") %>% # if there are no Others, add the level (to avoid warning in  next step)
+                      forcats::fct_collapse(NULL = "Other"), # drop all Other
+                    achenhur_turnout = forcats::fct_other(.data[[vote_col]], keep = c("YES", "NO")) %>% # send everything that's not Y/N to "Other"
+                      forcats::fct_expand("Other") %>% # if there are no Others, add the level (to avoid warning in  next step)
+                      forcats::fct_collapse(NULL = "Other") # drop all Other
+      ))
+  }
   
   output
 }
