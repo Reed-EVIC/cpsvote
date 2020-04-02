@@ -25,7 +25,7 @@ cps_label <- function(data,
                       na_vals = c("-1", "BLANK", "NOT IN UNIVERSE"),
                       expand_year = TRUE,
                       rescale_weight = TRUE) {
-  YEAR <- YEAR4 <- year <- index <- WEIGHT <- NULL
+  cps_turnout <- achenhur_turnout <- YEAR <- YEAR4 <- year <- index <- WEIGHT <- NULL
   
   data <- data %>%
     dplyr::mutate(index = dplyr::row_number(),
@@ -73,17 +73,17 @@ cps_label <- function(data,
   
   # bonus columns in case this happens after the vote reweighting
   if("turnout_weight" %in% colnames(output)) {
-    output <- mutate(output, turnout_weight = dplyr::case_when(is.na(turnout_weight) ~ 0,
+    output <- dplyr::mutate(output, turnout_weight = dplyr::case_when(is.na(turnout_weight) ~ 0,
                                                        rescale_weight ~ turnout_weight / 10000, 
                                                        TRUE ~ as.double(turnout_weight)))
   }
   if("cps_turnout" %in% colnames(output)) {
-    output <- mutate(output, cps_turnout = factor(cps_turnout,
+    output <- dplyr::mutate(output, cps_turnout = factor(cps_turnout,
                                                   levels = 1:2,
                                                   labels = c("YES", "NO")))
   }
   if("achenhur_turnout" %in% colnames(output)) {
-    output <- mutate(output, achenhur_turnout = factor(achenhur_turnout,
+    output <- dplyr::mutate(output, achenhur_turnout = factor(achenhur_turnout,
                                                   levels = 1:2,
                                                   labels = c("YES", "NO")))
   }

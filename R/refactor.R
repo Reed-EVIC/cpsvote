@@ -134,11 +134,11 @@ cps_recode_vote <- function(data,
                             items = c("DON'T KNOW", "REFUSED", "NO RESPONSE")) {
   if (is.numeric(data[[vote_col]])) {
     output <- dplyr::mutate(data,
-                            cps_turnout = case_when(
+                            cps_turnout = dplyr::case_when(
                               .data[[vote_col]] %in% c(1) ~ 1,
                               .data[[vote_col]] %in% c(2, -2, -3, -9) ~ 2
                             ),
-                            achenhur_turnout = case_when(
+                            achenhur_turnout = dplyr::case_when(
                               .data[[vote_col]] %in% c(1) ~ 1,
                               .data[[vote_col]] %in% c(2) ~ 2
                             ))

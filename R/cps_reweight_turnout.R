@@ -17,7 +17,7 @@ cps_reweight_turnout <- function(data) {
     reweight <- reweight %>%
       dplyr::rowwise() %>%
       dplyr::mutate(response = as.numeric(response),
-                    STATE = unique(cps_factors$code[cps_factors$value == STATE]),
+                    STATE = unique(cpsvote::cps_factors$code[cpsvote::cps_factors$value == STATE]),
                     YEAR = dplyr::case_when(YEAR < 1998 ~ as.integer(YEAR %% 1900),
                                      TRUE ~ YEAR))
   }
