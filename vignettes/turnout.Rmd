@@ -11,15 +11,19 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>", 
+  messages = FALSE, warnings = FALSE
 )
 library(knitr)
 library(kableExtra)
+
 ```
 
-```{r setup, message=FALSE}
+```{r packages, echo = TRUE}
 library(cpsvote)
 library(dplyr)
+library(ggplot2)
+
 ```
 
 The Current Population Survey's Voting and Registration Supplement, collected in November of every
@@ -142,8 +146,17 @@ cps2016 <- cps_recode_vote(cps2016)
 cps2016 <- cps_reweight_turnout(cps2016)
 
 ## Create factors out of categorical variables 
-
 cps2016 <- cps_label(cps2016)
+
+## Dichotomous turnout variables for calculating means
+cps2016 <- cps2016 %>%
+  mutate(cps_turnout_d = case_when(
+    cps_turnout == "YES" ~ 1,
+    cps_turnout == "NO" ~0),
+    achenhur_turnout_d = case_when(
+    achenhur_turnout == "YES" ~ 1,
+    achenhur_turnout == "NO" ~ 0)
+  )
 
 ## SURVEY WEIGHTS
 # The CPS data MUST be weighted. The "weighting" vignette provides additional information 
@@ -175,15 +188,45 @@ Generate unweighted, CPS weighted, and Hur/Achen weighted estimates of voter tur
 ```{r turnout, echo = TRUE}
 
 turnout_estimates <- cps2016 %>%
-  mutate(cps_turnout_d = case_when(
-    cps_turnout == "YES" ~ 1,
-    cps_turnout == "NO" ~0)
-  ) %>%
   summarize(Unweighted = mean(cps_turnout_d, na.rm = TRUE),
-            Census_Weight = svymean(cps_turnout_d, cps2016_surveyCW, na.rm = TRUE),
-            Hur_Achen_Weight = svymean(cps_turnout_d, cps2016_surveyHW, na.rm = TRUE))
+            Census_Weighted = svymean(cps_turnout_d, cps2016_surveyCW, na.rm = TRUE),
+            Hur_Achen_Weighted = svymean(achenhur_turnout_d, cps2016_surveyHW, na.rm = TRUE))
 
 kable(turnout_estimates)
 ```
 
+Generate Hur/Achen weighted turnout estimates by racial groups
 
+```{r turnout_race, echo = TRUE}
+
+cps2016_srvyrHW %>%
+  filter(RACE %in% c("WHITE ONLY", "BLACK ONLY", "AMERICAN INDIAN, ALASKAN NATIVE ONLY",
+                     "ASIAN ONLY", "HAWAIIAN/PACIFIC ISLANDER ONLY")) %>%
+  group_by(RACE) %>%
+  summarize(turnout = survey_mean(achenhur_turnout_d, na.rm = TRUE)) %>%
+  ggplot(., aes(x = RACE, y = turnout)) +
+  geom_bar(stat = "identity") + 
+  scale_x_discrete(labels = c("WHITE ONLY"= "White",
+                                "BLACK ONLY" = "Black", 
+                                "AMERICAN INDIAN, ALASKAN NATIVE ONLY" = "Amer Indian/Alakan",
+                                "ASIAN ONLY" = "Asian", 
+                                "HAWAIIAN/PACIFIC ISLANDER ONLY" = "Hawaii/PacIsland")) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(x = "", y = "Turnout", title = "Turnout by Race, 2016")
+
+  
+
+```
+
+```{r turnout_statemap, echo = TRUE}
+library(usmap)
+
+cps2016_srvyrHW %>%
+  mutate(state = STATE) %>%
+  group_by(state) %>%
+  summarize(turnout = survey_mean(achenhur_turnout_d, na.rm = TRUE)) %>%
+  plot_usmap(data = ., values = "turnout", color = "blue") +
+  scale_fill_continuous(low = "white", high = "blue", name = "Turnout Rate") +
+  theme(legend.position = "right") + labs(title = "Voting Turnout in the United States, 2016")
+
+```
