@@ -21,7 +21,8 @@ Information about voter registration and turnout have been collected by the Unit
 Population Survey (CPS), since 1964. 
 
 These surveys are conducted every November during Federal election years, and are 
-generally referred to as the Voting and Registration Supplement (VRS). The official website for the CPS VRS is located at https://www.census.gov/topics/public-sector/voting.html, and the "About Me" page (https://www.census.gov/topics/public-sector/voting/about.html provides more detailed information on the history of this data collection project.
+generally referred to as the Voting and Registration Supplement (VRS). The official 
+website for the CPS VRS is located at [https://www.census.gov/topics/public-sector/voting.html](https://www.census.gov/topics/public-sector/voting.html), and the ["About Me" page](https://www.census.gov/topics/public-sector/voting/about.html) provides more detailed information on the history of this data collection project.
 
 A 175 page document, "Design and Methodology: Current Population Survey" (https://www.census.gov/prod/2006pubs/tp-66.pdf), provides a very deep dive in the history and methodology of the CPS. 
 
