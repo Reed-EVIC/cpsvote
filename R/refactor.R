@@ -24,6 +24,7 @@
 #' @export
 cps_refactor <- function(data, move_levels = TRUE) {
   RACE <- HISPANIC <- VRS_RESIDENCE <- VRS_VOTE_WHYNOT <- VRS_REG_METHOD <- NULL
+  VRS_VOTEMETHOD_1996to2002 <- VRS_VOTEMODE_2004toPRESENT <- VRS_VOTEWHEN_2004toPRESENT <- NULL
   
   output <- data %>%
     dplyr::mutate(RACE = forcats::fct_collapse(RACE, # try to consolidate RACE
@@ -86,7 +87,7 @@ cps_refactor <- function(data, move_levels = TRUE) {
                                           "ONLINE" = c("REGISTERED USING THE INTERNET OR ONLINE"),
                                           "OTHER" = c("OTHER PLACE/WAY")
                                           ),
-                  VRS_VOTEMETHOD_CON = case_when(
+                  VRS_VOTEMETHOD_CON = dplyr::case_when(
                     VRS_VOTEMETHOD_1996to2002 == "IN PERSON ON ELECTION DAY" ~ "ELECTION DAY",
                     VRS_VOTEMETHOD_1996to2002 == "IN PERSON BEFORE ELECTION DAY" ~ "EARLY",
                     VRS_VOTEMETHOD_1996to2002 == "VOTED BY MAIL (ABSENTEE)" ~ "BY MAIL",
