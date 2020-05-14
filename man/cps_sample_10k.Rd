@@ -5,7 +5,7 @@
 \alias{cps_sample_10k}
 \title{A sample of the full CPS dataset}
 \format{
-A tibble with 10,000 rows and 24 columns:
+A tibble with 10,000 rows and 25 columns:
 \describe{
 \item{FILE}{Which default file the case came from}
 \item{YEAR}{Year of interview}
@@ -31,6 +31,8 @@ self-reported}
 \item{VRS_VOTEMODE_2004toPRESENT}{Whether respondent voted by mail, 2004 on}
 \item{VRS_VOTEWHEN_2004toPRESENT}{Whether respondent voted on election day or
 before, 2004 on}
+\item{VRS_VOTEMETHOD_CON}{A consolidation of VRS_VOTEMETHOD_1996to2002,
+VRS_VOTEMODE_2004toPRESENT, and VRS_VOTEWHEN_2004toPRESENT}
 \item{cps_turnout}{Recode of VRS_VOTE for CPS turnout calculation}
 \item{achenhur_turnout}{Recode of VRS_VOTE for adjusted Achen & Hur turnout
 calculation}

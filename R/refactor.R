@@ -3,7 +3,10 @@
 #' The response sets in certain CPS questions change between years. This function 
 #' consolidates several of these response sets across years (and fixes typos 
 #' from the CPS documentation), specifically race, Hispanic status, duration of 
-#' residency, reason for not voting, and method of registration.
+#' residency, reason for not voting, and method of registration. Additionally, 
+#' this creates a new column `VRS_VOTEMETHOD_CON` which consolidates multiple 
+#' expressions of vote method across years (By Mail, Early, and Election Day) 
+#' into one variable.
 #' 
 #' @details While consolidating response sets across multiple surveys can be 
 #' fraught with peril, this function attempts to combine disparate levels for 
@@ -82,7 +85,15 @@ cps_refactor <- function(data, move_levels = TRUE) {
                                           "DMV" = c("AT A DEPARTMENT OF MOTOR VEHICLES (FOR EXAMPLE, WHEN OBTAINING A DRIVER'S LICENSE OR OTHER IDENTIFICATION CARD)"),
                                           "ONLINE" = c("REGISTERED USING THE INTERNET OR ONLINE"),
                                           "OTHER" = c("OTHER PLACE/WAY")
-                                          )
+                                          ),
+                  VRS_VOTEMETHOD_CON = case_when(
+                    VRS_VOTEMETHOD_1996to2002 == "IN PERSON ON ELECTION DAY" ~ "ELECTION DAY",
+                    VRS_VOTEMETHOD_1996to2002 == "IN PERSON BEFORE ELECTION DAY" ~ "EARLY",
+                    VRS_VOTEMETHOD_1996to2002 == "VOTED BY MAIL (ABSENTEE)" ~ "BY MAIL",
+                    VRS_VOTEMODE_2004toPRESENT == "BY MAIL" ~ "BY MAIL",
+                    VRS_VOTEMODE_2004toPRESENT == "IN PERSON" & VRS_VOTEWHEN_2004toPRESENT == "BEFORE ELECTION DAY" ~ "EARLY",
+                    VRS_VOTEMODE_2004toPRESENT == "IN PERSON" & VRS_VOTEWHEN_2004toPRESENT == "ON ELECTION DAY" ~ "ELECTION DAY"
+                  )
            )
   
   if (move_levels) output <- output %>%
