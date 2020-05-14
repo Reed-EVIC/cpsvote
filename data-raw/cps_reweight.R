@@ -26,7 +26,7 @@ state_fips <- maps::state.fips %>%
 # get the VEP #####
 
 # don't try to authenticate me, these are public sheets
-drive_deauth()
+# drive_deauth()
 sheets_deauth()
 
 gid_1980to2014 <- "1or-N33CpOZYQ1UfZo0h8yGPSyz0Db-xjmZOXg3VJi-Q"

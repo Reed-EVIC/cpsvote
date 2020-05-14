@@ -16,7 +16,10 @@ cps_refactor(data, move_levels = TRUE)
 The response sets in certain CPS questions change between years. This function
 consolidates several of these response sets across years (and fixes typos
 from the CPS documentation), specifically race, Hispanic status, duration of
-residency, reason for not voting, and method of registration.
+residency, reason for not voting, and method of registration. Additionally,
+this creates a new column \code{VRS_VOTEMETHOD_CON} which consolidates multiple
+expressions of vote method across years (By Mail, Early, and Election Day)
+into one variable.
 }
 \details{
 While consolidating response sets across multiple surveys can be

@@ -5,7 +5,7 @@
 \alias{cps_sample_10k}
 \title{A sample of the full CPS dataset}
 \format{
-A tibble with 10,000 rows and 24 columns:
+A tibble with 10,000 rows and 25 columns:
 \describe{
 \item{FILE}{Which default file the case came from}
 \item{YEAR}{Year of interview}
@@ -23,13 +23,16 @@ self-reported}
 \item{VRS_VOTE_TIME}{What time of day respondent voted}
 \item{VRS_RESIDENCE}{Duration of time living at current address}
 \item{VRS_VOTE_WHYNOT}{Reason for not voting}
-\item{VRS_VOTE_METHOD}{Method of voting}
+\item{VRS_VOTEMETHOD_1996to2002}{Method of voting, pre-2004}
 \item{VRS_REG_SINCE95}{Whether respondent had registered to vote since 1995}
 \item{VRS_REG_DMV}{Whether respondent registered at the DMV}
 \item{VRS_REG_METHOD}{Method of registration}
 \item{VRS_REG_WHYNOT}{Reason for not being registered to vote}
-\item{VRS_VOTE_MAIL}{Whether respondent voted by mail}
-\item{VRS_VOTE_EDAY}{Whether respondent voted on election day (or before)}
+\item{VRS_VOTEMODE_2004toPRESENT}{Whether respondent voted by mail, 2004 on}
+\item{VRS_VOTEWHEN_2004toPRESENT}{Whether respondent voted on election day or
+before, 2004 on}
+\item{VRS_VOTEMETHOD_CON}{A consolidation of VRS_VOTEMETHOD_1996to2002,
+VRS_VOTEMODE_2004toPRESENT, and VRS_VOTEWHEN_2004toPRESENT}
 \item{cps_turnout}{Recode of VRS_VOTE for CPS turnout calculation}
 \item{achenhur_turnout}{Recode of VRS_VOTE for adjusted Achen & Hur turnout
 calculation}
