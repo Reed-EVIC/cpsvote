@@ -22,7 +22,7 @@ year,cps_name,new_name,start_pos,end_pos,col_type,description,notes
 1996,PES1,VRS_VOTE,815,816,factor,"In any election some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November 5?",
 1996,PES2,VRS_REG,817,818,factor,(Were you/Was name) registered to vote in the November 5 election?,"EDITED UNIVERSE: PES1 = 2, -2, -3, -9"
 1996,PES3,VRS_VOTE_WHYNOT,819,820,factor,What was the main reason (you/name) did not vote?,EDITED UNIVERSE: PES1 = 2 and PES2 = 1
-1996,PES4,VRS_VOTE_METHOD,821,822,factor,"How did (you/name) vote? Did (you/he/she) vote in person on election day, in person before election day, or by mail?",EDITED UNIVERSE: PES1 = 1
+1996,PES4,VRS_VOTEMETHOD_1996to2002,821,822,factor,"How did (you/name) vote? Did (you/he/she) vote in person on election day, in person before election day, or by mail?",EDITED UNIVERSE: PES1 = 1
 1996,PES5,VRS_REG_SINCE95,823,824,factor,"Did (you/name) register to vote after January 1, 1995?",EDITED UNIVERSE: PES1 = 1 or PES2 = 1
 1996,PES6,VRS_REG_DMV,825,826,factor,"There are various ways people can register to vote. Did (you/name) register to vote when (you/he/she) obtained or renewed (your/his/her) driver's license, or did (you/he/she) register in some other way?",EDITED UNIVERSE: PES5 = 1
 1996,PES7,VRS_REG_METHOD,827,828,factor,How did you register to vote?,EDITED UNIVERSE: PES6 = 2
@@ -38,7 +38,7 @@ year,cps_name,new_name,start_pos,end_pos,col_type,description,notes
 1998,PES1,VRS_VOTE,857,858,factor,"In any election some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November 3?",
 1998,PES2,VRS_REG,859,860,factor,(Were you/Was name) registered to vote in the November 3 election?,"EDITED UNIVERSE: PES1 = 2, -2, -3, -9"
 1998,PES3,VRS_VOTE_WHYNOT,861,862,factor,What was the main reason (you/name) did not vote?,EDITED UNIVERSE: PES1 = 2 and PES2 = 1
-1998,PES4,VRS_VOTE_METHOD,863,864,factor,"How did (you/name) vote? Did (you/he/she) vote in person on election day, in person before election day, or by mail?",EDITED UNIVERSE: PES1 = 1
+1998,PES4,VRS_VOTEMETHOD_1996to2002,863,864,factor,"How did (you/name) vote? Did (you/he/she) vote in person on election day, in person before election day, or by mail?",EDITED UNIVERSE: PES1 = 1
 1998,PES5,VRS_REG_SINCE95,865,866,factor,"Did (you/name) register to vote after January 1, 1995?",EDITED UNIVERSE: PES1 = 1 or PES2 = 1
 1998,PES6,VRS_REG_DMV,867,868,factor,"There are various ways people can register to vote. Did (you/name) register to vote when (you/he/she) obtained or renewed (your/his/her) driver's license, or did (you/he/she) register in some other way?",EDITED UNIVERSE: PES5 = 1
 1998,PES7,VRS_REG_METHOD,869,870,factor,How did you register to vote?,EDITED UNIVERSE: PES6 = 2
@@ -54,7 +54,7 @@ year,cps_name,new_name,start_pos,end_pos,col_type,description,notes
 2000,PES1,VRS_VOTE,857,858,factor,"In any election some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November 7?",
 2000,PES2,VRS_REG,859,860,factor,(Were you/Was name) registered to vote in the November 7 election?,"EDITED UNIVERSE: PES1 = 2, -2, -3, -9"
 2000,PES3,VRS_VOTE_WHYNOT,861,862,factor,What was the main reason (you/name) did not vote?,EDITED UNIVERSE: PES1 = 2 and PES2 = 1
-2000,PES4,VRS_VOTE_METHOD,863,864,factor,"How did (you/name) vote? Did (you/he/she) vote in person on election day, in person before election day, or by mail?",EDITED UNIVERSE: PES1 = 1
+2000,PES4,VRS_VOTEMETHOD_1996to2002,863,864,factor,"How did (you/name) vote? Did (you/he/she) vote in person on election day, in person before election day, or by mail?",EDITED UNIVERSE: PES1 = 1
 2000,PES5,VRS_REG_SINCE95,865,866,factor,"Did (you/name) register to vote after January 1, 1995?",EDITED UNIVERSE: PES1 = 1 or PES2 = 1
 2000,PES6,VRS_REG_DMV,867,868,factor,"There are various ways people can register to vote. Did (you/name) register to vote when (you/he/she) obtained or renewed (your/his/her) driver's license, or did (you/he/she) register in some other way?",EDITED UNIVERSE: PES5 = 1
 2000,PES7,VRS_REG_METHOD,869,870,factor,How did you register to vote?,EDITED UNIVERSE: PES6 = 2
@@ -70,7 +70,7 @@ year,cps_name,new_name,start_pos,end_pos,col_type,description,notes
 2002,PES1,VRS_VOTE,857,858,factor,"In any election some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November 5?",
 2002,PES2,VRS_REG,859,860,factor,(Were you/Was name) registered to vote in the November 5 election?,"EDITED UNIVERSE: PES1 = 2, -2, -3, -9"
 2002,PES3,VRS_VOTE_WHYNOT,861,862,factor,What was the main reason (you/name) did not vote?,EDITED UNIVERSE: PES1 = 2 and PES2 = 1
-2002,PES4,VRS_VOTE_METHOD,863,864,factor,"How did (you/name) vote? Did (you/he/she) vote in person on election day, in person before election day, or by mail?",EDITED UNIVERSE: PES1 = 1
+2002,PES4,VRS_VOTEMETHOD_1996to2002,863,864,factor,"How did (you/name) vote? Did (you/he/she) vote in person on election day, in person before election day, or by mail?",EDITED UNIVERSE: PES1 = 1
 2002,PES5,VRS_REG_SINCE95,865,866,factor,"Did (you/name) register to vote after January 1, 1995?",EDITED UNIVERSE: PES1 = 1 or PES2 = 1
 2002,PES6,VRS_REG_DMV,867,868,factor,"There are various ways people can register to vote. Did (you/name) register to vote when (you/he/she) obtained or renewed (your/his/her) driver's license, or did (you/he/she) register in some other way?",EDITED UNIVERSE: PES5 = 1
 2002,PES7,VRS_REG_METHOD,869,870,factor,How did you register to vote?,EDITED UNIVERSE: PES6 = 2
@@ -87,8 +87,8 @@ year,cps_name,new_name,start_pos,end_pos,col_type,description,notes
 2004,PES2,VRS_REG,879,880,factor,"(Were you/Was name) registered to vote in the November 2, 2004 election?","EDITED UNIVERSE: PES1 = 2, -2, -3, -9 "
 2004,PES3,VRS_REG_WHYNOT,881,882,factor,Which of the following was the MAIN reason (you/name) (was/were) not registered to vote?,EDITED UNIVERSE: PES2 = 2
 2004,PES4,VRS_VOTE_WHYNOT,883,884,factor,What was the main reason (you/name) did not vote?,"EDITED UNIVERSE: PES1 = 2, PES2 = 1 "
-2004,PES5,VRS_VOTE_MAIL,885,886,factor,Did (you/name) vote in person or did you vote by mail?,EDITED UNIVERSE: PES1 = 1 
-2004,PES6,VRS_VOTE_EDAY,887,888,factor,Was that on Election Day or before Election day?,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9 "
+2004,PES5,VRS_VOTEMODE_2004toPRESENT,885,886,factor,Did (you/name) vote in person or did you vote by mail?,EDITED UNIVERSE: PES1 = 1 
+2004,PES6,VRS_VOTEWHEN_2004toPRESENT,887,888,factor,Was that on Election Day or before Election day?,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9 "
 2004,PES7,VRS_REG_METHOD,889,890,factor,There are various ways people can register to vote. How did (you/name) register to vote?,"EDITED UNIVERSE: PES6 = 1,2,-2,-3,-9; PES4 = 1-11, -2,-3,-9 "
 2004,PES8,VRS_RESIDENCE,891,892,factor,How long (have you/has name) lived at this address?,ordered
 2006,HRYEAR4,YEAR,18,21,integer,YEAR OF INTERVIEW,
@@ -103,8 +103,8 @@ year,cps_name,new_name,start_pos,end_pos,col_type,description,notes
 2006,PES2,VRS_REG,953,954,factor,"(Were you/Was name) registered to vote in the November 7, 2006 election?","EDITED UNIVERSE: PES1 = 2, -2, -3, -9 "
 2006,PES3,VRS_REG_WHYNOT,955,956,factor,Which of the following was the MAIN reason (you/name) (was/were) not registered to vote?,EDITED UNIVERSE: PES2 = 2 
 2006,PES4,VRS_VOTE_WHYNOT,957,958,factor,What was the main reason (you/name) did not vote?,"EDITED UNIVERSE: PES1 = 2, PES2 = 1 "
-2006,PES5,VRS_VOTE_MAIL,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail?,EDITED UNIVERSE: PES1 = 1
-2006,PES6,VRS_VOTE_EDAY,961,962,factor,Was that on election day or before election day?,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9 "
+2006,PES5,VRS_VOTEMODE_2004toPRESENT,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail?,EDITED UNIVERSE: PES1 = 1
+2006,PES6,VRS_VOTEWHEN_2004toPRESENT,961,962,factor,Was that on election day or before election day?,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9 "
 2006,PES7,VRS_REG_METHOD,963,964,factor,"There are various places and ways people can register to vote. The last time (you/name) registered, how did (you/name) register to vote? ","EDITED UNIVERSE: PES6 = 1,2,-2,-3,-9; PES4 = 1-11, -2,-3,-9 "
 2006,PES8,VRS_RESIDENCE,965,966,factor,How long (have you/has name) lived at this address? ,ordered
 2008,HRYEAR4,YEAR,18,21,integer,YEAR OF INTERVIEW,
@@ -119,8 +119,8 @@ year,cps_name,new_name,start_pos,end_pos,col_type,description,notes
 2008,PES2,VRS_REG,953,954,factor,"(Were you/Was name) registered to vote in the November 4, 2008 election? ","EDITED UNIVERSE: PES1 = 2, -2, -3, -9 "
 2008,PES3,VRS_REG_WHYNOT,955,956,factor,Which of the following was the MAIN reason (you/name) (were/was) not registered to vote? ,EDITED UNIVERSE: PES2 = 2 
 2008,PES4,VRS_VOTE_WHYNOT,957,958,factor,What was the main reason (you/name) did not vote? ,"EDITED UNIVERSE: PES1 = 2, PES2 = 1"
-2008,PES5,VRS_VOTE_MAIL,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail? ,EDITED UNIVERSE: PES1 = 1 
-2008,PES6,VRS_VOTE_EDAY,961,962,factor,Was that on election day or before election day? ,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9 "
+2008,PES5,VRS_VOTEMODE_2004toPRESENT,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail? ,EDITED UNIVERSE: PES1 = 1 
+2008,PES6,VRS_VOTEWHEN_2004toPRESENT,961,962,factor,Was that on election day or before election day? ,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9 "
 2008,PES7,VRS_REG_METHOD,963,964,factor,"There are various places and ways people can register to vote. The last time (you/name) registered, how did (you/name) register to vote?","EDITED UNIVERSE: PES6 = 1,2,-2,-3,-9; PES4 = 1-11, -2,-3,-9"
 2008,PES8,VRS_RESIDENCE,965,966,factor,How long (have you/has name) lived at this address? ,ordered
 2010,HRYEAR4,YEAR,18,21,integer,YEAR OF INTERVIEW,
@@ -135,8 +135,8 @@ year,cps_name,new_name,start_pos,end_pos,col_type,description,notes
 2010,PES2,VRS_REG,953,954,factor,"(Were you/Was name) registered to vote in the November 2, 2010 election? ","EDITED UNIVERSE: PES1 = 2, -2, -3, -9 "
 2010,PES3,VRS_REG_WHYNOT,955,956,factor,Which of the following was the MAIN reason (you/name) (were/was) not registered to vote? ,EDITED UNIVERSE: PES2 = 2 
 2010,PES4,VRS_VOTE_WHYNOT,957,958,factor,What was the main reason (you/name) did not vote? ,"EDITED UNIVERSE: PES1 = 2, PES2 = 1"
-2010,PES5,VRS_VOTE_MAIL,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail? ,EDITED UNIVERSE: PES1 = 1 
-2010,PES6,VRS_VOTE_EDAY,961,962,factor,Was that on election day or before election day? ,"EDITED UNIVERSE: PES5 = 1,2,-2,-3,-9 "
+2010,PES5,VRS_VOTEMODE_2004toPRESENT,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail? ,EDITED UNIVERSE: PES1 = 1 
+2010,PES6,VRS_VOTEWHEN_2004toPRESENT,961,962,factor,Was that on election day or before election day? ,"EDITED UNIVERSE: PES5 = 1,2,-2,-3,-9 "
 2010,PES7,VRS_REG_METHOD,963,964,factor,"There are various places and ways people can register to vote. The last time (you/name) registered, how did (you/name) register to vote?",EDITED UNIVERSE: PES1 = 1 or PES2 = 1 
 2010,PES8,VRS_RESIDENCE,965,966,factor,How long (have you/has name) lived at this address? ,ordered
 2012,HRYEAR4,YEAR,18,21,integer,YEAR OF INTERVIEW,
@@ -151,8 +151,8 @@ year,cps_name,new_name,start_pos,end_pos,col_type,description,notes
 2012,PES2,VRS_REG,953,954,factor,"(Were you/Was name) registered to vote in the November 6, 2012 election? ","EDITED UNIVERSE: PES1 = 2, -2, -3, -9"
 2012,PES3,VRS_REG_WHYNOT,955,956,factor,Which of the following was the MAIN reason (you/name) (were/was) not registered to vote? ,EDITED UNIVERSE: PES2 = 2 
 2012,PES4,VRS_VOTE_WHYNOT,957,958,factor,What was the main reason (you/name) did not vote? ,"EDITED UNIVERSE: PES1 = 2, PES2 = 1 "
-2012,PES5,VRS_VOTE_MAIL,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail? ,EDITED UNIVERSE: PES1 = 1 
-2012,PES6,VRS_VOTE_EDAY,961,962,factor,Was that on election day or before election day? ,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9"
+2012,PES5,VRS_VOTEMODE_2004toPRESENT,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail? ,EDITED UNIVERSE: PES1 = 1 
+2012,PES6,VRS_VOTEWHEN_2004toPRESENT,961,962,factor,Was that on election day or before election day? ,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9"
 2012,PES7,VRS_REG_METHOD,963,964,factor,"There are various places and ways people can register to vote. The last time (you/name) registered, how did (you/name) register to vote? ",EDITED UNIVERSE: PES1= 1 or PES2=1 
 2012,PES8,VRS_RESIDENCE,965,966,factor,How long (have you/has name) lived at this address? ,ordered
 2014,HRYEAR4,YEAR,18,21,integer,YEAR OF INTERVIEW,
@@ -167,8 +167,8 @@ year,cps_name,new_name,start_pos,end_pos,col_type,description,notes
 2014,PES2,VRS_REG,953,954,factor,"(Were you/Was name) registered to vote in the November X, XXXX election?","EDITED UNIVERSE: PES1 = 2, -2, -3, -9"
 2014,PES3,VRS_REG_WHYNOT,955,956,factor,Which of the following was the MAIN reason (you/name) (were/was) not registered to vote?,EDITED UNIVERSE: PES2 = 2
 2014,PES4,VRS_VOTE_WHYNOT,957,958,factor,What was the main reason (you/name) did not vote?,EDITED UNIVERSE: PES1 = 2 and PES2 = 1
-2014,PES5,VRS_VOTE_MAIL,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail?,EDITED UNIVERSE: PES1 = 1
-2014,PES6,VRS_VOTE_EDAY,961,962,factor,Was that on election day or before election day?,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9"
+2014,PES5,VRS_VOTEMODE_2004toPRESENT,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail?,EDITED UNIVERSE: PES1 = 1
+2014,PES6,VRS_VOTEWHEN_2004toPRESENT,961,962,factor,Was that on election day or before election day?,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9"
 2014,PES7,VRS_REG_METHOD,963,964,factor,"There are various places and ways people can register to vote. The last time (you/name) registered, how did (you/name) register to vote?",EDITED UNIVERSE: PES1 = 1 or PES2 = 1
 2014,PRS8,VRS_RESIDENCE,965,966,factor,How long (have you/has name) lived at this address?,factoring contracts this year; ordered
 2016,HRYEAR4,YEAR,18,21,integer,YEAR OF INTERVIEW,
@@ -183,8 +183,8 @@ year,cps_name,new_name,start_pos,end_pos,col_type,description,notes
 2016,PES2,VRS_REG,953,954,factor,"(Were you/Was name) registered to vote in the November X, XXXX election? ","EDITED UNIVERSE: PES1 = 2, -2, -3, -9 "
 2016,PES3,VRS_REG_WHYNOT,955,956,factor,Which of the following was the MAIN reason (you/name) (were/was) not registered to vote? ,EDITED UNIVERSE: PES2 = 2
 2016,PES4,VRS_VOTE_WHYNOT,957,958,factor,What was the main reason (you/name) did not vote? ,EDITED UNIVERSE: PES1 = 2 and PES2 = 1 
-2016,PES5,VRS_VOTE_MAIL,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail? ,EDITED UNIVERSE: PES1 = 1
-2016,PES6,VRS_VOTE_EDAY,961,962,factor,Was that on election day or before election day? ,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9"
+2016,PES5,VRS_VOTEMODE_2004toPRESENT,959,960,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail? ,EDITED UNIVERSE: PES1 = 1
+2016,PES6,VRS_VOTEWHEN_2004toPRESENT,961,962,factor,Was that on election day or before election day? ,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9"
 2016,PES7,VRS_REG_METHOD,963,964,factor,"There are various places and ways people can register to vote. The last time (you/name) registered, how did (you/name) register tovote? ",EDITED UNIVERSE: PES1 = 1 or PES2 = 1 
 2016,PRS8,VRS_RESIDENCE,965,966,factor,How long (have you/has name) lived at this address? ,ordered
 2018,HRYEAR4,YEAR,18,21,integer,YEAR OF INTERVIEW,
@@ -199,7 +199,7 @@ year,cps_name,new_name,start_pos,end_pos,col_type,description,notes
 2018,PES2,VRS_REG,1003,1004,factor,"(Were you/Was name) registered to vote in the November X, XXXX election? ","EDITED UNIVERSE: PES1 = 2, -2, -3, -9 "
 2018,PES3,VRS_REG_WHYNOT,1005,1006,factor,Which of the following was the MAIN reason (you/name) (were/was) not registered to vote? ,EDITED UNIVERSE: PES2 = 2
 2018,PES4,VRS_VOTE_WHYNOT,1007,1008,factor,What was the main reason (you/name) did not vote? ,EDITED UNIVERSE: PES1 = 2 and PES2 = 1 
-2018,PES5,VRS_VOTE_MAIL,1009,1010,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail? ,EDITED UNIVERSE: PES1 = 1
-2018,PES6,VRS_VOTE_EDAY,1011,1012,factor,Was that on election day or before election day? ,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9"
+2018,PES5,VRS_VOTEMODE_2004toPRESENT,1009,1010,factor,Did (you/he/she) vote in person or did (you/he/she) vote by mail? ,EDITED UNIVERSE: PES1 = 1
+2018,PES6,VRS_VOTEWHEN_2004toPRESENT,1011,1012,factor,Was that on election day or before election day? ,"EDITED UNIVERSE: PES5 = 1,2,-2,-3, -9"
 2018,PES7,VRS_REG_METHOD,1013,1014,factor,"There are various places and ways people can register to vote. The last time (you/name) registered, how did (you/name) register to vote? ",EDITED UNIVERSE: PES1 = 1 or PES2 = 1 
 2018,PES8,VRS_RESIDENCE,1015,1016,factor,How long (have you/has name) lived at this address? ,ordered
