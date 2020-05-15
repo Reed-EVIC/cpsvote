@@ -40,7 +40,7 @@
 #' 
 #' While the U.S. Census Bureau provides one weight with the CPS, a modified 
 #' weight is needed to properly calculate voter turnout. This data set provides 
-#' those calculations, according to Achen and Hur (2013). The comparison data 
+#' those calculations, according to Hur and Achen (2013). The comparison data 
 #' comes from Dr. Michael McDonald's estimates of voter turnout among the 
 #' voting-eligible population (VEP). It can be joined with CPS data to 
 #' calculate the new weights needed for analysis, using the function 
@@ -90,9 +90,9 @@
 #' \item{VRS_VOTEMETHOD_CON}{A consolidation of VRS_VOTEMETHOD_1996to2002, 
 #' VRS_VOTEMODE_2004toPRESENT, and VRS_VOTEWHEN_2004toPRESENT}
 #' \item{cps_turnout}{Recode of VRS_VOTE for CPS turnout calculation}
-#' \item{achenhur_turnout}{Recode of VRS_VOTE for adjusted Achen & Hur turnout 
+#' \item{hurachen_turnout}{Recode of VRS_VOTE for adjusted Hur & Achen turnout 
 #' calculation}
 #' \item{turnout_weight}{Adjusted weight for calculating voter turnout (per 
-#' Achen & Hur)}
+#' Hur & Achen)}
 #' }
 "cps_sample_10k"

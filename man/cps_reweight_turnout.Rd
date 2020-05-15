@@ -8,9 +8,9 @@ cps_reweight_turnout(data)
 }
 \arguments{
 \item{data}{the input data set, containing columns \code{YEAR}, \code{STATE}, and
-\code{achenhur_turnout}}
+\code{hurachen_turnout}}
 }
 \description{
-This function applies the turnout correction recommended by Achen & Hur
+This function applies the turnout correction recommended by Hur & Achen
 (2013). The data set containing the scaling factor is \code{cpsvote::cps_reweight}.
 }

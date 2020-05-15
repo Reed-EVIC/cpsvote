@@ -33,7 +33,7 @@ The `CPS` package is designed to overcome these challenges. Most importantly, th
 
 1. Will dynamically access the CPS VRS data so that you need not download any information to your local computer.
 2. Creates a set of variables with the same name and the same coding for each year of the CPS VRS. 
-3. Appropriately codes voting turnout, following guidelines proposed by Achen and Hur (2013), necessary in order to correctly estimate turnout. 
+3. Appropriately codes voting turnout, following guidelines proposed by Hur and Achen (2013), necessary in order to correctly estimate turnout. 
 4. Uses the `srvyr` package, and supplies the correct commands, to *weight* the CPS VRS data, necessary when using the CPS. 
   
 More details on these procedures are provided below. 

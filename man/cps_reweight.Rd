@@ -24,7 +24,7 @@ cps_reweight
 \description{
 While the U.S. Census Bureau provides one weight with the CPS, a modified
 weight is needed to properly calculate voter turnout. This data set provides
-those calculations, according to Achen and Hur (2013). The comparison data
+those calculations, according to Hur and Achen (2013). The comparison data
 comes from Dr. Michael McDonald's estimates of voter turnout among the
 voting-eligible population (VEP). It can be joined with CPS data to
 calculate the new weights needed for analysis, using the function

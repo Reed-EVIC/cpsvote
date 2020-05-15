@@ -16,10 +16,10 @@ cps_recode_vote(
 \item{vote_col}{which column contains the voting variable}
 
 \item{items}{which items should be "No" in the CPS coding and \code{NA} in the
-Achen & Hur coding}
+Hur & Achen coding}
 }
 \value{
-\code{data} with two columns attached, \code{cps_turnout} and \code{achenhur_turnout},
+\code{data} with two columns attached, \code{cps_turnout} and \code{hurachen_turnout},
 voting variables recoded according to the process above
 }
 \description{
@@ -30,6 +30,6 @@ has caused turnout estimates to artificially deflate when compared to
 measures of voter turnout from state election offices. This function adds two
 recodes of the original voting variable, one which applies the CPS recoding
 where multiple categories map to "No", and one which follows the guidelines
-from Achen & Hur (2013) of setting these categories to \code{NA}. See the Vignette
+from Hur & Achen (2013) of setting these categories to \code{NA}. See the Vignette
 for more information on this process.
 }

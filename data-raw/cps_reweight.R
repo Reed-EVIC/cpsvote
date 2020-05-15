@@ -111,7 +111,7 @@ vep_turnout <- vep %>%
                       values_to = "vep_turnout") %>%
   mutate(response = factor(response, levels = unique(.$response)),
          STATE = factor(STATE, levels = unique(.$STATE)))
-# this does NOT match the Iowa 2008 number in Achen/Hur, but it DOES match McDonald's site
+# this does NOT match the Iowa 2008 number in Hur/Achen, but it DOES match McDonald's site
 
 # and now get the corresponding CPS amounts... #####
 
@@ -119,10 +119,10 @@ cps <- cps_load_basic() %>%
   as_survey_design(weights = WEIGHT)
 
 cps_turnout <- cps %>%
-  group_by(YEAR, STATE, achenhur_turnout) %>%
+  group_by(YEAR, STATE, hurachen_turnout) %>%
   summarize(cps_turnout = survey_mean(na.rm = TRUE)) %>%
   select(YEAR, STATE,
-         response = achenhur_turnout,
+         response = hurachen_turnout,
          cps_turnout) %>%
   filter(complete.cases(.)) %>%
   mutate(response = forcats::fct_drop(response))
