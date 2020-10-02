@@ -26,9 +26,11 @@ The basic mechanism of reading the CPS depends on two included data sets:
 - `cps_cols`, containing information about column positions in the raw CPS files
 - `cps_factors`, containing information about the factor levels for the raw numeric codes
 
-These contain a set of default data for some commonly-used variables in the CPS. Across years, there have been many changes in the questions asked by the CPS, their possible responses, and where they are located in the data. For example, in 1996 the question asking how long a respondent had lived in their current residence was called `PES6`, occupied positions 823-824, and had six valid responses: less than 1 month, 1-6 months, 7-11 months, 1-2 years, 3-4 years, and 5 years or longer. In 2014, this same question was called `PES8`, occupied positions 965-966, and had replaced the first three categories from 1996 with one response "less than 1 year". This illustrates how important it is to provide the correct column specification and factor levels for any variable you want to read in.
+These contain a set of default data for some commonly-used variables in the CPS. Across years, there have been many changes in the questions asked by the CPS, their possible responses, and where they are located in the fixed-width files that make up the data. For example, in 1996 the question asking how long a respondent had lived in their current residence was called `PES6`, occupied positions 823-824, and had six valid responses: less than 1 month, 1-6 months, 7-11 months, 1-2 years, 3-4 years, and 5 years or longer. In 2014, this same question was called `PES8`, occupied positions 965-966, and had replaced the first three categories from 1996 with one response "less than 1 year". This illustrates how important it is to provide the correct column specification and factor levels for any variable you want to read in.
 
-All that being said, let's explore how you can add some more variables to your data. In this example, we'll read in the 2006-2008 CPS data with family income as an additional variable. First, we need to specify which column positions contain the family income variable in those years. This is obtained from the 2006 and 2008 documentation files, which you can download with `cps_download_docs()`.
+In an ideal world, we would have provided this information for every variable in the CPS across all years. This quickly becomes time-prohibitive, as there are several hundred unique variables over the 13 years of data. We chose instead to focus on several important demographic variables and all of the voting and registration questions, and have provided full specifications for these most relevant variables.
+
+All that being said, let's explore how you can add some more variables to your data. In this example, we'll read in the 2006-2008 CPS data with family income as an additional variable. First, we need to specify which column positions contain the family income variable in those years - for both years, this is positions 39-40. This is obtained from the 2006 and 2008 documentation files, which you can download with `cps_download_docs()`.
 
 ```{r}
 income_cols <- data.frame(
@@ -90,14 +92,14 @@ Then we can read in the CPS data with our new column specifications and factor i
 
 ```{r}
 cps_income <- cps_read(years = c(2006, 2008),
-                       dir = "cps_data",
+                       dir = here::here("cps_data"),
                        cols = my_cols) %>%
   cps_label(factors = my_factors)
 
 str(cps_income)
 ```
 
-One note: the warning from `cps_read` appears when `join_dfs = TRUE` (which is a default). The intention is to remind the user that variable names change across years, and to urge caution in only joining the correct columns.
+One note: the warning from `cps_read` appears when `join_dfs = TRUE` (which is a default). This is intended to remind the user that variable names change across years, and to urge caution in only joining the correct columns.
 
 This is a simple (unweighted) breakdown of family income responses in 2006 and 2008.
 
