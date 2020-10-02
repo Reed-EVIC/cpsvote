@@ -1,6 +1,6 @@
 Package: cpsvote
 Title: Interface for the Current Population Survey - Voting and Registration Supplement
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     c(person(given = "Jay",
            family = "Lee",
@@ -8,11 +8,14 @@ Authors@R:
            email = "jaylee@reed.edu"),
     person(given = "Paul",
            family = "Gronke",
-           role = c("aut")))
-Description: CPSVOTE provides an automated method for downloading, recoding, and merging selected years of the 
+           role = c("aut")),
+    person(given = "Canyon",
+           family = "Foot",
+           role = c("ctb")))
+Description: `cpsvote` provides an automated method for downloading, recoding, and merging selected years of the 
     Current Population Survey's 
     Voting and Registration Supplement, a large N national survey into registration, voting, and non-voting in United States 
-    Federal Elections. The
+    federal elections. The
     package provides documentation for appropriate use of sample weights to generate statistical estimates. The package 
     includes multiple vignettes
     that illustrate different applications. 
@@ -26,10 +29,11 @@ Suggests:
     rmarkdown,
     survey,
     srvyr,
-    kableExtra
+    kableExtra,
+    here
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Imports: 
     magrittr,
     readr,
