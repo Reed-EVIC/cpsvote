@@ -156,7 +156,7 @@ cps2016 <- cps2016 %>%
     cps_turnout == "NO" ~0),
     hurachen_turnout_d = case_when(
     hurachen_turnout == "YES" ~ 1,
-    hurach_turnout == "NO" ~ 0)
+    hurachen_turnout == "NO" ~ 0)
   )
 
 ## SURVEY WEIGHTS
