@@ -5,7 +5,6 @@
 *.Rproj
 raw_data/*
 cps_data/*
-img/*
 cps_docs/*
 .DS_Store
 tmp/cpsvrs.RDS
@@ -14,3 +13,4 @@ inst/doc
 .gitignore
 doc
 Meta
+img/plot_frames/*
