@@ -111,11 +111,11 @@ cps_recode_vote(
 
 1. _data_: the input data set
 2. _vote_col_	which column contains the voting variable
-3. _items_	which items should be "No" in the CPS coding and NA in the Achen & Hur coding
+3. _items_	which items should be "No" in the CPS coding and NA in the Hur & Achen coding
 
 #### Output
 
-A data frame data with two columns attached, `cps_turnout` and `achenhur_turnout`, voting variables recoded according to the process above. If the command is issued without any parameters beyond the data frame,
+A data frame data with two columns attached, `cps_turnout` and `hurachen_turnout`, voting variables recoded according to the process above. If the command is issued without any parameters beyond the data frame,
 the default column names are assumed. 
 
 ### Reweighting
@@ -124,7 +124,7 @@ the default column names are assumed.
 
 #### Arguments
 
-1. _data_: the input data set, which must contain columns named `YEAR`, `STATE`, and `achen_hur_turnout`
+1. _data_: the input data set, which must contain columns named `YEAR`, `STATE`, and `hurachen_turnout`
 
 #### Output
 
@@ -191,7 +191,7 @@ Generate unweighted, CPS weighted, and Hur/Achen weighted estimates of voter tur
 turnout_estimates <- cps2016 %>%
   summarize(Unweighted = mean(cps_turnout_d, na.rm = TRUE),
             Census_Weighted = svymean(cps_turnout_d, cps2016_surveyCW, na.rm = TRUE),
-            Hur_Achen_Weighted = svymean(achenhur_turnout_d, cps2016_surveyHW, na.rm = TRUE))
+            Hur_Achen_Weighted = svymean(hurachen_turnout_d, cps2016_surveyHW, na.rm = TRUE))
 
 kable(turnout_estimates)
 ```
@@ -204,7 +204,7 @@ cps2016_srvyrHW %>%
   filter(RACE %in% c("WHITE ONLY", "BLACK ONLY", "AMERICAN INDIAN, ALASKAN NATIVE ONLY",
                      "ASIAN ONLY", "HAWAIIAN/PACIFIC ISLANDER ONLY")) %>%
   group_by(RACE) %>%
-  summarize(turnout = survey_mean(achenhur_turnout_d, na.rm = TRUE)) %>%
+  summarize(turnout = survey_mean(hurachen_turnout_d, na.rm = TRUE)) %>%
   ggplot(., aes(x = RACE, y = turnout)) +
   geom_bar(stat = "identity") + 
   scale_x_discrete(labels = c("WHITE ONLY"= "White",
@@ -225,7 +225,7 @@ library(usmap)
 cps2016_srvyrHW %>%
   mutate(state = STATE) %>%
   group_by(state) %>%
-  summarize(turnout = survey_mean(achenhur_turnout_d, na.rm = TRUE)) %>%
+  summarize(turnout = survey_mean(hurachen_turnout_d, na.rm = TRUE)) %>%
   plot_usmap(data = ., values = "turnout", color = "blue") +
   scale_fill_continuous(low = "white", high = "blue", name = "Turnout Rate") +
   theme(legend.position = "right") + labs(title = "Voting Turnout in the United States, 2016")
