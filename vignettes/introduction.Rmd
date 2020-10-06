@@ -67,8 +67,6 @@ There are two final, and related, challenges to use the CPS VRS for estimating v
 to produce statistically valid estimates of turnout. The `cpsvote` packages provides turnout measures that incorporate the correct coding, and
 we document a method to adjust for biases in turnout. 
 
-#### Coding Rules for CPS VRS Turnout
-
 First, the CPS has long used an "idiosyncratic" 
 coding rule that has been recognized over time and was carefully documented by two scholars, Aram Hur and Christopher Achen, in a 2013 article titled ["Coding Voter Turnout Responses in the Current Population Survey"](https://academic.oup.com/poq/article/77/4/985/1843466/). The coding rule
 is not at all clear from the CPS documentation, and without correct coding, incorrect turnout estimates will be produced.
@@ -77,24 +75,19 @@ From the Hur and Achen (2013) abstract:
 
 >"The Voting and Registration Supplement to the Current Population Survey (CPS) employs a large sample size and has a very high response rate, and thus is often regarded as the gold standard among turnout surveys. In 2008, however, the CPS inaccurately estimated that presidential turnout had undergone a small decrease from 2004. We show that growing nonresponse plus a long-standing but idiosyncratic Census coding decision was responsible. We suggest that to cope with nonresponse and overreporting, users of the Voting Supplement sample should weight it to reflect actual state vote counts."
 
-Because some users of the `cpsvote` package may not be able to access this article, we reproduce the critical sections that describe the coding
-choices here:
-
->In its official reports, however, the CPS does not follow the conventional academic coding rules for turnout responses. Instead, it treats Don’t Know, Refused, and No Response as indicating that the respondent did not vote. ... The Census Bureau’s decision to count the No Response individuals as nonvoters is consequential. No Response alone makes up 11.2 percent of the 2008 sample. Coding all of them, plus Don’t Know and Refused, as nonvoters reduces the estimated turnout rate by nearly 10 percentage points, cancelling most of the 12-point overreport in the original data.
-
-**The `cpsvote` package provides the original Census coding scheme in the `cps_turnout` variable that is produced by the default functions.**
-
-### Bias in Turnout Estimates
-
-A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper^[Michael McDonald, 2014, "What's Wrong with the CPS?", Paper presented at the Annual Meeting of the American Political Science Association.] and at the [United States Elections Project's CPS Over-Report and Non-Response Bias Correction] (http://www.electproject.org/home/voter-turnout/cps-methodology) page, is that two biases have crept into the CPS over time: one from increasing non-response rates, the second from over-reporting of turnout. 
-
 Hur and Achen suggest a complex post-stratification adjustment to the data that will adjust for these biases:
 
 >We recommend dropping all categories of missing turnout response, and then poststratifying the remaining CPS sample so that the survey turnout rate in each state matches the corresponding state VEP turnout.
 
+A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper^[Michael McDonald, 2014, "What's Wrong with the CPS?", Paper presented at the Annual Meeting of the American Political Science Association.] and at the [http://www.electproject.org/home/voter-turnout/cps-methodology](United States Elections Project's CPS Over-Report and Non-Response Bias Correction) page is that, over time, two biases have crept into the CPS, one from increasing non-response rates, the second from over-reports of turnout. 
+
 Professor Michael McDonald of the University of Florida helpfully provides guidance on this more complex procedure. He provides <Commentary, Guidelines, and Stata Code>[link](http://www.electproject.org/home/voter-turnout/cps-methodology) at his website. 
 
+**The `cpsvote` package provides the original Census coding scheme in the `cps_turnout` variable that is produced by the default functions.**
+
 We have integrated the Hur and Achen recoding into the `cpsvote` package, contained in the variable `hurachen_turnout` that is produced by the default functions. The original CPS weight is provided in the variable `WEIGHT`, and a weight adjusted for proper turnout coding and post-stratification for over-reporting is provided in the variable `turnout_weight`.
+
+Please read [turnout](turnout.html) for the commands and additional documentation. 
 
 ## Getting Started
 
