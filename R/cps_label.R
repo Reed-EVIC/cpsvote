@@ -25,7 +25,7 @@ cps_label <- function(data,
                       na_vals = c("-1", "BLANK", "NOT IN UNIVERSE"),
                       expand_year = TRUE,
                       rescale_weight = TRUE) {
-  cps_turnout <- achenhur_turnout <- YEAR <- YEAR4 <- year <- index <- WEIGHT <- NULL
+  cps_turnout <- hurachen_turnout <- YEAR <- YEAR4 <- year <- index <- WEIGHT <- NULL
   
   data <- data %>%
     dplyr::mutate(index = dplyr::row_number(),
@@ -83,7 +83,7 @@ cps_label <- function(data,
                                                   labels = c("YES", "NO")))
   }
   if("hurachen_turnout" %in% colnames(output)) {
-    output <- dplyr::mutate(output, achenhur_turnout = factor(achenhur_turnout,
+    output <- dplyr::mutate(output, hurachen_turnout = factor(hurachen_turnout,
                                                   levels = 1:2,
                                                   labels = c("YES", "NO")))
   }
