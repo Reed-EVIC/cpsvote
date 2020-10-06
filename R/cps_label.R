@@ -82,7 +82,7 @@ cps_label <- function(data,
                                                   levels = 1:2,
                                                   labels = c("YES", "NO")))
   }
-  if("achenhur_turnout" %in% colnames(output)) {
+  if("hurachen_turnout" %in% colnames(output)) {
     output <- dplyr::mutate(output, achenhur_turnout = factor(achenhur_turnout,
                                                   levels = 1:2,
                                                   labels = c("YES", "NO")))
