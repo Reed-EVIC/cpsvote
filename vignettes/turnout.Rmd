@@ -154,9 +154,9 @@ cps2016 <- cps2016 %>%
   mutate(cps_turnout_d = case_when(
     cps_turnout == "YES" ~ 1,
     cps_turnout == "NO" ~0),
-    achenhur_turnout_d = case_when(
-    achenhur_turnout == "YES" ~ 1,
-    achenhur_turnout == "NO" ~ 0)
+    hurachen_turnout_d = case_when(
+    hurachen_turnout == "YES" ~ 1,
+    hurach_turnout == "NO" ~ 0)
   )
 
 ## SURVEY WEIGHTS
