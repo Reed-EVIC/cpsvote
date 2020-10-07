@@ -8,13 +8,15 @@
 #' the option to save this data locally for future ease. A sample of the data
 #' that comes out of this function is provided as `cpsvote::cps_sample_10k`.
 #' 
+#' @param years Which years should be read
 #' @param datadir The location where the CPS zip files live (or should be 
 #' downloaded to)
 #' @param outdir The location where the final data file should be saved to
 #' @export
-cps_load_basic <- function(datadir = "cps_data",
+cps_load_basic <- function(years = seq(1994, 2018, 2),
+                           datadir = "cps_data",
                            outdir = NULL) {
-  output <- cps_read(dir = datadir) %>%
+  output <- cps_read(dir = datadir, years = years) %>%
     cps_label() %>%
     cps_refactor() %>%
     cps_recode_vote() %>%
