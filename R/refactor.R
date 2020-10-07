@@ -26,8 +26,16 @@ cps_refactor <- function(data, move_levels = TRUE) {
   RACE <- HISPANIC <- VRS_RESIDENCE <- VRS_VOTE_WHYNOT <- VRS_REG_METHOD <- NULL
   VRS_VOTEMETHOD_1996to2002 <- VRS_VOTEMODE_2004toPRESENT <- VRS_VOTEWHEN_2004toPRESENT <- NULL
   
-  output <- data %>%
-    dplyr::mutate(RACE = forcats::fct_collapse(RACE, # try to consolidate RACE
+  # add extra columns as needed so the mutations don't break
+  cols <- c("RACE", "HISPANIC", "VRS_RESIDENCE", "VRS_VOTE_WHYNOT", "VRS_REG_METHOD", 
+            "VRS_VOTEMETHOD_1996to2002", "VRS_VOTEMODE_2004toPRESENT", "VRS_VOTEWHEN_2004toPRESENT")
+  for (name in cols) {
+    if (!(name %in% colnames(data))) {
+      data[[name]] <- NA
+    }
+  }
+  
+  output <- suppressWarnings(dplyr::mutate(data, RACE = forcats::fct_collapse(RACE, # try to consolidate RACE
                                                "WHITE" = c("WHITE", 
                                                       "WHITE ONLY"),
                                           "BLACK" = c("BLACK", 
@@ -95,7 +103,12 @@ cps_refactor <- function(data, move_levels = TRUE) {
                     VRS_VOTEMODE_2004toPRESENT == "IN PERSON" & VRS_VOTEWHEN_2004toPRESENT == "BEFORE ELECTION DAY" ~ "EARLY",
                     VRS_VOTEMODE_2004toPRESENT == "IN PERSON" & VRS_VOTEWHEN_2004toPRESENT == "ON ELECTION DAY" ~ "ELECTION DAY"
                   )
-           )
+           ))
+  
+  # remove anything you added in, these will be all NA
+  varna <- colSums(is.na(output))
+  extra <- names(varna[names(varna) %in% cols & varna == nrow(output)])
+  output <- select(output, -any_of(extra))
   
   if (move_levels) output <- output %>%
     dplyr::mutate_if(is.factor, function(x) suppressWarnings(forcats::fct_relevel(x, 

@@ -5,20 +5,20 @@
 \title{Read in CPS data}
 \usage{
 cps_read(
-  dir = "cps_data",
   years = seq(1994, 2018, 2),
+  dir = "cps_data",
   cols = cpsvote::cps_cols,
   names_col = "new_name",
   join_dfs = TRUE
 )
 }
 \arguments{
+\item{years}{Which years to read in. Thie function will read data from files
+in \code{dir} whose names contain these 4-digit years.}
+
 \item{dir}{The folder where the CPS data files live. These files should
 follow a naming scheme that contains the 4-digit year of the results in
 question, and have a ".zip" or ".gz" extension.}
-
-\item{years}{Which years to read in. Thie function will read data from files
-in \code{dir} whose names contain these 4-digit years.}
 
 \item{cols}{Which columns to read. This must be a data frame, with required
 columns \code{start_pos},\code{end_pos}, and \code{year}. The default value is \code{cps_cols},
