@@ -25,14 +25,22 @@ cps_label <- function(data,
                       na_vals = c("-1", "BLANK", "NOT IN UNIVERSE"),
                       expand_year = TRUE,
                       rescale_weight = TRUE) {
+  
+  orig_data <- data
+  
   cps_turnout <- hurachen_turnout <- YEAR <- YEAR4 <- year <- index <- WEIGHT <- NULL
+  
+  # assume that the year column is the first one to say "YEAR"
+  yrcol <- stringr::str_subset(colnames(data), "YEAR")[1]
+  wtcol <- ifelse("PWSSWGT" %in% colnames(orig_data), "PWSSWGT", "WEIGHT")
   
   data <- data %>%
     dplyr::mutate(index = dplyr::row_number(),
-                  YEAR4 = YEAR %% 1900 + 1900) # fix the two-digit year problem
+                  YEAR4 = !!rlang::sym(yrcol) %% 1900 + 1900)
   
   factor_cols <- colnames(data)[colnames(data) %in% factors[[names_col]]]
   
+  # set up blank data set
   factored_data <- dplyr::filter(data, FALSE) %>%
     dplyr::mutate_at(factor_cols, as.factor)
   
@@ -66,10 +74,11 @@ cps_label <- function(data,
     dplyr::mutate_if(is.numeric, function(x) suppressWarnings(na_ifin(x, as.numeric(na_vals)))) %>% # drop -1
     dplyr::mutate_if(function(y) !is.numeric(y), function(x) na_ifin(x, toupper(na_vals))) %>% # drop other na values
     dplyr::mutate_if(is.factor, forcats::fct_drop) %>% # if it's a factor, remove tha NA factor values
-    dplyr::mutate(YEAR = dplyr::case_when(expand_year ~ as.integer(YEAR %% 1900 + 1900), TRUE ~ YEAR), # fix the two-digit year if asked
-                  WEIGHT = dplyr::case_when(is.na(WEIGHT) ~ 0,
-                                            rescale_weight ~ WEIGHT / 10000, 
-                                            TRUE ~ as.double(WEIGHT))) # fix the 4-decimal weight if asked
+    dplyr::mutate(!!yrcol := dplyr::case_when(expand_year ~ as.integer(!!rlang::sym(yrcol) %% 1900 + 1900), 
+                                          TRUE ~ !!rlang::sym(yrcol)), # fix the two-digit year if asked
+                  !!wtcol := dplyr::case_when(is.na(!!rlang::sym(wtcol)) ~ 0,
+                                            rescale_weight ~ !!rlang::sym(wtcol) / 10000, 
+                                            TRUE ~ as.double(!!rlang::sym(wtcol)))) # fix the 4-decimal weight if asked
   
   # bonus columns in case this happens after the vote reweighting
   if("turnout_weight" %in% colnames(output)) {
