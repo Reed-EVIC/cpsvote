@@ -186,6 +186,10 @@ cps2016 <- cps_reweight_turnout(cps2016)
 ## Create factors out of categorical variables 
 cps2016 <- cps_label(cps2016)
 
+## Refactor variables that differ across years
+cps2016 <- cps_refactor(cps2016)
+
+
 ## NOTE a one-step method for reading in the
 ##  data is:
 ##
@@ -307,7 +311,7 @@ Canyon Tables here that show the different coding rules and the
 cps10k <- cps_sample_10k
 
 # Create region codes following Census guidelines
-
+ 
 cps10k <-  cps10k %>% 
   mutate(census_region = case_when(
     STATE %in% c("ME", "NH", "VT", "MA", "CT", "RI", 
@@ -366,10 +370,13 @@ cps10k_weight %>%
 
 ```{r voteathome, eval = FALSE}
 cps10k_weight %>%
+   mutate(census_region = factor(census_region),
+         VRS_VOTEMETHOD_CON = factor(VRS_VOTEMETHOD_CON)) %>%
   filter(YEAR > 1994 &  !is.na(VRS_VOTEMETHOD_CON)) %>%
   group_by(YEAR, census_region, VRS_VOTEMETHOD_CON) %>%
   summarize(value = survey_mean(na.rm = TRUE)) %>%
-  filter(VRS_VOTEMETHOD_CON == "By Mail") %>%
+  na.omit() %>%
+  filter(VRS_VOTEMETHOD_CON == "BY MAIL") %>%
   ggplot(aes(x = YEAR, y = value, col = census_region, group = census_region)) +
   geom_line(size = 1.5) +
   geom_point(aes(x = YEAR, y = value, color = census_region), size = 2) +
@@ -388,4 +395,24 @@ cps10k_weight %>%
 ```
 
 ## Canyon Maps can go here
+
+```{r}
+library(albersusa) 
+library(sf)
+
+map_data <- cps2016_srvyrHW %>%
+  filter(YEAR == 2016 & !is.na(VRS_VOTEMETHOD_CON)) %>%
+  group_by(STATE, VRS_VOTEMETHOD_CON) %>%
+  summarize(value = survey_mean(na.rm = TRUE)) %>%
+  merge(albersusa::usa_sf("laea"), by.x = "STATE", by.y = "iso_3166_2")
+
+sf::st_as_sf(map_data) %>% 
+  ggplot(aes(fill = value)) +
+  geom_sf() +
+  facet_wrap(~VRS_VOTEMETHOD_CON, ncol = 1) +
+  ggthemes::theme_map() +
+  scale_fill_continuous(name = "", labels = scales::percent)
+  
+  
+```
 
