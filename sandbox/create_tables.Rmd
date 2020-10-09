@@ -1,0 +1,27 @@
+---
+title: "cps_tables"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+library(cpsvote)
+```
+
+
+
+```{r, results='asis'}
+cps_basic <- cps_load_basic()
+
+cps_basic %>%
+  filter(YEAR %in% c(1996, 2004, 2016) & !is.na(VRS_VOTEMETHOD_CON)) %>%
+  group_by(YEAR, VRS_VOTEMETHOD_CON) %>%
+  summarise(count = n()) %>%
+  pivot_wider(names_from = YEAR, values_from = count) %>%
+  mutate(`1996` = paste0(round(100 * `1996` / sum(`1996`)), "%"),
+         `2004` = paste0(round(100 * `2004` / sum(`2004`)), "%"),
+         `2016` = paste0(round(100 * `2016` / sum(`2016`)), "%")) %>%
+  kableExtra::kable(format = "latex")
+```
