@@ -105,15 +105,26 @@ The current development version can be installed directly from our [GitHub repos
 remotes::install_github("Reed-EVIC/cpsvote")
 ```
 
+### A One-Step Guide for People Who Don't Read Documentation
+
+1. `cps <- cps_load_basic()` Will load all available years of data (and if not available, will download) and perform a set of additional data labeling and transformations to prepare the CPS VRS data from 1994 - 2018 for analysis. 
+
+
 ### A Quick Guide
 
 The steps shown below install the package locally, download all CPS files from 1994 to 2018, load the files into memory, and output a data frame
 with CPS Voting and Registration Supplement data from 1994-2018. 
 
+
 1. `library(cpsvote)`
 2. `cpsvote::cps_download_data()` (Only necessary if using the package for the first time; after that, the files will already be downloaded and you 
 can skip this step)
 3. `cps_vote <- cpsvote::cps_read()` will read all available years into memory, and place these into a data frame named `cps_vote`.
+4. `cps_vote <- cpsvote::cps_label()`
+
+Columns are labeled according to a standarized scheme intended to make it as easy as possible to compare years. 
+A cross-reference to the original CPS column labels can be obtained
+by loading `data(cps_cols)` and inspecting the dataframe. 
 
 ### Advanced Guide
 
