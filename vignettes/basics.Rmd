@@ -19,7 +19,13 @@ library(kableExtra)
 
 ```
 
-`cpsvote` helps you work with data from the Current Population Survey's (CPS) Voting and Registration Supplement (VRS), published by the U.S. Census Bureau and Bureau of Labor Statistics. This high-quality survey has been conducted after every federal election (in November of even years) since the 1960s. The raw data, archived by the [National Bureau of Economic Research](http://data.nber.org/data/current-population-survey-data.html), is spread across several fixed-width files with different question locations and formats. This package consolidates common questions and provides the data in a structure that is much easier to work with and interpret, since some of the basic factor recoding has already been done. We have provided access to VRS data from 1994 to 2018, and anticipate updating the package when 2020 data becomes available.
+`cpsvote` helps you work with data from the Current Population Survey's (CPS) Voting and Registration Supplement (VRS), published by the U.S. Census Bureau and Bureau of Labor Statistics. This high-quality survey has been conducted after every federal election (in November of even years) since the 1960s. The raw data, archived by the [National Bureau of Economic Research](http://data.nber.org/data/current-population-survey-data.html), is spread across several fixed-width files with different question locations and formats. 
+
+This package consolidates common questions and provides the data in a structure that is much easier to work with and interpret, since some of the basic factor recoding has already been done. We also calculate alternative sample weights, based on demonstrated
+changes in non-response bias over the decades, and recommended as best practices by some
+elections analysts (documentation of these materials is provided in [the voting vignette](voting.html)).
+
+We have provided access to VRS data from 1994 to 2018, and anticipate updating the package when 2020 data becomes available. 
 
 ## Installing the Package
 
@@ -38,7 +44,13 @@ remotes::install_github("Reed-EVIC/cpsvote")
 We have written several functions to transform the VRS from its original format into a more workable structure. The easiest way to access the data is with the `cps_load_basic()` command:
 
 ```{r eval = FALSE}
-cps <- cps_load_basic(years = c(2006, 2008))
+cps <- cps_load_basic()  # Load All Years
+                         # May take some time to download and
+                         #  process files the first time! 
+```
+
+```{r eval = FALSE}
+cps <- cps_load_basic(years = c(2006, 2008)) # Just load 2006 and 2008
 ```
 
 This will load the prepared VRS data (here, from 2006 and 2008) into your environment as a tibble called `cps`. The first time you try to load a given year of data, the raw data file will be downloaded to your computer (defaulting to the relative path "./cps_data"). This can take some time depending on your internet speeds. In future instances, R will just read from the data files that have already been downloaded (defaulting to the same "cps_data" folder), as long as you correctly specify where these are stored.
@@ -72,7 +84,8 @@ turnout18 <- cps18_weighted %>%
 head(turnout18, 10)
 ```
 
-These estimated line up with Dr. Michael McDonald's [estimates of turnout](http://www.electproject.org/2018g) among eligible voters in the November 2018 General Election. For an explanation of why these numbers line up so closely (and the multiple variables for turnout and weight), see the BLANK vignette.
+These estimated follow closely Dr. Michael McDonald's [estimates of turnout](http://www.electproject.org/2018g), among eligible voters in the November 2018 General Election. For a detailed examination of how non-response bias has affected
+the use of CPS for estimating turnout, see the [voting vignette](voting.html). We thank the U.S. Elections Project at the University of Florida for the turnout estimates.  
 
 ## Advanced Use
 
@@ -80,7 +93,7 @@ In addition to the basic function listed above, you can customize several steps 
 
 Be sure to refer to the CPS documentation files when working with alternative versions of the VRS data. We have included the function `cps_download_docs()` to provide the documentation versions that match this data. These are all in PDF format (and several are not text-based), so they are not easy to search through.
 
-`cps_load_basic()` is a wrapper for several constituent steps that have their own parameters and assumptions. We've detailed the changes made to get from the raw data file to the cleaned file in the BLANK vignette.
+`cps_load_basic()` is a wrapper for several constituent steps that have their own parameters and assumptions. We've detailed the changes made to get from the raw data file to the cleaned file in the [add variables](addvariables.html) vignette.
 
 ```{r eval=F}
 cps_read(years = seq(1994, 2018, 2),
