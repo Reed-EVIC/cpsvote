@@ -1,5 +1,5 @@
 ---
-title: "Using the CPS To Understand Voting"
+title: "Voting"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{voting}
@@ -10,18 +10,19 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r, include = FALSE}
+```{r, include = FALSE, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
-  messages = FALSE, warnings = FALSE
+  messages = FALSE, warnings = FALSE,
+  fig.width = 6, fig.height = 3
 )
 library(knitr)
 library(kableExtra)
 
 ```
 
-```{r packages, echo = TRUE}
+```{r packages, include = FALSE, echo = FALSE}
 library(cpsvote)
 library(dplyr)
 library(ggplot2)
@@ -29,6 +30,8 @@ library(here)
 library(tidyverse)
 
 ```
+
+# Using the CPS Voting and Registration Supplement to Examine Voting
 
 The Current Population Survey's Voting and Registration Supplement, collected in November of every
 federal election year, is an important source to understand many aspects of the American elections system: voter registration, 
@@ -69,27 +72,27 @@ In the CPS codebook, the variable is reported in this way (from the 2016 documen
 
 In any election, some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November X, XXXX?
 
-\begin{tabular}{llll}
-NAME &   SIZE &  DESCRIPTION &  LOCATION  \\
-PES1 &   2    &  \parbox{2in}{In any election, some people are  not able to vote because they are 
+<table>
+<tr>
+<td>NAME</td> <td>   SIZE </td> <td>  DESCRIPTION </td>  <td>  LOCATION </td>
+</tr>
+<tr>
+<td> PES1 </td> <td>   2  </td> <td> In any election, some people are  not able to vote because they are 
 sick or busy or have some other reason, and others do not want to vote. Did (you/name) 
-vote in the election held on Tuesday, November X, XXXX?}  & 951-952 \\
- & & EDITED UNIVERSE: & \\
- & & & \\
- & & \parbox{2in}{PRTAGE >=18 and PRCITSHP = 1, 2, 3, or 4} & \\
- & & & \\
- & & VALID ENTRIES: & \\
- & & & \\
- & & 1  Yes & \\
- & & 2  No  & \\
-& & -1 Not in Universe & \\ 
-& & -2 Don't Know & \\
-& & -3 Refused & \\
-& & -9 No Response & 
-\end{tabular}
+vote in the election held on Tuesday, November X, XXXX?} </td> <td> 951-952 </td>
+<tr> <td> <td> <td> EDITED UNIVERSE: PRTAGE >=18 and PRCITSHP = 1, 2, 3, or 4<td> </tr>
+<tr> <td> <td> <td> <td> </tr>
+<tr> <td> <td> <td>VALID ENTRIES: <td> </tr> 
+<tr> <td> <td> <td> 1  Yes <td> </tr>
+<tr> <td> <td> <td> 2  No  <td> </tr>
+<tr> <td> <td> <td> -1 Not in Universe <td> </tr> 
+<tr> <td> <td> <td> -2 Don't Know <td> </tr>
+<tr> <td> <td> <td> -3 Refused <td> </tr>
+<tr> <td> <td> <td> -9 No Response <td> </tr> 
+</table>
 
 The key decision made by the Census staff has been to treat three of 
-these non-response categories as "not voted"--essentially added these
+these non-response categories as "not voted", essentially adding these
 cases to the denominator for a turnout estimate. 
 
 The rule was carefully documented by two scholars, Aram Hur and Christopher Achen, in a 2013 article titled ["Coding Voter Turnout Responses in the Current Population Survey"](https://academic.oup.com/poq/article/77/4/985/1843466/).
@@ -229,7 +232,7 @@ cps2016_srvyrHW <- as_survey_design(cps2016, weights = turnout_weight)  # SRVYR 
                                                                         # Hur and Achen weight
 ```
 
-Generate unweighted, CPS weighted, and Hur/Achen weighted estimates of voter turnout. 
+_Generate unweighted, CPS weighted, and Hur/Achen weighted estimates of voter turnout._ 
 
 ```{r turnout, echo = TRUE}
 
@@ -241,7 +244,10 @@ turnout_estimates <- cps2016 %>%
 kable(turnout_estimates)
 ```
 
-Generate Hur/Achen weighted turnout estimates by racial groups
+The table shows the slight overestimate of turnout using the Census
+method, because it fails to account for growing non-response bias. 
+
+_Generate Hur/Achen weighted turnout estimates by racial groups_
 
 ```{r turnout_race, echo = TRUE}
 
@@ -262,7 +268,7 @@ cps2016_srvyrHW %>%
 
 ```
 
-Simple map of voter turnout by state. 
+_A simple map of voter turnout by state._ 
 
 ```{r turnout_statemap, echo = TRUE}
 library(usmap)
@@ -280,17 +286,40 @@ cps2016_srvyrHW %>%
 
 # Voting Mode in CPS: Election Day, Early In Person, and Absentee/Voting by Mail
 
-Introductory text that explains the different coding that was used
-over time by the CPS. 
+Capturing the difference between casting an in-person ballot on Election Day, an in-person ballot early at a designated location, and a ballot cast "by mail" (either absentee or 
+in full vote by mail states) is difficult given the various ways that states allow for
+a ballot to be cast. For instance, in a state that allows you to appear at a county 
+office before or on Election Day, request an absentee ballot, and complete and submit it 
+at that time, is that voting "in person" or "by mail"?
 
-Recoding of Vote Mode is completed in `cps_label` step. Explain what
-is done here.
+We will put aside these complexities to discuss how the CPS has captured this voting activity, what is called the "mode of voting", over time. There is one major change to
+pay attention to.
 
-Canyon Tables here that show the different coding rules and the 
-`cpsvote` final variable, `VRS_VOTEMETHOD_CON`
+From 1996-2002, the CPS asked a single question (PES4), that included the options "In person on election day," "In person before election day", and "Voted by mail (absentee)."
 
+Starting in 2004 and continuing through the present, the CPS started to ask about the _time_ that a respondent cast their ballot (PES5: "On Election Day", "Before Election Day") and the _method_ by which the ballot was cast (PES6: "In Person", "By Mail"). 
 
-\begingroup
+From 1996-2002, `cpsvote` uses the values in PES4. From 2004 to the present, the
+answers to PES5 and PES6 are combined to create a three category vote mode variable ("Election Day", "Early", "By Mail"). The package assumes that an answer of "By Mail" counts as absentee / voting by mail, regardless of "when" the respondent said the ballot was cast.
+
+The table below provides an overview of these coding decisions:
+
+<table>
+<caption> A Unified Mode of Voting Variable for CPS </caption>
+<tr>
+<td> <b> `cpsvote` Output <td colspan = "3"> <b> Census Input </tr>
+<td>  <td>  <b> 2004-present <td> <td> <b> 1996 - 2002  </b> </tr>
+<tr> </tr>
+<tr>
+<td>  <b>VRS_VOTEMETHOD_CON      <td> PES5     <td> PES6    <td> PES4  </b> </tr>
+<tr>
+<td> <b>Election Day</b>       <td> In Person <td> Election day <td> In person on election day</tr>
+<tr>
+ <td> <b>Early </b>              <td> In Person <td> Before Election Day <td> In person before election day <tr> 
+ <td> <b>By Mail </b>            <td> By Mail  <td> Election Day, Before Election Day <td> Voted by mail (absentee)</tr>
+</table>
+
+<!-- \begingroup
 \setlength{\tabcolsep}{10pt} % Default value: 6pt
 \renewcommand{\arraystretch}{3.7} % Default value: 1
 \begin{table}[]
@@ -302,7 +331,8 @@ Canyon Tables here that show the different coding rules and the
 \multicolumn{1}{l|}{}                                     & \multicolumn{1}{c|}{Vote-by-mail}    &                               & $\Checkmark$                &                      & $\Checkmark$                     & $\Checkmark$                           
 \end{tabular}
 \end{table}
-##
+--> 
+
 
 
 ```{r earlyvoting_data_load}
