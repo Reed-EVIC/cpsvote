@@ -1,10 +1,8 @@
 ---
-title: "`cpsvote`: A Social Science Toolbox For Using the Current Population Survey's Voting and Registration Supplement"
-author: "Paul Gronke, Early Voting Information Center at Reed College"
-date: "`r format(Sys.time(), '%d %B %Y')`"  
+title: "`cpsvote`: Relevant Background for Using the Current Population Survey's Voting and Registration Supplement"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Background}
+  %\VignetteIndexEntry{background}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,32 +16,24 @@ knitr::opts_chunk$set(
 
 
 The United States Census Bureau has collected information about voter registration and turnout since 1964. The surveys are conducted every November during federal election years, and are 
-generally referred to as the Voting and Registration Supplement (VRS). The official website for the CPS VRS is located at https://www.census.gov/topics/public-sector/voting.html, and the "About Me" page (https://www.census.gov/topics/public-sector/voting/about.html provides more detailed information on the history of this data collection project.^[A 175 page document, "Design and Methodology: Current Population Survey" (https://www.census.gov/prod/2006pubs/tp-66.pdf), provides a very deep dive in the history and methodology of the CPS.] 
+generally referred to as the Voting and Registration Supplement (VRS). The official website for the CPS VRS is located at https://www.census.gov/topics/public-sector/voting.html, and the ["About Me"](https://www.census.gov/topics/public-sector/voting/about.html) page  provides more detailed information on the history of this data collection project (a 175 page document, ["Design and Methodology: Current Population Survey"](https://www.census.gov/prod/2006pubs/tp-66.pdf), provides a very deep dive in the history and methodology of the CPS).
 
 The CPS VRS is an important resource to understand voter registration and voter turnout in the United States. The sample size, data quality, and
 consistency of the VRS makes it an invaluable resource to compare registration and turnout rates over time, within states, and among subgroups. Other high-quality national surveys like the [American National Election Study](https://electionstudies.org/) or the [General Social Survey](http://gss.norc.org/) have also been administered over decades, but their samples are not designed for state level analyses, and neither includes the same kinds of questions about voter registration and voting that are part of the CPS VRS. 
 
 Anyone interested in American elections, voter registration, or voter turnout will want to learn how to use the CPS VRS, but the CPS can be
-challenging to use, especially for less experienced analysts. The `cpsvote` package is designed to overcome these challenges. Most importantly, the `cpsvote` package:
-
-1. Will dynamically access the CPS VRS data so that you need not download any information to your local computer.
-2. Creates a set of variables with the same name and the same coding for each year of the CPS VRS. 
-3. Appropriately codes voting turnout, following guidelines proposed by Hur and Achen (2013) necessary in order to correctly estimate turnout. 
-4. Uses the `srvyr` package, and supplies the correct commands, to *weight* the CPS VRS data as necessary. 
-  
-More details on these procedures are provided below. 
+challenging to use, especially for less experienced analysts. The `cpsvote` package is designed to overcome these challenges. More details on these procedures are provided in other vignettes; see `vignettes("basics")`.
 
 ## Using the CPS VRS: Methodological and Data Challenges
 
 ### Challenge 1: Survey Content, Column Names, and Coding Change Over Time
 
-The content of the CPS VRS has changed over time, in some cases in response to real world changes in the legal environment, most notably the passage of the National Voter Registration Act (NVRA) in 1993. The content of the survey has remained relatively consistent since 1996. As a result, many users only use the CPS since 1996, and this package follows this convention. 
+The content of the CPS VRS has changed over time, in some cases in response to real world changes in the legal environment - most notably the passage of the National Voter Registration Act (NVRA) in 1993. The content of the survey has remained relatively consistent since 1996. As a result, many users only use the CPS since 1996, and this package provides data since 1994. 
 
 From 1996 forward, the content has remained relatively constant, but sometimes the Census has changed the location, names, and even the coding for individual variables. It is very important that anyone using multiple years of the CPS VRS pay extremely close attention to the coding choices that were made in each year. 
-
 **The `cpsvote` package does most of this work for you, while still retaining the data in its original format.**
 
-We have made (what we consider) sensible decisions about which columns from the VRS get combined across disparate years, while also leaving you the opportunity to bring in additional columns or join years differently.
+We have made (what we consider) sensible decisions about which columns from the VRS get combined across disparate years, while also leaving you the opportunity to bring in additional columns or join years differently; see `vignettes("recode-specs")`.
 
 ### Challenge 2: Survey Weights Are a Necessity
 
