@@ -1061,3 +1061,11 @@ based on your own column names.
     `cpsvote`. See BLANK vignette for the code that created this.
 
 ![](img/vote_mode.gif)
+
+## Acknowledgements
+
+The `cpsvote` package was originally created at the [Early Voting
+Information Center at Reed College](https://evic.reed.edu/). We are
+indebted to support from the [Elections Team at the Democracy
+Fund](https://democracyfund.org/) and [Reed
+College](https://www.reed.edu/) for supporting the work of EVIC.
