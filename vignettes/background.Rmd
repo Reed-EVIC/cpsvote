@@ -1,5 +1,5 @@
 ---
-title: "`cpsvote`: Relevant Background for Using the Current Population Survey's Voting and Registration Supplement"
+title: "Background Information and Context for `cpsvote`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{background}
@@ -10,10 +10,13 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  warning = FALSE, 
+  message = FALSE
 )
 ```
 
+## Background: Why We Created `cpsvote`
 
 The United States Census Bureau has collected information about voter registration and turnout since 1964. The surveys are conducted every November during federal election years, and are 
 generally referred to as the Voting and Registration Supplement (VRS). The official website for the CPS VRS is located at https://www.census.gov/topics/public-sector/voting.html, and the ["About Me"](https://www.census.gov/topics/public-sector/voting/about.html) page  provides more detailed information on the history of this data collection project (a 175 page document, ["Design and Methodology: Current Population Survey"](https://www.census.gov/prod/2006pubs/tp-66.pdf), provides a very deep dive in the history and methodology of the CPS).
@@ -21,25 +24,36 @@ generally referred to as the Voting and Registration Supplement (VRS). The offic
 The CPS VRS is an important resource to understand voter registration and voter turnout in the United States. The sample size, data quality, and
 consistency of the VRS makes it an invaluable resource to compare registration and turnout rates over time, within states, and among subgroups. Other high-quality national surveys like the [American National Election Study](https://electionstudies.org/) or the [General Social Survey](http://gss.norc.org/) have also been administered over decades, but their samples are not designed for state level analyses, and neither includes the same kinds of questions about voter registration and voting that are part of the CPS VRS. 
 
-Anyone interested in American elections, voter registration, or voter turnout will want to learn how to use the CPS VRS, but the CPS can be
-challenging to use, especially for less experienced analysts. The `cpsvote` package is designed to overcome these challenges. More details on these procedures are provided in other vignettes; see `vignettes("basics")`.
+Anyone interested in American elections, voter registration, or voter turnout will want to learn how to use the CPS VRS, but the CPS can be challenging to use, especially for less experienced analysts. 
 
-## Using the CPS VRS: Methodological and Data Challenges
+The `cpsvote` package is designed to overcome these challenges. The package eases access to the CPS by completing the following steps using a single command or a small number of lines:
 
-### Challenge 1: Survey Content, Column Names, and Coding Change Over Time
+1. Dynamically accesses the CPS VRS data so that you need not manually download any information to your local computer.
+2. Creates a set of variables with the same name and the same coding for each year of the CPS VRS. 
+3. Appropriately codes voting turnout, following guidelines proposed by Hur and Achen (2013) necessary in order to correctly estimate turnout, and creates an alternative survey weight to adjust for non-response bias
+4. Uses the `srvyr` package, and supplies the correct commands, to *weight* the CPS VRS data as necessary. 
+  
+More details on these procedures are provided below; see also `vignettes("basics")`.
 
-The content of the CPS VRS has changed over time, in some cases in response to real world changes in the legal environment - most notably the passage of the National Voter Registration Act (NVRA) in 1993. The content of the survey has remained relatively consistent since 1996. As a result, many users only use the CPS since 1996, and this package provides data since 1994. 
+## Using the CPS Voting and Registration Supplement: Methodological and Data Challenges
 
-From 1996 forward, the content has remained relatively constant, but sometimes the Census has changed the location, names, and even the coding for individual variables. It is very important that anyone using multiple years of the CPS VRS pay extremely close attention to the coding choices that were made in each year. 
-**The `cpsvote` package does most of this work for you, while still retaining the data in its original format.**
+### Challenge 1: The Survey Content, Column Names, and Coding Change Over Time
+
+The content of the CPS VRS has changed over time, in some cases because of real world changes in the legal environment, most notably the passage of the National Voter Registration Act (NVRA) in 1993, and other times,
+to provide a more clear reflection of changing voting behavior. The content of the survey has remained relatively consistent since 1996. As a result, many users only use the CPS since 1996, and this package follows this convention. 
+
+Even though the content has remained relatively constant from 1996, 
+the Census has sometimes changed the location, names, and even the coding for individual variables. It is very important that anyone using multiple years of the CPS VRS pay extremely close attention to the coding choices that were made in each year.
 
 We have made (what we consider) sensible decisions about which columns from the VRS get combined across disparate years, while also leaving you the opportunity to bring in additional columns or join years differently; see `vignettes("recode-specs")`.
 
-### Challenge 2: Survey Weights Are a Necessity
+**The `cpsvote` package does most of these recoding and relabeling work for you, while still retaining the data in its original format.**
+
+### Challenge 2: Survey Weights Are a Necessity When Using the Voting and Registration Supplement
 
 Most surveys provide a sample weight that allows the survey results to be generalized to the target population. Typically, survey weights are provided because the sampling design may have included survey strata, or there may have been oversampling applied to specific groups. Survey weights can also adjust for simple deviations in the sampled population and the target population, either due to non-responses or even just as a result of randomization. 
 
-The CPS uses a particularly complex survey design. As described in the 175 document referenced above, "The CPS sample is a multistage stratified sample of approximately 72,000 assigned housing units from 824 sample areas designed to measure demographic and labor
+The CPS uses a particularly complex survey design. As described in the ["Design and Methodology: Current Population Survey" document] (https://www.census.gov/prod/2006pubs/tp-66.pdf), "The CPS sample is a multistage stratified sample of approximately 72,000 assigned housing units from 824 sample areas designed to measure demographic and labor
 force characteristics of the civilian noninstitutionalized population 16 years of age and older." 
 
 Critically, the CPS is designed to generate national *and* state estimates, and samples *households*, not individuals. These two considerations both mean that individual respondents are not sampled with equal probability, i.e. a Montanan living in a single-person household will have a much higher probability of being sampled than a Californian living in a six-person household. The sample weight provided by the CPS adjusts your estimates so as to take into account these different probabilities of being sampled, and is needed to produce statistically valid estimates. 
@@ -47,126 +61,127 @@ Critically, the CPS is designed to generate national *and* state estimates, and 
 `R` has not historically made using survey weights very easy, but two packages have simplified the process. [Thomas Lumley's `survey` package](http://r-survey.r-forge.r-project.org/survey/) and his 2011 volume [Complex Surveys: A Guide to Analysis Using R](http://r-survey.r-forge.r-project.org/svybook/) are the recommended sources for weighting survey data in `R`.
 
 A recently released package, `srvyr`, provides "`dplyr`-like syntax for summary statistics of survey data" ([`srvyr` at CRAN](https://cran.r-project.org/web/packages/srvyr/)). `srvyr` acts as a wrapper around `survey` and makes 
-many of the commands more easy to apply.
+many of the commands more easy to apply. 
+
+In most of the examples provided in this documentation, we use the
+`srvyr` command syntax, but some `survey` examples are provided.
 
 **The `cpsvote` package provides detailed instructions to use `srvyr` to correctly weight your data.** 
 
-### Challenge 3: CPS Makes Confusing Coding Choices for Voter Turnout, and Turnout Estimates Are Biased 
+### Challenge 3: CPS Makes Idiosyncratic Coding Choices for Voter Turnout, and Turnout Estimates Are Biased 
 
 There are two final, and related, challenges to use the CPS VRS for estimating voter turnout. Both of these adjustments need to be made in order
 to produce statistically valid estimates of turnout. The `cpsvote` packages provides turnout measures that incorporate the correct coding, and
 we document a method to adjust for biases in turnout. 
 
 First, the CPS has long used an "idiosyncratic" 
-coding rule that has been recognized over time and was carefully documented by two scholars, Aram Hur and Christopher Achen, in a 2013 article titled ["Coding Voter Turnout Responses in the Current Population Survey"](https://academic.oup.com/poq/article/77/4/985/1843466/). The coding rule
-is not at all clear from the CPS documentation, and without correct coding, incorrect turnout estimates will be produced.
+coding rule that has been recognized over time and was carefully documented by two scholars, Aram Hur and Christopher Achen, in a 2013 article titled ["Coding Voter Turnout Responses in the Current Population Survey"](https://academic.oup.com/poq/article/77/4/985/1843466/). 
 
-From the Hur and Achen (2013) abstract:
+The coding rule
+is not at all clear from the CPS documentation, and without correct coding, your turnout estimates will be incorrect. 
+
+Furthermore, because the CPS counts non-responses as "not voted," their
+coding scheme has been vulnerable to changing non-response rates over time. 
+
+Hur and Achen (2013) describe the problem in their abstract:
 
 >"The Voting and Registration Supplement to the Current Population Survey (CPS) employs a large sample size and has a very high response rate, and thus is often regarded as the gold standard among turnout surveys. In 2008, however, the CPS inaccurately estimated that presidential turnout had undergone a small decrease from 2004. We show that growing nonresponse plus a long-standing but idiosyncratic Census coding decision was responsible. We suggest that to cope with nonresponse and overreporting, users of the Voting Supplement sample should weight it to reflect actual state vote counts."
+
+**The `cpsvote` package provides the original Census coding scheme in the `cps_turnout` variable that is produced by the default functions.**
+
+A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper^[Michael McDonald, 2014, "What's Wrong with the CPS?", Paper presented at the Annual Meeting of the American Political Science Association.] and at the [http://www.electproject.org/home/voter-turnout/cps-methodology](United States Elections Project's CPS Over-Report and Non-Response Bias Correction) page is that, over time, two biases have crept into the CPS, one from increasing non-response rates, the second from over-reports of turnout. 
 
 Hur and Achen suggest a complex post-stratification adjustment to the data that will adjust for these biases:
 
 >We recommend dropping all categories of missing turnout response, and then poststratifying the remaining CPS sample so that the survey turnout rate in each state matches the corresponding state VEP turnout.
 
-A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper^[Michael McDonald, 2014, "What's Wrong with the CPS?", Paper presented at the Annual Meeting of the American Political Science Association.] and at the [http://www.electproject.org/home/voter-turnout/cps-methodology](United States Elections Project's CPS Over-Report and Non-Response Bias Correction) page is that, over time, two biases have crept into the CPS, one from increasing non-response rates, the second from over-reports of turnout. 
+The Hur-Achen post-stratification weight relies on the authoritative
+estimates for state-level turnout. 
 
-Professor Michael McDonald of the University of Florida helpfully provides guidance on this more complex procedure. He provides <Commentary, Guidelines, and Stata Code>[link](http://www.electproject.org/home/voter-turnout/cps-methodology) at his website. 
-
-**The `cpsvote` package provides the original Census coding scheme in the `cps_turnout` variable that is produced by the default functions.**
+The source for these authoritative
+estimates is the United States Election Project, directed by Professor Michael McDonald of the University of Florida. Professor McDonald helpfully provides guidance on this complex weighting procedure. Stata code is provided at his website:<Commentary, Guidelines, and Stata Code>[link](http://www.electproject.org/home/voter-turnout/cps-methodology).
 
 We have integrated the Hur and Achen recoding into the `cpsvote` package, contained in the variable `hurachen_turnout` that is produced by the default functions. The original CPS weight is provided in the variable `WEIGHT`, and a weight adjusted for proper turnout coding and post-stratification for over-reporting is provided in the variable `turnout_weight`.
 
 Please read [turnout](turnout.html) for the commands and additional documentation. 
 
-## Getting Started
+**The `cpsvote` package creates an alternative survey weight based on the current scientific research.**
 
-### Installation
+## Sample Usage: Voter Turnout in 2016, Comparing Unweighted, Census Weighted and Hur-Achen Weighted Estimates
 
-You can install our package from CRAN.
+```{r turnout_table, message = FALSE}
 
-```{r eval = FALSE, echo = TRUE}
-install.packages("cpsvote")
-```
-
-The current development version can be installed directly from our [GitHub repository](https://github.com/Reed-EVIC/cpsvote), as well.
-
-```{r eval = FALSE, echo = TRUE}
-remotes::install_github("Reed-EVIC/cpsvote")
-```
-
-### A One-Step Guide for People Who Don't Read Documentation
-
-1. `cps <- cps_load_basic()` Will load all available years of data (and if not available, will download) and perform a set of additional data labeling and transformations to prepare the CPS VRS data from 1994 - 2018 for analysis. 
-
-
-### A Quick Guide
-
-The steps shown below install the package locally, download all CPS files from 1994 to 2018, load the files into memory, and output a data frame
-with CPS Voting and Registration Supplement data from 1994-2018. 
-
-
-1. `library(cpsvote)`
-2. `cpsvote::cps_download_data()` (Only necessary if using the package for the first time; after that, the files will already be downloaded and you 
-can skip this step)
-3. `cps_vote <- cpsvote::cps_read()` will read all available years into memory, and place these into a data frame named `cps_vote`.
-4. `cps_vote <- cpsvote::cps_label()`
-
-Columns are labeled according to a standarized scheme intended to make it as easy as possible to compare years. 
-A cross-reference to the original CPS column labels can be obtained
-by loading `data(cps_cols)` and inspecting the dataframe. 
-
-### Advanced Guide
-
-1. *Download the CPS Files*
-    i) `cpsvote` will download the CPS files directly from a federal data repository (http://data.nber.org/data/current-population-survey-data.html). By default `cpsvote` will create a new subdirectory
-  in your working directory named "cps_data" and store the compressed data files in that location.
-    ii) If you choose to download data files and store them in a separate location, `cpsvote` can only process files that retain
-  the original file name. See the "Data Description" vignette for a list of the expected file names.
-    iii) `cpsvote::cps_download_data(path, years = seq(start,end,sequence))` will download CPS VRS data to the given `path`
-         a) Example: `cpsvote::cps_download_data()` will download all data files  and place the files in the default download path ("./cps_data").
-         b) Example: `cpsvote::cps_download_data(path = "~/mydata/CPS", years = seq(2000, 2014, 4))` will download the 2000, 2004, 2008, and 2012 CPS files and place them in the path "~/mydata/CPS".
-
-2. *Import the Data Into R and Create a Dataframe*
-   i) `cpsvote` performs a series of data transformations that produce a set of comparably coded variables across all of the survey years. These
-  variables are listed in the "Data Description" vignette.
-   ii) `cpsvote::cps_read(dir = "data_dir", years = seq(start,end,sequence))` will read CPS data files located in "data_dir" into memory.  Remember
-  that the file names need to  be unmodified from what is stored at the [NBER](http://data.nber.org/data/current-population-survey-data.html). See the "Data Description" vignette for a list of the expected file names.
-       a) Example: `cps_vote <- cpsvote::cps_read()` will read all data files (1994 - 2018) from the default directory ("cps_data"), recode their columns according
-  to a common coding scheme, and merge them into a single data frame called
-  "cps_vote". 
-       b) Example: `cps_vote <- cpsvote::cps_read(dir = "~/mydata/CPS", years = seq(1994, 2000, 2))` will load CPS files from 1994, 1996, 1998, and 2000, 
-  assuming the data files are stored in "~/mydata/CPS", then perform recodes, merge, and label the data frame as "cps_vote".  
-  
-3. *Download documentation*
-   i) `cpsvote::cps_download_docs()` downloads all documentation files, and places them in "./cps_docs"
-   ii) `cpsvote::cps_download_docs(path = "dir", years = seq(start, end, sequence)` allows you to control the target directory and 
-   years for the documentation.
-  
-### Sample Usage: Voter Turnout in 2016
-
-```{r setup, echo = TRUE, eval = FALSE}
 #library(cps)
-cpsvote::cps_download_data(years = 2016) # Download the 2016 CPS
-cps2016 <- cpsvote::cps_read(years = 2016) # Read in CPS 2016. Ignore the warning since we don't care
-                                           # about joining any files
+library(tidyverse)
+library(kableExtra)
 
+cps2016 <- cpsvote::cps_load_basic(years = 2016) # Read in CPS 2016. 
+
+## Dichotomous turnout variables for calculating means
+cps2016 <- cps2016 %>%
+  mutate(cps_turnout_d = case_when(
+    cps_turnout == "YES" ~ 1,
+    cps_turnout == "NO" ~0),
+    hurachen_turnout_d = case_when(
+    hurachen_turnout == "YES" ~ 1,
+    hurachen_turnout == "NO" ~ 0)
+  )
+
+##################
 ## SURVEY WEIGHTS
+#################
+
 # The CPS data MUST be weighted. The "weighting" vignette provides additional information 
                 # about using using the survey or srvyr packages to produce valid statistical results
 
 library(survey)
 library(srvyr)  
 
-cps2016_w1 <-                                             # SURVEY Package Syntax
-    svydesign( 
+cps2016_surveyCW <-                                             # SURVEY Package Syntax
+    svydesign(                                                  # Census weight
         ~ 1 , 
         data = cps2016, 
         weights = ~ WEIGHT
     )
 
-cps2016_w2 <- as_survey_design(cps2016, weights = WEIGHT) #SRVYR Package Syntax
+cps2016_surveyHW <-                                             # SURVEY Package Syntax
+    svydesign(                                                  # Hur Achen weight
+        ~ 1 , 
+        data = cps2016, 
+        weights = ~ turnout_weight
+    )
 
+cps2016_srvyrHW <- as_survey_design(cps2016, weights = turnout_weight)  # SRVYR Package Syntax, 
+                                                                        # Hur and Achen weight
 
+turnout_estimates <- cps2016 %>%
+  summarize(Unweighted = mean(cps_turnout_d, na.rm = TRUE),
+            Census_Weighted = svymean(cps_turnout_d, cps2016_surveyCW, na.rm = TRUE),
+            Hur_Achen_Weighted = svymean(hurachen_turnout_d, cps2016_surveyHW, na.rm = TRUE))
 
+kable(turnout_estimates)
 ```
+
+The table shows the overestimate of turnout using the Census
+method, because it fails to account for growing non-response bias. The Hur-Achen weighed estimate of 2016 turnout,  `r turnout_estimates$Hur_Achen_Weighted`, is closest to the 60.1\% estimate
+provided by the [US Elections Project](http://www.electproject.org/2016g).
+
+## More Resources
+
+1. [The basics user guide](basics.html) provides a basic introduction
+to installing and using the `cpsvote` package.
+
+2. [The Voting vignette](voting.html) shows how to use `cpsvote` to make
+estimates of voting turnout, with examples of figures, maps, and use 
+of different modes of voting (Election Day, Early In Person, and Voting by Mail / Absentee).
+
+3. [The Add Variables vignette](add_variables.html) shows how users
+can add variables from the CPS, such as income or education, in order
+to compare voter turnout across these groups. 
+
+## Acknowledgements
+
+The `cpsvote` package was originally created at the [Early Voting Information Center at Reed College](evic.reed.edu). We are indebted
+to support from the [Elections Team at the Democracy Fund](democracyfund.org) and [Reed College](reed.edu) for supporting
+the work of EVIC. 
+
