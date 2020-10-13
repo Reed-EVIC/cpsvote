@@ -1,0 +1,233 @@
+---
+title: "Producing Voter Turnout Estimates"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{turnout estimates}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  messages = FALSE, warnings = FALSE
+)
+library(knitr)
+library(kableExtra)
+
+```
+
+```{r packages, echo = TRUE}
+library(cpsvote)
+library(dplyr)
+library(ggplot2)
+library(here)
+
+```
+
+The Current Population Survey's Voting and Registration Supplement, collected in November of every
+federal election year, is an important source to estimate voting turnout in the United States 
+and in individual states, regions, and among key demographic groups. 
+
+There are two challenges to use the CPS VRS for estimating voter turnout. 
+The first is an idiosyncratic coding method that the Census has used to code voting turnout that needs to be
+understoof by the user, or else basic descriptive statistics will not match those reported by the Census in
+its documentation and reports. 
+
+The second is a more complicated methodological issue that involves changes 
+in the rate of non-response and resulting biases in CPS's turnout estimates. 
+
+The appropriate Census recodes and statistical adjustments for non-response bias are automated as part of `cpsvote`. 
+
+## Coding the Turnout Variable
+
+The CPS has long used an "idiosyncratic" coding rule for reporting turnout, derived from the answer
+to question "PES1" since 1996 (in 1994, the question was labeled "PES3"). The rule was carefully documented by two scholars, Aram Hur and Christopher Achen, in a 2013 article titled ["Coding Voter Turnout Responses in the Current Population Survey"](https://academic.oup.com/poq/article/77/4/985/1843466/). The coding rule
+is not clear from the CPS documentation, and without correct coding, any turnout estimates that are produced
+will not match those reported by the CPS. 
+
+In the CPS codebook, the variable is reported in this way (from the 2016 documentation): 
+
+In any election, some people are not able to vote because they are sick or busy or have some other reason, and others do not want to vote. Did (you/name) vote in the election held on Tuesday, November X, XXXX?
+
+\begin{tabular}{llll}
+NAME &   SIZE &  DESCRIPTION &  LOCATION  \\
+PES1 &   2    &  \parbox{2in}{In any election, some people are  not able to vote because they are 
+sick or busy or have some other reason, and others do not want to vote. Did (you/name) 
+vote in the election held on Tuesday, November X, XXXX?}  & 951-952 \\
+ & & EDITED UNIVERSE: & \\
+ & & & \\
+ & & \parbox{2in}{PRTAGE >=18 and PRCITSHP = 1, 2, 3, or 4} & \\
+ & & & \\
+ & & VALID ENTRIES: & \\
+ & & & \\
+ & & 1  Yes & \\
+ & & 2  No  & \\
+& & -1 Not in Universe & \\ 
+& & -2 Don't Know & \\
+& & -3 Refused & \\
+& & -9 No Response & 
+\end{tabular}
+
+Because some users of the `CPSvote` package may not be able to access this article, we reproduce the critical section from Hur and Achen (2013) that describes the coding choices below:
+
+>In its official reports, however, the CPS does not follow the conventional academic coding rules for turnout responses. Instead, it treats Don’t Know, Refused, and No Response as indicating that the respondent did not vote. ... The Census Bureau’s decision to count the No Response individuals as nonvoters is consequential. No Response alone makes up 11.2 percent of the 2008 sample. Coding all of them, plus Don’t Know and Refused, as nonvoters reduces the estimated turnout rate by nearly 10 percentage points, cancelling most of the 12-point overreport in the original data.
+
+**The `CPSvote` package provides an option to apply the Census coding scheme in the turnout variable.**
+
+## Bias in Turnout Estimates
+
+A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper^[Michael McDonald, 2014, "What's Wrong with the CPS?", Paper presented at the Annual Meeting of the American Political Science Association.] and at the [http://www.electproject.org/home/voter-turnout/cps-methodology](United States Elections Project's CPS Over-Report and Non-Response Bias Correction) page is that, over time, two biases have crept into the CPS, one from increasing non-response rates, the second from over-reports of turnout. 
+
+From the Hur and Achen (2013) abstract:
+
+>"The Voting and Registration Supplement to the Current Population Survey (CPS) employs a large sample size and has a very high response rate, and thus is often regarded as the gold standard among turnout surveys. In 2008, however, the CPS inaccurately estimated that presidential turnout had undergone a small decrease from 2004. We show that growing nonresponse plus a long-standing but idiosyncratic Census coding decision was responsible. We suggest that to cope with nonresponse and overreporting, users of the Voting Supplement sample should weight it to reflect actual state vote counts."
+
+Hur and Achen suggest a complex post-stratification adjustment to the data that will adjust for these biases:
+
+>We recommend dropping all categories of missing turnout response, and then poststratifying the remaining CPS sample so that the survey turnout rate in each state matches the corresponding state VEP turnout.
+
+Professor Michael McDonald of the University of Florida helpfully provides guidance on this more complex procedure. He provides <Commentary, Guidelines, and Stata Code>[link](http://www.electproject.org/home/voter-turnout/cps-methodology) at his website. 
+
+The Hur and Achen corrections have been integrated into the `cpsvote` package. Please read [turnout](turnout.html) for the commands and additional documentation. 
+
+## Recoding and Reweighting Using CPS Vote
+
+`cpsvote` provides two commands that will recode the turnout variable and produce a Hur-Achen weight. 
+
+### Recoding
+
+```
+cps_recode_vote(
+  data,
+  vote_col = "VRS_VOTE",
+  items = c("DON'T KNOW", "REFUSED", "NO RESPONSE")
+)
+```
+
+#### Arguments
+
+1. _data_: the input data set
+2. _vote_col_	which column contains the voting variable
+3. _items_	which items should be "No" in the CPS coding and NA in the Hur & Achen coding
+
+#### Output
+
+A data frame data with two columns attached, `cps_turnout` and `hurachen_turnout`, voting variables recoded according to the process above. If the command is issued without any parameters beyond the data frame,
+the default column names are assumed. 
+
+### Reweighting
+
+`cps_reweight_turnout(data)`
+
+#### Arguments
+
+1. _data_: the input data set, which must contain columns named `YEAR`, `STATE`, and `hurachen_turnout`
+
+#### Output
+
+A data frame data with one column attached, `turnout_weight` which should be used in lieu of the 
+Census provided weight (name `WEIGHT` after renaming by `cps_vote`).
+
+## Sample Usage: Voter Turnout in 2016
+
+Start by reading the files and performing specialized `cpsvote` recoding, create new survey weights. 
+
+```{r setup2, echo = TRUE}
+#library(cps)
+cpsvote::cps_download_data(years = 2016) # Download the 2016 CPS, if not already downloaded
+cps2016 <- cpsvote::cps_read(years = 2016) # Read in CPS 2016. Ignore the warning since we don't care
+                                           # about joining any files
+## Apply the turnout recodes
+cps2016 <- cps_recode_vote(cps2016)
+
+## Create the new survey weight
+cps2016 <- cps_reweight_turnout(cps2016)
+
+## Create factors out of categorical variables 
+cps2016 <- cps_label(cps2016)
+
+## Dichotomous turnout variables for calculating means
+cps2016 <- cps2016 %>%
+  mutate(cps_turnout_d = case_when(
+    cps_turnout == "YES" ~ 1,
+    cps_turnout == "NO" ~0),
+    hurachen_turnout_d = case_when(
+    hurachen_turnout == "YES" ~ 1,
+    hurachen_turnout == "NO" ~ 0)
+  )
+
+## SURVEY WEIGHTS
+# The CPS data MUST be weighted. The "weighting" vignette provides additional information 
+                # about using using the survey or srvyr packages to produce valid statistical results
+
+library(survey)
+library(srvyr)  
+
+cps2016_surveyCW <-                                             # SURVEY Package Syntax
+    svydesign(                                                  # Census weight
+        ~ 1 , 
+        data = cps2016, 
+        weights = ~ WEIGHT
+    )
+
+cps2016_surveyHW <-                                             # SURVEY Package Syntax
+    svydesign(                                                  # Hur Achen weight
+        ~ 1 , 
+        data = cps2016, 
+        weights = ~ turnout_weight
+    )
+
+cps2016_srvyrHW <- as_survey_design(cps2016, weights = turnout_weight)  # SRVYR Package Syntax, 
+                                                                        # Hur and Achen weight
+```
+
+Generate unweighted, CPS weighted, and Hur/Achen weighted estimates of voter turnout. 
+
+```{r turnout, echo = TRUE}
+
+turnout_estimates <- cps2016 %>%
+  summarize(Unweighted = mean(cps_turnout_d, na.rm = TRUE),
+            Census_Weighted = svymean(cps_turnout_d, cps2016_surveyCW, na.rm = TRUE),
+            Hur_Achen_Weighted = svymean(hurachen_turnout_d, cps2016_surveyHW, na.rm = TRUE))
+
+kable(turnout_estimates)
+```
+
+Generate Hur/Achen weighted turnout estimates by racial groups
+
+```{r turnout_race, echo = TRUE}
+
+cps2016_srvyrHW %>%
+  filter(RACE %in% c("WHITE ONLY", "BLACK ONLY", "AMERICAN INDIAN, ALASKAN NATIVE ONLY",
+                     "ASIAN ONLY", "HAWAIIAN/PACIFIC ISLANDER ONLY")) %>%
+  group_by(RACE) %>%
+  summarize(turnout = survey_mean(hurachen_turnout_d, na.rm = TRUE)) %>%
+  ggplot(., aes(x = RACE, y = turnout)) +
+  geom_bar(stat = "identity") + 
+  scale_x_discrete(labels = c("WHITE ONLY"= "White",
+                                "BLACK ONLY" = "Black", 
+                                "AMERICAN INDIAN, ALASKAN NATIVE ONLY" = "Amer Indian/Alakan",
+                                "ASIAN ONLY" = "Asian", 
+                                "HAWAIIAN/PACIFIC ISLANDER ONLY" = "Hawaii/PacIsland")) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(x = "", y = "Turnout", title = "Turnout by Race, 2016")
+
+  
+
+```
+
+```{r turnout_statemap, echo = TRUE}
+library(usmap)
+
+cps2016_srvyrHW %>%
+  mutate(state = STATE) %>%
+  group_by(state) %>%
+  summarize(turnout = survey_mean(hurachen_turnout_d, na.rm = TRUE)) %>%
+  plot_usmap(data = ., values = "turnout", color = "blue") +
+  scale_fill_continuous(low = "white", high = "blue", name = "Turnout Rate") +
+  theme(legend.position = "right") + labs(title = "Voting Turnout in the United States, 2016")
+
+```

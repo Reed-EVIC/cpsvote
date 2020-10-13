@@ -14,7 +14,7 @@ editor_options:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
-  messages = FALSE, warnings = FALSE,
+  message = FALSE, warning = FALSE,
   fig.width = 6, fig.height = 3
 )
 library(knitr)
@@ -31,21 +31,39 @@ library(tidyverse)
 
 ```
 
-# Using the CPS Voting and Registration Supplement to Examine Voting
+## Voting: How the `cpsvote` package makes it easier to use the CPS Voting and Registration Supplement to examine voting
 
 The Current Population Survey's Voting and Registration Supplement, collected in November of every
-federal election year, is an important source to understand many aspects of the American elections system: voter registration, 
-voting turnout, modes of voting (Election Day, Early In Person, Voting By Mail), and barriers to registration and turnout. Because of its 
+federal election year, is an important source to understand many aspects of the American elections system.
+Because of its 
 relative stability over time, large sample sizes, and quality of administration, the CPS is a uniquely valuable data resource to 
 estimate voting turnout in the United States 
-and in individual states, regions, and among key demographic groups. 
+and in individual states, regions, and among key demographic groups. The CPS is one of the primary ways we
+understand voter registration, 
+voting turnout, and use of different modes of voting (Election Day, Early In Person, Voting By Mail) in the
+United States since 1996.
 
 This vignette focuses on how the `cpsvote` package provides a 
-simple avenue to examine voting turnout and mode of voting. The vignette
-documents key data transformation decisions that are made so as to 
-allow comparisons over years. 
+simple avenue to examine voting turnout and mode of voting. The vignette includes detailed documentation of
+how the CPS codes voting turnout and mode of voting, and 
+documents the key data transformation decisions made in the package that will allow easier comparison across years. The 
+vignette documents non-response bias in the CPS and how an alternative post-stratification weight can be applied
+to adjust for this bias. Finally, the vignetee includes a series of examples of tables and visualizations of voting
+turnout and use of different modes of voting that illustrate use of `cpsvote`. 
 
-# Overview
+The vignette is organized into the following sections:
+
+1. [Overview](#overview) of challenges with using the CPS to study voter turnout
+2. [Voting Turnout](#votingturnout): Review of the problem
+3. [Sample Usage](#sample2016): Estimating Voter Turnout In 2016
+4. [Example](#race2016): Turnout by racial groups
+5. [Example](#map2016): A simple map of voter turnout by state
+6. [Voting Mode in the CPS](#votingmode): Election Day, Early In Person, and Absentee/Voting By Mail
+7. [Example](#modegrowth): Growth in Early In Person and Vote By Mail, 1996-2018
+8. [Example](#vbmgrowth): Regional Use of Voting at Home, 1996-2018
+9. [Example](#modemaps): Maps of By Mail, Early In Person, and Election Day Voting in 2016
+
+## <a name="overview"></a>Overview of how `cpsvote` helps resolve challgnes with using the CPS to study voting turnout
 
 There are three challenges to use the CPS VRS for estimating voting turnout and mode of voting.
 
@@ -61,7 +79,7 @@ Third, CPS changed the way that it asked about _mode of voting_, using
 two questions from 1996-2002, and a single question from 2004-present. `cpsvote` creates a consolidated variable, `VRS_VOTEMETHOD_CON`, that
 codes for Election Day, Early In Person, and Voting By Mail from 1996-2018.
 
-# Voting Turnout Using The CPS
+## <a name="votingturnout"></a>Voting turnout using the CPS: review of the problem
 
 The CPS has long used an "idiosyncratic" coding rule for reporting turnout, derived from the answer
 to question "PES1" since 1996 (in 1994, the question was labeled "PES3").  The coding rule
@@ -103,7 +121,7 @@ Because some users of the `cpsvote` package may not be able to access this artic
 
 **The `cpsvote` package provides an option to apply the Census coding scheme to creat two new columns, `cps_turnout` and `hurachen_turnout`.**
 
-## How To Correct For Non-Response Bias in CPS Turnout Estimates
+### How To Correct For Non-Response Bias in CPS Turnout Estimates
 
 A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper^[Michael McDonald, 2014, "What's Wrong with the CPS?", Paper presented at the Annual Meeting of the American Political Science Association.] and at the [http://www.electproject.org/home/voter-turnout/cps-methodology](United States Elections Project's CPS Over-Report and Non-Response Bias Correction) page is that, over time, two biases have crept into the CPS, one from increasing non-response rates, the second from over-reports of turnout. 
 
@@ -115,14 +133,15 @@ Hur and Achen suggest a complex post-stratification adjustment to the data that 
 
 >We recommend dropping all categories of missing turnout response, and then poststratifying the remaining CPS sample so that the survey turnout rate in each state matches the corresponding state VEP turnout.
 
-Professor Michael McDonald of the University of Florida helpfully provides guidance on this more complex procedure. He provides <Commentary, Guidelines, and Stata Code>[link](http://www.electproject.org/home/voter-turnout/cps-methodology) at his website. 
+Professor Michael McDonald of the University of Florida helpfully provides guidance on this more complex procedure. He provides <Commentary, Guidelines, and Stata Code>[link](http://www.electproject.org/home/voter-turnout/cps-methodology) at his website. We have adapted this code for `R` and have integrated
+it into the `cpsvote` package. 
 
 **The Hur and Achen corrections have been integrated into the `cpsvote` package.**
 
 ## Recoding and Reweighting Voting Turnout Using `cpsvote`
 
 `cpsvote` provides two commands that will create two new turnout 
-variables (`cps_turnot` and `hurachen_turnout`) and produce a Hur-Achen weight (`turnout_weight`). 
+variables (`cps_turnout` and `hurachen_turnout`) and produce a Hur-Achen weight (`turnout_weight`). 
 
 ### A One-Step Guide for People Who Don't Read Documentation
 
@@ -171,9 +190,9 @@ and Achen.
 A data frame data with one column attached, `turnout_weight` which can be used in lieu of the 
 Census provided weight (name `WEIGHT` after renaming by `cps_vote`).
 
-## Sample Usage: Estimating Voter Turnout in 2016
+## <a name="sample2016"></a>Sample Usage: Estimating Voter Turnout in 2016
 
-Start by reading the files and performing specialized `cpsvote` recoding, create new survey weights. 
+Start by reading the files and performing specialized `cpsvote` recoding, create new survey weights. This same example appears in the [background vignette](background.html), but uses the simpler `cps::cps_load_basic` syntax.
 
 ```{r setup2, echo = TRUE}
 #library(cps)
@@ -232,7 +251,7 @@ cps2016_srvyrHW <- as_survey_design(cps2016, weights = turnout_weight)  # SRVYR 
                                                                         # Hur and Achen weight
 ```
 
-_Generate unweighted, CPS weighted, and Hur/Achen weighted estimates of voter turnout._ 
+### Generate unweighted, CPS weighted, and Hur/Achen weighted estimates of voter turnout.
 
 ```{r turnout, echo = TRUE}
 
@@ -247,7 +266,14 @@ kable(turnout_estimates)
 The table shows the slight overestimate of turnout using the Census
 method, because it fails to account for growing non-response bias. 
 
-_Generate Hur/Achen weighted turnout estimates by racial groups_
+### <a name="race2016"></a>Generate Hur/Achen weighted turnout estimates by racial groups
+
+The advantage of using the `srvyr` syntax is illustrated in this
+example. We can use the `filter` and `group_by` commands directly in
+a single command set below, because `srvyr` works behind the scenes
+to create the correct `survey` commands. If you were using `survey`,
+you could not pipe the results directly into `ggplot`, but would
+have had to create an intermediate data frame. 
 
 ```{r turnout_race, echo = TRUE}
 
@@ -268,7 +294,10 @@ cps2016_srvyrHW %>%
 
 ```
 
-_A simple map of voter turnout by state._ 
+### <a name="map2016"></a>A simple map of voter turnout by state
+
+We use the `usmap` package to provide a quick look at voter turnout
+in 2016 across the 50 states. 
 
 ```{r turnout_statemap, echo = TRUE}
 library(usmap)
@@ -284,7 +313,7 @@ cps2016_srvyrHW %>%
 ```
 
 
-# Voting Mode in CPS: Election Day, Early In Person, and Absentee/Voting by Mail
+## <a name="votingmode"></a>Voting Mode in CPS: Election Day, Early In Person, and Absentee/Voting by Mail
 
 Capturing the difference between casting an in-person ballot on Election Day, an in-person ballot early at a designated location, and a ballot cast "by mail" (either absentee or 
 in full vote by mail states) is difficult given the various ways that states allow for
@@ -319,23 +348,18 @@ The table below provides an overview of these coding decisions:
  <td> <b>By Mail </b>            <td> By Mail  <td> Election Day, Before Election Day <td> Voted by mail (absentee)</tr>
 </table>
 
-<!-- \begingroup
-\setlength{\tabcolsep}{10pt} % Default value: 6pt
-\renewcommand{\arraystretch}{3.7} % Default value: 1
-\begin{table}[]
-\begin{tabular}{lcccccc}
-                                                          & \multicolumn{1}{l}{}                 & \multicolumn{2}{c}{PES5}                                    & \multicolumn{1}{l}{} & \multicolumn{2}{c}{PES6}                                                   \\ \cline{3-4} \cline{6-7} 
-                                                          & \multicolumn{1}{l}{}                 & \multicolumn{1}{l}{In-person} & \multicolumn{1}{l}{By-mail} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{Election day} & \multicolumn{1}{l}{Before election day} \\ \cline{3-4} \cline{6-7} 
-\multicolumn{1}{l|}{\multirow{3}{*}{\rotatebox[origin=c]{90}{VRS\_VOTEMETHOD\_CON}}} & \multicolumn{1}{c|}{Election day}    & $\Checkmark$                  &                             &                      & $\Checkmark$                     &                                         \\
-\multicolumn{1}{l|}{}                                     & \multicolumn{1}{c|}{Early in-person} & $\Checkmark$                  &                             &                      &                                  & $\Checkmark$                            \\
-\multicolumn{1}{l|}{}                                     & \multicolumn{1}{c|}{Vote-by-mail}    &                               & $\Checkmark$                &                      & $\Checkmark$                     & $\Checkmark$                           
-\end{tabular}
-\end{table}
---> 
+The `cpsvote` package creates a column labeled `VRS_VOTEMETHOD_CON` (vote method "consolidated") that can be used to compare the use 
+of Election Day, Early In Person, and Absentee / Voting By Mail across states and over years. 
 
 
+### <a name="modegrowth"></a> Example: Growth in Alternative Voting Modes
 
-```{r earlyvoting_data_load}
+The use of early in-person and voting by mail has grown enormously in the past quarter century, with distinct regional patterns to the use
+of different modes of voting. In the code below, we first create a column labeled `census_region` that will allow us to make regional comparisons, and apply
+the survey weights to the 10,000 random sample of the CPS.
+
+
+```{r earlyvoting_data_load, include = TRUE}
 cps10k <- cps_sample_10k
 
 # Create region codes following Census guidelines
@@ -370,7 +394,9 @@ cps10k_weight <- as_survey_design(cps10k, weights = WEIGHT)
 
 ```
 
-```{r modesbyyear_line}
+The first visualization shows the growth of voting outside of Election Day, which began in the late 1970s and accelerated after 2000. 
+
+```{r modesbyyear_line, include = TRUE}
 
 # Graph 1: Rate of All Modes of Voting By Year (line graph)
 
@@ -396,12 +422,17 @@ cps10k_weight %>%
         legend.text = element_text(size = 10)) 
 ```
 
-```{r voteathome, eval = FALSE}
+### <a name="vbmgrowth"></a> Example: Growth in Vote By Mail Concentrated in the West
+
+Absentee / Voting By Mail has been most popular among voters in the Western region. This distinct regional pattern is displayed
+in the next visualization. By the 2016 election, 70% of ballots were cast by mail, compared to under 20% in the rest of the country. 
+
+```{r voteathome, eval = TRUE}
 cps10k_weight %>%
-  filter(YEAR > 1994 &  !is.na(VRS_VOTEMETHOD_CON)) %>%
+  filter(YEAR > 1994 &  !is.na(VRS_VOTEMETHOD_CON) & !is.na(census_region)) %>%
   group_by(YEAR, census_region, VRS_VOTEMETHOD_CON) %>%
   summarize(value = survey_mean(na.rm = TRUE)) %>%
-  filter(VRS_VOTEMETHOD_CON == "By Mail") %>%
+  filter(VRS_VOTEMETHOD_CON == "BY MAIL") %>%
   ggplot(aes(x = YEAR, y = value, col = census_region, group = census_region)) +
   geom_line(size = 1.5) +
   geom_point(aes(x = YEAR, y = value, color = census_region), size = 2) +
@@ -412,15 +443,19 @@ cps10k_weight %>%
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        color = "Region") +
   theme(plot.title = element_text(size = 20, family = "Times", face = "bold.italic", colour = "red"),
-        legend.position = c(.1,.8), legend.background = element_rect(),  
-        legend.title = element_text(size = 12, face = "bold"),
-        legend.text = element_text(size = 10)) +
+        legend.position = c(.1,.7), legend.background = element_rect(),  
+        legend.title = element_text(size = 8, face = "bold"),
+        legend.text = element_text(size = 6)) +
   ylab("") + xlab("")  
 
 ```
 
-## Canyon Maps can go here
+### <a name="modemaps"></a> Example: Mapping alternative methods of voting
 
+The next three maps display the great diversity across the 50 states in the use of Election Day voting (most popular in the Northeast and some
+areas of the Midwest and South); Early In-Person voting (most popular in Nevada, New Mexico, Texas, Arkansas, Tennessee, North Carolina, and Georgia); and
+Absentee / Voting By Mail (most popular in the full vote by mail states -- Colorado, Oregon, and Washington -- as well as California, Arizona, Montana, 
+and Hawaii). 
 
 ```{r}
 library(albersusa) 
@@ -431,6 +466,22 @@ map_data <- cps2016_srvyrHW %>%
   group_by(STATE, VRS_VOTEMETHOD_CON) %>%
   summarize(value = survey_mean(na.rm = TRUE)) %>%
   merge(albersusa::usa_sf("laea"), by.x = "STATE", by.y = "iso_3166_2")
+  
+sf::st_as_sf(map_data) %>% 
+  filter(VRS_VOTEMETHOD_CON == "ELECTION DAY") %>%
+  ggplot(aes(fill = value)) +
+  geom_sf() +
+  ggthemes::theme_map() + 
+  theme(legend.position = "top") +
+  scale_fill_gradient(low = "lavender", high = "purple", na.value = NA, name = "Election Day Voting Usage", labels = scales::percent)
+
+sf::st_as_sf(map_data) %>% 
+  filter(VRS_VOTEMETHOD_CON == "EARLY") %>%
+  ggplot(aes(fill = value)) +
+  geom_sf() +
+  ggthemes::theme_map() + 
+  theme(legend.position = "top") +
+  scale_fill_gradient(low = "yellow", high = "red", na.value = NA, name = "Early In Person Voting Usage", labels = scales::percent)
 
 
 sf::st_as_sf(map_data) %>% 
@@ -438,30 +489,10 @@ sf::st_as_sf(map_data) %>%
   ggplot(aes(fill = value)) +
   geom_sf() +
   ggthemes::theme_map() + 
-  theme(legend.position = "top",
-        text = element_text("times")) + 
-  scale_fill_gradient(low = "sky blue", high = "navy", na.value = NA, name = "Vote-by-Mail Usage", labels = scales::percent)
+  theme(legend.position = "top") + 
+  scale_fill_gradient(low = "sky blue", high = "navy", na.value = NA, name = "Absentee / Vote-by-Mail Usage", labels = scales::percent)
 
-  
-  
-sf::st_as_sf(map_data) %>% 
-  filter(VRS_VOTEMETHOD_CON == "EARLY") %>%
-  ggplot(aes(fill = value)) +
-  geom_sf() +
-  ggthemes::theme_map() + 
-  theme(legend.position = "top",
-        text = element_text("times")) +
-  scale_fill_gradient(low = "yellow", high = "red", na.value = NA, name = "Early Voting Usage", labels = scales::percent)
 
-  
-sf::st_as_sf(map_data) %>% 
-  filter(VRS_VOTEMETHOD_CON == "ELECTION DAY") %>%
-  ggplot(aes(fill = value)) +
-  geom_sf() +
-  ggthemes::theme_map() + 
-  theme(legend.position = "top",
-        text = element_text("times")) +
-  scale_fill_gradient(low = "lavender", high = "purple", na.value = NA, name = "Election Day Voting Usage", labels = scales::percent)
 
 ```
 
