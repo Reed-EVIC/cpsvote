@@ -985,12 +985,12 @@ cps_read(years = seq(1994, 2018, 2),
     defines which column of `factors` contains the column names that
     match the incoming data set to be labelled. Further: `na_vals`
     defines which factor levels should be marked as `NA`, `expand_year`
-    turns the two-digit years in some files into four-digit years
-    (e.g. “94” becomes “1994”), and `rescale_weight` divides the
-    given weight by 10,000 (as noted by the data documentation) to
-    ensure accurate population sums. `toupper` will make all the factor
-    levels upper case, which is useful because as-is the factors are a
-    mix of sentence case and upper case.
+    turns the two-digit years in some files into four-digit years (e.g.
+    “94” becomes “1994”), and `rescale_weight` divides the given
+    weight by 10,000 (as noted by the data documentation) to ensure
+    accurate population sums. `toupper` will make all the factor levels
+    upper case, which is useful because as-is the factors are a mix of
+    sentence case and upper case.
   - `cps_refactor` deals with all of the typos, capitalization, and
     shifting questions across years. We have attempted here to
     consolidate factor levels and variables in a way that makes sense.
@@ -1039,7 +1039,12 @@ based on your own column names.
 
 ## Examples, Background Reading, and Data Sources
 
-  - List of BLANK Vignettes
+  - Vignettes: *Basics* and the README file are mirrors; *Background*
+    describes our intellectual rationale for creating this package; *Add
+    Variables* describes how additional variables from the CPS can be
+    merged with the default dataset; and *Voting* does a deep dive into
+    how to use the CPS and the default datasets from `cpsvote` to look
+    at voting turnout and mode of voting
   - Aram Hur, Christopher H. Achen. *Coding Voter Turnout Responses in
     the Current Population Survey*. Public Opinion Quarterly, Volume 77,
     Issue 4, Winter 2013, Pages 985–993.

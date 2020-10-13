@@ -44,7 +44,7 @@ The content of the CPS VRS has changed over time, in some cases because of real 
 Even though the content has remained relatively constant from 1996, 
 the Census has sometimes changed the location, names, and even the coding for individual variables. It is very important that anyone using multiple years of the CPS VRS pay extremely close attention to the coding choices that were made in each year.
 
-We have made (what we consider) sensible decisions about which columns from the VRS get combined across disparate years, while also leaving you the opportunity to bring in additional columns or join years differently; see `vignettes("recode-specs")`.
+We have made (what we consider) sensible decisions about which columns from the VRS get combined across disparate years, while also leaving you the opportunity to bring in additional columns or join years differently. <!-- see `vignettes("recode-specs")`. -->
 
 **The `cpsvote` package does most of this recoding and relabeling work for you, while still retaining the data in its original format.**
 
@@ -110,7 +110,7 @@ estimates for state-level turnout as calculated by the United States Election Pr
 
 We have integrated the Hur and Achen recoding into the `cpsvote` package, contained in the variable `hurachen_turnout` that is produced by the default functions. The original CPS weight is provided in the variable `WEIGHT`, and a weight adjusted for proper turnout coding and post-stratification for over-reporting is provided in the variable `turnout_weight`.
 
-Please see `vignettes("recode-specs")` for the commands and additional documentation.
+<!-- Please see `vignettes("recode-specs")` for the commands and additional documentation. -->
 
 **The `cpsvote` package creates an alternative survey weight based on current scientific research.**
 
@@ -175,4 +175,4 @@ provided by the [US Elections Project](http://www.electproject.org/2016g).
 
 ## More Resources
 
-See `vignette("basics")` for more information on using `cpsvote`, and further examples of how to work with this data.
+See `vignette("basics")` for more information on using `cpsvote`, and further examples of how to work with this data. See `vignette("voting")` for more information and further examples of using the CPS for calculating voter turnout and other voting-related quantities. 

@@ -1,5 +1,5 @@
 ---
-title: "Voting"
+title: "Using the CPS and `cpsvote` to Understand Voting"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{voting}
@@ -123,7 +123,7 @@ Because some users of the `cpsvote` package may not be able to access this artic
 
 ### How To Correct For Non-Response Bias in CPS Turnout Estimates
 
-A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper^[Michael McDonald, 2014, "What's Wrong with the CPS?", Paper presented at the Annual Meeting of the American Political Science Association.] and at the [http://www.electproject.org/home/voter-turnout/cps-methodology](United States Elections Project's CPS Over-Report and Non-Response Bias Correction) page is that, over time, two biases have crept into the CPS, one from increasing non-response rates, the second from over-reports of turnout. 
+A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper^[Michael McDonald, 2014, "What's Wrong with the CPS?", Paper presented at the Annual Meeting of the American Political Science Association.] and at the [http://www.electproject.org/home/voter-turnout/cps-methodology](United States Elections Project's CPS Over-Report and Non-Response Bias Correction) page is that, over time, two biases have crept into the CPS: one from increasing non-response rates, the second from over-reports of turnout. 
 
 From the Hur and Achen (2013) abstract:
 
@@ -133,7 +133,8 @@ Hur and Achen suggest a complex post-stratification adjustment to the data that 
 
 >We recommend dropping all categories of missing turnout response, and then poststratifying the remaining CPS sample so that the survey turnout rate in each state matches the corresponding state VEP turnout.
 
-Professor Michael McDonald of the University of Florida helpfully provides guidance on this more complex procedure. He provides <Commentary, Guidelines, and Stata Code>[link](http://www.electproject.org/home/voter-turnout/cps-methodology) at his website. We have adapted this code for `R` and have integrated
+Professor Michael McDonald of the University of Florida helpfully provides guidance on this more complex procedure. [Commentary, Guidelines, and Stata Code](http://www.electproject.org/home/voter-turnout/cps-methodology) is available
+at the US Elections website. We have adapted this code for `R` and have integrated
 it into the `cpsvote` package. 
 
 **The Hur and Achen corrections have been integrated into the `cpsvote` package.**
@@ -188,11 +189,11 @@ and Achen.
 #### Output
 
 A data frame data with one column attached, `turnout_weight` which can be used in lieu of the 
-Census provided weight (name `WEIGHT` after renaming by `cps_vote`).
+Census provided weight (labeled `WEIGHT` after the renaming and recoding process in `cps_vote`).
 
 ## <a name="sample2016"></a>Sample Usage: Estimating Voter Turnout in 2016
 
-Start by reading the files and performing specialized `cpsvote` recoding, create new survey weights. This same example appears in the [background vignette](background.html), but uses the simpler `cps::cps_load_basic` syntax.
+Start by reading the files, performing specialized `cpsvote` recoding, and creating new survey weights. This same example appears in the [background vignette](background.html), but in that vignette, the simpler `cps::cps_load_basic` syntax is used.
 
 ```{r setup2, echo = TRUE}
 #library(cps)
@@ -326,14 +327,7 @@ office before or on Election Day, request an absentee ballot, and complete and s
 at that time, is that voting "in person" or "by mail"?
 
 We will put aside these complexities to discuss how the CPS has captured this voting activity, what is called the "mode of voting", over time. There is one major change to
-pay attention to.
-
-From 1996-2002, the CPS asked a single question (PES4), that included the options "In person on election day," "In person before election day", and "Voted by mail (absentee)."
-
-Starting in 2004 and continuing through the present, the CPS started to ask about the _time_ that a respondent cast their ballot (PES5: "On Election Day", "Before Election Day") and the _method_ by which the ballot was cast (PES6: "In Person", "By Mail"). 
-
-From 1996-2002, `cpsvote` uses the values in PES4. From 2004 to the present, the
-answers to PES5 and PES6 are combined to create a three category vote mode variable ("Election Day", "Early", "By Mail"). The package assumes that an answer of "By Mail" counts as absentee / voting by mail, regardless of "when" the respondent said the ballot was cast.
+pay attention to. From 1996-2002, the CPS asked a single question (PES4), that included the options "In person on election day," "In person before election day", and "Voted by mail (absentee)." Starting in 2004 and continuing through the present, the CPS started to ask about the _time_ that a respondent cast their ballot (PES5: "On Election Day", "Before Election Day") and the _method_ by which the ballot was cast (PES6: "In Person", "By Mail"). 
 
 The table below provides an overview of these coding decisions:
 
@@ -353,8 +347,8 @@ The table below provides an overview of these coding decisions:
 </table>
 
 The `cpsvote` package creates a column labeled `VRS_VOTEMETHOD_CON` (vote method "consolidated") that can be used to compare the use 
-of Election Day, Early In Person, and Absentee / Voting By Mail across states and over years. 
-
+of Election Day, Early In Person, and Absentee / Voting By Mail across states and over years. From 1996-2002, `cpsvote` uses the values in PES4. From 2004 to the present, the
+answers to PES5 and PES6 are combined to create a three category vote mode variable ("Election Day", "Early", "By Mail"). The package assumes that an answer of "By Mail" counts as absentee / voting by mail, regardless of "when" the respondent said the ballot was cast.
 
 ### <a name="modegrowth"></a> Example: Growth in Alternative Voting Modes
 

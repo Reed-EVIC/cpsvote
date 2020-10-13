@@ -171,7 +171,11 @@ Note that some features (like `cps_refactor()`) won't work on certain customized
 
 ## Examples, Background Reading, and Data Sources
 
-- List of BLANK Vignettes
+- Vignettes: 
+    _Basics_ and the README file are mirrors; 
+    _Background_ describes our intellectual rationale for creating this package; 
+    _Add Variables_ describes how additional variables from the CPS can be merged with the default dataset; and 
+    _Voting_ does a deep dive into how to use the CPS and the default datasets from `cpsvote` to look at voting turnout and mode of voting
 - Aram Hur, Christopher H. Achen. _Coding Voter Turnout Responses in the Current Population Survey_. Public Opinion Quarterly, Volume 77, Issue 4, Winter 2013, Pages 985–993. https://doi.org/10.1093/poq/nft042
 - Michael McDonald. _What's Wrong with the CPS?_ Presented at the 2014 American Political Science Association Conference, Washington, D.C., August 27-31. http://www.electproject.org/home/voter-turnout/cps-methodology
 - The [Current Population Survey](https://www.census.gov/programs-surveys/cps.html) is conducted monthly by the U.S. Census Bureau and the Bureau of Labor Statistics, and the Voting and Registration Supplement is administered as part of this survey after each federal election. The [CPS data](http://data.nber.org/data/current-population-survey-data.html) that this package downloads is provided by the [National Bureau of Economic Research](https://data.nber.org/info.html).
