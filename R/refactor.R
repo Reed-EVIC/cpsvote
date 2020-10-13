@@ -102,7 +102,7 @@ cps_refactor <- function(data, move_levels = TRUE) {
                     VRS_VOTEMODE_2004toPRESENT == "BY MAIL" ~ "BY MAIL",
                     VRS_VOTEMODE_2004toPRESENT == "IN PERSON" & VRS_VOTEWHEN_2004toPRESENT == "BEFORE ELECTION DAY" ~ "EARLY",
                     VRS_VOTEMODE_2004toPRESENT == "IN PERSON" & VRS_VOTEWHEN_2004toPRESENT == "ON ELECTION DAY" ~ "ELECTION DAY"
-                  )
+                  ) %>% factor(levels = c("ELECTION DAY", "EARLY", "BY MAIL"))
            ))
   
   # remove anything you added in, these will be all NA

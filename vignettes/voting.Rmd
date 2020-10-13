@@ -196,34 +196,38 @@ Start by reading the files and performing specialized `cpsvote` recoding, create
 
 ```{r setup2, echo = TRUE}
 #library(cps)
-cpsvote::cps_download_data(years = 2016) # Download the 2016 CPS, if not already downloaded
-cps2016 <- cpsvote::cps_read(years = 2016) # Read in CPS 2016. Ignore the warning since we don't care
-                                           # about joining any files
+# Download the 2016 CPS, if not already downloaded
+# cpsvote::cps_download_data(years = 2016) 
+
+# Read in CPS 2016
+cps2016 <- cpsvote::cps_read(years = 2016,
+                             dir = here::here("cps_data"))
+
+## Create factors out of categorical variables 
+cps2016 <- cps_label(cps2016)
+
 ## Apply the turnout recodes
 cps2016 <- cps_recode_vote(cps2016)
 
 ## Create the new survey weight
 cps2016 <- cps_reweight_turnout(cps2016)
 
-## Create factors out of categorical variables 
-cps2016 <- cps_label(cps2016)
-
 ## Refactor questions that differ slightly across years
 cps2016 <- cps_refactor(cps2016)
 
-## NOTE a one-step method for reading in the
-##  data is:
-##
-## cps2016 <- cps_load_basic(years = 2016)
+# alternative method, in one step
+# cps2016 <- cps_load_basic(years = 2016)
 
 ## Dichotomous turnout variables for calculating means
 cps2016 <- cps2016 %>%
   mutate(cps_turnout_d = case_when(
     cps_turnout == "YES" ~ 1,
-    cps_turnout == "NO" ~0),
+    cps_turnout == "NO" ~ 0
+    ),
     hurachen_turnout_d = case_when(
     hurachen_turnout == "YES" ~ 1,
-    hurachen_turnout == "NO" ~ 0)
+    hurachen_turnout == "NO" ~ 0
+    )
   )
 
 ## SURVEY WEIGHTS
