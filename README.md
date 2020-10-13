@@ -625,7 +625,7 @@ estimates about the US population. Two R packages that work with survey
 weighting are [`survey`](http://r-survey.r-forge.r-project.org/survey/)
 and [`srvyr`](https://github.com/gergness/srvyr) (a tidyverse-compatible
 wrapper for `survey`). You can see more examples and details on
-weighting in the BLANK vignette, but here is one example of using
+weighting in `vignette("voting")`, but here is one example of using
 `srvyr` to calculate state-level voter turnout among eligible voters in
 2018.
 
