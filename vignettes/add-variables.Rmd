@@ -101,7 +101,7 @@ str(cps_income)
 
 One note: the warning from `cps_read` appears when `join_dfs = TRUE` (which is a default). This is intended to remind the user that variable names change across years, and to urge caution in only joining the correct columns.
 
-This is a simple (unweighted) breakdown of family income responses in 2006 and 2008.
+This is an unweighted breakdown of family income responses in 2006 and 2008.
 
 ```{r eval = FALSE}
 table(cps_income$FAM_INCOME, cps_income$YEAR)

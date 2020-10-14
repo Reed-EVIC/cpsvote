@@ -33,7 +33,7 @@ The `cpsvote` package is designed to overcome these challenges. The package ease
 3. Appropriately codes voting turnout, following guidelines proposed by Hur and Achen (2013) necessary in order to correctly estimate turnout, and creates an alternative survey weight to adjust for non-response bias
 4. Uses the `srvyr` package, and supplies the correct commands, to *weight* the CPS VRS data as necessary. 
   
-More details on these procedures are provided below; see also `vignettes("basics")`.
+More details on these procedures are provided below; see also [`vignettes("basics")`](basics.html).
 
 ## Using the CPS Voting and Registration Supplement: Methodological and Data Challenges
 
@@ -88,9 +88,33 @@ First, the CPS has long used an "idiosyncratic"
 coding rule that has been recognized over time and was carefully documented by two scholars, Aram Hur and Christopher Achen, in a 2013 article titled ["Coding Voter Turnout Responses in the Current Population Survey"](https://academic.oup.com/poq/article/77/4/985/1843466/). 
 
 The coding rule
-is not at all clear from the CPS documentation, and without correct coding, your turnout estimates will be incorrect. 
+is not at all clear from the CPS documentation, and without correct coding, any turnout estimates that are produced
+will not match those in official Census communications. 
 
-Furthermore, because the CPS counts non-responses as "not voted," their
+In the CPS codebook, the variable is reported in this way (from the 2016 documentation): 
+
+<table>
+<tr>
+<td>NAME</td> <td>   SIZE </td> <td>  DESCRIPTION </td>  <td>  LOCATION </td>
+</tr>
+<tr>
+<td> PES1 </td> <td>   2  </td> <td> In any election, some people are  not able to vote because they are 
+sick or busy or have some other reason, and others do not want to vote. Did (you/name) 
+vote in the election held on Tuesday, November X, XXXX?} </td> <td> 951-952 </td>
+<tr> <td> <td> <td> EDITED UNIVERSE: PRTAGE >=18 and PRCITSHP = 1, 2, 3, or 4<td> </tr>
+<tr> <td> <td> <td> <td> </tr>
+<tr> <td> <td> <td>VALID ENTRIES: <td> </tr> 
+<tr> <td> <td> <td> 1  Yes <td> </tr>
+<tr> <td> <td> <td> 2  No  <td> </tr>
+<tr> <td> <td> <td> -1 Not in Universe <td> </tr> 
+<tr> <td> <td> <td> -2 Don't Know <td> </tr>
+<tr> <td> <td> <td> -3 Refused <td> </tr>
+<tr> <td> <td> <td> -9 No Response <td> </tr> 
+</table>
+
+The key decision made by Census staff has been to treat three of 
+these non-response categories as "not voted", essentially adding these
+cases (all except for "Yes" and "Not in Universe") to the denominator for a turnout estimate. Because the CPS counts non-responses as "not voted," their
 coding scheme has been vulnerable to changing non-response rates over time. 
 
 Hur and Achen (2013) describe the problem in their abstract:
@@ -99,7 +123,7 @@ Hur and Achen (2013) describe the problem in their abstract:
 
 **The `cpsvote` package provides the original Census coding scheme in the `cps_turnout` variable that is produced by the default functions.**
 
-A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper^[Michael McDonald, 2014, "What's Wrong with the CPS?", Paper presented at the Annual Meeting of the American Political Science Association.] and at the [http://www.electproject.org/home/voter-turnout/cps-methodology](United States Elections Project's CPS Over-Report and Non-Response Bias Correction) page is that, over time, two biases have crept into the CPS, one from increasing non-response rates, the second from over-reports of turnout. 
+A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper and at the [http://www.electproject.org/home/voter-turnout/cps-methodology](United States Elections Project's CPS Over-Report and Non-Response Bias Correction) page is that, over time, two biases have crept into the CPS - one from increasing non-response rates, the second from over-reports of turnout (Michael McDonald, 2014, "What's Wrong with the CPS?", paper presented at the Annual Meeting of the American Political Science Association).
 
 Hur and Achen suggest a complex post-stratification adjustment to the data that will adjust for these biases:
 
@@ -114,65 +138,44 @@ We have integrated the Hur and Achen recoding into the `cpsvote` package, contai
 
 **The `cpsvote` package creates an alternative survey weight based on current scientific research.**
 
-## Sample Usage: Voter Turnout in 2016, Comparing Unweighted, Census Weighted and Hur-Achen Weighted Estimates
+## Sample Usage: Varying Estimates of Voter Turnout in 2016
 
 ```{r turnout_table, message = FALSE}
+library(cpsvote)
+library(srvyr)
 
-#library(cps)
-library(tidyverse)
-library(kableExtra)
+cps16 <- cps_load_basic(years = 2016, datadir = here::here('cps_data'))
 
-cps2016 <- cpsvote::cps_load_basic(years = 2016, here::here('cps_data')) # Read in CPS 2016. 
+# unweighted, using the census turnout coding
+cps16_unweighted <- cps16 %>%
+  summarize(type = "Unweighted",
+            turnout = mean(cps_turnout == "YES", na.rm = TRUE))
 
-## Dichotomous turnout variables for calculating means
-cps2016 <- cps2016 %>%
-  mutate(cps_turnout_d = case_when(
-    cps_turnout == "YES" ~ 1,
-    cps_turnout == "NO" ~0),
-    hurachen_turnout_d = case_when(
-    hurachen_turnout == "YES" ~ 1,
-    hurachen_turnout == "NO" ~ 0)
-  )
+# weighted, using the original weights and census turnout coding
+cps16_censusweight <- cps16 %>%
+  as_survey_design(weights = WEIGHT) %>%
+  summarize(turnout = survey_mean(cps_turnout == "YES", na.rm = TRUE)) %>%
+  mutate(type = "Census")
 
-##################
-## SURVEY WEIGHTS
-#################
+# weighted, using the modified weights and hur-achen turnout coding
+cps16_hurachenweight <- cps16 %>%
+  as_survey_design(weights = turnout_weight) %>%
+  summarize(turnout = survey_mean(hurachen_turnout == "YES", na.rm = TRUE)) %>%
+  mutate(type = "Hur & Achen")
 
-# The CPS data MUST be weighted. The "weighting" vignette provides additional information 
-                # about using using the survey or srvyr packages to produce valid statistical results
+turnout_estimates <- dplyr::bind_rows(cps16_unweighted, 
+                                      cps16_censusweight, 
+                                      cps16_hurachenweight) %>%
+  transmute('Method' = type,
+            'Turnout Estimate' = scales::percent(turnout, .1))
 
-library(survey)
-library(srvyr)  
-
-cps2016_surveyCW <-                                             # SURVEY Package Syntax
-    svydesign(                                                  # Census weight
-        ~ 1 , 
-        data = cps2016, 
-        weights = ~ WEIGHT
-    )
-
-cps2016_surveyHW <-                                             # SURVEY Package Syntax
-    svydesign(                                                  # Hur Achen weight
-        ~ 1 , 
-        data = cps2016, 
-        weights = ~ turnout_weight
-    )
-
-cps2016_srvyrHW <- as_survey_design(cps2016, weights = turnout_weight)  # SRVYR Package Syntax, 
-                                                                        # Hur and Achen weight
-
-turnout_estimates <- cps2016 %>%
-  summarize(Unweighted = mean(cps_turnout_d, na.rm = TRUE),
-            Census_Weighted = svymean(cps_turnout_d, cps2016_surveyCW, na.rm = TRUE),
-            Hur_Achen_Weighted = svymean(hurachen_turnout_d, cps2016_surveyHW, na.rm = TRUE))
-
-kable(turnout_estimates)
+knitr::kable(turnout_estimates)
 ```
 
 The table shows the overestimate of turnout using the Census
-method, because it fails to account for growing non-response bias. The Hur-Achen weighted estimate of 2016 turnout,  `r turnout_estimates$Hur_Achen_Weighted`, is closest to the 60.1\% estimate
+method, because it fails to account for growing non-response bias. The Hur-Achen weighted estimate of 2016 turnout,  `r turnout_estimates[3,2]`, is closest to the 60.1\% estimate
 provided by the [US Elections Project](http://www.electproject.org/2016g).
 
 ## More Resources
 
-See `vignette("basics")` for more information on using `cpsvote`, and further examples of how to work with this data. See `vignette("voting")` for more information and further examples of using the CPS for calculating voter turnout and other voting-related quantities. 
+See [`vignette("basics")`](basics.html) for more information on using `cpsvote`, and further examples of how to work with this data. See [`vignette("voting")`](voting.html) for more information and further examples of using the CPS for calculating voter turnout and other voting-related quantities. 
