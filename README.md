@@ -965,15 +965,15 @@ cps_read(years = seq(1994, 2018, 2),
     define the range of characters that are read. You can see the
     default set of columns in the included data set `cps_cols`, or
     supply `cols` with your own specifications of columns (for details
-    on adding other columns, see the BLANK vignette). The `names_col`
-    argument details which variable in `cols` will become the column
-    names for the output; we have provided the original CPS names as
-    `cps_name`, but recommend using `new_name` as it is more informative
-    and accounts for questions changing names (“PES5”, “PES6”, etc.)
-    across multiple years. `join_dfs` lets you join multiple years into
-    one `tibble`, and should only be used if you’re sure that a column
-    name (like “PES5”) refers to the same question across all years you
-    read in.
+    on adding other columns, see `vignette("add-variables")`). The
+    `names_col` argument details which variable in `cols` will become
+    the column names for the output; we have provided the original CPS
+    names as `cps_name`, but recommend using `new_name` as it is more
+    informative and accounts for questions changing names (“PES5”,
+    “PES6”, etc.) across multiple years. `join_dfs` lets you join
+    multiple years into one `tibble`, and should only be used if you’re
+    sure that a column name (like “PES5”) refers to the same question
+    across all years you read in.
   - `cps_label()` replaces the numeric entries from the raw data with
     appropriate factor levels (as given by the data documentation; see
     `cps_download_docs()`). We have taken the factor levels as written
@@ -981,16 +981,16 @@ cps_read(years = seq(1994, 2018, 2),
     across years. This is provided in the included `cps_factors`
     dataset, but you can supply the `factors` argument with your own
     coding (for details on changing factor levels or adding them for a
-    new column, see the BLANK vignette). The `names_col` argument
-    defines which column of `factors` contains the column names that
-    match the incoming data set to be labelled. Further: `na_vals`
+    new column, see `vignette("add-variables")`). The `names_col`
+    argument defines which column of `factors` contains the column names
+    that match the incoming data set to be labelled. Further: `na_vals`
     defines which factor levels should be marked as `NA`, `expand_year`
-    turns the two-digit years in some files into four-digit years (e.g.
-    “94” becomes “1994”), and `rescale_weight` divides the given
-    weight by 10,000 (as noted by the data documentation) to ensure
-    accurate population sums. `toupper` will make all the factor levels
-    upper case, which is useful because as-is the factors are a mix of
-    sentence case and upper case.
+    turns the two-digit years in some files into four-digit years
+    (e.g. “94” becomes “1994”), and `rescale_weight` divides the
+    given weight by 10,000 (as noted by the data documentation) to
+    ensure accurate population sums. `toupper` will make all the factor
+    levels upper case, which is useful because as-is the factors are a
+    mix of sentence case and upper case.
   - `cps_refactor` deals with all of the typos, capitalization, and
     shifting questions across years. We have attempted here to
     consolidate factor levels and variables in a way that makes sense.
@@ -1000,21 +1000,21 @@ cps_read(years = seq(1994, 2018, 2),
     consolidates those two questions (and the one question of previous
     surveys) into one `VRS_VOTEMETHOD_CON` variable. Note that this
     function will only work with certain column names in the data; see
-    BLANK vignette for more details.
+    `?cps_refactor` for more details.
   - `cps_recode_vote()` recodes the variable `VRS_VOTE` according to two
     different assessments of voter turnout. The new variable
     `cps_turnout` will calculate turnout the same way that the Census
     does, while another new variable `hurachen_turnout` will calculate
     turnout according to Hur & Achen (2013). These two methods differ in
     how they count responses of “Don’t know”, “Refused”, and “No
-    response”; see the BLANK vignette for more details.
+    response”; see `vignette("background")` for more details.
   - `cps_reweight_turnout()` adds a new variable, `turnout_weight`, that
     reweights the original `WEIGHT` according to Hur & Achen (2013) to
     account for the adjusted turnout measure. This corrects for
     increased nonresponse to the VRS over time, as well as a general
     pattern of respondents overreporting their personal voting history
-    (though the CPS sees less overreporting than other surveys). See the
-    BLANK vignette for details.
+    (though the CPS sees less overreporting than other surveys). See
+    `vignette("background")` for details.
 
 You can use different combinations of these functions to customize which
 CPS data is read in. For example, this code would load the 2014 VRS data
@@ -1039,12 +1039,17 @@ based on your own column names.
 
 ## Examples, Background Reading, and Data Sources
 
-  - Vignettes: *Basics* and the README file are mirrors; *Background*
-    describes our intellectual rationale for creating this package; *Add
-    Variables* describes how additional variables from the CPS can be
-    merged with the default dataset; and *Voting* does a deep dive into
-    how to use the CPS and the default datasets from `cpsvote` to look
-    at voting turnout and mode of voting
+  - Vignettes:
+      - `vignette("basics")` provides an intro to the package with some
+        basic instructions for use, and mirrors our [GitHub
+        README](https://github.com/Reed-EVIC/cpsvote)
+      - `vignette("background")` describes our intellectual rationale
+        for creating this package
+      - `vignette("add-variables")` describes how additional variables
+        from the CPS can be merged with the default dataset
+      - `vignette("voting")` does a deep dive into how to use the CPS
+        and the default datasets from `cpsvote` to look at voter turnout
+        and mode of voting
   - Aram Hur, Christopher H. Achen. *Coding Voter Turnout Responses in
     the Current Population Survey*. Public Opinion Quarterly, Volume 77,
     Issue 4, Winter 2013, Pages 985–993.
@@ -1063,7 +1068,8 @@ based on your own column names.
     that this package downloads is provided by the [National Bureau of
     Economic Research](https://data.nber.org/info.html).
   - This is an animated ternary plot made using vote mode data from
-    `cpsvote`. See BLANK vignette for the code that created this.
+    `cpsvote`. See NOT YET WRITTEN vignette for the code that created
+    this.
 
 ![](img/vote_mode.gif)
 
