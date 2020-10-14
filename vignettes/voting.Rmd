@@ -18,8 +18,6 @@ knitr::opts_chunk$set(
   fig.width = 6, fig.height = 3
 )
 library(knitr)
-library(kableExtra)
-
 ```
 
 ```{r packages, include = FALSE, echo = FALSE}

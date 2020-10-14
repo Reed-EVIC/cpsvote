@@ -15,7 +15,6 @@ knitr::opts_chunk$set(
   messages = FALSE, warnings = FALSE
 )
 library(knitr)
-library(kableExtra)
 library(cpsvote)
 set.seed(20201012)
 ```
@@ -79,8 +78,7 @@ data("cps_sample_10k")
 cps_sample_10k %>%
   select(1:3, VRS_VOTE:VRS_REG, VRS_VOTEMETHOD_CON, turnout_weight) %>%
   sample_n(10) %>%
-  kable() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+  kable()
 ```
 
 
@@ -110,8 +108,7 @@ turnout18 <- cps18_weighted %>%
   summarize(turnout = survey_mean(hurachen_turnout == "YES", na.rm = TRUE))
 
 head(turnout18, 10) %>%
-  kable() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+  kable()
 ```
 
 These estimates follow closely Dr. Michael McDonald's [estimates of turnout](http://www.electproject.org/2018g) among eligible voters in the November 2018 General Election. For a detailed examination of how non-response bias has affected the use of CPS for estimating turnout, see [`vignette("voting")`](voting.html). We thank the U.S. Elections Project at the University of Florida for the turnout estimates.

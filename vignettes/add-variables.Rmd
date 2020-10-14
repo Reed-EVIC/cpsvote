@@ -13,7 +13,6 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 library(knitr)
-library(kableExtra)
 ```
 
 ```{r setup, message=FALSE}
@@ -44,8 +43,7 @@ income_cols <- data.frame(
 ```
 
 ```{r echo = FALSE}
-kable(income_cols) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+kable(income_cols)
 ```
 
 We should then specify which factor levels are needed for those years of data. This is also obtained from the 2006 and 2008 documentation files.
@@ -77,8 +75,7 @@ income_factors <- data.frame(
 ```
 
 ```{r echo = FALSE}
-kable(income_factors) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+kable(income_factors)
 ```
 
 To read income in with our default data, we bind these to the bottom of the included data sets.
@@ -109,6 +106,5 @@ table(cps_income$FAM_INCOME, cps_income$YEAR)
 
 ```{r echo = FALSE}
 table(cps_income$FAM_INCOME, cps_income$YEAR) %>%
-  kable() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+  kable()
 ```

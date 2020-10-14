@@ -108,7 +108,7 @@ cps_refactor <- function(data, move_levels = TRUE) {
   # remove anything you added in, these will be all NA
   varna <- colSums(is.na(output))
   extra <- names(varna[names(varna) %in% cols & varna == nrow(output)])
-  output <- dplyr::select(output, -any_of(extra))
+  output <- dplyr::select(output, -dplyr::any_of(extra))
   
   if (move_levels) output <- output %>%
     dplyr::mutate_if(is.factor, function(x) suppressWarnings(forcats::fct_relevel(x, 

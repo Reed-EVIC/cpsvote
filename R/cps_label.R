@@ -20,6 +20,7 @@
 #' 
 #' @return CPS data with factor labels in place of the raw numeric data
 #' @export
+#' @importFrom rlang :=
 cps_label <- function(data, 
                       factors = cpsvote::cps_factors, 
                       names_col = "new_name",
