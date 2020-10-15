@@ -12,13 +12,11 @@ Authors@R:
     person(given = "Canyon",
            family = "Foot",
            role = c("ctb")))
-Description: `cpsvote` provides automated methods for downloading, recoding, 
-    and merging selected years of the Current Population Survey's Voting and 
-    Registration Supplement, a large N national survey about registration, 
-    voting, and non-voting in United States federal elections. The package 
-    provides documentation for appropriate use of sample weights to generate 
-    statistical estimates. The package includes multiple vignettes that 
-    illustrate different applications.
+Description: Provides automated methods for downloading, recoding, and merging 
+selected years of the Current Population Survey's Voting and Registration 
+Supplement, a large N national survey about registration, voting, and 
+non-voting in United States federal elections. Provides documentation for 
+appropriate use of sample weights to generate statistical estimates.
 URL: https://github.com/Reed-EVIC/cpsvote
 BugReports: https://github.com/Reed-EVIC/cpsvote/issues
 License: MIT + file LICENSE
