@@ -1,5 +1,5 @@
 ---
-title: "`cpsvote`: A Social Science Toolbox For Using the Current Population Survey's Voting and Registration Supplement"
+title: "`cpsvote`: A Social Science Toolbox for Using the Current Population Survey's Voting and Registration Supplement"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{basics}

@@ -69,7 +69,7 @@ cps_survey <- survey::svydesign(ids = ~1, # simple weights, no clusters
                                 weights = ~turnout_weight) # weight column
 ```
 
-A recently released package, `srvyr`, provides "`dplyr`-like syntax for summary statistics of survey data" ([`srvyr` at CRAN](https://cran.r-project.org/web/packages/srvyr/)). `srvyr` acts as a wrapper around `survey` and makes 
+A recently released package, `srvyr`, provides "`dplyr`-like syntax for summary statistics of survey data" ([`srvyr` at CRAN](https://cran.r-project.org/package=srvyr)). `srvyr` acts as a wrapper around `survey` and makes 
 many of the commands easier to implement. The following code will create a weighted data object using `srvyr`:
 
 ```{r eval = FALSE}
@@ -170,14 +170,14 @@ cps16_hurachenweight <- cps16 %>%
 turnout_estimates <- dplyr::bind_rows(cps16_unweighted, 
                                       cps16_censusweight, 
                                       cps16_hurachenweight) %>%
-  transmute('Method' = type,
-            'Turnout Estimate' = scales::percent(turnout, .1))
+  dplyr::transmute('Method' = type,
+                   'Turnout Estimate' = scales::percent(turnout, .1))
 
 knitr::kable(turnout_estimates)
 ```
 
 The table shows the overestimate of turnout using the Census
-method, because it fails to account for growing non-response bias. The Hur-Achen weighted estimate of 2016 turnout,  `r turnout_estimates[3,2]`, is closest to the 60.1\% estimate
+method, because it fails to account for growing non-response bias. The Hur-Achen weighted estimate of 2016 turnout, 60.4%, is closest to the 60.1\% estimate
 provided by the [US Elections Project](http://www.electproject.org/2016g).
 
 ## More Resources
