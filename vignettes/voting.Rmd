@@ -12,11 +12,14 @@ editor_options:
 
 ```{r, include = FALSE, echo = FALSE}
 options(rmarkdown.html_vignette.check_title = FALSE)
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
   message = FALSE, warning = FALSE,
-  fig.width = 6, fig.height = 3
+  fig.width = 6, fig.height = 3,
+  purl = NOT_CRAN,
+  eval = NOT_CRAN
 )
 library(knitr)
 ```
@@ -280,7 +283,7 @@ cps_region %>%
 Absentee/Voting By Mail has been most popular among voters in the Western US. This distinct regional pattern is displayed
 in the next visualization. By the 2016 election, 70% of ballots were cast by mail in the West, compared to under 20% in the rest of the country. 
 
-```{r voteathome, eval = TRUE}
+```{r voteathome}
 cps_region %>%
   filter(YEAR > 1994 &  !is.na(VRS_VOTEMETHOD_CON) & !is.na(census_region)) %>%
   group_by(YEAR, census_region) %>%
