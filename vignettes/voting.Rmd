@@ -93,7 +93,7 @@ Hur and Achen recommend coding the variable according to a scheme familiar to mo
 
 **The `cpsvote` package applies these two coding schemes to create two new columns, `cps_turnout` and `hurachen_turnout`.**
 
-A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper and at the [http://www.electproject.org/home/voter-turnout/cps-methodology](United States Elections Project's CPS Over-Report and Non-Response Bias Correction) page is that, over time, two biases have crept into the CPS: one from increasing non-response rates, the second from over-reports of turnout (Michael McDonald, 2014, "What's Wrong with the CPS?", paper presented at the Annual Meeting of the American Political Science Association). 
+A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper and at the [United States Elections Project's CPS Over-Report and Non-Response Bias Correction](http://www.electproject.org/home/voter-turnout/cps-methodology) page is that, over time, two biases have crept into the CPS: one from increasing non-response rates, the second from over-reports of turnout (Michael McDonald, 2014, "What's Wrong with the CPS?", paper presented at the Annual Meeting of the American Political Science Association). 
 
 From the Hur and Achen (2013) abstract:
 
