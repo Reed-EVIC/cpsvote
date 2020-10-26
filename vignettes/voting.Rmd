@@ -229,11 +229,11 @@ answers to PES5 and PES6 are combined to create a three category vote mode varia
 
 The use of early in-person voting and voting by mail has grown enormously in the past quarter century, with distinct regional patterns to the use
 of different modes of voting. In the code below, we first create a column labeled `census_region` that will allow us to make regional comparisons, and apply
-the survey weights to `cps_sample_10k`, the 10,000 row random sample of the CPS included with `cpsvote`.
+the survey weights to `cps_allyears_10k`, the 10,000 row random sample of the CPS included with `cpsvote`.
 
 
 ```{r earlyvoting_data_load, include = TRUE}
-cps_region <-  cps_sample_10k %>% 
+cps_region <-  cps_allyears_10k %>% 
   # since this is only among voters, either weight can be used equivalently
   as_survey_design(weights = turnout_weight) %>%
   mutate(census_region = case_when(

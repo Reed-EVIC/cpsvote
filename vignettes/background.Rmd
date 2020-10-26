@@ -65,7 +65,7 @@ Critically, the CPS is designed to generate national *and* state estimates, and 
 
 ```{r eval = FALSE}
 cps_survey <- survey::svydesign(ids = ~1, # simple weights, no clusters
-                                data = cps_sample_10k, # data set
+                                data = cps_allyears_10k, # data set
                                 weights = ~turnout_weight) # weight column
 ```
 
@@ -73,7 +73,7 @@ A recently released package, `srvyr`, provides "`dplyr`-like syntax for summary 
 many of the commands easier to implement. The following code will create a weighted data object using `srvyr`:
 
 ```{r eval = FALSE}
-cps_srvyr <- srvyr::as_survey_design(.data = cps_sample_10k, # data set
+cps_srvyr <- srvyr::as_survey_design(.data = cps_allyears_10k, # data set
                                      weights = turnout_weight) # weight column
 ```
 
