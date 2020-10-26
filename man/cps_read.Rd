@@ -39,3 +39,7 @@ Load multiple years of data from the Current Population Survey.
 This function will also download the data for you, if it is not present in
 the given \code{dir}.
 }
+\examples{
+\dontrun{cps_read(years = 2016, names_col = "new_name")}
+
+}

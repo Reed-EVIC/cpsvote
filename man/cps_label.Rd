@@ -43,3 +43,7 @@ labels the raw numeric CPS data according to a supplied factor key. Codes
 that appear in a given year and are not included in \code{factors} will be
 recoded as \code{NA}.
 }
+\examples{
+cps_label(cps_2016_10k)
+
+}

@@ -33,3 +33,7 @@ own uses. To explore exactly how these variables were recoded, you can run
 \code{table(data$RACE, cps_refactor(data)$RACE)} in the console, substituting
 your column of interest in for \code{RACE}.
 }
+\examples{
+cps_refactor(cps_label(cps_2016_10k))
+
+}

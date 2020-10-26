@@ -116,8 +116,9 @@ cps_read_year <- function(file,
 #' specified columns. If none exists, use `names_col = NULL`
 #' @param join_dfs Whether to combine all of the years into a single data frame, 
 #' or leave them as a list of data frames. Defaults to `TRUE` with a warning.
-#' 
 #' @return a data frame, or list of data frames
+#' @examples \dontrun{cps_read(years = 2016, names_col = "new_name")}
+#' 
 #' @export
 cps_read <- function(years = seq(1994, 2018, 2),
                      dir = "cps_data",

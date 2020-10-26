@@ -21,5 +21,9 @@ made more sense to ship a "basic" CPS data set as a function rather than as a
 package data object (which would have been over 10 MB). This function will
 take you from nothing to having some basic CPS data in your environment, with
 the option to save this data locally for future ease. A sample of the data
-that comes out of this function is provided as \code{cpsvote::cps_sample_10k}.
+that comes out of this function is provided as \code{cpsvote::cps_allyears_10k}.
+}
+\examples{
+\dontrun{cps_load-basic(years = 2016, outdir = "data")}
+
 }

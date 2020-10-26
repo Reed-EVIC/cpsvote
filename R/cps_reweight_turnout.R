@@ -4,6 +4,7 @@
 #' (2013). The data set containing the scaling factor is `cpsvote::cps_reweight`.
 #' @param data the input data set, containing columns `YEAR`, `STATE`, and 
 #' `hurachen_turnout`
+#' @examples cps_reweight_turnout(cps_recode_vote(cps_refactor(cps_label(cps_2016_10k))))
 #' 
 #' @export
 cps_reweight_turnout <- function(data) {

@@ -33,3 +33,7 @@ where multiple categories map to "No", and one which follows the guidelines
 from Hur & Achen (2013) of setting these categories to \code{NA}. See the Vignette
 for more information on this process.
 }
+\examples{
+cps_recode_vote(cps_refactor(cps_label(cps_2016_10k)))
+
+}

@@ -12,6 +12,11 @@
 #' years (since 1964), so any entry in `years` outside of this will be skipped.
 #' * Currently the package only supports downloads from 1994 onwards, so any 
 #' entry in `years` before 1994 will be skipped.
+#' @examples
+#' \dontrun{
+#' cps_download_docs(path = "cps_docs", years = 2016, overwrite = TRUE)
+#' }
+#' 
 #' @export
 cps_download_docs <- function(path = "cps_docs", 
                           years = seq(1994, 2018, 2),
@@ -109,6 +114,11 @@ cps_download_docs <- function(path = "cps_docs",
 #' years (since 1964), so any entry in `years` outside of this will be skipped.
 #' * Currently the package only supports downloads from 1994 onwards, so any 
 #' entry in `years` before 1994 will be skipped.
+#' @examples
+#' \dontrun{
+#' cps_download_data(path = "cps_docs", years = 2016, overwrite = TRUE)
+#' }
+#' 
 #' @export
 cps_download_data <- function(path = "cps_data", 
                           years = seq(1994, 2018, 2), 

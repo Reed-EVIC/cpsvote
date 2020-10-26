@@ -12,6 +12,8 @@
 #' @param datadir The location where the CPS zip files live (or should be 
 #' downloaded to)
 #' @param outdir The location where the final data file should be saved to
+#' @examples \dontrun{cps_load-basic(years = 2016, outdir = "data")}
+#' 
 #' @export
 cps_load_basic <- function(years = seq(1994, 2018, 2),
                            datadir = "cps_data",
