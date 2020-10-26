@@ -1,5 +1,5 @@
 Package: cpsvote
-Title: A Social Science Toolbox for Using the Current Population Survey’s Voting and Registration Supplement
+Title: A Toolbox for Using the CPS’s Voting and Registration Supplement
 Version: 0.1.0
 Authors@R: 
     c(person(given = "Jay",
@@ -16,7 +16,9 @@ Description: Provides automated methods for downloading, recoding, and merging
     selected years of the Current Population Survey's Voting and Registration 
     Supplement, a large N national survey about registration, voting, and 
     non-voting in United States federal elections. Provides documentation for 
-    appropriate use of sample weights to generate statistical estimates.
+    appropriate use of sample weights to generate statistical estimates, 
+    drawing from Hur & Achen (2013) <doi:10.1093/poq/nft042> and McDonald (2018) 
+    <https:http://www.electproject.org/home/voter-turnout/voter-turnout-data>.
 URL: https://github.com/Reed-EVIC/cpsvote
 BugReports: https://github.com/Reed-EVIC/cpsvote/issues
 License: MIT + file LICENSE
