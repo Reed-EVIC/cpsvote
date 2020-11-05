@@ -34,17 +34,14 @@ updating the package when 2020 data becomes available.
 
 ## Installing and Loading the Package
 
-<!--
-[Version 0.1](https://cran.r-project.org/package=cpsvote) is on CRAN!
+[Version 0.1](https://cran.r-project.org/package=cpsvote) is on CRAN\!
 
-
-```r
+``` r
 install.packages('cpsvote')
 library(cpsvote)
 ```
--->
 
-You can <!--also -->install the development version from our [GitHub
+You can also install the development version from our [GitHub
 repository](https://github.com/Reed-EVIC/cpsvote).
 
 ``` r

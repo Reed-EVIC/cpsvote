@@ -32,15 +32,15 @@ This package consolidates common questions and provides the data in a structure 
 We have provided access to VRS data from 1994 to 2018, and anticipate updating the package when 2020 data becomes available.
 
 ## Installing and Loading the Package
-<!--
+
 [Version 0.1](https://cran.r-project.org/package=cpsvote) is on CRAN!
 
 ```{r eval = FALSE}
 install.packages('cpsvote')
 library(cpsvote)
 ```
--->
-You can <!--also -->install the development version from our [GitHub repository](https://github.com/Reed-EVIC/cpsvote).
+
+You can also install the development version from our [GitHub repository](https://github.com/Reed-EVIC/cpsvote).
 
 ```{r eval = FALSE}
 remotes::install_github("Reed-EVIC/cpsvote")
