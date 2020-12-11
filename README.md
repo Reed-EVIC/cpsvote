@@ -92,7 +92,7 @@ analyses that are possible with the CPS.
         2)  Example: `cpsvote::cps_download_data(path = "~/mydata/CPS",
             years = seq(2000, 2014, 4))` will download the 2000, 2004,
             2008, and 2012 CPS and place them in the path
-            “~/mydata/CPS”.
+            “\~/mydata/CPS”.
     4)  `cpsvote::cps_download_docs()` downloads all documentation
         files, and places them in “./cps\_docs”
     5)  `cpsvote::cps_download_docs(path = "dir", years = seq(start,
@@ -115,7 +115,7 @@ analyses that are possible with the CPS.
         2)  Example: `cps_vote <- cpsvote::cps_read(data_dir =
             "~/mydata/CPS", years = seq(1994, 2000, 2))` will load CPS
             data from 1994, 1996, 1998, and 2000, assuming the data
-            files are stored in “~/mydata/CPS”, and merge into the
+            files are stored in “\~/mydata/CPS”, and merge into the
             object “cps\_vote”.
 5.  *Attach proper labels to the numeric data*
     1)  By default, the CPS comes with numeric data values. These
@@ -218,10 +218,9 @@ cps_income <- cps_read(years = c(2006, 2008),
 #> Reading 2 data file(s)...
 #> 2006 file read
 #> 2008 file read
-#> Warning in cps_read(years = c(2006, 2008), cols = my_cols): The column
-#> names provided by the CPS do not refer to the same question across all
-#> years. Be cautious that you are joining columns which correspond across
-#> years.
+#> Warning in cps_read(years = c(2006, 2008), cols = my_cols): The column names
+#> provided by the CPS do not refer to the same question across all years. Be
+#> cautious that you are joining columns which correspond across years.
 ```
 
 Now we can look at the unweighted breakdown of income by year.
