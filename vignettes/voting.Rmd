@@ -422,7 +422,7 @@ cps10k_weight %>%
 ## Canyon Maps can go here
 
 
-```{r}
+```{r method_maps}
 library(albersusa) 
 library(sf)
 library(ggthemes)
@@ -464,4 +464,40 @@ sf::st_as_sf(map_data) %>%
   scale_fill_gradient(low = "lavender", high = "purple", na.value = NA, name = "Election Day Voting Usage", labels = scales::percent)
 
 ```
+
+```{r}
+cps_basic <- cps_load_basic() 
+cps_basic_W <- as_survey_design(cps_basic, weights = turnout_weight)
+
+age_data <- cps_basic_W %>%
+  filter(!is.na(HISPANIC) & !is.na(AGE) & YEAR %in% c(2016, 2018)) %>%
+  mutate(AGE = factor(AGE)) %>%
+  group_by(HISPANIC, AGE) %>%
+  summarize(value = survey_mean(na.rm = T)) %>%
+  mutate(AGE= as.numeric(AGE)) 
+
+cps_basic %>%
+  filter(!is.na(HISPANIC) & !is.na(AGE) & YEAR %in% c(2016, 2018)) %>%
+  group_by(AGE) %>%
+  summarise(n())
+
+
+  ggplot(aes(x = AGE, y = value, fill = HISPANIC)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() 
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
