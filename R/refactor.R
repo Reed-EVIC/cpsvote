@@ -21,6 +21,8 @@
 #' @param data A dataset containing already-labelled CPS data
 #' @param move_levels Whether to move the levels "OTHER", "DON'T KNOW", and 
 #' "REFUSED" to the end of each factor's level set
+#' @examples cps_refactor(cps_label(cps_2016_10k))
+#' 
 #' @export
 cps_refactor <- function(data, move_levels = TRUE) {
   RACE <- HISPANIC <- VRS_RESIDENCE <- VRS_VOTE_WHYNOT <- VRS_REG_METHOD <- NULL
@@ -102,13 +104,13 @@ cps_refactor <- function(data, move_levels = TRUE) {
                     VRS_VOTEMODE_2004toPRESENT == "BY MAIL" ~ "BY MAIL",
                     VRS_VOTEMODE_2004toPRESENT == "IN PERSON" & VRS_VOTEWHEN_2004toPRESENT == "BEFORE ELECTION DAY" ~ "EARLY",
                     VRS_VOTEMODE_2004toPRESENT == "IN PERSON" & VRS_VOTEWHEN_2004toPRESENT == "ON ELECTION DAY" ~ "ELECTION DAY"
-                  )
+                  ) %>% factor(levels = c("ELECTION DAY", "EARLY", "BY MAIL"))
            ))
   
   # remove anything you added in, these will be all NA
   varna <- colSums(is.na(output))
   extra <- names(varna[names(varna) %in% cols & varna == nrow(output)])
-  output <- dplyr::select(output, -any_of(extra))
+  output <- dplyr::select(output, -dplyr::any_of(extra))
   
   if (move_levels) output <- output %>%
     dplyr::mutate_if(is.factor, function(x) suppressWarnings(forcats::fct_relevel(x, 
@@ -153,6 +155,8 @@ cps_refactor <- function(data, move_levels = TRUE) {
 #' @return `data` with two columns attached, `cps_turnout` and `hurachen_turnout`,
 #' voting variables recoded according to the process above
 #' @importFrom rlang .data
+#' @examples cps_recode_vote(cps_refactor(cps_label(cps_2016_10k)))
+#' 
 #' @export
 cps_recode_vote <- function(data, 
                             vote_col = "VRS_VOTE",

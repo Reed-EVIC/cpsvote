@@ -22,7 +22,7 @@ question, and have a ".zip" or ".gz" extension.}
 
 \item{cols}{Which columns to read. This must be a data frame, with required
 columns \code{start_pos},\code{end_pos}, and \code{year}. The default value is \code{cps_cols},
-which reads from the list \code{cpsvote::cps_cols}. See \url{vignettes/read_specs.html}
+which reads from the list \code{cpsvote::cps_cols}. See \code{vignette("add-variables")}
 for details about how to specify a different set of \code{cols}.}
 
 \item{names_col}{The column in \code{cols} that contains column names for the
@@ -38,4 +38,8 @@ a data frame, or list of data frames
 Load multiple years of data from the Current Population Survey.
 This function will also download the data for you, if it is not present in
 the given \code{dir}.
+}
+\examples{
+\dontrun{cps_read(years = 2016, names_col = "new_name")}
+
 }

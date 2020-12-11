@@ -14,3 +14,7 @@ cps_reweight_turnout(data)
 This function applies the turnout correction recommended by Hur & Achen
 (2013). The data set containing the scaling factor is \code{cpsvote::cps_reweight}.
 }
+\examples{
+cps_reweight_turnout(cps_recode_vote(cps_refactor(cps_label(cps_2016_10k))))
+
+}

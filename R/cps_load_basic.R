@@ -6,12 +6,14 @@
 #' package data object (which would have been over 10 MB). This function will 
 #' take you from nothing to having some basic CPS data in your environment, with 
 #' the option to save this data locally for future ease. A sample of the data
-#' that comes out of this function is provided as `cpsvote::cps_sample_10k`.
+#' that comes out of this function is provided as `cpsvote::cps_allyears_10k`.
 #' 
 #' @param years Which years should be read
 #' @param datadir The location where the CPS zip files live (or should be 
 #' downloaded to)
 #' @param outdir The location where the final data file should be saved to
+#' @examples \dontrun{cps_load-basic(years = 2016, outdir = "data")}
+#' 
 #' @export
 cps_load_basic <- function(years = seq(1994, 2018, 2),
                            datadir = "cps_data",

@@ -4,7 +4,7 @@
 #' @param file Where the fixed-width or zip/gz file for this year's data lives
 #' @param cols Which columns to read. This must be a data frame, with required 
 #' columns `start_pos` and `end_pos`. The default value is `cps_cols`, which 
-#' reads from the list `cpsvote::cps_cols`. See \url{vignettes/read_specs.html} for 
+#' reads from the list `cpsvote::cps_cols`. See `vignette("add-variables")` for 
 #' details about how to specify a different set of `cols`.
 #' @param names_col The column in `cols` that contains column names for the 
 #' specified columns. If none exists, use `names_col = NULL`
@@ -110,14 +110,15 @@ cps_read_year <- function(file,
 #' question, and have a ".zip" or ".gz" extension.
 #' @param cols Which columns to read. This must be a data frame, with required 
 #' columns `start_pos`,`end_pos`, and `year`. The default value is `cps_cols`, 
-#' which reads from the list `cpsvote::cps_cols`. See \url{vignettes/read_specs.html} 
+#' which reads from the list `cpsvote::cps_cols`. See `vignette("add-variables")` 
 #' for details about how to specify a different set of `cols`.
 #' @param names_col The column in `cols` that contains column names for the 
 #' specified columns. If none exists, use `names_col = NULL`
 #' @param join_dfs Whether to combine all of the years into a single data frame, 
 #' or leave them as a list of data frames. Defaults to `TRUE` with a warning.
-#' 
 #' @return a data frame, or list of data frames
+#' @examples \dontrun{cps_read(years = 2016, names_col = "new_name")}
+#' 
 #' @export
 cps_read <- function(years = seq(1994, 2018, 2),
                      dir = "cps_data",

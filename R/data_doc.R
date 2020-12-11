@@ -95,4 +95,33 @@
 #' \item{turnout_weight}{Adjusted weight for calculating voter turnout (per 
 #' Hur & Achen)}
 #' }
-"cps_sample_10k"
+"cps_allyears_10k"
+
+#' A sample of the raw 2016 CPS dataset
+#' 
+#' This is a 10,000 row sample of the data that comes out of 
+#' `cps_read(years = 2016)`.
+#' @format A tibble with 10,000 rows and 17 columns:
+#' \describe{
+#' \item{FILE}{Which default file the case came from}
+#' \item{YEAR}{Year of interview}
+#' \item{STATE}{State postal abbreviation}
+#' \item{AGE}{Person's age as of the end of survey week; 
+#' topcoded at 80 and 85}
+#' \item{SEX}{Binary sex}
+#' \item{EDUCATION}{Highest level of school completed or degree received}
+#' \item{RACE}{Race}
+#' \item{HISPANIC}{Hispanic status}
+#' \item{WEIGHT}{Original CPS survey weight}
+#' \item{VRS_VOTE}{Whether respondent voted in the election; self-reported}
+#' \item{VRS_REG}{Whether respondent was registered to vote in the election; 
+#' self-reported}
+#' \item{VRS_REG_WHYNOT}{Reason for not being registered to vote}
+#' \item{VRS_VOTE_WHYNOT}{Reason for not voting}
+#' \item{VRS_VOTEMODE_2004toPRESENT}{Whether respondent voted by mail}
+#' \item{VRS_VOTEWHEN_2004toPRESENT}{Whether respondent voted on election day or 
+#' before}
+#' \item{VRS_REG_METHOD}{Method of registration}
+#' \item{VRS_RESIDENCE}{Duration of time living at current address}
+#' }
+"cps_2016_10k"

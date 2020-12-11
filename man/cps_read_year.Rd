@@ -16,7 +16,7 @@ cps_read_year(
 
 \item{cols}{Which columns to read. This must be a data frame, with required
 columns \code{start_pos} and \code{end_pos}. The default value is \code{cps_cols}, which
-reads from the list \code{cpsvote::cps_cols}. See \url{vignettes/read_specs.html} for
+reads from the list \code{cpsvote::cps_cols}. See \code{vignette("add-variables")} for
 details about how to specify a different set of \code{cols}.}
 
 \item{names_col}{The column in \code{cols} that contains column names for the

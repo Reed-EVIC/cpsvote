@@ -1,5 +1,5 @@
 Package: cpsvote
-Title: Interface for the Current Population Survey - Voting and Registration Supplement
+Title: A Toolbox for Using the CPS’s Voting and Registration Supplement
 Version: 0.1.0
 Authors@R: 
     c(person(given = "Jay",
@@ -12,25 +12,28 @@ Authors@R:
     person(given = "Canyon",
            family = "Foot",
            role = c("ctb")))
-Description: `cpsvote` provides an automated method for downloading, recoding, and merging selected years of the 
-    Current Population Survey's 
-    Voting and Registration Supplement, a large N national survey into registration, voting, and non-voting in United States 
-    federal elections. The
-    package provides documentation for appropriate use of sample weights to generate statistical estimates. The package 
-    includes multiple vignettes
-    that illustrate different applications. 
+Description: Provides automated methods for downloading, recoding, and merging 
+    selected years of the Current Population Survey's Voting and Registration 
+    Supplement, a large N national survey about registration, voting, and 
+    non-voting in United States federal elections. Provides documentation for 
+    appropriate use of sample weights to generate statistical estimates, 
+    drawing from Hur & Achen (2013) <doi:10.1093/poq/nft042> and McDonald (2018) 
+    <http://www.electproject.org/home/voter-turnout/voter-turnout-data>.
+URL: https://github.com/Reed-EVIC/cpsvote
+BugReports: https://github.com/Reed-EVIC/cpsvote/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.6.0)
 Suggests: 
-    testthat (>= 2.1.0),
     knitr,
     rmarkdown,
     survey,
     srvyr,
-    kableExtra,
-    here
+    here,
+    scales,
+    ggplot2,
+    usmap
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1

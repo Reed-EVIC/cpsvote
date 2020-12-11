@@ -16,15 +16,19 @@
 #' @param rescale_weight Whether to rescale the weight, dividing by 10,000. The 
 #' CPS describes the given weight as having "four implied decimals", so this 
 #' rescaling adjusts the weight to produce sensible population totals.
-#' 
+#' @param toupper Whether to convert all factor levels to uppercase
 #' @return CPS data with factor labels in place of the raw numeric data
+#' @examples cps_label(cps_2016_10k)
+#' 
 #' @export
+#' @importFrom rlang :=
 cps_label <- function(data, 
                       factors = cpsvote::cps_factors, 
                       names_col = "new_name",
                       na_vals = c("-1", "BLANK", "NOT IN UNIVERSE"),
                       expand_year = TRUE,
-                      rescale_weight = TRUE) {
+                      rescale_weight = TRUE,
+                      toupper = TRUE) {
   
   orig_data <- data
   
@@ -66,8 +70,13 @@ cps_label <- function(data,
     # if it's not in the factor data, skip
     if(!(i %in% factors[[names_col]])) next
     # change to uppercase, factor with levels from `factors`
+    if (isTRUE(toupper)) {
+      levs <- unique(base::toupper(factors$value[factors[[names_col]] == i]))
+    } else {
+      levs <- unique(factors$value[factors[[names_col]] == i])
+    }
     output[[i]] <- factor(toupper(output[[i]]), 
-                          levels = unique(toupper(factors$value[factors[[names_col]] == i])))
+                          levels = levs)
   }
   
   output <- output %>%

@@ -10,7 +10,8 @@ cps_label(
   names_col = "new_name",
   na_vals = c("-1", "BLANK", "NOT IN UNIVERSE"),
   expand_year = TRUE,
-  rescale_weight = TRUE
+  rescale_weight = TRUE,
+  toupper = TRUE
 )
 }
 \arguments{
@@ -29,6 +30,8 @@ the dataset and be set to NA after labelling}
 \item{rescale_weight}{Whether to rescale the weight, dividing by 10,000. The
 CPS describes the given weight as having "four implied decimals", so this
 rescaling adjusts the weight to produce sensible population totals.}
+
+\item{toupper}{Whether to convert all factor levels to uppercase}
 }
 \value{
 CPS data with factor labels in place of the raw numeric data
@@ -39,4 +42,8 @@ PDF codebook (not machine readable) describing factor values. This function
 labels the raw numeric CPS data according to a supplied factor key. Codes
 that appear in a given year and are not included in \code{factors} will be
 recoded as \code{NA}.
+}
+\examples{
+cps_label(cps_2016_10k)
+
 }
