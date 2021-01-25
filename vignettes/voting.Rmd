@@ -315,7 +315,7 @@ Absentee/Voting By Mail (most popular in the West, where Colorado, Oregon, and W
 map_data <- cps16 %>%
   as_survey_design(weights = turnout_weight) %>%
   filter(!is.na(STATE), !is.na(VRS_VOTEMETHOD_CON)) %>%
-  mutate(state = STATE) %>% # necessary column name for plot_usmap
+  mutate(state = STATE) %>% # this is a necessary column name for plot_usmap
   group_by(state, VRS_VOTEMETHOD_CON) %>%
   summarize(value = survey_mean(na.rm = TRUE))
   
