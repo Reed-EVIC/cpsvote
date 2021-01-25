@@ -311,37 +311,13 @@ The next three maps display the great diversity across the 50 states in the use 
 areas of the Midwest and South); Early In-Person voting (most popular in Nevada, New Mexico, and several Southern states); and
 Absentee/Voting By Mail (most popular in the West, where Colorado, Oregon, and Washington all have full vote-by-mail elections). 
 
-<<<<<<< HEAD
-```{r method_maps}
-library(albersusa) 
-library(sf)
-library(ggthemes)
-map_data <- cps2016_srvyrHW %>%
-  filter(YEAR == 2016 & !is.na(VRS_VOTEMETHOD_CON)) %>%
-  group_by(STATE, VRS_VOTEMETHOD_CON) %>%
-  summarize(value = survey_mean(na.rm = TRUE)) %>%
-  merge(albersusa::usa_sf("laea"), by.x = "STATE", by.y = "iso_3166_2")
-
-
-sf::st_as_sf(map_data) %>% 
-  filter(VRS_VOTEMETHOD_CON == "BY MAIL") %>%
-  ggplot(aes(fill = value)) +
-  geom_sf() +
-  ggthemes::theme_map() + 
-  theme(legend.position = "top",
-        text = element_text("times")) + 
-  scale_fill_gradient(low = "sky blue", high = "navy", na.value = NA, name = "Vote-by-Mail Usage", labels = scales::percent)
-
-  
-=======
-```{r}
+```{r votemethod-maps}
 map_data <- cps16 %>%
   as_survey_design(weights = turnout_weight) %>%
   filter(!is.na(STATE), !is.na(VRS_VOTEMETHOD_CON)) %>%
   mutate(state = STATE) %>% # necessary column name for plot_usmap
   group_by(state, VRS_VOTEMETHOD_CON) %>%
   summarize(value = survey_mean(na.rm = TRUE))
->>>>>>> 7c79dff017ff8abe25ce01778e4e05ddce25a174
   
 map_data %>% 
   filter(VRS_VOTEMETHOD_CON == "ELECTION DAY") %>%
