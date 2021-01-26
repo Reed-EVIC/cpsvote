@@ -1,0 +1,24 @@
+---
+title: "Test Download"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Test Download}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(cpsvote)
+```
+
+```{r}
+cps_download_data(path = here::here('cps_data'), years = 2018, overwrite = TRUE)
+```
+
