@@ -1,7 +1,28 @@
 ---
-title: "Voting figures for Paul"
-output: html_document
+title: "Using the CPS and `cpsvote` to Understand Voting"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{voting}
+  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
+
+```{r, include = FALSE, echo = FALSE}
+options(rmarkdown.html_vignette.check_title = FALSE)
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  message = FALSE, warning = FALSE,
+  fig.width = 6, fig.height = 3,
+  purl = NOT_CRAN,
+  eval = NOT_CRAN
+)
+library(knitr)
+```
 
 ```{r setup, include=FALSE}
 library(srvyr)
@@ -10,8 +31,9 @@ library(ggthemes)
 library(scales)
 library(tidyverse)
 library(cpsvote)
+library(here)
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, results='asis')
-cps <- cps_load_basic()
+cps <- cps_allyears_10k
 
 cps <- cps %>% 
   mutate(
@@ -59,7 +81,11 @@ cps %>%
 The geographic distribution of this trend is striking. In 2016, Washington, Oregon, and Colorado had by far the lowest rates of in-person election day voting (nearly 0% as these states have adopted full vote-by-mail election systems) with several states in the South and particularly the Southwest also reporting low rates of in-person election day voting. The Northeast stands out as maintaining high rates of in-person election day voting, as do states like Alabama and Kentucky.
 
 ```{r fig.width=20,fig.height = 12}
-cps %>%
+cps_2016_10k %>%
+  cps_label() %>%
+  cps_refactor() %>%
+  cps_recode_vote() %>%
+  cps_reweight_turnout() %>%
   as_survey_design(weight = turnout_weight) %>%
   filter(YEAR == 2016 & !is.na(VRS_VOTEMETHOD_CON)) %>%
   group_by(STATE) %>%
@@ -162,8 +188,3 @@ cps %>%
   labs(x = "Year", y = "") +
   scale_color_discrete(name = "Census Region: ")
 ```
-
-
-
-
-
