@@ -18,4 +18,5 @@
 ^data/cps.rda$
 ^doc$
 ^Meta$
-cran-comments.md
+^cran-comments.md$
+^vignettes/README.md$

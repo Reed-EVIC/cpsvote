@@ -1,8 +1,8 @@
 ---
-title: "Using the CPS and `cpsvote` to Understand Voting"
+title: "Using the CPS and `cpsvote` to Understand Voting Part 2"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{voting}
+  %\VignetteIndexEntry{vote_method_trends}
   %\VignetteEncoding{UTF-8}
   \usepackage[utf8]{inputenc}
   %\VignetteEngine{knitr::rmarkdown}
