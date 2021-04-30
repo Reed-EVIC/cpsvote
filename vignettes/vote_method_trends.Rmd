@@ -57,9 +57,9 @@ However, even when excluding the 2020 election, a clear pattern of movement from
 ```{r fig.width=20,fig.height = 12}
 cps %>%
   as_survey_design(weight = turnout_weight) %>%
+  filter(!is.na(VRS_VOTEMETHOD_CON)) %>%
   group_by(YEAR, VRS_VOTEMETHOD_CON) %>%
   summarise(pct = survey_mean(na.rm = T)) %>%
-  na.omit() %>%
   ggplot(aes(x = YEAR, y = pct, color = VRS_VOTEMETHOD_CON)) +
   geom_point(size = 3.5) +
   geom_line(size = 1.25) +
@@ -114,9 +114,10 @@ Breaking down the trend by region and year makes the picture clearer. While the 
 ```{r fig.width=20,fig.height = 12}
 cps %>%
   as_survey_design(weight = turnout_weight) %>%
+  filter(!is.na(VRS_VOTEMETHOD_CON),
+         !is.na(census_region)) %>%
   group_by(census_region, YEAR, VRS_VOTEMETHOD_CON) %>%
   summarise(pct = survey_mean(na.rm = T)) %>%
-  na.omit() %>%
   filter(VRS_VOTEMETHOD_CON == "ELECTION DAY") %>%
   ggplot(aes(x = YEAR, y = pct, color = census_region)) +
   geom_point(size = 3.5) +
@@ -142,9 +143,10 @@ The source of these changes were not evenly distributed across regions. The decl
 ```{r fig.width=20,fig.height = 12}
 cps %>%
   as_survey_design(weight = turnout_weight) %>%
+  filter(!is.na(VRS_VOTEMETHOD_CON),
+         !is.na(census_region)) %>%
   group_by(census_region, YEAR, VRS_VOTEMETHOD_CON) %>%
   summarise(pct = survey_mean(na.rm = T)) %>%
-  na.omit() %>%
   filter(VRS_VOTEMETHOD_CON == "EARLY") %>%
   ggplot(aes(x = YEAR, y = pct, color = census_region)) +
   geom_point(size = 3.5) +
@@ -168,9 +170,10 @@ The story is analogous but even more pronounced in the West. Instead of early vo
 ```{r fig.width=20,fig.height = 12}
 cps %>%
   as_survey_design(weight = turnout_weight) %>%
+  filter(!is.na(VRS_VOTEMETHOD_CON),
+         !is.na(census_region)) %>%
   group_by(census_region, YEAR, VRS_VOTEMETHOD_CON) %>%
   summarise(pct = survey_mean(na.rm = T)) %>%
-  na.omit() %>%
   filter(VRS_VOTEMETHOD_CON == "BY MAIL") %>%
   ggplot(aes(x = YEAR, y = pct, color = census_region)) +
   geom_point(size = 3.5) +
