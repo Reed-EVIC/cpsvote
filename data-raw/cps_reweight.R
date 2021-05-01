@@ -119,19 +119,19 @@ cps <- cps_load_basic() %>%
   as_survey_design(weights = WEIGHT)
 
 cps_turnout <- cps %>%
+  filter(!is.na(hurachen_turnout)) %>%
   group_by(YEAR, STATE, hurachen_turnout) %>%
   summarize(cps_turnout = survey_mean(na.rm = TRUE)) %>%
+  ungroup() %>%
   select(YEAR, STATE,
          response = hurachen_turnout,
-         cps_turnout) %>%
-  filter(complete.cases(.)) %>%
-  mutate(response = forcats::fct_drop(response))
+         cps_turnout)
 
 # stick them together, get coefficients, and save #####
 
 cps_reweight <- full_join(vep_turnout, cps_turnout,
                       by = c("YEAR", "STATE", "response")) %>%
-  mutate(reweight = vep_turnout / cps_turnout)
+  mutate(reweight = coalesce(vep_turnout / cps_turnout, 1))
 
 usethis::use_data(cps_reweight, overwrite = TRUE)
 

@@ -4,7 +4,7 @@
 #' names) across years, to correctly read the data you have to specify which 
 #' start/end positions correspond to which column names in each year. This is one 
 #' such specification. To add extra data or change column names, see the Vignette.
-#' @format A data frame with 204 rows and 8 columns:
+#' @format A data frame with 220 rows and 8 columns:
 #' \describe{
 #' \item{year}{year}
 #' \item{cps_name}{original column name as given by the CPS}
@@ -23,7 +23,7 @@
 #' Because the CPS changes factor levels across years, to correctly read the data 
 #' you have to specify which numeric codes correspond to which character values 
 #' in each year. This is one such specification. To add extra data, see the Vignette.
-#' @format A data frame with 204 rows and 8 columns:
+#' @format A data frame with 2,135 rows and 5 columns:
 #' \describe{
 #' \item{year}{year}
 #' \item{cps_name}{original column name as given by the CPS}
@@ -45,7 +45,7 @@
 #' voting-eligible population (VEP). It can be joined with CPS data to 
 #' calculate the new weights needed for analysis, using the function 
 #' `cps_reweight_turnout`.
-#' @format A tibble with 1,326 rows and 6 columns:
+#' @format A tibble with 1,428 rows and 6 columns:
 #' \describe{
 #' \item{YEAR}{year}
 #' \item{STATE}{state}
