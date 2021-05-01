@@ -15,7 +15,7 @@
 #' @examples \dontrun{cps_load-basic(years = 2016, outdir = "data")}
 #' 
 #' @export
-cps_load_basic <- function(years = seq(1994, 2018, 2),
+cps_load_basic <- function(years = seq(1994, 2020, 2),
                            datadir = "cps_data",
                            outdir = NULL) {
   output <- cps_read(dir = datadir, years = years) %>%
