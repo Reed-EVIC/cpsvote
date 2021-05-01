@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 
 library(knitr)
-library(cpsvote)
+devtools::load_all()
 set.seed(20201012)
 ```
 
@@ -30,7 +30,7 @@ set.seed(20201012)
 
 This package consolidates common questions and provides the data in a structure that is much easier to work with and interpret, since much of the basic factor recoding has already been done. We also calculate alternative sample weights based on demonstrated changes in non-response bias over the decades, recommended by several elections researchers as a best practice. Documentation of this reweighting is provided in `vignette("voting")`.
 
-We have provided access to VRS data from 1994 to 2018, and anticipate updating the package when 2020 data becomes available.
+We have provided access to VRS data from 1994 to 2020. Currently the 2020 data does not yet include a reweighting for proper voter turnout estimates, but we anticipate updating the package when this data becomes available.
 
 ## Installing and Loading the Package
 
@@ -129,11 +129,11 @@ Be sure to refer to the CPS documentation files when working with alternative ve
 
 ```{r eval=F}
 cps_download_data(path = "cps_data",
-                  years = seq(1994, 2018, 2))
+                  years = seq(1994, 2020, 2))
 cps_download_docs(path = "cps_data",
-                  years = seq(1994, 2018, 2))
+                  years = seq(1994, 2020, 2))
 
-cps_read(years = seq(1994, 2018, 2),
+cps_read(years = seq(1994, 2020, 2),
          dir = "cps_data",
          cols = cpsvote::cps_cols,
          names_col = "new_name",

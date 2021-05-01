@@ -31,8 +31,10 @@ bias over the decades, recommended by several elections researchers as a
 best practice. Documentation of this reweighting is provided in
 `vignette("voting")`.
 
-We have provided access to VRS data from 1994 to 2018, and anticipate
-updating the package when 2020 data becomes available.
+We have provided access to VRS data from 1994 to 2020. Currently the
+2020 data does not yet include a reweighting for proper voter turnout
+estimates, but we anticipate updating the package when this data becomes
+available.
 
 ## Installing and Loading the Package
 
@@ -103,16 +105,16 @@ cps_allyears_10k %>%
 
 | FILE             | YEAR | STATE | VRS\_VOTE | VRS\_REG | VRS\_VOTEMETHOD\_CON | turnout\_weight |
 | :--------------- | ---: | :---- | :-------- | :------- | :------------------- | --------------: |
-| cps\_nov2012.zip | 2012 | VA    | YES       | NA       | ELECTION DAY         |        2219.511 |
-| cps\_nov2010.zip | 2010 | MI    | YES       | NA       | ELECTION DAY         |        2205.806 |
-| cps\_nov2008.zip | 2008 | CA    | NA        | NA       | NA                   |           0.000 |
-| cps\_nov1996.zip | 1996 | CA    | YES       | NA       | ELECTION DAY         |        2949.914 |
-| cps\_nov2000.zip | 2000 | TX    | YES       | NA       | EARLY                |        2257.311 |
-| cps\_nov1996.zip | 1996 | CA    | YES       | NA       | ELECTION DAY         |        1581.404 |
-| cps\_nov2000.zip | 2000 | OH    | YES       | NA       | ELECTION DAY         |        1869.228 |
-| cps\_nov2004.zip | 2004 | TX    | NO        | NO       | NA                   |        4676.750 |
-| cps\_nov1998.zip | 1998 | WI    | YES       | NA       | ELECTION DAY         |        2633.379 |
-| cps\_nov1996.zip | 1996 | ND    | NA        | NA       | NA                   |           0.000 |
+| cps\_nov2014.zip | 2014 | NH    | NA        | NA       | NA                   |          0.0000 |
+| cps\_nov2012.zip | 2012 | CA    | NA        | NA       | NA                   |          0.0000 |
+| cps\_nov2008.zip | 2008 | NC    | NA        | NA       | NA                   |       5537.8704 |
+| cps\_nov1996.zip | 1996 | FL    | NA        | NA       | NA                   |       2041.5099 |
+| cps\_nov2002.zip | 2002 | DE    | NA        | NA       | NA                   |        521.8448 |
+| cps\_nov1996.zip | 1996 | FL    | NO        | NO       | NA                   |       3365.9780 |
+| cps\_nov2000.zip | 2000 | WY    | REFUSED   | REFUSED  | NA                   |        317.0368 |
+| cps\_nov2006.zip | 2006 | IL    | NO        | YES      | NA                   |       4094.0583 |
+| cps\_nov2000.zip | 2000 | FL    | NO        | YES      | NA                   |       3796.1487 |
+| cps\_nov1996.zip | 1996 | TN    | NA        | NA       | NA                   |          0.0000 |
 
 The CPS has survey weights that are necessary to calculate accurate
 estimates about the US population. Two R packages that work with survey
@@ -178,11 +180,11 @@ get from the raw data file to the cleaned file in
 
 ``` r
 cps_download_data(path = "cps_data",
-                  years = seq(1994, 2018, 2))
+                  years = seq(1994, 2020, 2))
 cps_download_docs(path = "cps_data",
-                  years = seq(1994, 2018, 2))
+                  years = seq(1994, 2020, 2))
 
-cps_read(years = seq(1994, 2018, 2),
+cps_read(years = seq(1994, 2020, 2),
          dir = "cps_data",
          cols = cpsvote::cps_cols,
          names_col = "new_name",
