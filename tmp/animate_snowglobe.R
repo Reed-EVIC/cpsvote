@@ -12,30 +12,33 @@ library(ggtern)
 library(rlang)
 library(magick)
 
-cpsvrs <- readRDS(here('tmp', 'cpsvrs.RDS'))
+cps <- cps_load_basic()
 
 # It is necessary to use sample weights to obtain proper estimates from the CPS
-cpsvrs_weighted <- cpsvrs %>%
-  filter(CPS_YEAR > 1995) %>%
-  srvyr::as_survey_design(weights = WEIGHT)
+cps_weighted <- cps %>%
+  filter(YEAR > 1995) %>%
+  srvyr::as_survey_design(weights = turnout_weight)
 
-vote_mode <- cpsvrs_weighted %>%
-  filter(!is.na(VOTEMETHOD_COLLAPSE)) %>%
-  group_by(CPS_YEAR, CPS_STATE) %>%
-  summarize(`Election day` = srvyr::survey_mean(VOTEMETHOD_COLLAPSE == 'Election day'),
-            Mail = srvyr::survey_mean(VOTEMETHOD_COLLAPSE == 'Mail'),
-            Early = srvyr::survey_mean(VOTEMETHOD_COLLAPSE == 'Early')) %>%
-  select(-ends_with('_se'))
+vote_mode <- cps_weighted %>%
+  select(YEAR, STATE, VRS_VOTEMETHOD_CON) %>%
+  filter(across(everything(), function (x) !is.na(x))) %>%
+  group_by(YEAR, STATE, VRS_VOTEMETHOD_CON) %>%
+  summarize(survey_mean(na.rm = TRUE)) %>%
+  select(-ends_with('_se')) %>%
+  pivot_wider(id_cols = c("YEAR", "STATE"), names_from = "VRS_VOTEMETHOD_CON", values_from = "coef",
+              values_fill = 0)
 
 # This first plot is left in place in order to visually check the individual years
 # size may not work correctly, so check output
-ggplot(filter(vote_mode, CPS_YEAR == 2018), aes(y = `Election day`, x = Mail, z = Early, label = CPS_STATE)) +
+ggplot(filter(vote_mode, YEAR == 2018), aes(y = `ELECTION DAY`, x = `BY MAIL`, z = EARLY, label = STATE)) +
   geom_text(vjust = "inward", hjust = "inward", size = 1.5) +
   coord_tern() +
-  labs(y = "Election Day",
-       title = "The Move Away From Election Day Voting in America: 1996-2018",
+  labs(x = "Mail",
+       y = "Election Day",
+       z = "Early",
+       title = "The Move Away From Election Day Voting in America: 1996-2020",
        subtitle = paste("Share of votes cast in federal elections, by mode",
-                        "\nYear:", unique(filter(vote_mode, CPS_YEAR == 2018)$CPS_YEAR))) +
+                        "\nYear:", unique(filter(vote_mode, YEAR == 2018)$YEAR))) +
   theme_classic() +
   theme(plot.title = element_text(hjust = 0.5, size = 8),
         plot.subtitle = element_text(hjust = 0.5, size = 6),
@@ -46,44 +49,48 @@ ggsave(filename = here('img', 'test_frame.png'),
        width = 4.25, height = 3.5)
 
 # interpolate transition frames
-tweened_data <- filter(vote_mode, CPS_YEAR == 1996) %>%
+tweened_data <- filter(vote_mode, YEAR == 1996) %>%
   keep_state(10) %>%
-  tween_state(filter(vote_mode, CPS_YEAR == 1998), 'linear', id = CPS_STATE, nframes = 10) %>%
+  tween_state(filter(vote_mode, YEAR == 1998), 'linear', id = STATE, nframes = 10) %>%
   keep_state(10) %>%
-  tween_state(filter(vote_mode, CPS_YEAR == 2000), 'linear', id = CPS_STATE, nframes = 10) %>%
+  tween_state(filter(vote_mode, YEAR == 2000), 'linear', id = STATE, nframes = 10) %>%
   keep_state(10) %>%
-  tween_state(filter(vote_mode, CPS_YEAR == 2002), 'linear', id = CPS_STATE, nframes = 10) %>%
+  tween_state(filter(vote_mode, YEAR == 2002), 'linear', id = STATE, nframes = 10) %>%
   keep_state(10) %>%
-  tween_state(filter(vote_mode, CPS_YEAR == 2004), 'linear', id = CPS_STATE, nframes = 10) %>%
+  tween_state(filter(vote_mode, YEAR == 2004), 'linear', id = STATE, nframes = 10) %>%
   keep_state(10) %>%
-  tween_state(filter(vote_mode, CPS_YEAR == 2006), 'linear', id = CPS_STATE, nframes = 10) %>%
+  tween_state(filter(vote_mode, YEAR == 2006), 'linear', id = STATE, nframes = 10) %>%
   keep_state(10) %>%
-  tween_state(filter(vote_mode, CPS_YEAR == 2008), 'linear', id = CPS_STATE, nframes = 10) %>%
+  tween_state(filter(vote_mode, YEAR == 2008), 'linear', id = STATE, nframes = 10) %>%
   keep_state(10) %>%
-  tween_state(filter(vote_mode, CPS_YEAR == 2010), 'linear', id = CPS_STATE, nframes = 10) %>%
+  tween_state(filter(vote_mode, YEAR == 2010), 'linear', id = STATE, nframes = 10) %>%
   keep_state(10) %>%
-  tween_state(filter(vote_mode, CPS_YEAR == 2012), 'linear', id = CPS_STATE, nframes = 10) %>%
+  tween_state(filter(vote_mode, YEAR == 2012), 'linear', id = STATE, nframes = 10) %>%
   keep_state(10) %>%
-  tween_state(filter(vote_mode, CPS_YEAR == 2014), 'linear', id = CPS_STATE, nframes = 10) %>%
+  tween_state(filter(vote_mode, YEAR == 2014), 'linear', id = STATE, nframes = 10) %>%
   keep_state(10) %>%
-  tween_state(filter(vote_mode, CPS_YEAR == 2016), 'linear', id = CPS_STATE, nframes = 10) %>%
+  tween_state(filter(vote_mode, YEAR == 2016), 'linear', id = STATE, nframes = 10) %>%
   keep_state(10) %>%
-  tween_state(filter(vote_mode, CPS_YEAR == 2018), 'linear', id = CPS_STATE, nframes = 10) %>%
+  tween_state(filter(vote_mode, YEAR == 2018), 'linear', id = STATE, nframes = 10) %>%
   keep_state(10) %>%
-  mutate(CPS_YEAR = floor(CPS_YEAR / 2) * 2,
-         check2 = `Election day` + Mail + Early)
+  tween_state(filter(vote_mode, YEAR == 2020), 'linear', id = STATE, nframes = 10) %>%
+  keep_state(10) %>%
+  mutate(YEAR = floor(YEAR / 2) * 2,
+         check2 = `ELECTION DAY` + `BY MAIL` + EARLY)
 
 # add the write directory, if it doesn't exist
 dir.create(here('img', 'plot_frames'), showWarnings = FALSE)
 
 for (frame in unique(tweened_data$.frame)) {
-  ggplot(filter(tweened_data, .frame == frame), aes(y = `Election day`, x = Mail, z = Early, label = CPS_STATE)) +
+  ggplot(filter(tweened_data, .frame == frame), aes(y = `ELECTION DAY`, x = `BY MAIL`, z = EARLY, label = STATE)) +
     geom_text(vjust = "inward", hjust = "inward", size = 1.5) +
     coord_tern() +
-    labs(y = "Election Day",
-         title = "The Move Away From Election Day Voting in America: 1996-2018",
+    labs(x = "Mail",
+         y = "Election Day",
+         z = "Early",
+         title = "The Move Away From Election Day Voting in America: 1996-2020",
          subtitle = paste("Share of votes cast in federal elections, by mode",
-                          "\nYear:", unique(filter(tweened_data, .frame == frame)$CPS_YEAR))) +
+                          "\nYear:", unique(filter(tweened_data, .frame == frame)$YEAR))) +
     theme_classic() +
     theme(plot.title = element_text(hjust = 0.5, size = 8),
           plot.subtitle = element_text(hjust = 0.5, size = 6),
@@ -98,6 +105,7 @@ for (frame in unique(tweened_data$.frame)) {
 # optimize all these png files, ImageMagick terminal
 system('find ./img/plot_frames -name "*.png" -exec convert "{}" -strip "{}" \\; -exec echo "{}" \\;')
 
+# write the gif
 list.files(path = here('img', 'plot_frames'), pattern = "\\.png$", full.names = T) %>% 
   purrr::map(image_read) %>% # reads each path file
   image_join() %>% # joins image
