@@ -5,7 +5,7 @@
 \alias{cps_factors}
 \title{Sample factor specifications for reading CPS data}
 \format{
-A data frame with 204 rows and 8 columns:
+A data frame with 2,135 rows and 5 columns:
 \describe{
 \item{year}{year}
 \item{cps_name}{original column name as given by the CPS}

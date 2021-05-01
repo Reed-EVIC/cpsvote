@@ -4,7 +4,7 @@
 \alias{cps_load_basic}
 \title{load some basic/default CPS data into the environment}
 \usage{
-cps_load_basic(years = seq(1994, 2018, 2), datadir = "cps_data", outdir = NULL)
+cps_load_basic(years = seq(1994, 2020, 2), datadir = "cps_data", outdir = NULL)
 }
 \arguments{
 \item{years}{Which years should be read}
