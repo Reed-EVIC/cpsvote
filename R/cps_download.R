@@ -93,7 +93,15 @@ cps_download_docs <- function(path = "cps_docs",
     years == 2020 ~ paste0("https://www2.census.gov/programs-surveys/cps/techdocs/cpsnov", stringr::str_sub(years, 3, 4), ".pdf")
   )
   
+  # lengthen timeout
+  orig_timeout <- getOption("timeout")
+  options(timeout = max(300, orig_timeout))
+  
+  # download file
   utils::download.file(url_names, file_names, quiet = TRUE, method = "libcurl")
+  
+  # reset timeout
+  options(timeout = orig_timeout)
   
   message(paste0(length(file_names), " new file(s) downloaded to ", path, 
                  "; year(s) ", paste(years, collapse = ", ")))
@@ -198,7 +206,15 @@ cps_download_data <- function(path = "cps_data",
                            "/supp/nov", stringr::str_sub(years, 3, 4), "pub.zip")
   )
   
+  # lengthen timeout
+  orig_timeout <- getOption("timeout")
+  options(timeout = max(300, orig_timeout))
+  
+  # download file
   utils::download.file(url_names, file_names, quiet = TRUE, method = "libcurl")
+  
+  # reset timeout
+  options(timeout = orig_timeout)
   
   message(paste0(length(file_names), " new file(s) downloaded to ", path, 
                  "; year(s) ", paste(years, collapse = ", ")))
