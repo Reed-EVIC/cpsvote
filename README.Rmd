@@ -30,7 +30,7 @@ set.seed(20201012)
 
 This package consolidates common questions and provides the data in a structure that is much easier to work with and interpret, since much of the basic factor recoding has already been done. We also calculate alternative sample weights based on demonstrated changes in non-response bias over the decades, recommended by several elections researchers as a best practice. Documentation of this reweighting is provided in `vignette("voting")`.
 
-We have provided access to VRS data from 1994 to 2020. Currently the 2020 data does not yet include a reweighting for proper voter turnout estimates, but we anticipate updating the package when this data becomes available.
+We have provided access to VRS data from 1994 to 2020.
 
 ## Installing and Loading the Package
 
@@ -88,36 +88,36 @@ cps_allyears_10k %>%
   kable()
 ```
 
-The CPS has survey weights that are necessary to calculate accurate estimates about the US population. Two R packages that work with survey weighting are [`survey`](http://r-survey.r-forge.r-project.org/survey/) and [`srvyr`](https://github.com/gergness/srvyr) (a tidyverse-compatible wrapper for `survey`). You can see more examples and details on weighting in `vignette("voting")`, but here is one example of using `srvyr` to calculate state-level voter turnout among eligible voters in 2018.
+The CPS has survey weights that are necessary to calculate accurate estimates about the US population. Two R packages that work with survey weighting are [`survey`](http://r-survey.r-forge.r-project.org/survey/) and [`srvyr`](https://github.com/gergness/srvyr) (a tidyverse-compatible wrapper for `survey`). You can see more examples and details on weighting in `vignette("voting")`, but here is one example of using `srvyr` to calculate state-level voter turnout among eligible voters in 2020.
 
 ```{r message=F, warning = F, eval = F}
 library(srvyr)
 
-cps18_weighted <- cps_load_basic(years = 2018, datadir = here::here('cps_data')) %>%
+cps20_weighted <- cps_load_basic(years = 2020, datadir = here::here('cps_data')) %>%
   as_survey_design(weights = turnout_weight)
 
-turnout18 <- cps18_weighted %>%
+turnout20 <- cps20_weighted %>%
   group_by(STATE) %>%
   summarize(turnout = survey_mean(hurachen_turnout == "YES", na.rm = TRUE))
 
-head(turnout18, 10)
+head(turnout20, 10)
 ```
 
 ```{r message=F, warning = F, echo = F}
 library(srvyr)
 
-cps18_weighted <- cps_load_basic(years = 2018, datadir = here::here('cps_data')) %>%
+cps20_weighted <- cps_load_basic(years = 2020, datadir = here::here('cps_data')) %>%
   as_survey_design(weights = turnout_weight)
 
-turnout18 <- cps18_weighted %>%
+turnout20 <- cps20_weighted %>%
   group_by(STATE) %>%
   summarize(turnout = survey_mean(hurachen_turnout == "YES", na.rm = TRUE))
 
-head(turnout18, 10) %>%
+head(turnout20, 10) %>%
   kable()
 ```
 
-These estimates follow closely Dr. Michael McDonald's [estimates of turnout](http://www.electproject.org/2018g) among eligible voters in the November 2018 General Election. For a detailed examination of how non-response bias has affected the use of CPS for estimating turnout, see `vignette("voting")`. We thank the U.S. Elections Project at the University of Florida for the turnout estimates.
+These estimates follow closely Dr. Michael McDonald's [estimates of turnout](http://www.electproject.org/2020g) among eligible voters in the November 2020 General Election. For a detailed examination of how non-response bias has affected the use of CPS for estimating turnout, see `vignette("voting")`. We thank the U.S. Elections Project at the University of Florida for the turnout estimates.
 
 ## Advanced Use
 
@@ -182,12 +182,10 @@ Note that some features (like `cps_refactor()`) won't work on certain customized
 - Aram Hur, Christopher H. Achen. _Coding Voter Turnout Responses in the Current Population Survey_. Public Opinion Quarterly, Volume 77, Issue 4, Winter 2013, Pages 985–993. https://doi.org/10.1093/poq/nft042
 - Michael McDonald. _What's Wrong with the CPS?_ Presented at the 2014 American Political Science Association Conference, Washington, D.C., August 27-31. http://www.electproject.org/home/voter-turnout/cps-methodology
 - The [Current Population Survey](https://www.census.gov/programs-surveys/cps.html) is conducted monthly by the U.S. Census Bureau and the Bureau of Labor Statistics, and the Voting and Registration Supplement is administered as part of this survey after each federal election. The [CPS data](http://data.nber.org/data/current-population-survey-data.html) that this package downloads is provided by the [National Bureau of Economic Research](https://data.nber.org/info.html).
-- This is an animated ternary plot made using vote mode data from `cpsvote`. See NOT YET WRITTEN vignette for the code that created this.
+- This is an animated ternary plot made using vote mode data from `cpsvote`. The code that created this in available [here](tmp/animate_snowglobe.R).
 
 ![](img/vote_mode.gif)
 
 ## Acknowledgements
 
-The `cpsvote` package was originally created at the [Early Voting Information Center at Reed College](https://evic.reed.edu/). We are indebted
-to support from the [Elections Team at the Democracy Fund](https://democracyfund.org/) and [Reed College](https://www.reed.edu/) for supporting
-the work of EVIC. 
+The `cpsvote` package was originally created at the [Elections & Voting Information Center at Reed College](https://evic.reed.edu/). We are indebted to support from the [Elections Team at the Democracy Fund](https://democracyfund.org/) and [Reed College](https://www.reed.edu/) for supporting the work of EVIC. 
