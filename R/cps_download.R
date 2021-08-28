@@ -98,7 +98,12 @@ cps_download_docs <- function(path = "cps_docs",
   options(timeout = max(300, orig_timeout))
   
   # download file
-  utils::download.file(url_names, file_names, quiet = TRUE, method = "libcurl")
+  # libcurl is corrupting files on Windows
+  if (Sys.info()['sysname'] == "Windows") {
+    for (i in seq_along(url_names)) {
+      utils::download.file(url_names[i], file_names[i], quiet = TRUE, method = "curl")
+    }
+  } else utils::download.file(url_names, file_names, quiet = TRUE, method = "libcurl")
   
   # reset timeout
   options(timeout = orig_timeout)
