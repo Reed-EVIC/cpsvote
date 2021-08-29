@@ -34,7 +34,8 @@ Suggests:
     here,
     scales,
     ggplot2,
-    usmap
+    usmap,
+    ggthemes
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
