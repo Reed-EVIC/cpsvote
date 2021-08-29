@@ -30,7 +30,7 @@ vote_mode <- cps_weighted %>%
 
 # This first plot is left in place in order to visually check the individual years
 # size may not work correctly, so check output
-ggplot(filter(vote_mode, YEAR == 2018), aes(y = `ELECTION DAY`, x = `BY MAIL`, z = EARLY, label = STATE)) +
+ggplot(filter(vote_mode, YEAR == 2020), aes(y = `ELECTION DAY`, x = `BY MAIL`, z = EARLY, label = STATE)) +
   geom_text(vjust = "inward", hjust = "inward", size = 1.5) +
   coord_tern() +
   labs(x = "Mail",
@@ -38,7 +38,7 @@ ggplot(filter(vote_mode, YEAR == 2018), aes(y = `ELECTION DAY`, x = `BY MAIL`, z
        z = "Early",
        title = "The Move Away From Election Day Voting in America: 1996-2020",
        subtitle = paste("Share of votes cast in federal elections, by mode",
-                        "\nYear:", unique(filter(vote_mode, YEAR == 2018)$YEAR))) +
+                        "\nYear:", unique(filter(vote_mode, YEAR == 2020)$YEAR))) +
   theme_classic() +
   theme(plot.title = element_text(hjust = 0.5, size = 8),
         plot.subtitle = element_text(hjust = 0.5, size = 6),
