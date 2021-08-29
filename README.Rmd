@@ -23,7 +23,6 @@ set.seed(20201012)
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/cpsvote)](https://cran.r-project.org/package=cpsvote)
-[![Travis build status](https://travis-ci.org/Reed-EVIC/cpsvote.svg?branch=master)](https://travis-ci.org/Reed-EVIC/cpsvote)
 <!-- badges: end -->
 
 `cpsvote` helps you work with data from the Current Population Survey's (CPS) [Voting and Registration Supplement](https://www.census.gov/topics/public-sector/voting/about.html) (VRS), published by the U.S. Census Bureau and Bureau of Labor Statistics. This high-quality, large-sample survey has been conducted after every federal election (in November of even years) since 1964, surveying Americans about their voting practices and registration. The raw data, archived by the [National Bureau of Economic Research](http://data.nber.org/data/current-population-survey-data.html), is spread across several fixed-width files with different question locations and formats.
@@ -34,7 +33,7 @@ We have provided access to VRS data from 1994 to 2020.
 
 ## Installing and Loading the Package
 
-[Version 0.1](https://cran.r-project.org/package=cpsvote) is on CRAN!
+[Version 0.2](https://cran.r-project.org/package=cpsvote) is on CRAN!
 
 ```{r eval = FALSE}
 install.packages('cpsvote')

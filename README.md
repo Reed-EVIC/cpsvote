@@ -7,8 +7,6 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/cpsvote)](https://cran.r-project.org/package=cpsvote)
-[![Travis build
-status](https://travis-ci.org/Reed-EVIC/cpsvote.svg?branch=master)](https://travis-ci.org/Reed-EVIC/cpsvote)
 <!-- badges: end -->
 
 `cpsvote` helps you work with data from the Current Population Survey’s
@@ -35,7 +33,7 @@ We have provided access to VRS data from 1994 to 2020.
 
 ## Installing and Loading the Package
 
-[Version 0.1](https://cran.r-project.org/package=cpsvote) is on CRAN!
+[Version 0.2](https://cran.r-project.org/package=cpsvote) is on CRAN!
 
 ``` r
 install.packages('cpsvote')

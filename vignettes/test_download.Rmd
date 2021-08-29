@@ -12,13 +12,17 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library(cpsvote)
 ```
 
-```{r setup}
+```{r setup, eval = FALSE}
 library(cpsvote)
 ```
 
 ```{r}
-cps_download_data(path = here::here('cps_data'), years = 2018, overwrite = TRUE)
+cps_download_data(path = here::here('cps_data'), years = 2020, overwrite = TRUE)
 ```
 
+```{r}
+cps_download_docs(path = here::here('cps_docs'), years = 2020, overwrite = TRUE)
+```
