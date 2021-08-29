@@ -38,7 +38,7 @@ library(srvyr)
 library(ggplot2)
 library(ggthemes)
 library(scales)
-library(tidyverse)
+library(dplyr)
 library(here)
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, results='asis')
 cps <- cps_allyears_10k
@@ -73,7 +73,7 @@ cps %>%
   labs(title = "Voting method in the United States, 1996 - 2020", 
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        fill = "Mode of Voting") +
-  theme(plot.title = element_text(size = 40, family = "Times", face = "bold.italic", colour = "red"),
+  theme(plot.title = element_text(size = 40, family = "serif", face = "bold.italic", colour = "red"),
         legend.background = element_rect(),
         legend.title = element_text(size = 20, face = "bold"),
         legend.text = element_text(size = 15)) +
@@ -104,11 +104,11 @@ cps_2020_10k %>%
   labs(title = "Election day voting in the United States, 2020", 
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        fill = "Mode of Voting") +
-  theme(plot.title = element_text(size = 40, family = "Times", face = "bold.italic", colour = "red"),
-        plot.subtitle =  element_text(size = 30, family = "Times"),
+  theme(plot.title = element_text(size = 40, family = "serif", face = "bold.italic", colour = "red"),
+        plot.subtitle =  element_text(size = 30, family = "serif"),
         legend.position = "right",
         legend.background = element_rect(),
-        legend.title = element_text(size = 20,  family = "Times"),
+        legend.title = element_text(size = 20,  family = "serif"),
         legend.text = element_text(size = 20))  +
   guides(fill = guide_colourbar(barheight = 10, barwidth = 3))
 ```
@@ -132,7 +132,7 @@ cps %>%
   labs(title = "Election day voting usage by US Census Region, 1996 - 2020", 
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        fill = "Mode of Voting") +
-  theme(plot.title = element_text(size = 40, family = "Times", face = "bold.italic", colour = "red"),
+  theme(plot.title = element_text(size = 40, family = "serif", face = "bold.italic", colour = "red"),
         legend.background = element_rect(),
         legend.title = element_text(size = 25, face = "bold"),
         legend.text = element_text(size = 20)) +
@@ -161,7 +161,7 @@ cps %>%
   labs(title = "Early voting usage by US Census Region, 1996 - 2020", 
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        fill = "Mode of Voting") +
-  theme(plot.title = element_text(size = 40, family = "Times", face = "bold.italic", colour = "red"),
+  theme(plot.title = element_text(size = 40, family = "serif", face = "bold.italic", colour = "red"),
         legend.background = element_rect(),
         legend.title = element_text(size = 25, face = "bold"),
         legend.text = element_text(size = 20)) +
@@ -188,7 +188,7 @@ cps %>%
   labs(title = "Vote-by-mail usage by US Census Region, 1996 - 2020", 
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        fill = "Mode of Voting") +
-  theme(plot.title = element_text(size = 40, family = "Times", face = "bold.italic", colour = "red"),
+  theme(plot.title = element_text(size = 40, family = "serif", face = "bold.italic", colour = "red"),
         legend.background = element_rect(),
         legend.title = element_text(size = 25, face = "bold"),
         legend.text = element_text(size = 20)) +

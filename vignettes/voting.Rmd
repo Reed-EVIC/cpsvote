@@ -33,6 +33,7 @@ library(cpsvote)
 library(dplyr)
 library(ggplot2)
 library(here)
+library(usmap)
 ```
 
 The Current Population Survey's Voting and Registration Supplement (CPS VRS), collected in November of every federal election year since 1964, is an important source to understand many aspects of the American elections system. Because of its relative stability over time, large sample sizes, and quality of administration, the CPS is a uniquely valuable data resource to estimate voter turnout in the United States, in individual states and regions, and among key demographic groups. The CPS is one of the primary ways we understand voter registration, voter turnout, and use of different modes of voting (Election Day, Early In-Person, By Mail) in the United States since 1996.
@@ -153,8 +154,6 @@ cps20 %>%
 Here we use the `usmap` package to provide a quick look at voter turnout in 2020 across the 50 states. 
 
 ```{r turnout_statemap, echo = TRUE}
-library(usmap)
-
 cps20 %>%
   as_survey_design(weights = turnout_weight) %>%
   mutate(state = STATE) %>% # necessary column name for plot_usmap
@@ -235,7 +234,7 @@ cps_region %>%
        y = "",
        x = "") +
   theme_minimal() +
-  theme(plot.title = element_text(size = 20, family = "Times", 
+  theme(plot.title = element_text(size = 20, family = "serif", 
                                   face = "bold.italic", colour = "red"),
         legend.background = element_rect(), 
         legend.title = element_text(size = 8, face = "bold"),
@@ -260,7 +259,7 @@ cps_region %>%
   labs(title = "Regional Use of Vote At Home, 1996 - 2020", 
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        color = "Region") +
-  theme(plot.title = element_text(size = 20, family = "Times", 
+  theme(plot.title = element_text(size = 20, family = "serif", 
                                   face = "bold.italic", colour = "red"),
         legend.background = element_rect(),  
         legend.title = element_text(size = 8, face = "bold"),
