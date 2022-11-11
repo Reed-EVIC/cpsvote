@@ -1,14 +1,15 @@
 # note that NBER doesn't have this data as of 2019-08-14, so it's pulled directly from the Census FTP site
-if (!file.exists(here('raw_data', 'cpsnov2018.gz'))) {
-  download.file("http://thedataweb.rm.census.gov/pub/cps/supps/nov18pub.dat.gz", destfile = here('raw_data', 'cpsnov2018.gz'))
+print("2018")
+if (!file.exists(here('cps_data', 'cpsnov2018.gz'))) {
+  download.file("https://www2.census.gov/programs-surveys/cps/datasets/2018/supp/nov18pub.dat.gz", destfile = here('cps_data', 'cpsnov2018.gz'))
 }
 
-if (!file.exists(here('docs', 'cpsnov2018.pdf'))) {
-  download.file("http://www2.census.gov/programs-surveys/cps/techdocs/cpsnov18.pdf", destfile = here('docs', 'cpsnov2018.pdf'))
+if (!file.exists(here('cps_docs', 'cpsnov2018.pdf'))) {
+  download.file("https://www2.census.gov/programs-surveys/cps/techcps_docs/cpsnov18.pdf", destfile = here('cps_cps_docs', 'cpsnov2018.pdf'))
 }
 
 
-cpsvrs2018_orig <- readr::read_fwf(here('raw_data', 'cpsnov2018.gz'),
+cpsvrs2018_orig <- readr::read_fwf(here('cps_data', 'cpsnov2018.zip'),
                                    readr::fwf_cols(CPS_YEAR = c(18, 21),
                                                    CPS_STATE = c(93, 94),
                                                    CPS_AGE = c(122, 123),
@@ -150,9 +151,9 @@ cpsvrs2018_factored <- cpsvrs2018_orig %>%
                                       "1-2 YEARS",
                                       "3-4 YEARS",
                                       "5 YEARS OR LONGER",
-                                      "NOT IN UNIVERSE",
-                                      "DON'T KNOW",
-                                      "REFUSED",
-                                      "NO RESPONSE"),
+                                      "NA",
+                                      "NA",
+                                      "NA",
+                                      "NA"),
                            ordered = TRUE)
   )

@@ -9,18 +9,34 @@ fips <- tigris::fips_codes %>%
   filter(state_code < 57) # only states plus DC
 
 # run the yearly scripts
-year_scripts <- list.files(here('R', 'year_scripts'), full.names = TRUE)
+year_scripts <- list.files(here('tmp', 'year_scripts'), full.names = TRUE)
 invisible(lapply(year_scripts, source))
 
 # run the tests for the yearly datasets
-test_file(here('tests', 'testthat', 'test-year_scripts.R'))
+# Paul Gronke Nov 10, 2022 not sure what this file is supposed to do. Does not exist
+
+#test_file(here('tests', 'testthat', 'test-year_scripts.R'))
 
 # bind everything together
 # interesting note here that every single person with an NA education was not in universe for voting
 # don't know what's up with that but I don't think it's a problem
 # janitor::tabyl(cpsvrs, CPS_EDU, VRS_VOTE)
-cpsvrs_bound <- mget(ls(pattern = "_factored$")) %>%
-  bind_rows() %>%
+#
+#
+cpsvrs_bound <- full_join(cpsvrs1996_factored, cpsvrs1998_factored) %>%
+  full_join(., cpsvrs2000_factored) %>%
+  full_join(., cpsvrs2002_factored) %>%
+  full_join(., cpsvrs2004_factored) %>%
+  full_join(., cpsvrs2006_factored) %>%
+  full_join(., cpsvrs2008_factored) %>%
+  full_join(., cpsvrs2010_factored) %>%
+  full_join(., cpsvrs2012_factored) %>%
+  full_join(., cpsvrs2014_factored) %>%
+  full_join(., cpsvrs2016_factored) %>%
+  full_join(., cpsvrs2018_factored) %>%
+  full_join(., cpsvrs2020_factored) %>%
+  #mget(ls(pattern = "_factored$"))  %>%
+  #bind_rows() %>%
   filter(VRS_VOTE != "Not in Universe") # people who are OOU for the vote Q are OOU for all VRS Qs, they also have zero weight
 
 # list all of the unique options for factoring disparate response sets (change over time) for testing
@@ -32,9 +48,6 @@ unique_race <- c("WHITE", "BLACK", "ASIAN OR PACIFIC ISLANDER", "AMERICAN INDIAN
                  "W-B-A", "W-B-AI-A", "4 OR 5 RACES", "AI-HP", "W-B-HP", "W-AI-HP", 
                  "OTHER 4 AND 5 RACE COMBINATIONS", "OTHER 3 RACE COMBINATIONS", 
                  "W-AI-A-HP", "B-AI-A", "WHITE-HAWAIIAN")
-unique_residence <- c("LESS THAN 1 MONTH", "1-6 MONTHS", "7-11 MONTHS", "LESS THAN 1 YEAR", 
-                      "1-2 YEARS", "3-4 YEARS", "5 YEARS OR LONGER", "NOT IN UNIVERSE", 
-                      "DON'T KNOW", "REFUSED", "NO RESPONSE")
 unique_novote <- c("NOT IN UNIVERSE", "FORGOT TO VOTE", "DID NOT PREFER ANY OF THE CANDIDATES", 
                    "NOT INTERESTED, DON'T CARE, ETC.", "OTHER REASONS", "DON'T KNOW", 
                    "SICK, DISABLED, OR FAMILY EMERGENCY", "COULD NOT TAKE TIME OFF FROM WORK/SCHOOL/TOO BUSY", 
@@ -58,12 +71,7 @@ unique_reghow <- c("NOT IN UNIVERSE", "FILLED OUT FORM AT A REGISTRATION DRIVE (
 
 
 cpsvrs <- cpsvrs_bound %>%
-  mutate(RESIDENCE_COLLAPSE = factor(VRS_RESIDENCE,
-                                levels = unique_residence,
-                                labels = c("LESS THAN 1 YEAR", "LESS THAN 1 YEAR", "LESS THAN 1 YEAR", 
-                                           "LESS THAN 1 YEAR", "1-2 YEARS", "3-4 YEARS", "5 YEARS OR LONGER", 
-                                           "NOT IN UNIVERSE", "DON'T KNOW", "REFUSED", "NO RESPONSE"),
-                                ordered = TRUE), # collapse the sub-1yr categories together
+  mutate(
          RACE_COLLAPSE = factor(CPS_RACE, levels = unique_race,
                            labels = c("WHITE", "BLACK", "ASIAN OR PACIFIC ISLANDER", "AMERICAN INDIAN OR ALASKAN NATIVE", 
                                       "WHITE", "BLACK", "ASIAN OR PACIFIC ISLANDER", "MULTIRACIAL OR OTHER", 
@@ -86,12 +94,13 @@ cpsvrs <- cpsvrs_bound %>%
                                              "REGISTRATION PROBLEMS", "DIDN'T LIKE CANDIDATES OR CAMPAIGN ISSUES", 
                                              "INCONVENIENT HOURS OR LONG LINES")),
          # combine DMV question with voter reg
-         REGHOW_COLLAPSE = case_when(
-           VRS_REGDMV == "WHEN DRIVER'S LICENSE WAS OBTAINED/RENEWED" ~ "AT A DEPARTMENT OF MOTOR VEHICLES (FOR EXAMPLE, WHEN OBTAINING A DRIVER'S LICENSE OR OTHER IDENTIFICATION CARD)",
-           VRS_REGDMV == "DON'T KNOW" ~ "DON'T KNOW",
-           TRUE ~ VRS_REGHOW
-         ) %>%
-           factor(levels = unique_reghow,
+         REGHOW_COLLAPSE = 
+           #case_when(
+           #VRS_REGDMV == "WHEN DRIVER'S LICENSE WAS OBTAINED/RENEWED" ~ "AT A DEPARTMENT OF MOTOR VEHICLES (FOR EXAMPLE, WHEN OBTAINING A DRIVER'S LICENSE OR OTHER IDENTIFICATION CARD)",
+           #VRS_REGDMV == "DON'T KNOW" ~ "DON'T KNOW",
+           #TRUE ~ VRS_REGHOW
+         #) %>%
+           factor(VRS_REGHOW, levels = unique_reghow,
                   labels = c("NOT IN UNIVERSE", "REGISTRATION DRIVE", "DON'T KNOW", "AT A SCHOOL, HOSPITAL, OR ON CAMPUS", 
                              "REGISTRATION OFFICE", "BY MAIL", "PUBLIC ASSISTANCE AGENCY", 
                              "AT THE POLLS, SAME DAY", "OTHER", "REFUSED", "NO RESPONSE", 
@@ -108,7 +117,8 @@ cpsvrs <- cpsvrs_bound %>%
   mutate_if(is.factor, forcats::fct_recode,
             NULL = "NOT IN UNIVERSE",
             NULL = "REFUSED",
-            NULL = "NO RESPONSE") %>% # this is people who didn't have any answer recorded
+            NULL = "NO RESPONSE",
+            NULL = "NA") %>% # this is people who didn't have any answer recorded
   na_if("NOT IN UNIVERSE") %>%
   na_if("REFUSED") %>%
   na_if("NO RESPONSE") %>%
@@ -131,16 +141,18 @@ cpsvrs <- cpsvrs_bound %>%
          REGHOW_COLLAPSE,
          VRS_REGDMV,
          VRS_REGSINCE95,
-         VRS_VOTETIME,
+#         VRS_VOTETIME,
          VRS_VOTEMETHOD,
          VRS_VBM,
          VRS_ELEXDAY,
          VOTEMETHOD_COLLAPSE,
          VRS_RESIDENCE,
-         RESIDENCE_COLLAPSE,
+#         RESIDENCE_COLLAPSE,
          everything())
 
-test_file(here('tests', 'testthat', 'test-joined_data.R'))
+# Not sure what this file is supposed to do, can't find it
+#
+#test_file(here('tests', 'testthat', 'test-joined_data.R'))
 
 # to check the race refactoring manually
 # race_table <- janitor::tabyl(cpsvrs, CPS_RACE, RACE_COLLAPSE)

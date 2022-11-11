@@ -1,13 +1,14 @@
-if (!file.exists(here('raw_data', 'cpsnov2006.zip'))) {
-  download.file("https://data.nber.org/cps/cpsnov06.zip", destfile = here('raw_data', 'cpsnov2006.zip'))
+print("2006")
+if (!file.exists(here('cps_data', 'cpsnov2006.zip'))) {
+  download.file("https://data.nber.org/cps/cpsnov06.zip", destfile = here('cps_data', 'cpsnov2006.zip'))
 }
 
-if (!file.exists(here('docs', 'cpsnov2006.pdf'))) {
-  download.file("data.nber.org/cps/cpsnov06.pdf", destfile = here('docs', 'cpsnov2006.pdf'))
+if (!file.exists(here('cps_docs', 'cpsnov2006.pdf'))) {
+  download.file("data.nber.org/cps/cpsnov06.pdf", destfile = here('cps_docs', 'cpsnov2006.pdf'))
 }
 
 
-cpsvrs2006_orig <- readr::read_fwf(here('raw_data', 'cpsnov2006.zip'),
+cpsvrs2006_orig <- readr::read_fwf(here('cps_data', 'cpsnov2006.zip'),
                                    readr::fwf_cols(CPS_YEAR = c(18, 21),
                                                    CPS_STATE = c(93, 94),
                                                    CPS_AGE = c(122, 123),
@@ -142,14 +143,8 @@ cpsvrs2006_factored <- cpsvrs2006_orig %>%
                                    "REFUSED", 
                                    "NO RESPONSE")),
     VRS_RESIDENCE = factor(VRS_RESIDENCE, levels = c(1:6, -2, -3, -9),
-                           labels = c("LESS THAN 1 MONTH",
-                                      "1-6 MONTHS",
-                                      "7-11 MONTHS",
-                                      "1-2 YEARS",
-                                      "3-4 YEARS",
-                                      "5 YEARS OR LONGER",
-                                      "DON'T KNOW",
-                                      "REFUSED",
-                                      "NO RESPONSE"),
-                           ordered = TRUE)
+                           labels = c("LESS THAN 1 YEAR", "LESS THAN 1 YEAR", 
+                                      "LESS THAN 1 YEAR", "1-2 YEARS", "3-4 YEARS", "5 YEARS OR LONGER", 
+                                      "NA", "NA", "NA"),
+                           ordered = TRUE) # collapse the sub-1yr categories together
   )
