@@ -2,7 +2,7 @@
 #' 
 #' @param path A file path (relative or absolute) where the downloads should go.
 #' @param years Which years of documentation to download. Defaults to all 
-#' even-numbered years from 1994 to 2018.
+#' even-numbered years from 1994 to 2020.
 #' @param overwrite Logical, whether to write over existing files or not. 
 #' Defaults to FALSE.
 #' @details 
@@ -19,7 +19,7 @@
 #' 
 #' @export
 cps_download_docs <- function(path = "cps_docs", 
-                          years = seq(1994, 2018, 2),
+                          years = seq(1994, 2022, 2),
                           overwrite = FALSE) {
   
   # sanitize inputs #####
@@ -40,23 +40,23 @@ cps_download_docs <- function(path = "cps_docs",
   }
   
   # years must be before 2020
-  if (any(years > 2018)) {
-    warning(paste0("The Census Bureau has not yet released CPS data for years after 2018. The remaining years listed (",
-                   paste(years[years <= 2018], collapse = ", "),
+  if (any(years > 2022)) {
+    warning(paste0("The Census Bureau has not yet released CPS data for years after 2022. The remaining years listed (",
+                   paste(years[years <= 2022], collapse = ", "),
                    ") will be downloaded."),
             immediate. = T)
-    years <- years[years <= 2018]
+    years <- years[years <= 2022]
   }
   
   # years must be in survey coverage zone
-  if (!all(years %in% seq(1964, 2018, 2))) {
+  if (!all(years %in% seq(1964, 2022, 2))) {
     warning(paste0("The VRS was not conducted in the following years: ",
-                   paste(years[!(years %in% seq(1964, 2018, 2))], collapse = ", "),
+                   paste(years[!(years %in% seq(1964, 2022, 2))], collapse = ", "),
                    ". The remaining years listed (",
-                   paste(years[years %in% seq(1964, 2018, 2)], collapse = ", "),
+                   paste(years[years %in% seq(1964, 2022, 2)], collapse = ", "),
                    ") will be downloaded."),
             immediate. = T)
-    years <- years[years %in% seq(1964, 2018, 2)]
+    years <- years[years %in% seq(1964, 2022, 2)]
   }
   
   # overwrite must be T/F
@@ -87,9 +87,12 @@ cps_download_docs <- function(path = "cps_docs",
   } 
   
   url_names <- dplyr::case_when(
-    years < 2011 ~ paste0("data.nber.org/cps/cpsnov", stringr::str_sub(years, 3, 4), ".pdf"),
-    years < 2017 ~ paste0("data.nber.org/cps/cpsnov", years, ".pdf"),
-    years == 2018 ~ paste0("data.nber.org/cps/cpsnov", stringr::str_sub(years, 3, 4), ".pdf")
+    # https://www.nber.org/research/data/current-population-survey-cps-supplements-voting-and-registration
+    years < 2011 ~ paste0("https://data.nber.org/cps/cpsnov", stringr::str_sub(years, 3, 4), ".pdf"),
+    #years < 2017 ~ paste0("data.nber.org/cps/cpsnov", years, ".pdf"),
+    years > 2011 & years < 2017 ~ paste0("https://data.nber.org/cps/cpsnov", years, ".pdf"),
+    years > 2017 ~ paste0("https://data.nber.org/cps/cpsnov", stringr::str_sub(years, 3, 4), ".pdf")
+    #https://data.nber.org/cps/cpsnov00.pdf
   )
   
   utils::download.file(url_names, file_names, quiet = TRUE, method = "libcurl")
@@ -104,11 +107,11 @@ cps_download_docs <- function(path = "cps_docs",
 #' 
 #' @param path A file path (relative or absolute) where the downloads should go.
 #' @param years Which years of data to download. Defaults to all 
-#' even-numbered years from 1994 to 2018.
+#' even-numbered years from 1994 to 2022.
 #' @param overwrite Logical, whether to write over existing files or not. 
 #' Defaults to FALSE.
 #' @details 
-#' * File names will be written in the style "cps_nov2018.zip", with the 
+#' * File names will be written in the style "cps_nov2022.zip", with the 
 #' appropriate years.
 #' * The Voting and Registration Supplement is only conducted in even-numbered 
 #' years (since 1964), so any entry in `years` outside of this will be skipped.
@@ -121,7 +124,7 @@ cps_download_docs <- function(path = "cps_docs",
 #' 
 #' @export
 cps_download_data <- function(path = "cps_data", 
-                          years = seq(1994, 2018, 2), 
+                          years = seq(1994, 2022, 2), 
                           overwrite = FALSE) {
   
   # sanitize inputs #####
@@ -142,23 +145,23 @@ cps_download_data <- function(path = "cps_data",
   }
   
   # years must be before 2020
-  if (any(years > 2018)) {
-    warning(paste0("The Census Bureau has not yet released CPS data for years after 2018. The remaining years listed (",
-                   paste(years[years <= 2018], collapse = ", "),
+  if (any(years > 2022)) {
+    warning(paste0("The Census Bureau has not yet released CPS data for years after 2022. The remaining years listed (",
+                   paste(years[years <= 2022], collapse = ", "),
                    ") will be downloaded."),
             immediate. = T)
-    years <- years[years <= 2018]
+    years <- years[years <= 2022]
   }
   
   # years must be in survey coverage zone
-  if (!all(years %in% seq(1964, 2018, 2))) {
+  if (!all(years %in% seq(1964, 2022, 2))) {
     warning(paste0("The VRS was not conducted in the following years: ",
-                   paste(years[!(years %in% seq(1964, 2018, 2))], collapse = ", "),
+                   paste(years[!(years %in% seq(1964, 2022, 2))], collapse = ", "),
                    ". The remaining years listed (",
-                   paste(years[years %in% seq(1964, 2018, 2)], collapse = ", "),
+                   paste(years[years %in% seq(1964, 2022, 2)], collapse = ", "),
                    ") will be downloaded."),
             immediate. = T)
-    years <- years[years %in% seq(1964, 2018, 2)]
+    years <- years[years %in% seq(1964, 2022, 2)]
   }
   
   # overwrite must be T/F
@@ -175,7 +178,7 @@ cps_download_data <- function(path = "cps_data",
   dir.create(path, showWarnings = FALSE)
   file_names <- paste0(path, 
                        ifelse(stringr::str_detect(path, "/$"), "", "/"), 
-                       paste0("cps_nov", years, ifelse(years == 2018, ".gz", ".zip")))
+                       paste0("cps_nov", years, ifelse(years == 2022, ".gz", ".zip")))
   
   # remove years / file names that already exist, if overwrite is FALSE
   if (!overwrite) {
@@ -191,8 +194,8 @@ cps_download_data <- function(path = "cps_data",
   
   url_names <- dplyr::case_when(
     years < 2011 ~ paste0("data.nber.org/cps/cpsnov", stringr::str_sub(years, 3, 4), ".zip"),
-    years < 2017 ~ paste0("data.nber.org/cps/cpsnov", years, ".zip"),
-    years == 2018 ~ paste0("data.nber.org/cps/nov", stringr::str_sub(years, 3, 4), "pub.zip")
+    years < 2017 & years > 2011 ~ paste0("data.nber.org/cps/cpsnov", years, ".zip"),
+    years > 2017 ~ paste0("data.nber.org/cps/nov", stringr::str_sub(years, 3, 4), "pub.zip")
   )
   
   utils::download.file(url_names, file_names, quiet = TRUE, method = "libcurl")
