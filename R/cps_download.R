@@ -89,8 +89,7 @@ cps_download_docs <- function(path = "cps_docs",
   url_names <- dplyr::case_when(
     years < 2011 ~ paste0("data.nber.org/cps/cpsnov", stringr::str_sub(years, 3, 4), ".pdf"),
     years < 2017 ~ paste0("data.nber.org/cps/cpsnov", years, ".pdf"),
-    years == 2018 ~ paste0("data.nber.org/cps/cpsnov", stringr::str_sub(years, 3, 4), ".pdf"),
-    years == 2020 ~ paste0("https://www2.census.gov/programs-surveys/cps/techdocs/cpsnov", stringr::str_sub(years, 3, 4), ".pdf")
+    years > 2017 ~ paste0("data.nber.org/cps/cpsnov", stringr::str_sub(years, 3, 4), ".pdf")
   )
   
   # lengthen timeout
@@ -206,9 +205,9 @@ cps_download_data <- function(path = "cps_data",
   url_names <- dplyr::case_when(
     years < 2011 ~ paste0("data.nber.org/cps/cpsnov", stringr::str_sub(years, 3, 4), ".zip"),
     years < 2017 ~ paste0("data.nber.org/cps/cpsnov", years, ".zip"),
-    years == 2018 ~ paste0("data.nber.org/cps/nov", stringr::str_sub(years, 3, 4), "pub.zip"),
-    years == 2020 ~ paste0("https://www2.census.gov/programs-surveys/cps/datasets/", years, 
-                           "/supp/nov", stringr::str_sub(years, 3, 4), "pub.zip")
+    years > 2017 ~ paste0("data.nber.org/cps/nov", stringr::str_sub(years, 3, 4), "pub.zip")
+    # years == 2020 ~ paste0("https://www2.census.gov/programs-surveys/cps/datasets/", years, 
+    #                        "/supp/nov", stringr::str_sub(years, 3, 4), "pub.zip")
   )
   
   # lengthen timeout
