@@ -192,7 +192,7 @@ cps_download_data <- function(path = "cps_data",
   url_names <- dplyr::case_when(
     years < 2011 ~ paste0("data.nber.org/cps/cpsnov", stringr::str_sub(years, 3, 4), ".zip"),
     years < 2017 ~ paste0("data.nber.org/cps/cpsnov", years, ".zip"),
-    years == 2018 ~ paste0("data.nber.org/cps/nov", stringr::str_sub(years, 3, 4), "pub.zip")
+    years > 2017 ~ paste0("data.nber.org/cps/nov", stringr::str_sub(years, 3, 4), "pub.zip")
   )
   
   utils::download.file(url_names, file_names, quiet = TRUE, method = "libcurl")
