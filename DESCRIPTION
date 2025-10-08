@@ -8,10 +8,7 @@ Authors@R:
            email = "jay.lee.tx@gmail.com"),
     person(given = "Paul",
            family = "Gronke",
-           role = c("aut")),
-    person(given = "Canyon",
-           family = "Foot",
-           role = c("ctb")))
+           role = c("aut")))
 Description: Provides automated methods for downloading, recoding, and merging 
     selected years of the Current Population Survey's Voting and Registration 
     Supplement <https://www.nber.org/research/data/current-population-survey-cps-supplements-voting-and-registration>, 
