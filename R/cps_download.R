@@ -2,7 +2,7 @@
 #' 
 #' @param path A file path (relative or absolute) where the downloads should go.
 #' @param years Which years of documentation to download. Defaults to all 
-#' even-numbered years from 1994 to 2020.
+#' even-numbered years from 1994 to 2022.
 #' @param overwrite Logical, whether to write over existing files or not. 
 #' Defaults to FALSE.
 #' @details 
@@ -19,7 +19,7 @@
 #' 
 #' @export
 cps_download_docs <- function(path = "cps_docs", 
-                          years = seq(1994, 2020, 2),
+                          years = seq(1994, 2022, 2),
                           overwrite = FALSE) {
   
   # sanitize inputs #####
@@ -40,23 +40,23 @@ cps_download_docs <- function(path = "cps_docs",
   }
   
   # years must be before 2020
-  if (any(years > 2020)) {
+  if (any(years > 2022)) {
     warning(paste0("The Census Bureau has not yet released CPS data for years after 2020. The remaining years listed (",
-                   paste(years[years <= 2020], collapse = ", "),
+                   paste(years[years <= 2022], collapse = ", "),
                    ") will be downloaded."),
             immediate. = T)
-    years <- years[years <= 2020]
+    years <- years[years <= 2022]
   }
   
   # years must be in survey coverage zone
-  if (!all(years %in% seq(1964, 2020, 2))) {
+  if (!all(years %in% seq(1964, 2022, 2))) {
     warning(paste0("The VRS was not conducted in the following years: ",
-                   paste(years[!(years %in% seq(1964, 2020, 2))], collapse = ", "),
+                   paste(years[!(years %in% seq(1964, 2022, 2))], collapse = ", "),
                    ". The remaining years listed (",
-                   paste(years[years %in% seq(1964, 2020, 2)], collapse = ", "),
+                   paste(years[years %in% seq(1964, 2022, 2)], collapse = ", "),
                    ") will be downloaded."),
             immediate. = T)
-    years <- years[years %in% seq(1964, 2020, 2)]
+    years <- years[years %in% seq(1964, 2022, 2)]
   }
   
   # overwrite must be T/F
@@ -134,7 +134,7 @@ cps_download_docs <- function(path = "cps_docs",
 #' 
 #' @export
 cps_download_data <- function(path = "cps_data", 
-                          years = seq(1994, 2020, 2), 
+                          years = seq(1994, 2022, 2), 
                           overwrite = FALSE) {
   
   # sanitize inputs #####
@@ -154,24 +154,24 @@ cps_download_data <- function(path = "cps_data",
     years <- years[years >= 1994]
   }
   
-  # years must be before 2020
-  if (any(years > 2020)) {
+  # years must be before 2022
+  if (any(years > 2022)) {
     warning(paste0("The Census Bureau has not yet released CPS data for years after 2020. The remaining years listed (",
-                   paste(years[years <= 2020], collapse = ", "),
+                   paste(years[years <= 2022], collapse = ", "),
                    ") will be downloaded."),
             immediate. = T)
-    years <- years[years <= 2020]
+    years <- years[years <= 2022]
   }
   
   # years must be in survey coverage zone
-  if (!all(years %in% seq(1964, 2020, 2))) {
+  if (!all(years %in% seq(1964, 2022, 2))) {
     warning(paste0("The VRS was not conducted in the following years: ",
-                   paste(years[!(years %in% seq(1964, 2020, 2))], collapse = ", "),
+                   paste(years[!(years %in% seq(1964, 2022, 2))], collapse = ", "),
                    ". The remaining years listed (",
-                   paste(years[years %in% seq(1964, 2020, 2)], collapse = ", "),
+                   paste(years[years %in% seq(1964, 2022, 2)], collapse = ", "),
                    ") will be downloaded."),
             immediate. = T)
-    years <- years[years %in% seq(1964, 2020, 2)]
+    years <- years[years %in% seq(1964, 2022, 2)]
   }
   
   # overwrite must be T/F
