@@ -188,7 +188,7 @@ cps_download_data <- function(path = "cps_data",
   dir.create(path, showWarnings = FALSE)
   file_names <- paste0(path, 
                        ifelse(stringr::str_detect(path, "/$"), "", "/"), 
-                       paste0("cps_nov", years, ".zip"))
+                       paste0("cps_nov", years,".zip"))
   
   # remove years / file names that already exist, if overwrite is FALSE
   if (!overwrite) {
@@ -206,8 +206,6 @@ cps_download_data <- function(path = "cps_data",
     years < 2011 ~ paste0("data.nber.org/cps/cpsnov", stringr::str_sub(years, 3, 4), ".zip"),
     years < 2017 ~ paste0("data.nber.org/cps/cpsnov", years, ".zip"),
     years > 2017 ~ paste0("data.nber.org/cps/nov", stringr::str_sub(years, 3, 4), "pub.zip")
-    # years == 2020 ~ paste0("https://www2.census.gov/programs-surveys/cps/datasets/", years, 
-    #                        "/supp/nov", stringr::str_sub(years, 3, 4), "pub.zip")
   )
   
   # lengthen timeout

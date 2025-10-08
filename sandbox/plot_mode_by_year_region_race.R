@@ -22,7 +22,7 @@ cps <-  cps %>%
   mutate(census_region = case_when(
     STATE %in% c("ME", "NH", "VT", "MA", "CT", "RI", 
                    "NY", "PA", "NJ") ~ "Northeast",
-    STATE %in% c("ME", "DE", "WV", "DC", "VA", "NC", "SC", "GA", "FL",
+    STATE %in% c("MD", "DE", "WV", "DC", "VA", "NC", "SC", "GA", "FL",
                    "KY", "TN", "MS", "AL", 
                    "OK", "AR", "LA", "TX") ~ "South",
     STATE %in% c("WI", "MI", "IL", "IN", "OH", 
@@ -32,7 +32,7 @@ cps <-  cps %>%
     census_division = case_when(
       STATE %in% c("ME", "NH", "VT", "MA", "CT", "RI") ~ "New England", 
       STATE %in% c("NY", "PA", "NJ") ~ "Middle Atlantic",
-      STATE %in% c("ME", "DE", "WV", "DC", "VA", "NC", "SC", "GA", "FL") ~ "South Atlantic",
+      STATE %in% c("MD", "DE", "WV", "DC", "VA", "NC", "SC", "GA", "FL") ~ "South Atlantic",
       STATE %in% c("KY", "TN", "MS", "AL") ~ "East South Central", 
       STATE %in% c("OK", "AR", "LA", "TX") ~ "West South Central",
       STATE %in% c("WI", "MI", "IL", "IN", "OH") ~ "East North Central", 
