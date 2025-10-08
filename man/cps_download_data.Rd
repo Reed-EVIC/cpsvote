@@ -6,7 +6,7 @@
 \usage{
 cps_download_data(
   path = "cps_data",
-  years = seq(1994, 2018, 2),
+  years = seq(1994, 2020, 2),
   overwrite = FALSE
 )
 }
@@ -14,7 +14,7 @@ cps_download_data(
 \item{path}{A file path (relative or absolute) where the downloads should go.}
 
 \item{years}{Which years of data to download. Defaults to all
-even-numbered years from 1994 to 2018.}
+even-numbered years from 1994 to 2020.}
 
 \item{overwrite}{Logical, whether to write over existing files or not.
 Defaults to FALSE.}
@@ -24,7 +24,7 @@ Download CPS microdata
 }
 \details{
 \itemize{
-\item File names will be written in the style "cps_nov2018.zip", with the
+\item File names will be written in the style "cps_nov2020.zip", with the
 appropriate years.
 \item The Voting and Registration Supplement is only conducted in even-numbered
 years (since 1964), so any entry in \code{years} outside of this will be skipped.

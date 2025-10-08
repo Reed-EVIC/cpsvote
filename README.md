@@ -7,8 +7,6 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/cpsvote)](https://cran.r-project.org/package=cpsvote)
-[![Travis build
-status](https://travis-ci.org/Reed-EVIC/cpsvote.svg?branch=master)](https://travis-ci.org/Reed-EVIC/cpsvote)
 <!-- badges: end -->
 
 `cpsvote` helps you work with data from the Current Population Survey’s
@@ -31,12 +29,11 @@ bias over the decades, recommended by several elections researchers as a
 best practice. Documentation of this reweighting is provided in
 `vignette("voting")`.
 
-We have provided access to VRS data from 1994 to 2018, and anticipate
-updating the package when 2020 data becomes available.
+We have provided access to VRS data from 1994 to 2020.
 
 ## Installing and Loading the Package
 
-[Version 0.1](https://cran.r-project.org/package=cpsvote) is on CRAN\!
+[Version 0.2](https://cran.r-project.org/package=cpsvote) is on CRAN!
 
 ``` r
 install.packages('cpsvote')
@@ -102,17 +99,17 @@ cps_allyears_10k %>%
 ```
 
 | FILE             | YEAR | STATE | VRS\_VOTE | VRS\_REG | VRS\_VOTEMETHOD\_CON | turnout\_weight |
-| :--------------- | ---: | :---- | :-------- | :------- | :------------------- | --------------: |
-| cps\_nov2012.zip | 2012 | VA    | YES       | NA       | ELECTION DAY         |        2219.511 |
-| cps\_nov2010.zip | 2010 | MI    | YES       | NA       | ELECTION DAY         |        2205.806 |
-| cps\_nov2008.zip | 2008 | CA    | NA        | NA       | NA                   |           0.000 |
-| cps\_nov1996.zip | 1996 | CA    | YES       | NA       | ELECTION DAY         |        2949.914 |
-| cps\_nov2000.zip | 2000 | TX    | YES       | NA       | EARLY                |        2257.311 |
-| cps\_nov1996.zip | 1996 | CA    | YES       | NA       | ELECTION DAY         |        1581.404 |
-| cps\_nov2000.zip | 2000 | OH    | YES       | NA       | ELECTION DAY         |        1869.228 |
-| cps\_nov2004.zip | 2004 | TX    | NO        | NO       | NA                   |        4676.750 |
-| cps\_nov1998.zip | 1998 | WI    | YES       | NA       | ELECTION DAY         |        2633.379 |
-| cps\_nov1996.zip | 1996 | ND    | NA        | NA       | NA                   |           0.000 |
+|:-----------------|-----:|:------|:----------|:---------|:---------------------|----------------:|
+| cps\_nov2014.zip | 2014 | NH    | NA        | NA       | NA                   |          0.0000 |
+| cps\_nov2012.zip | 2012 | CA    | NA        | NA       | NA                   |          0.0000 |
+| cps\_nov2008.zip | 2008 | NC    | NA        | NA       | NA                   |       5537.8704 |
+| cps\_nov1996.zip | 1996 | FL    | NA        | NA       | NA                   |       2041.5099 |
+| cps\_nov2002.zip | 2002 | DE    | NA        | NA       | NA                   |        521.8448 |
+| cps\_nov1996.zip | 1996 | FL    | NO        | NO       | NA                   |       3365.9780 |
+| cps\_nov2000.zip | 2000 | WY    | REFUSED   | REFUSED  | NA                   |        317.0368 |
+| cps\_nov2006.zip | 2006 | IL    | NO        | YES      | NA                   |       4094.0583 |
+| cps\_nov2000.zip | 2000 | FL    | NO        | YES      | NA                   |       3796.1487 |
+| cps\_nov1996.zip | 1996 | TN    | NA        | NA       | NA                   |          0.0000 |
 
 The CPS has survey weights that are necessary to calculate accurate
 estimates about the US population. Two R packages that work with survey
@@ -121,37 +118,37 @@ and [`srvyr`](https://github.com/gergness/srvyr) (a tidyverse-compatible
 wrapper for `survey`). You can see more examples and details on
 weighting in `vignette("voting")`, but here is one example of using
 `srvyr` to calculate state-level voter turnout among eligible voters in
-2018.
+2020.
 
 ``` r
 library(srvyr)
 
-cps18_weighted <- cps_load_basic(years = 2018, datadir = here::here('cps_data')) %>%
+cps20_weighted <- cps_load_basic(years = 2020, datadir = here::here('cps_data')) %>%
   as_survey_design(weights = turnout_weight)
 
-turnout18 <- cps18_weighted %>%
+turnout20 <- cps20_weighted %>%
   group_by(STATE) %>%
   summarize(turnout = survey_mean(hurachen_turnout == "YES", na.rm = TRUE))
 
-head(turnout18, 10)
+head(turnout20, 10)
 ```
 
 | STATE |   turnout | turnout\_se |
-| :---- | --------: | ----------: |
-| AL    | 0.4689987 |   0.0136831 |
-| AK    | 0.5445797 |   0.0192402 |
-| AZ    | 0.4691557 |   0.0158490 |
-| AR    | 0.4096583 |   0.0140608 |
-| CA    | 0.4834399 |   0.0073204 |
-| CO    | 0.5996610 |   0.0209483 |
-| CT    | 0.5416752 |   0.0193049 |
-| DE    | 0.5079879 |   0.0186637 |
-| DC    | 0.4242351 |   0.0156001 |
-| FL    | 0.5361329 |   0.0103791 |
+|:------|----------:|------------:|
+| AL    | 0.6308030 |   0.0149881 |
+| AK    | 0.6840794 |   0.0197933 |
+| AZ    | 0.6527374 |   0.0176947 |
+| AR    | 0.5585975 |   0.0166907 |
+| CA    | 0.6740792 |   0.0075600 |
+| CO    | 0.7551447 |   0.0206043 |
+| CT    | 0.7007494 |   0.0206876 |
+| DE    | 0.6999642 |   0.0189015 |
+| DC    | 0.6368879 |   0.0276585 |
+| FL    | 0.7116539 |   0.0100047 |
 
 These estimates follow closely Dr. Michael McDonald’s [estimates of
-turnout](http://www.electproject.org/2018g) among eligible voters in the
-November 2018 General Election. For a detailed examination of how
+turnout](http://www.electproject.org/2020g) among eligible voters in the
+November 2020 General Election. For a detailed examination of how
 non-response bias has affected the use of CPS for estimating turnout,
 see `vignette("voting")`. We thank the U.S. Elections Project at the
 University of Florida for the turnout estimates.
@@ -178,11 +175,11 @@ get from the raw data file to the cleaned file in
 
 ``` r
 cps_download_data(path = "cps_data",
-                  years = seq(1994, 2018, 2))
+                  years = seq(1994, 2020, 2))
 cps_download_docs(path = "cps_data",
-                  years = seq(1994, 2018, 2))
+                  years = seq(1994, 2020, 2))
 
-cps_read(years = seq(1994, 2018, 2),
+cps_read(years = seq(1994, 2020, 2),
          dir = "cps_data",
          cols = cpsvote::cps_cols,
          names_col = "new_name",
@@ -199,12 +196,12 @@ cps_read(years = seq(1994, 2018, 2),
     cps_reweight_turnout()
 ```
 
-  - `cps_download_data()` will download the data files from NBER
+-   `cps_download_data()` will download the data files from NBER
     according to `years` into the folder at `path`. This is
     automatically called by `cps_read()` when the CPS data files are not
     found in the provided `dir` - it will search for files with the
     4-digit year associated with their data.
-  - `cps_download_docs()` will downlaod the pdf documentation into
+-   `cps_download_docs()` will downlaod the pdf documentation into
     `path` for each year supplied in `years`.The documentation here is
     aligned with the NBER data, and other data sources (such as ICPSR)
     may have edited the data such that their data or documentation does
@@ -212,7 +209,7 @@ cps_read(years = seq(1994, 2018, 2),
     data through `cps_download_docs()`, you can make sure that the
     fields you look up in documentation are the proper fields referenced
     in the data.
-  - `cps_read()` is the function that actually loads in the original,
+-   `cps_read()` is the function that actually loads in the original,
     (mostly) numeric data from files defined by the arguments `years`
     and `dir`. Since the raw data is in fixed-width files, you have to
     define the range of characters that are read. You can see the
@@ -227,7 +224,7 @@ cps_read(years = seq(1994, 2018, 2),
     multiple years into one `tibble`, and should only be used if you’re
     sure that a column name (like “PES5”) refers to the same question
     across all years you read in.
-  - `cps_label()` replaces the numeric entries from the raw data with
+-   `cps_label()` replaces the numeric entries from the raw data with
     appropriate factor levels (as given by the data documentation; see
     `cps_download_docs()`). We have taken the factor levels as written
     from the PDFs, including capitalization, typos, and differences
@@ -239,12 +236,12 @@ cps_read(years = seq(1994, 2018, 2),
     that match the incoming data set to be labelled. Further: `na_vals`
     defines which factor levels should be marked as `NA`, `expand_year`
     turns the two-digit years in some files into four-digit years
-    (e.g. “94” becomes “1994”), and `rescale_weight` divides the
-    given weight by 10,000 (as noted by the data documentation) to
-    ensure accurate population sums. `toupper` will make all the factor
-    levels upper case, which is useful because as-is the factors are a
-    mix of sentence case and upper case.
-  - `cps_refactor` deals with all of the typos, capitalization, and
+    (e.g. “94” becomes “1994”), and `rescale_weight` divides the given
+    weight by 10,000 (as noted by the data documentation) to ensure
+    accurate population sums. `toupper` will make all the factor levels
+    upper case, which is useful because as-is the factors are a mix of
+    sentence case and upper case.
+-   `cps_refactor` deals with all of the typos, capitalization, and
     shifting questions across years. We have attempted here to
     consolidate factor levels and variables in a way that makes sense.
     For example, one common method of assessing vote mode (in-person on
@@ -254,14 +251,14 @@ cps_read(years = seq(1994, 2018, 2),
     surveys) into one `VRS_VOTEMETHOD_CON` variable. Note that this
     function will only work with certain column names in the data; see
     `?cps_refactor` for more details.
-  - `cps_recode_vote()` recodes the variable `VRS_VOTE` according to two
+-   `cps_recode_vote()` recodes the variable `VRS_VOTE` according to two
     different assessments of voter turnout. The new variable
     `cps_turnout` will calculate turnout the same way that the Census
     does, while another new variable `hurachen_turnout` will calculate
     turnout according to Hur & Achen (2013). These two methods differ in
     how they count responses of “Don’t know”, “Refused”, and “No
     response”; see `vignette("background")` for more details.
-  - `cps_reweight_turnout()` adds a new variable, `turnout_weight`, that
+-   `cps_reweight_turnout()` adds a new variable, `turnout_weight`, that
     reweights the original `WEIGHT` according to Hur & Achen (2013) to
     account for the adjusted turnout measure. This corrects for
     increased nonresponse to the VRS over time, as well as a general
@@ -292,26 +289,26 @@ based on your own column names.
 
 ## Examples, Background Reading, and Data Sources
 
-  - Vignettes:
-      - `vignette("basics")` provides an intro to the package with some
+-   Vignettes:
+    -   `vignette("basics")` provides an intro to the package with some
         basic instructions for use, and mirrors our [GitHub
         README](https://github.com/Reed-EVIC/cpsvote)
-      - `vignette("background")` describes our intellectual rationale
+    -   `vignette("background")` describes our intellectual rationale
         for creating this package
-      - `vignette("add-variables")` describes how additional variables
+    -   `vignette("add-variables")` describes how additional variables
         from the CPS can be merged with the default dataset
-      - `vignette("voting")` does a deep dive into how to use the CPS
+    -   `vignette("voting")` does a deep dive into how to use the CPS
         and the default datasets from `cpsvote` to look at voter turnout
         and mode of voting
-  - Aram Hur, Christopher H. Achen. *Coding Voter Turnout Responses in
+-   Aram Hur, Christopher H. Achen. *Coding Voter Turnout Responses in
     the Current Population Survey*. Public Opinion Quarterly, Volume 77,
     Issue 4, Winter 2013, Pages 985–993.
     <https://doi.org/10.1093/poq/nft042>
-  - Michael McDonald. *What’s Wrong with the CPS?* Presented at the 2014
+-   Michael McDonald. *What’s Wrong with the CPS?* Presented at the 2014
     American Political Science Association Conference, Washington, D.C.,
     August 27-31.
     <http://www.electproject.org/home/voter-turnout/cps-methodology>
-  - The [Current Population
+-   The [Current Population
     Survey](https://www.census.gov/programs-surveys/cps.html) is
     conducted monthly by the U.S. Census Bureau and the Bureau of Labor
     Statistics, and the Voting and Registration Supplement is
@@ -320,15 +317,15 @@ based on your own column names.
     data](http://data.nber.org/data/current-population-survey-data.html)
     that this package downloads is provided by the [National Bureau of
     Economic Research](https://data.nber.org/info.html).
-  - This is an animated ternary plot made using vote mode data from
-    `cpsvote`. See NOT YET WRITTEN vignette for the code that created
-    this.
+-   This is an animated ternary plot made using vote mode data from
+    `cpsvote`. The code that created this in available
+    [here](sandbox/animate_snowglobe.R).
 
 ![](img/vote_mode.gif)
 
 ## Acknowledgements
 
-The `cpsvote` package was originally created at the [Early Voting
+The `cpsvote` package was originally created at the [Elections & Voting
 Information Center at Reed College](https://evic.reed.edu/). We are
 indebted to support from the [Elections Team at the Democracy
 Fund](https://democracyfund.org/) and [Reed

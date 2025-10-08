@@ -5,7 +5,7 @@
 \alias{cps_reweight}
 \title{Calculations to reweight properly for voter turnout}
 \format{
-A tibble with 1,326 rows and 6 columns:
+A tibble with 1,428 rows and 6 columns:
 \describe{
 \item{YEAR}{year}
 \item{STATE}{state}
