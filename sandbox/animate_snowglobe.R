@@ -4,6 +4,7 @@
 # Note: Runs in about 5 minutes on Jay's machine
 # Also note: May run into disk size limits if significantly modified
 
+library(tidyverse)
 library(here)
 library(dplyr)
 library(srvyr)
@@ -12,7 +13,7 @@ library(ggtern)
 library(rlang)
 library(magick)
 
-cps <- cps_load_basic()
+#cps <- cps_load_basic()
 
 # It is necessary to use sample weights to obtain proper estimates from the CPS
 cps_weighted <- cps %>%
@@ -113,4 +114,8 @@ list.files(path = here('img', 'plot_frames'), pattern = "\\.png$", full.names = 
   image_write(here('img', 'vote_mode.gif')) # write to output directory
 
 # optimize the gif, ImageMagick terminal
-system('convert img/vote_mode.gif -coalesce  -layers OptimizeFrame  img/vote_mode.gif')
+#system('convert img/vote_mode.gif -coalesce  -layers OptimizeFrame  img/vote_mode.gif')
+# R
+system('magick img/vote_mode.gif -coalesce -layers OptimizeFrame img/vote_mode_optimized.gif')
+
+
