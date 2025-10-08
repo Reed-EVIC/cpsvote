@@ -175,7 +175,7 @@ cps_download_data <- function(path = "cps_data",
   dir.create(path, showWarnings = FALSE)
   file_names <- paste0(path, 
                        ifelse(stringr::str_detect(path, "/$"), "", "/"), 
-                       paste0("cps_nov", years, ifelse(years == 2018, ".gz", ".zip")))
+                       paste0("cps_nov", years,".zip"))
   
   # remove years / file names that already exist, if overwrite is FALSE
   if (!overwrite) {

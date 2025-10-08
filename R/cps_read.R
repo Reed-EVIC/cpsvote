@@ -64,7 +64,7 @@ cps_read_year <- function(file,
   
   # unzip bc 2018 breaks unless first unzipped
   # also this is loads faster than unzipping within read_fwf
-  if(tools::file_ext(file) %in% c('gz', 'zip')) {
+  if(tools::file_ext(file) %in% c('zip')) {
     old_file <- file
     temp <- tempfile()
     utils::unzip(file, exdir = temp)
