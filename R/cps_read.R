@@ -67,6 +67,7 @@ cps_read_year <- function(file,
   if(tools::file_ext(file) %in% c('zip')) {
     old_file <- file
     temp <- tempfile()
+    on.exit(unlink(temp, recursive = TRUE), add = TRUE) # added in at advice of Zayne 
     utils::unzip(file, exdir = temp)
     file <- list.files(temp, full.names = TRUE)
   }
@@ -86,7 +87,8 @@ cps_read_year <- function(file,
   
   # if unzipped, drop the temp file
   if(exists("old_file")) {
-    rm(temp)
+    #rm(temp)
+    unlink(temp, recursive = TRUE)
   }
   
   # print status

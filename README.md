@@ -29,7 +29,7 @@ bias over the decades, recommended by several elections researchers as a
 best practice. Documentation of this reweighting is provided in
 `vignette("voting")`.
 
-We have provided access to VRS data from 1994 to 2020.
+We have provided access to VRS data from 1994 to 2022.
 
 ## Installing and Loading the Package
 

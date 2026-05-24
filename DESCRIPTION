@@ -44,5 +44,5 @@ Imports:
     readr,
     dplyr,
     stringr,
-    forcats,
+    forcats (>= 1.0.0),
     rlang

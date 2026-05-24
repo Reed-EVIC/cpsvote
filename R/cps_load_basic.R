@@ -25,7 +25,9 @@ cps_load_basic <- function(years = seq(1994, 2022, 2),
     cps_reweight_turnout()
   
   if(!is.null(outdir)) {
-    saveRDS(output, file = file.path(outdir, "cps_basic.rds"))
+    # saveRDS(output, file = file.path(outdir, "cps_basic.rds"))
+    default_name <- sprintf("cps_basic_%d_%d.rds", min(years), max(years)) # added in so no overwrite. 
+    saveRDS(output, file = file.path(outdir, default_name))
   }
   
   output
