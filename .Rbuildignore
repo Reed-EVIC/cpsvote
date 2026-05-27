@@ -20,3 +20,5 @@
 ^Meta$
 ^cran-comments.md$
 ^vignettes/README.md$
+^\.positai$
+^\.claude$
