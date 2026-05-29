@@ -4,7 +4,7 @@
 #' names) across years, to correctly read the data you have to specify which 
 #' start/end positions correspond to which column names in each year. This is one 
 #' such specification. To add extra data or change column names, see the Vignette.
-#' @format A data frame with 236 rows and 8 columns:
+#' @format A data frame with 253 rows and 8 columns:
 #' \describe{
 #' \item{year}{year}
 #' \item{cps_name}{original column name as given by the CPS}
@@ -23,7 +23,7 @@
 #' Because the CPS changes factor levels across years, to correctly read the data 
 #' you have to specify which numeric codes correspond to which character values 
 #' in each year. This is one such specification. To add extra data, see the Vignette.
-#' @format A data frame with 2,305 rows and 5 columns:
+#' @format A data frame with 2,475 rows and 5 columns:
 #' \describe{
 #' \item{year}{year}
 #' \item{cps_name}{original column name as given by the CPS}
@@ -183,3 +183,32 @@
 #' \item{VRS_RESIDENCE}{Duration of time living at current address}
 #' }
 "cps_2022_10k"
+
+#' A sample of the raw 2024 CPS dataset
+#'
+#' This is a 10,000 row sample of the data that comes out of
+#' `cps_read(years = 2024)`.
+#' @format A tibble with 10,000 rows and 17 columns:
+#' \describe{
+#' \item{FILE}{Which default file the case came from}
+#' \item{YEAR}{Year of interview}
+#' \item{STATE}{State postal abbreviation}
+#' \item{AGE}{Person's age as of the end of survey week;
+#' topcoded at 80 and 85}
+#' \item{SEX}{Binary sex}
+#' \item{EDUCATION}{Highest level of school completed or degree received}
+#' \item{RACE}{Race}
+#' \item{HISPANIC}{Hispanic status}
+#' \item{WEIGHT}{Original CPS survey weight}
+#' \item{VRS_VOTE}{Whether respondent voted in the election; self-reported}
+#' \item{VRS_REG}{Whether respondent was registered to vote in the election;
+#' self-reported}
+#' \item{VRS_REG_WHYNOT}{Reason for not being registered to vote}
+#' \item{VRS_VOTE_WHYNOT}{Reason for not voting}
+#' \item{VRS_VOTEMODE_2004toPRESENT}{Whether respondent voted by mail}
+#' \item{VRS_VOTEWHEN_2004toPRESENT}{Whether respondent voted on election day or
+#' before}
+#' \item{VRS_REG_METHOD}{Method of registration}
+#' \item{VRS_RESIDENCE}{Duration of time living at current address}
+#' }
+"cps_2024_10k"

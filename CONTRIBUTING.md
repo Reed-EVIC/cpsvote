@@ -30,7 +30,16 @@ table(cps_factors$year)   # should include all supported years
 table(cps_reweight$YEAR)  # should include all supported years
 ```
 
-Also confirm the download URL for the new year works. The URL pattern is in `R/cps_download.R` (lines 205–208 for data, lines 89–93 for docs). For recent years the data URL follows the pattern `data.nber.org/cps/novXXpub.zip` (e.g., `nov22pub.zip` for 2022).
+Also confirm the download URL for the new year works. The URL pattern is in `R/cps_download.R`. **The source has changed over time:**
+
+| Years | Microdata URL | Docs URL |
+|-------|--------------|----------|
+| 1994–2010 | `data.nber.org/cps/cpsnov{YY}.zip` | `data.nber.org/cps/cpsnov{YY}.pdf` |
+| 2012–2016 | `data.nber.org/cps/cpsnov{YYYY}.zip` | `data.nber.org/cps/cpsnov{YYYY}.pdf` |
+| 2018–2022 | `data.nber.org/cps/nov{YY}pub.zip` | `data.nber.org/cps/cpsnov{YY}.pdf` |
+| 2024+ | `https://www2.census.gov/programs-surveys/cps/datasets/{YYYY}/supp/nov{YY}pub.zip` | `https://www2.census.gov/programs-surveys/cps/techdocs/cpsnov{YY}.pdf` |
+
+For 2026 and beyond, verify whether the Census Bureau path is still `/supp/` or has reverted to `/november/` — it changed between 2022 and 2024. Add a new `years == XXXX` case in the `case_when` blocks before the general `years > 2017` case.
 
 ---
 
@@ -87,28 +96,39 @@ table(cps_factors$year)   # new year should appear with expected row count
 
 ### Stage 4 — Add reweighting data (`cps_reweight.R`)
 
-The reweighting data comes from Dr. Michael McDonald's VEP turnout estimates at [electproject.org](http://www.electproject.org/home/voter-turnout/voter-turnout-data).
+The reweighting data comes from Dr. Michael McDonald's VEP turnout estimates. **The data source changed in 2024:**
 
-To add a new year:
+| Years | Source | Format |
+|-------|--------|--------|
+| 1980–2022 | Google Sheets (public) via `googlesheets4` | `read_sheet()` |
+| 2024+ | UF Election Lab CSV (public) at [election.lab.ufl.edu](https://election.lab.ufl.edu/voter-turnout/) | `read_csv()` from direct URL |
 
-1. Find the Google Sheet for the new election year on McDonald's site
-2. Extract the spreadsheet ID from the URL (the string between `/d/` and `/edit`)
-3. Check the column layout of the new sheet — **the column order changes between election years** and must be verified before assigning `col_names`
+**For years up to 2022 (Google Sheets path):**
 
-To inspect the column layout:
+1. Find the Google Sheet at the old electproject.org archive or the UF Election Lab site
+2. Extract the spreadsheet ID from the URL (between `/d/` and `/edit`)
+3. Check the column layout — it changes between election years:
 ```r
 library(googlesheets4)
-gs4_deauth()   # these sheets are public; use gs4_deauth(), NOT the old sheets_deauth()
+gs4_deauth()   # use gs4_deauth(), NOT the old sheets_deauth()
 x <- read_sheet("SPREADSHEET_ID", range = "A2:R2", col_names = FALSE, col_types = "c")
 as.character(x[1,])
 ```
+4. Add a `gid_XXXX` variable and `vep_XXXX <- read_sheet(...)` block, then add to `bind_rows()`
 
-4. Add a `gid_XXXX` variable and a `vep_XXXX <- read_sheet(...)` block in `cps_reweight.R`, modeled after the prior years
-5. Add `vep_XXXX` to the `bind_rows()` call
-6. Run the script and verify:
+**For 2024 and later (UF Election Lab CSV path):**
 
+1. Find the dataset at [election.lab.ufl.edu/data-archive](https://election.lab.ufl.edu/data-archive/) — look for "General Election Turnout Rates"
+2. Get the direct CSV download URL (publicly accessible without login)
+3. Check the documentation `.txt` file alongside the CSV for column names
+4. The key columns are: `STATE` (name), `STATE_ABV` (abbreviation), `VEP_TURNOUT_RATE` (as a percent string, e.g. `"64.3%"` — divide by 100), `VEP`, `VAP`, `NONCITIZEN_PCT` (also percent string)
+5. Use `parse_number(as.character(col))` to handle both numeric and percent/comma-formatted columns
+6. Add a `url_XXXX` variable and `vep_XXXX <- read_csv(url_XXXX, ...) %>% transmute(...)` block, modeled on the 2024 block, then add to `bind_rows()`
+
+**Important:** `cps_reweight.R` calls `cps_load_basic()` to compute CPS-side turnout, which loads all years. If the session crashes due to memory, run only the new year's CPS data separately and append to the existing `cps_reweight` object rather than re-running the full script.
+
+**Verify:**
 ```r
-source("data-raw/cps_reweight.R")
 devtools::load_all()
 table(cps_reweight$YEAR)   # new year should appear with ~102 rows (2 per state/territory)
 ```
@@ -184,6 +204,41 @@ The `cps_load_basic()` pipeline runs: `cps_read` → `cps_label` → `cps_refact
 
 ---
 
+## Year-by-Year Addition Log
+
+### 2022 (Midterm)
+
+**Added:** May 2026 — Paul Gronke and Frank Adonteng, with Claude (claude-sonnet-4-6)
+
+| Stage | What was done |
+|-------|--------------|
+| Audit | Binary `cps_factors.rda` had 340 rows for 2022 (duplicated); `cps_reweight.rda` was correct at 102 rows |
+| Cols | All 16 column positions identical to 2020; already added to CSV in prior work |
+| Factors | Template: **2018** (midterm), NOT 2020 (presidential with COVID options). CSV had 0 rows for 2022; binary was wrong. Added 170 rows. Fixed a file-concatenation bug (grep >> same file caused first row to merge with last existing line) |
+| Reweight | Fixed `sheets_deauth()` → `gs4_deauth()`. Added 2022 VEP Google Sheet (`gid_2022`); column layout verified interactively |
+| Sample | Created `data-raw/cps_2022_10k.R`; seed `20221108` (Election Day) |
+| Docs | Row counts updated: cps_cols 220→236, cps_factors 2135→2305 |
+| Check | `devtools::check()` — 0 errors, 0 warnings; `cps_load_basic(years = 2022)` → 126,097 rows |
+
+---
+
+### 2024 (Presidential)
+
+**Added:** May 2026 — Paul Gronke and Frank Adonteng, with Claude (claude-sonnet-4-6)
+
+| Stage | What was done |
+|-------|--------------|
+| Audit | Verified column positions from `cpsnov24.pdf` (PDF decompressed via Python zlib); all 16 variables identical to 2022 |
+| Cols | Positions unchanged from 2022. Added 16 rows to `cps_cols.csv`. Updated year-range defaults to `seq(1994, 2024, 2)` in `cps_read.R`, `cps_download.R`, `cps_load_basic.R` |
+| Factors | Template: **2016** (presidential without COVID), NOT 2020. Added 170 rows. 2020 had COVID-specific response options in PES3 (code 5) and PES4 (code 3, different ordering) that do not appear in 2024 |
+| Reweight | McDonald's VEP data moved from electproject.org to **UF Election Lab** (CSV, not Google Sheet). URL: `https://election.lab.ufl.edu/data-downloads/turnoutdata/Turnout_2024G_v0.4.csv`. Columns `VEP_TURNOUT_RATE` and `NONCITIZEN_PCT` are percent strings (e.g. `"64.3%"`); used `parse_number(as.character(col)) / 100`. `read_csv()` auto-parses some columns as numeric, so `as.character()` wrap required before `parse_number()`. R session crashed during full script run (memory); 2024 rows computed separately with `cps_load_basic(years = 2024)` and appended to existing `cps_reweight` |
+| Download URL | NBER does not have 2024 data. Census Bureau changed path from `/november/` to `/supp/`. Fixed in `cps_download.R` by adding `years == 2024` case pointing to `https://www2.census.gov/programs-surveys/cps/datasets/2024/supp/nov24pub.zip` |
+| Sample | Created `data-raw/cps_2024_10k.R`; seed `20241105` (Election Day) |
+| Docs | Row counts updated: cps_cols 236→253, cps_factors 2305→2475 |
+| Check | `devtools::check()` — 0 errors, 0 warnings; `cps_load_basic(years = 2024)` → 126,686 rows |
+
+---
+
 ## Key Rules
 
 - **Never edit `.rda` files directly.** Always regenerate them by running the appropriate `data-raw/` script.
@@ -191,3 +246,6 @@ The `cps_load_basic()` pipeline runs: `cps_read` → `cps_label` → `cps_refact
 - **Factor codes vary by election type.** Compare new years to a same-type election (presidential vs. midterm), not just the immediately prior year.
 - **VEP sheet column order varies.** Always inspect the new year's sheet before writing `col_names`.
 - **Use `gs4_deauth()`, not `sheets_deauth()`.** The old `googlesheets` package function is gone; the current package is `googlesheets4`.
+- **VEP data source changed in 2024.** McDonald's data moved from electproject.org Google Sheets to UF Election Lab CSV downloads. For 2024+, use `read_csv()` with the direct URL from [election.lab.ufl.edu](https://election.lab.ufl.edu/data-archive/). Turnout and noncitizen columns are percent strings (e.g. `"64.3%"`) — use `parse_number(as.character(col)) / 100`.
+- **CPS download URL changed in 2024.** NBER does not yet mirror the 2024 data. The Census Bureau changed the path from `/november/` to `/supp/`. Always verify the path for new years and add a specific `years == XXXX` case in `cps_download.R` before the general fallback.
+- **Memory:** `cps_reweight.R` loads all years at once. If the R session crashes, compute only the new year's reweighting rows and append to the existing `cps_reweight` object manually.

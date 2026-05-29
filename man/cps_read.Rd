@@ -5,7 +5,7 @@
 \title{Read in CPS data}
 \usage{
 cps_read(
-  years = seq(1994, 2022, 2),
+  years = seq(1994, 2024, 2),
   dir = "cps_data",
   cols = cpsvote::cps_cols,
   names_col = "new_name",

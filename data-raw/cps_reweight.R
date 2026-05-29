@@ -2,10 +2,14 @@
 # https://github.com/mbannert/boar-2018/issues/1
 # links manually collected via
 # http://www.electproject.org/home/voter-turnout/voter-turnout-data
+# NOTE: as of 2024, McDonald's VEP data moved from electproject.org to
+# UF Election Lab (https://election.lab.ufl.edu/voter-turnout/)
+# 2024+ data is a direct CSV download, not a Google Sheet
 
 library(rvest)
 library(googlesheets4)
 library(dplyr)
+library(readr)
 library(srvyr)
 devtools::load_all()
 
@@ -34,6 +38,7 @@ gid_2016 <- "1VAcF0eJ06y_8T4o2gvIL4YcyQy8pxb1zYkgXF76Uu1s"
 gid_2018 <- "1tal3fAaKnEj_7Yy_7ftrNg4dJy4UxGk3oKSd3uPb13Y"
 gid_2020 <- "1h_2pR1pq8s_I5buZ5agXS9q1vLziECztN2uWeR6Czo0"
 gid_2022 <- "17iSZIBPP6jj0C2wcqpym9wNuNCtTiqM_tMweMjmvces"
+# NOTE: 2024 and later years use UF Election Lab CSV instead of Google Sheets — see below
 
 vep_1980to2014 <- read_sheet(gid_1980to2014, range = "A3:Q",
                              col_names = c('year',
@@ -125,11 +130,29 @@ vep_2022 <- read_sheet(gid_2022, range = "A3:N54",
                                      'state_abb')) %>%
   mutate(year = 2022)
 
+# 2024: data now from UF Election Lab CSV (not Google Sheets)
+# URL may need updating if a newer version (v0.5 etc.) is released
+url_2024 <- "https://election.lab.ufl.edu/data-downloads/turnoutdata/Turnout_2024G_v0.4.csv"
+vep_2024 <- read_csv(url_2024, show_col_types = FALSE) %>%
+  transmute(state_name = STATE,
+            state_abb = STATE_ABV,
+            pct_highestoffice_vep = parse_number(as.character(VEP_TURNOUT_RATE)) / 100,
+            vep = parse_number(as.character(VEP)),
+            vap = parse_number(as.character(VAP)),
+            pct_noncitizen = parse_number(as.character(NONCITIZEN_PCT)) / 100,
+            prison = parse_number(as.character(INELIGIBLE_PRISON)),
+            probation = parse_number(as.character(INELIGIBLE_PROBATION)),
+            parole = parse_number(as.character(INELIGIBLE_PAROLE)),
+            total_ineligible_felon = parse_number(as.character(INELIGIBLE_FELONS_TOTAL)),
+            overseas_eligible = parse_number(as.character(ELIGIBLE_OVERSEAS)),
+            year = 2024)
+
 vep <- bind_rows(vep_1980to2014,
                  vep_2016,
                  vep_2018,
                  vep_2020,
-                 vep_2022) %>%
+                 vep_2022,
+                 vep_2024) %>%
   select(-state_abb) %>% # this one only shows up in 2 years
   # there are no 0 entries for ballots, so there should be no 0 entries for percents
   mutate(pct_ballots_vep = na_if(pct_ballots_vep, 0),
