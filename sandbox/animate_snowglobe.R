@@ -22,7 +22,7 @@ cps_weighted <- cps %>%
 
 vote_mode <- cps_weighted %>%
   select(YEAR, STATE, VRS_VOTEMETHOD_CON) %>%
-  filter(across(everything(), function (x) !is.na(x))) %>%
+  filter(if_all(everything(), ~ !is.na(.x))) %>%
   group_by(YEAR, STATE, VRS_VOTEMETHOD_CON) %>%
   summarize(survey_mean(na.rm = TRUE)) %>%
   select(-ends_with('_se')) %>%
@@ -32,14 +32,14 @@ vote_mode <- cps_weighted %>%
 # This first plot is left in place in order to visually check the individual years
 # size may not work correctly, so check output
 ggplot(filter(vote_mode, YEAR == 2020), aes(y = `ELECTION DAY`, x = `BY MAIL`, z = EARLY, label = STATE)) +
-  geom_text(vjust = "inward", hjust = "inward", size = 1.5) +
+  geom_text(vjust = 0.5, hjust = 0.5, size = 1.5, position = "identity") +
   coord_tern() +
   labs(x = "Mail",
        y = "Election Day",
        z = "Early",
-       title = "The Move Away From Election Day Voting in America: 1996-2020",
+       title = "The Move Away From Election Day Voting in America: 1996-2022",
        subtitle = paste("Share of votes cast in federal elections, by mode",
-                        "\nYear:", unique(filter(vote_mode, YEAR == 2020)$YEAR))) +
+                        "\nYear:", unique(filter(vote_mode, YEAR == 2022)$YEAR))) +
   theme_classic() +
   theme(plot.title = element_text(hjust = 0.5, size = 8),
         plot.subtitle = element_text(hjust = 0.5, size = 6),
@@ -76,6 +76,8 @@ tweened_data <- filter(vote_mode, YEAR == 1996) %>%
   keep_state(10) %>%
   tween_state(filter(vote_mode, YEAR == 2020), 'linear', id = STATE, nframes = 10) %>%
   keep_state(10) %>%
+  tween_state(filter(vote_mode, YEAR == 2022), 'linear', id = STATE, nframes = 10) %>%
+  keep_state(10) %>%
   mutate(YEAR = floor(YEAR / 2) * 2,
          check2 = `ELECTION DAY` + `BY MAIL` + EARLY)
 
@@ -84,12 +86,12 @@ dir.create(here('img', 'plot_frames'), showWarnings = FALSE)
 
 for (frame in unique(tweened_data$.frame)) {
   ggplot(filter(tweened_data, .frame == frame), aes(y = `ELECTION DAY`, x = `BY MAIL`, z = EARLY, label = STATE)) +
-    geom_text(vjust = "inward", hjust = "inward", size = 1.5) +
+    geom_text(vjust = 0.5, hjust = 0.5, size = 1.5, position = "identity") +
     coord_tern() +
     labs(x = "Mail",
          y = "Election Day",
          z = "Early",
-         title = "The Move Away From Election Day Voting in America: 1996-2020",
+         title = "The Move Away From Election Day Voting in America: 1996-2022",
          subtitle = paste("Share of votes cast in federal elections, by mode",
                           "\nYear:", unique(filter(tweened_data, .frame == frame)$YEAR))) +
     theme_classic() +
