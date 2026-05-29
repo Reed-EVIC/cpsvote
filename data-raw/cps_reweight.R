@@ -27,12 +27,13 @@ state_fips <- maps::state.fips %>%
 
 # don't try to authenticate me, these are public sheets
 # drive_deauth()
-sheets_deauth()
+gs4_deauth()
 
 gid_1980to2014 <- "1or-N33CpOZYQ1UfZo0h8yGPSyz0Db-xjmZOXg3VJi-Q"
 gid_2016 <- "1VAcF0eJ06y_8T4o2gvIL4YcyQy8pxb1zYkgXF76Uu1s"
 gid_2018 <- "1tal3fAaKnEj_7Yy_7ftrNg4dJy4UxGk3oKSd3uPb13Y"
 gid_2020 <- "1h_2pR1pq8s_I5buZ5agXS9q1vLziECztN2uWeR6Czo0"
+gid_2022 <- "17iSZIBPP6jj0C2wcqpym9wNuNCtTiqM_tMweMjmvces"
 
 vep_1980to2014 <- read_sheet(gid_1980to2014, range = "A3:Q",
                              col_names = c('year',
@@ -107,11 +108,28 @@ vep_2020 <- read_sheet(gid_2020, range = "A3:P54",
                                      'overseas_eligible',
                                      'state_abb')) %>%
   mutate(year = 2020)
+vep_2022 <- read_sheet(gid_2022, range = "A3:N54",
+                       col_names = c('state_name',
+                                     'highestoffice',
+                                     'status',
+                                     'results_source',
+                                     'pct_highestoffice_vep',
+                                     'vep',
+                                     'vap',
+                                     'pct_noncitizen',
+                                     'prison',
+                                     'probation',
+                                     'parole',
+                                     'total_ineligible_felon',
+                                     'overseas_eligible',
+                                     'state_abb')) %>%
+  mutate(year = 2022)
 
 vep <- bind_rows(vep_1980to2014,
                  vep_2016,
                  vep_2018,
-                 vep_2020) %>%
+                 vep_2020,
+                 vep_2022) %>%
   select(-state_abb) %>% # this one only shows up in 2 years
   # there are no 0 entries for ballots, so there should be no 0 entries for percents
   mutate(pct_ballots_vep = na_if(pct_ballots_vep, 0),

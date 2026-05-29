@@ -38,7 +38,7 @@ Suggests:
     ggthemes
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.2
 Imports: 
     magrittr,
     readr,
