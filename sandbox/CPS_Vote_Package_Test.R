@@ -18,7 +18,7 @@ library(srvyr)
 
 # WARNING: THIS NEXT COMMAND DOWNLOADS A LOT OF DATA
 #cpsvote::cps_download_data(year = seq(1994,2018,2))
-cps <- cpsvote::cps_read(year = seq(1994, 2016, 2))
+cps <- cpsvote::cps_read(year = seq(1994, 2024, 2))
 
 
 ## Basic Data Descriptives 
