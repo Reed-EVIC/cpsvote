@@ -1,0 +1,215 @@
+---
+title: "Validation of 2022 CPS Turnout Estimates Against McDonald VEP Figures"
+author: "Paul Gronke and Frank Adonteng"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 2
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r packages}
+library(cpsvote)
+library(dplyr)
+library(srvyr)
+library(googlesheets4)
+library(knitr)
+library(kableExtra)
+library(ggplot2)
+```
+
+# Overview
+
+This document compares state-level voter turnout estimates from the 2022 CPS
+Voting and Registration Supplement — using the **standard Census survey weight**
+(`WEIGHT`) — against the authoritative Voter Eligible Population (VEP) turnout
+figures from Dr. Michael McDonald's United States Elections Project.
+
+Using the standard weight rather than the Hur-Achen reweighted weight allows
+us to observe the raw discrepancy between what the CPS reports and the true
+turnout figures. Because the CPS is known to overreport turnout (due to social
+desirability bias and differential non-response), we expect CPS estimates to
+be systematically higher than McDonald's VEP figures in most states. The size
+of this overestimation varies by state and is precisely what the Hur-Achen
+reweighting procedure corrects for.
+
+The turnout variable used is `hurachen_turnout`, which drops respondents who
+answered Don't Know, Refused, or No Response (treating them as missing rather
+than as non-voters). This isolates the effect of the **weight** on the
+discrepancy, holding the coding of the turnout variable constant.
+
+# CPS 2022 Turnout Estimates (Standard Weight)
+
+```{r load-cps, cache=TRUE}
+cps_2022 <- cps_load_basic(years = 2022) %>%
+  as_survey_design(weights = WEIGHT)   # standard Census weight, NOT turnout_weight
+
+cps_turnout <- cps_2022 %>%
+  group_by(STATE) %>%
+  summarize(
+    cps_turnout_pct = survey_mean(hurachen_turnout == "YES", na.rm = TRUE)
+  ) %>%
+  select(STATE, cps_turnout_pct) %>%
+  mutate(cps_turnout_pct = round(cps_turnout_pct * 100, 1))
+```
+
+# McDonald VEP Turnout Estimates
+
+```{r load-mcdonald, cache=TRUE}
+gs4_deauth()
+
+gid_2022 <- "17iSZIBPP6jj0C2wcqpym9wNuNCtTiqM_tMweMjmvces"
+
+mcdonald_2022 <- read_sheet(
+  gid_2022,
+  range = "A3:N54",
+  col_names = c(
+    "state_name", "highestoffice", "status", "results_source",
+    "pct_highestoffice_vep", "vep", "vap", "pct_noncitizen",
+    "prison", "probation", "parole", "total_ineligible_felon",
+    "overseas_eligible", "state_abb"
+  )
+) %>%
+  filter(state_abb != "US") %>%
+  transmute(
+    STATE           = state_abb,
+    state_name      = stringr::str_remove_all(state_name, "\\*$"),
+    mcd_turnout_pct = round(as.numeric(pct_highestoffice_vep) * 100, 1)
+  )
+```
+
+# State-by-State Comparison
+
+```{r join}
+comparison <- left_join(mcdonald_2022, cps_turnout, by = "STATE") %>%
+  mutate(difference = cps_turnout_pct - mcd_turnout_pct) %>%
+  arrange(state_name)
+```
+
+The table below shows, for each state:
+
+- **McDonald VEP (%)** — authoritative VEP turnout from the Elections Project
+- **CPS Standard Weight (%)** — CPS estimate using the standard Census weight
+- **Difference (pp)** — CPS minus McDonald (positive = CPS overestimates)
+
+Differences greater than 5 percentage points are highlighted in red.
+
+```{r table}
+comparison %>%
+  select(
+    State                    = state_name,
+    `McDonald VEP (%)`       = mcd_turnout_pct,
+    `CPS Std. Weight (%)`    = cps_turnout_pct,
+    `Difference (pp)`        = difference
+  ) %>%
+  kable(
+    booktabs  = TRUE,
+    longtable = TRUE,
+    align     = c("l", "r", "r", "r"),
+    caption   = "2022 State Voter Turnout: CPS Standard Weight vs. McDonald VEP Estimates"
+  ) %>%
+  kable_styling(
+    latex_options = c("repeat_header", "striped"),
+    font_size     = 9
+  ) %>%
+  column_spec(4, bold = TRUE,
+              color = ifelse(abs(comparison$difference) > 5, "red", "black"))
+```
+
+\newpage
+
+# Summary Statistics
+
+```{r summary}
+summary_stats <- comparison %>%
+  summarize(
+    `Mean difference (pp)`   = round(mean(difference, na.rm = TRUE), 2),
+    `Median difference (pp)` = round(median(difference, na.rm = TRUE), 2),
+    `SD of difference (pp)`  = round(sd(difference, na.rm = TRUE), 2),
+    `Max overestimate (pp)`  = round(max(difference, na.rm = TRUE), 2),
+    `Min difference (pp)`    = round(min(difference, na.rm = TRUE), 2),
+    `States overestimating`  = sum(difference > 0, na.rm = TRUE),
+    `States within 5pp`      = sum(abs(difference) <= 5, na.rm = TRUE),
+    `States > 5pp off`       = sum(abs(difference) > 5, na.rm = TRUE)
+  ) %>%
+  tidyr::pivot_longer(everything(), names_to = "Statistic", values_to = "Value")
+
+kable(summary_stats, booktabs = TRUE,
+      caption = "Summary of CPS (standard weight) vs. McDonald Differences (percentage points)") %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+A positive mean difference confirms the well-documented CPS overreporting
+tendency. The mean and median discrepancy reflect the degree of bias that the
+Hur-Achen reweighting procedure corrects for. **Min difference** is the state
+where CPS overestimates the least (or, if negative, underestimates the most);
+a positive min difference means no state actually falls below McDonald's VEP
+figure.
+
+```{r scatter, fig.height=5, fig.cap="CPS (standard weight) vs. McDonald VEP turnout by state, 2022. The dashed line is the 45-degree line of perfect agreement. Points above the line indicate CPS overestimation. States labeled in red differ by more than 5 percentage points."}
+comparison %>%
+  mutate(label = ifelse(abs(difference) > 15, STATE, NA)) %>%
+  ggplot(aes(x = mcd_turnout_pct, y = cps_turnout_pct)) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point(aes(color = abs(difference) > 5), size = 2) +
+  ggrepel::geom_text_repel(aes(label = label), size = 2.5, color = "red",
+                           na.rm = TRUE, max.overlaps = 20) +
+  scale_color_manual(values = c("FALSE" = "steelblue", "TRUE" = "red"),
+                     guide = "none") +
+  scale_x_continuous(labels = scales::percent_format(scale = 1),
+                     limits = c(20, 70)) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1),
+                     limits = c(20, 80)) +
+  labs(
+    x        = "McDonald VEP Turnout (%)",
+    y        = "CPS Standard Weight Turnout (%)",
+    title    = "CPS vs. McDonald Turnout Estimates, 2022",
+    subtitle = "Using standard Census survey weight; points above the line = CPS overestimates"
+  ) +
+  theme_bw()
+```
+
+# Largest Discrepancies
+
+States differing by more than 5 percentage points are listed below, sorted by
+absolute discrepancy. These are the states where non-response bias or
+overreporting is most pronounced, and where the Hur-Achen reweighting makes
+the largest practical difference.
+
+```{r flagged}
+flagged <- comparison %>%
+  filter(abs(difference) > 5) %>%
+  arrange(desc(abs(difference))) %>%
+  select(
+    State                 = state_name,
+    `McDonald VEP (%)`    = mcd_turnout_pct,
+    `CPS Std. Weight (%)` = cps_turnout_pct,
+    `Difference (pp)`     = difference
+  )
+
+if (nrow(flagged) == 0) {
+  cat("No states differ by more than 5 percentage points.")
+} else {
+  kable(flagged, booktabs = TRUE,
+        caption = "States with discrepancy greater than 5 percentage points") %>%
+    kable_styling(latex_options = "hold_position")
+}
+```
+
+# Notes
+
+- The standard Census weight (`WEIGHT`) is used here, **not** the Hur-Achen
+  reweighted weight (`turnout_weight`). The reweighted weight is specifically
+  designed to eliminate these discrepancies by post-stratifying to McDonald's
+  VEP figures; using it here would produce near-perfect agreement by
+  construction and would not illuminate the underlying bias.
+- The `hurachen_turnout` coding is used (DK/Refused/No Response treated as
+  missing). To see the additional effect of the Census's own coding (which
+  treats these as No), substitute `cps_turnout` for `hurachen_turnout`.
+- McDonald's VEP data for 2022 retrieved from:
+  `https://docs.google.com/spreadsheets/d/17iSZIBPP6jj0C2wcqpym9wNuNCtTiqM_tMweMjmvces`
