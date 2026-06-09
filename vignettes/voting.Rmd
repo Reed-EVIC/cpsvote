@@ -60,7 +60,7 @@ The first is an idiosyncratic coding method that the Census has used to code vot
 
 Second, and related, is a more complicated methodological issue that involves changes in the rate of non-response (and resulting biases in the CPS's turnout estimates), which have grown over time. The appropriate Census recodes and statistical adjustments for non-response bias are automated by the package. `cpsvote` computes a new survey weight, `turnout_weight`, that adjusts for these biases.
 
-Third, the CPS changed the way that it asked about _mode of voting_, using a single question from 1996-2002 and two questions from 2004 to present. `cpsvote` creates a consolidated variable, `VRS_VOTEMETHOD_CON`, that codes for Election Day, Early In-Person, and Voting By Mail from 1996-2020.
+Third, the CPS changed the way that it asked about _mode of voting_, using a single question from 1996-2002 and two questions from 2004 to present. `cpsvote` creates a consolidated variable, `VRS_VOTEMETHOD_CON`, that codes for Election Day, Early In-Person, and Voting By Mail from 1996-2024.
 
 ## Voter Turnout in the CPS {#votingturnout}
 
@@ -226,9 +226,9 @@ cps_region %>%
   ggplot(aes(x = YEAR, y = value, col = VRS_VOTEMETHOD_CON, group = VRS_VOTEMETHOD_CON)) +
   geom_line(size = 1.5) +
   geom_point(aes(x = YEAR, y = value, color = VRS_VOTEMETHOD_CON), size = 2) +
-  scale_x_continuous(breaks = seq(1996, 2020, by = 2)) +
+  scale_x_continuous(breaks = seq(1996, 2024, by = 2)) +
   scale_y_continuous(labels = scales::percent) +
-  labs(title = "The Growth of Early Voting, 1996 - 2020", 
+  labs(title = "The Growth of Early Voting, 1996 - 2024",
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        color = "Mode of Voting",
        y = "",
@@ -254,9 +254,9 @@ cps_region %>%
   geom_line(size = 1.5) +
   geom_point(aes(x = YEAR, y = value, color = census_region), size = 2) +
   theme_minimal() +
-  scale_x_continuous(breaks = seq(1996, 2020, by = 2)) +
+  scale_x_continuous(breaks = seq(1996, 2024, by = 2)) +
   scale_y_continuous(labels = scales::percent) +
-  labs(title = "Regional Use of Vote At Home, 1996 - 2020", 
+  labs(title = "Regional Use of Vote At Home, 1996 - 2024",
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        color = "Region") +
   theme(plot.title = element_text(size = 20, family = "serif", 
