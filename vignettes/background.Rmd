@@ -132,6 +132,8 @@ We have integrated the Hur and Achen recoding into the `cpsvote` package, contai
 
 ## Sample Usage: Varying Estimates of Voter Turnout in 2020
 
+The example below uses 2020 data to illustrate how the three estimation approaches diverge. The `cpsvote` package now includes VRS data through 2024, so the same code can be applied to any election year by changing the `years` argument in `cps_load_basic()`.
+
 ```{r turnout_table, message = FALSE}
 library(cpsvote)
 library(srvyr)
