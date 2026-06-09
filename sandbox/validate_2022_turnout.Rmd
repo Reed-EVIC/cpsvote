@@ -175,6 +175,47 @@ comparison %>%
   theme_bw()
 ```
 
+Figure 1 illustrates the well-known CPS overreporting bias: virtually every state falls above the 45-degree line, confirming that the standard Census weight systematically overstates turnout relative to McDonald's VEP benchmarks. This gap arises because non-voters are more likely to refuse CPS participation, and the standard weight does not correct for this differential non-response. Figure 3 below reruns the same comparison using the Hur-Achen reweighted weight (`turnout_weight`), which post-stratifies respondents to match VEP figures. The shift of points toward the 45-degree line demonstrates the core value of the `cpsvote` package: providing a corrected weight that brings CPS-based state turnout estimates into close alignment with authoritative benchmarks.
+
+```{r ha-cps, cache=TRUE}
+cps_ha <- cps_load_basic(years = 2022) %>%
+  as_survey_design(weights = turnout_weight)
+
+cps_ha_turnout <- cps_ha %>%
+  group_by(STATE) %>%
+  summarize(
+    ha_turnout_pct = survey_mean(hurachen_turnout == "YES", na.rm = TRUE)
+  ) %>%
+  select(STATE, ha_turnout_pct) %>%
+  mutate(ha_turnout_pct = round(ha_turnout_pct * 100, 1))
+
+comparison_ha <- left_join(mcdonald_2022, cps_ha_turnout, by = "STATE") %>%
+  mutate(difference_ha = ha_turnout_pct - mcd_turnout_pct)
+```
+
+```{r ha-scatter, fig.height=5, fig.cap="CPS (Hur-Achen weight) vs. McDonald VEP turnout by state, 2022. The dashed line is the 45-degree line of perfect agreement. The Hur-Achen reweighting pulls points markedly closer to the line compared with Figure 1. States labeled in red still differ by more than 5 percentage points after reweighting."}
+comparison_ha %>%
+  mutate(label = ifelse(abs(difference_ha) > 5, STATE, NA)) %>%
+  ggplot(aes(x = mcd_turnout_pct, y = ha_turnout_pct)) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point(aes(color = abs(difference_ha) > 5), size = 2) +
+  ggrepel::geom_text_repel(aes(label = label), size = 2.5, color = "red",
+                           na.rm = TRUE, max.overlaps = 20) +
+  scale_color_manual(values = c("FALSE" = "steelblue", "TRUE" = "red"),
+                     guide = "none") +
+  scale_x_continuous(labels = scales::percent_format(scale = 1),
+                     limits = c(20, 70)) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1),
+                     limits = c(20, 80)) +
+  labs(
+    x        = "McDonald VEP Turnout (%)",
+    y        = "CPS Hur-Achen Weight Turnout (%)",
+    title    = "CPS (Hur-Achen weight) vs. McDonald Turnout Estimates, 2022",
+    subtitle = "Using Hur-Achen reweighted survey weight; points near line = close agreement"
+  ) +
+  theme_bw()
+```
+
 # Largest Discrepancies
 
 States differing by more than 5 percentage points are listed below, sorted by
@@ -468,10 +509,11 @@ ggplot(census_vs_ours, aes(x = census_pct, y = our_pct)) +
 
 - Sections 2–6 use `hurachen_turnout` with `WEIGHT`. Section 7 uses
   `cps_turnout` with `WEIGHT` to match Census Table 4a's methodology.
-- The Hur-Achen reweighted weight (`turnout_weight`) is deliberately not used
-  in either comparison — it post-stratifies to McDonald's VEP figures, which
-  would produce near-perfect agreement with McDonald's by construction and
-  obscure whether the underlying data or implementation is correct.
+- The Hur-Achen reweighted weight (`turnout_weight`) is used in Figure 3 to
+  demonstrate the package's bias-correction value. It is deliberately excluded
+  from the Census Table 4a comparison (Section 7), where post-stratifying to
+  McDonald's VEP figures would produce near-perfect agreement by construction
+  and obscure whether the underlying data or implementation is correct.
 - McDonald's VEP data for 2022:
   `https://docs.google.com/spreadsheets/d/17iSZIBPP6jj0C2wcqpym9wNuNCtTiqM_tMweMjmvces`
 - Census Table 4a for 2022:
