@@ -55,7 +55,7 @@ jobs:
           import json, urllib.request, os
           from datetime import datetime
 
-          body = os.environ['BODY']
+          body = os.environ['BODY'].replace('\\n', '\n')
           token = os.environ['GH_TOKEN']
           repo = os.environ['REPO']
 
