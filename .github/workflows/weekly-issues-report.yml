@@ -27,7 +27,8 @@ jobs:
             CREATED=$(echo "$issue" | jq -r '.created_at[:10]')
             COMMENT_COUNT=$(echo "$issue" | jq -r '.comments')
             ISSUE_BODY=$(echo "$issue" | jq -r '.body // "No description provided."')
-            BODY="${BODY}### #${NUMBER} ${TITLE}\n"
+            URL=$(echo "$issue" | jq -r '.html_url')
+            BODY="${BODY}### <${URL}|#${NUMBER} ${TITLE}>\n"
             BODY="${BODY}- **Assigned:** ${ASSIGNEE} | **Created:** ${CREATED} | **Comments:** ${COMMENT_COUNT}\n\n"
             BODY="${BODY}**Description:**\n${ISSUE_BODY}\n\n"
             # Fetch comments if there are any
