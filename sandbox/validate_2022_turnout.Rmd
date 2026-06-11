@@ -1,6 +1,6 @@
 ---
 title: "Validation of 2022 CPS Turnout Estimates: Two Comparisons"
-author: "Paul Gronke and Frank Adonteng"
+author: "Frank Adonteng and Paul Gronke"
 date: "`r Sys.Date()`"
 output:
   pdf_document:
