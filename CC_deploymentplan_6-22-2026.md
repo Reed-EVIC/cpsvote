@@ -52,9 +52,9 @@ In `NEWS.md`, add a new section at the top:
 
 **Why this is necessary:** The vignettes use `eval = NOT_CRAN` as a global chunk option, which means no code runs — including plot-generating code — on CRAN's servers. Without this step, the vignettes on CRAN will contain text but no figures. The fix is to build the vignettes locally with real data and commit the HTML output so CRAN serves the pre-built files rather than rebuilding them.
 
-**This step requires the full CPS data files on Paul's machine.** Frank cannot do this step remotely.
+**This step requires the full CPS data files on your= machine.** This cannot do this step remotely.
 
-**Paul does in RStudio:**
+**Frank does in RStudio:**
 
 First, make sure the environment is set so all chunks evaluate:
 ```r
@@ -82,8 +82,9 @@ Verify the output looks correct by opening the HTML files in `inst/doc/` in a br
 git add inst/doc/
 git commit -m "Add pre-built vignette output for CRAN"
 ```
+Or do using RStudio interface. 
 
-**Future maintenance note:** Any time the vignette code or underlying data changes, Paul must re-run `devtools::build_vignettes()` and Frank must commit the updated `inst/doc/` before the next CRAN submission. This will happen naturally each time a new election year is added.
+**Future maintenance note:** Any time the vignette code or underlying data changes, someone must re-run `devtools::build_vignettes()` and Frank must commit the updated `inst/doc/` before the next CRAN submission. This will happen naturally each time a new election year is added.
 
 ### Step 1.4 — Run a final local package check
 
@@ -143,7 +144,7 @@ ls .travis.yml   # should return "No such file or directory"
 ---
 
 ## Phase 3: Add GitHub Actions R CMD check workflow
-**Who:** Claude created the file; Student adds and commits it
+**Who:** Claude created the file; Frank adds and commits it
 
 GitHub Actions runs automated checks directly on GitHub whenever code is pushed. For R packages, the standard is to use the `r-lib/actions` templates maintained by the R infrastructure team.
 
@@ -157,8 +158,14 @@ This can also be created using the command interface on RStudio.
 
 ### Step 3.2 — Create the workflow file
 
-Claude will create `.github/workflows/R-CMD-check.yaml` with the following content. The workflow:
-- Runs on every push to `master` and every pull request targeting `master`
+Claude created `.github/workflows/R-CMD-check.yaml` with the following content. The workflow:
+- Runs on every push and every pull request targeting
+- (note: ChatGPT suggested running on all branches; CC said just on master. To change to only master, change the yaml lines to 
+     `push: 
+        	branches: [master]
+     pull:
+     		branches: [master]   `
+      
 - Tests on three platforms: macOS, Windows, and Ubuntu (all with the current release of R)
 - Skips building vignettes during CI because some vignettes (`test_download.Rmd`) require downloading live CPS data from external servers, which is inappropriate in automated checks
 
@@ -209,11 +216,12 @@ jobs:
 git add .github/workflows/R-CMD-check.yaml
 git commit -m "Add GitHub Actions R CMD check workflow"
 ```
+This can also be done using the Rstudio interface.
 
 ---
 
 ## Phase 4: Merge add-2022 into master
-**Who:** Student (with Paul's approval)
+**Who:** Frank (with Paul's approval)
 
 ### Step 4.1 — Push the add-2022 branch to GitHub
 
@@ -240,6 +248,8 @@ git checkout master
 git merge add-2022
 git push origin master
 ```
+We will use this method. 
+
 
 ### Step 4.3 — Confirm no merge conflicts
 
@@ -255,7 +265,7 @@ git push origin --delete add-2022       # delete remote branch
 ---
 
 ## Phase 5: Verification
-**Who:** Paul and Student together
+**Who:** Frank and/or Paul or Frank and Paul together
 
 ### Step 5.1 — Confirm GitHub Actions is running
 
@@ -282,7 +292,7 @@ ls .travis.yml   # should return "No such file or directory"
 ---
 
 ## Phase 6: CRAN submission
-**Who:** Paul (in RStudio); Student can assist with steps 6.1–6.3
+**Who:** Paul and Frank
 
 CRAN is the official R package repository. Submitting there makes the package installable via `install.packages("cpsvote")` for all R users. CRAN reviewers are volunteers; be patient and respond promptly and politely to any feedback.
 
