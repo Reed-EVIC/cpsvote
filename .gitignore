@@ -14,10 +14,11 @@ cps_docs/*
 .DS_Store
 
 tmp/cpsvrs.RDS
-inst/doc
 *Icon?
 
 doc
+!inst/doc
+!inst/doc/**
 Meta
 
 img/plot_frames/*
@@ -26,3 +27,5 @@ img/plot_frames18/*
 .positai
 claude.md
 .claude
+/doc/
+/Meta/
