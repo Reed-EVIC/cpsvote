@@ -178,12 +178,11 @@ cps_recode_vote <- function(data,
                     cps_turnout = forcats::fct_collapse(.data[[vote_col]], "NO" = items) %>% # recode the items as NO
                       forcats::fct_other(keep = c("YES", "NO")) %>% # send everything that's not Y/N to "Other"
                       forcats::fct_expand("Other") %>% # if there are no Others, add the level (to avoid warning in  next step)
-                      forcats::fct_recode(NULL = "Other"), # drop all Other
+                      forcats::fct_collapse(NULL = "Other"), # drop all Other
                     hurachen_turnout = forcats::fct_other(.data[[vote_col]], keep = c("YES", "NO")) %>% # send everything that's not Y/N to "Other"
                       forcats::fct_expand("Other") %>% # if there are no Others, add the level (to avoid warning in  next step)
-                      forcats::fct_recode(NULL = "Other") # %>%
-                      #forcats::fct_drop() # drop all Other
-                    
+                      forcats::fct_collapse(NULL = "Other") # drop all Other
+
       ))
   }
   

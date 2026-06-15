@@ -29,7 +29,7 @@ set.seed(20201012)
 
 This package consolidates common questions and provides the data in a structure that is much easier to work with and interpret, since much of the basic factor recoding has already been done. We also calculate alternative sample weights based on demonstrated changes in non-response bias over the decades, recommended by several elections researchers as a best practice. Documentation of this reweighting is provided in `vignette("voting")`.
 
-We have provided access to VRS data from 1994 to 2022.
+We have provided access to VRS data from 1994 to 2024.
 
 ## Installing and Loading the Package
 

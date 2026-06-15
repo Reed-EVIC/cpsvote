@@ -29,9 +29,9 @@ library(cpsvote)
 library(cpsvote)
 ```
 
-One of the most striking trends in American elections over the past two decades is the steady decline in in-person election day voting in federal elections. In 1996, the first year that the Current Population Survey asked about voting method, 89% of Americans were voting at physical polling locations on election day. By 2018, that figure had declined to 60%, a drop of nearly 30 percentage points. In 2020, the COVID-19 pandemic and the voting reforms that took place as a result led to by far the lowest rate of in-person election day voting in American history, 31%.
+One of the most striking trends in American elections over the past three decades is the steady decline in in-person election day voting in federal elections. In 1996, the first year that the Current Population Survey asked about voting method, 89% of Americans were voting at physical polling locations on election day. By 2018, that figure had declined to 60%, a drop of nearly 30 percentage points. In 2020, the COVID-19 pandemic and the voting reforms that took place as a result led to by far the lowest rate of in-person election day voting in American history, 31%.
 
-Looking over the past 25 years, a clear pattern of movement from in-person election day voting toward early and mail voting emerges.
+Looking over the past 30 years, a clear pattern of movement from in-person election day voting toward early and mail voting emerges.
 
 ```{r setup, message = FALSE, warning = FALSE}
 library(srvyr)
@@ -68,9 +68,9 @@ cps %>%
   geom_point(size = 3.5) +
   geom_line(size = 1.25) +
   theme_minimal(base_size = 20) +
-  scale_x_continuous(breaks = seq(1996, 2020, by = 2)) +
+  scale_x_continuous(breaks = seq(1996, 2024, by = 2)) +
   scale_y_continuous(labels = scales::percent) +
-  labs(title = "Voting method in the United States, 1996 - 2020", 
+  labs(title = "Voting method in the United States, 1996 - 2024",
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        fill = "Mode of Voting") +
   theme(plot.title = element_text(size = 40, family = "serif", face = "bold.italic", colour = "red"),
@@ -127,9 +127,9 @@ cps %>%
   geom_point(size = 3.5) +
   geom_line(size = 1.25) +
   theme_minimal(base_size = 20) +
-  scale_x_continuous(breaks = seq(1996, 2020, by = 2)) +
+  scale_x_continuous(breaks = seq(1996, 2024, by = 2)) +
   scale_y_continuous(labels = scales::percent) +
-  labs(title = "Election day voting usage by US Census Region, 1996 - 2020", 
+  labs(title = "Election day voting usage by US Census Region, 1996 - 2024",
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        fill = "Mode of Voting") +
   theme(plot.title = element_text(size = 40, family = "serif", face = "bold.italic", colour = "red"),
@@ -156,9 +156,9 @@ cps %>%
   geom_point(size = 3.5) +
   geom_line(size = 1.25) +
   theme_minimal(base_size = 20) +
-  scale_x_continuous(breaks = seq(1996, 2020, by = 2)) +
+  scale_x_continuous(breaks = seq(1996, 2024, by = 2)) +
   scale_y_continuous(labels = scales::percent) +
-  labs(title = "Early voting usage by US Census Region, 1996 - 2020", 
+  labs(title = "Early voting usage by US Census Region, 1996 - 2024",
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        fill = "Mode of Voting") +
   theme(plot.title = element_text(size = 40, family = "serif", face = "bold.italic", colour = "red"),
@@ -183,9 +183,9 @@ cps %>%
   geom_point(size = 3.5) +
   geom_line(size = 1.25) +
   theme_minimal(base_size = 20) +
-  scale_x_continuous(breaks = seq(1996, 2020, by = 2)) +
+  scale_x_continuous(breaks = seq(1996, 2024, by = 2)) +
   scale_y_continuous(labels = scales::percent) +
-  labs(title = "Vote-by-mail usage by US Census Region, 1996 - 2020", 
+  labs(title = "Vote-by-mail usage by US Census Region, 1996 - 2024",
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        fill = "Mode of Voting") +
   theme(plot.title = element_text(size = 40, family = "serif", face = "bold.italic", colour = "red"),

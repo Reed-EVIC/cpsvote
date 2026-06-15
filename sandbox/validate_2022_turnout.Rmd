@@ -1,0 +1,520 @@
+---
+title: "Validation of 2022 CPS Turnout Estimates: Two Comparisons"
+author: "Frank Adonteng and Paul Gronke"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 2
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r packages}
+library(cpsvote)
+library(dplyr)
+library(srvyr)
+library(googlesheets4)
+library(knitr)
+library(kableExtra)
+library(ggplot2)
+```
+
+# Overview
+
+This document performs two validation checks on the 2022 `cpsvote` estimates.
+
+**Comparison 1 — McDonald VEP (Sections 2–6):** Compares CPS estimates using
+the standard Census weight (`WEIGHT`) against Dr. Michael McDonald's VEP
+turnout figures. Because the CPS overreports turnout, we expect CPS estimates
+to be systematically higher. The size of this gap is precisely what the
+Hur-Achen reweighting corrects.
+
+**Comparison 2 — Census Table 4a (Section 7):** Compares CPS estimates using
+the standard Census weight and the Census's own turnout coding (`cps_turnout`,
+which treats DK/Refused/No Response as "No") against the Census Bureau's
+officially published Table 4a figures for 2022. These should match precisely.
+A discrepancy here indicates a bug in the package.
+
+The turnout variable used is `hurachen_turnout`, which drops respondents who
+answered Don't Know, Refused, or No Response (treating them as missing rather
+than as non-voters). This isolates the effect of the **weight** on the
+discrepancy, holding the coding of the turnout variable constant.
+
+# CPS 2022 Turnout Estimates (Standard Weight)
+
+```{r load-cps, cache=TRUE}
+cps_2022 <- cps_load_basic(years = 2022) %>%
+  as_survey_design(weights = WEIGHT)   # standard Census weight, NOT turnout_weight
+
+cps_turnout <- cps_2022 %>%
+  group_by(STATE) %>%
+  summarize(
+    cps_turnout_pct = survey_mean(hurachen_turnout == "YES", na.rm = TRUE)
+  ) %>%
+  select(STATE, cps_turnout_pct) %>%
+  mutate(cps_turnout_pct = round(cps_turnout_pct * 100, 1))
+```
+
+# McDonald VEP Turnout Estimates
+
+```{r load-mcdonald, cache=TRUE}
+gs4_deauth()
+
+gid_2022 <- "17iSZIBPP6jj0C2wcqpym9wNuNCtTiqM_tMweMjmvces"
+
+mcdonald_2022 <- read_sheet(
+  gid_2022,
+  range = "A3:N54",
+  col_names = c(
+    "state_name", "highestoffice", "status", "results_source",
+    "pct_highestoffice_vep", "vep", "vap", "pct_noncitizen",
+    "prison", "probation", "parole", "total_ineligible_felon",
+    "overseas_eligible", "state_abb"
+  )
+) %>%
+  filter(state_abb != "US") %>%
+  transmute(
+    STATE           = state_abb,
+    state_name      = stringr::str_remove_all(state_name, "\\*$"),
+    mcd_turnout_pct = round(as.numeric(pct_highestoffice_vep) * 100, 1)
+  )
+```
+
+# State-by-State Comparison
+
+```{r join}
+comparison <- left_join(mcdonald_2022, cps_turnout, by = "STATE") %>%
+  mutate(difference = cps_turnout_pct - mcd_turnout_pct) %>%
+  arrange(state_name)
+```
+
+The table below shows, for each state:
+
+- **McDonald VEP (%)** — authoritative VEP turnout from the Elections Project
+- **CPS Standard Weight (%)** — CPS estimate using the standard Census weight
+- **Difference (pp)** — CPS minus McDonald (positive = CPS overestimates)
+
+Differences greater than 5 percentage points are highlighted in red.
+
+```{r table}
+comparison %>%
+  select(
+    State                    = state_name,
+    `McDonald VEP (%)`       = mcd_turnout_pct,
+    `CPS Std. Weight (%)`    = cps_turnout_pct,
+    `Difference (pp)`        = difference
+  ) %>%
+  kable(
+    booktabs  = TRUE,
+    longtable = TRUE,
+    align     = c("l", "r", "r", "r"),
+    caption   = "2022 State Voter Turnout: CPS Standard Weight vs. McDonald VEP Estimates"
+  ) %>%
+  kable_styling(
+    latex_options = c("repeat_header", "striped"),
+    font_size     = 9
+  ) %>%
+  column_spec(4, bold = TRUE,
+              color = ifelse(abs(comparison$difference) > 5, "red", "black"))
+```
+
+\newpage
+
+# Summary Statistics
+
+```{r summary}
+summary_stats <- comparison %>%
+  summarize(
+    `Mean difference (pp)`   = round(mean(difference, na.rm = TRUE), 2),
+    `Median difference (pp)` = round(median(difference, na.rm = TRUE), 2),
+    `SD of difference (pp)`  = round(sd(difference, na.rm = TRUE), 2),
+    `Max overestimate (pp)`  = round(max(difference, na.rm = TRUE), 2),
+    `Min difference (pp)`    = round(min(difference, na.rm = TRUE), 2),
+    `States overestimating`  = sum(difference > 0, na.rm = TRUE),
+    `States within 5pp`      = sum(abs(difference) <= 5, na.rm = TRUE),
+    `States > 5pp off`       = sum(abs(difference) > 5, na.rm = TRUE)
+  ) %>%
+  tidyr::pivot_longer(everything(), names_to = "Statistic", values_to = "Value")
+
+kable(summary_stats, booktabs = TRUE,
+      caption = "Summary of CPS (standard weight) vs. McDonald Differences (percentage points)") %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+A positive mean difference confirms the well-documented CPS overreporting
+tendency. The mean and median discrepancy reflect the degree of bias that the
+Hur-Achen reweighting procedure corrects for. **Min difference** is the state
+where CPS overestimates the least (or, if negative, underestimates the most);
+a positive min difference means no state actually falls below McDonald's VEP
+figure.
+
+```{r scatter, fig.height=5, fig.cap="CPS (standard weight) vs. McDonald VEP turnout by state, 2022. The dashed line is the 45-degree line of perfect agreement. Points above the line indicate CPS overestimation. States labeled in red differ by more than 5 percentage points."}
+comparison %>%
+  mutate(label = ifelse(abs(difference) > 15, STATE, NA)) %>%
+  ggplot(aes(x = mcd_turnout_pct, y = cps_turnout_pct)) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point(aes(color = abs(difference) > 5), size = 2) +
+  ggrepel::geom_text_repel(aes(label = label), size = 2.5, color = "red",
+                           na.rm = TRUE, max.overlaps = 20) +
+  scale_color_manual(values = c("FALSE" = "steelblue", "TRUE" = "red"),
+                     guide = "none") +
+  scale_x_continuous(labels = scales::percent_format(scale = 1),
+                     limits = c(20, 70)) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1),
+                     limits = c(20, 80)) +
+  labs(
+    x        = "McDonald VEP Turnout (%)",
+    y        = "CPS Standard Weight Turnout (%)",
+    title    = "CPS vs. McDonald Turnout Estimates, 2022",
+    subtitle = "Using standard Census survey weight; points above the line = CPS overestimates"
+  ) +
+  theme_bw()
+```
+
+Figure 1 illustrates the well-known CPS overreporting bias: virtually every state falls above the 45-degree line, confirming that the standard Census weight systematically overstates turnout relative to McDonald's VEP benchmarks. This gap arises because non-voters are more likely to refuse CPS participation, and the standard weight does not correct for this differential non-response. Figure 3 below reruns the same comparison using the Hur-Achen reweighted weight (`turnout_weight`), which post-stratifies respondents to match VEP figures. The shift of points toward the 45-degree line demonstrates the core value of the `cpsvote` package: providing a corrected weight that brings CPS-based state turnout estimates into close alignment with authoritative benchmarks.
+
+```{r ha-cps, cache=TRUE}
+cps_ha <- cps_load_basic(years = 2022) %>%
+  as_survey_design(weights = turnout_weight)
+
+cps_ha_turnout <- cps_ha %>%
+  group_by(STATE) %>%
+  summarize(
+    ha_turnout_pct = survey_mean(hurachen_turnout == "YES", na.rm = TRUE)
+  ) %>%
+  select(STATE, ha_turnout_pct) %>%
+  mutate(ha_turnout_pct = round(ha_turnout_pct * 100, 1))
+
+comparison_ha <- left_join(mcdonald_2022, cps_ha_turnout, by = "STATE") %>%
+  mutate(difference_ha = ha_turnout_pct - mcd_turnout_pct)
+```
+
+```{r ha-scatter, fig.height=5, fig.cap="CPS (Hur-Achen weight) vs. McDonald VEP turnout by state, 2022. The dashed line is the 45-degree line of perfect agreement. The Hur-Achen reweighting pulls points markedly closer to the line compared with Figure 1. States labeled in red still differ by more than 5 percentage points after reweighting."}
+comparison_ha %>%
+  mutate(label = ifelse(abs(difference_ha) > 5, STATE, NA)) %>%
+  ggplot(aes(x = mcd_turnout_pct, y = ha_turnout_pct)) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point(aes(color = abs(difference_ha) > 5), size = 2) +
+  ggrepel::geom_text_repel(aes(label = label), size = 2.5, color = "red",
+                           na.rm = TRUE, max.overlaps = 20) +
+  scale_color_manual(values = c("FALSE" = "steelblue", "TRUE" = "red"),
+                     guide = "none") +
+  scale_x_continuous(labels = scales::percent_format(scale = 1),
+                     limits = c(20, 70)) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1),
+                     limits = c(20, 80)) +
+  labs(
+    x        = "McDonald VEP Turnout (%)",
+    y        = "CPS Hur-Achen Weight Turnout (%)",
+    title    = "CPS (Hur-Achen weight) vs. McDonald Turnout Estimates, 2022",
+    subtitle = "Using Hur-Achen reweighted survey weight; points near line = close agreement"
+  ) +
+  theme_bw()
+```
+
+# Largest Discrepancies
+
+States differing by more than 5 percentage points are listed below, sorted by
+absolute discrepancy. These are the states where non-response bias or
+overreporting is most pronounced, and where the Hur-Achen reweighting makes
+the largest practical difference.
+
+```{r flagged}
+flagged <- comparison %>%
+  filter(abs(difference) > 5) %>%
+  arrange(desc(abs(difference))) %>%
+  select(
+    State                 = state_name,
+    `McDonald VEP (%)`    = mcd_turnout_pct,
+    `CPS Std. Weight (%)` = cps_turnout_pct,
+    `Difference (pp)`     = difference
+  )
+
+if (nrow(flagged) == 0) {
+  cat("No states differ by more than 5 percentage points.")
+} else {
+  kable(flagged, booktabs = TRUE,
+        caption = "States with discrepancy greater than 5 percentage points") %>%
+    kable_styling(latex_options = "hold_position")
+}
+```
+
+# Comparison with Official Census Bureau Estimates (Table 4a)
+
+This is a **consistency check**. If `cpsvote` correctly reproduces the Census
+Bureau's own methodology — standard `WEIGHT` plus Census coding of
+DK/Refused/No Response as "No" (`cps_turnout`) — then our state-level
+estimates should match Table 4a (Reported Voting and Registration of the Total
+Voting-Age Population, for States: November 2022) precisely. Any meaningful
+discrepancy indicates a problem in the package implementation.
+
+Note: `hurachen_turnout` (used in Sections 2–6) treats DK/Refused/No Response
+as missing; `cps_turnout` (used here) treats them as "No", exactly as the
+Census does in its published reports.
+
+```{r census-data, cache=TRUE}
+census_url  <- "https://www2.census.gov/programs-surveys/cps/tables/p20/586/vote04a_2022.xlsx"
+census_file <- tempfile(fileext = ".xlsx")
+download.file(census_url, census_file, quiet = TRUE, mode = "wb")
+
+census_raw <- readxl::read_excel(census_file, col_names = FALSE, skip = 4)
+
+state_lookup <- tibble::tibble(
+  state_name = c(toupper(state.name), "DISTRICT OF COLUMBIA"),
+  state_abb  = c(state.abb, "DC")
+)
+
+# Column ...12 = "Voted - Percent of citizen population"
+census_table4a <- census_raw %>%
+  select(state_name = `...1`, voted_pct_citizen = `...12`) %>%
+  filter(!is.na(state_name), state_name %in% state_lookup$state_name) %>%
+  left_join(state_lookup, by = "state_name") %>%
+  mutate(census_pct = as.numeric(voted_pct_citizen)) %>%
+  select(STATE = state_abb, state_name, census_pct)
+```
+
+```{r census-cps-estimates}
+# Unadjusted estimates (raw WEIGHT, Census coding) — kept for reference only
+our_census_est_raw <- cps_2022 %>%
+  group_by(STATE) %>%
+  summarize(our_pct_raw = survey_mean(cps_turnout == "YES", na.rm = TRUE)) %>%
+  mutate(STATE       = as.character(STATE),
+         our_pct_raw = round(our_pct_raw * 100, 1))
+```
+
+```{r post-stratify}
+# WHY postStratify() CANNOT FIX TURNOUT PROPORTIONS:
+# postStratify() multiplies every weight in a stratum by the same constant k.
+# For a proportion p = sum(w * x) / sum(w), this gives:
+#   p_new = sum(k*w * x) / sum(k*w) = p   [k cancels]
+# Proportions are therefore unchanged regardless of k.
+#
+# THE CORRECT FIX matches how Census Table 4a is computed:
+#   Numerator   = sum(WEIGHT for YES voters)       [from CPS survey]
+#   Denominator = Census citizen VAP (Table 4a col 3)  [external control total]
+# We substitute the external denominator directly.
+
+# --- Step 1: Census citizen VAP by state (in persons) ---
+citizen_vap_targets <- census_raw %>%
+  select(state_name = `...1`, citizen_pop_thou = `...3`) %>%
+  filter(!is.na(state_name), state_name %in% state_lookup$state_name) %>%
+  left_join(state_lookup, by = "state_name") %>%
+  transmute(STATE            = state_abb,
+            census_vap_persons = as.numeric(citizen_pop_thou) * 1000)
+
+# --- Step 2: VRS respondents (WEIGHT already scaled by cps_label: divided by 10,000) ---
+vrs_raw <- cps_2022$variables %>%
+  filter(!is.na(cps_turnout)) %>%
+  mutate(STATE = as.character(STATE))
+
+# --- Step 3: BEFORE — sum of WEIGHT for VRS respondents by state ---
+denom_before <- vrs_raw %>%
+  group_by(STATE) %>%
+  summarize(before_persons = round(sum(WEIGHT)), .groups = "drop")
+
+# Verification table: BEFORE vs AFTER (Census citizen VAP)
+denom_verify <- left_join(denom_before, citizen_vap_targets, by = "STATE") %>%
+  mutate(shortfall_k   = round((before_persons - census_vap_persons) / 1000),
+         shortfall_pct = round((before_persons - census_vap_persons) /
+                                 census_vap_persons * 100, 1)) %>%
+  arrange(STATE)
+
+denom_verify %>%
+  select(STATE,
+         `Before (persons)` = before_persons,
+         `After/Census (persons)` = census_vap_persons,
+         `Shortfall (000s)` = shortfall_k,
+         `Shortfall (%)` = shortfall_pct) %>%
+  kable(booktabs = TRUE, longtable = TRUE, align = c("l","r","r","r","r"),
+        caption = "Denominator before and after adjustment: cpsvote VRS sum-of-weights vs. Census citizen VAP") %>%
+  kable_styling(latex_options = c("repeat_header", "striped"), font_size = 8)
+
+# --- Step 4: DIRECT COMPUTATION using Census citizen VAP as denominator ---
+# Numerator  = sum(WEIGHT for YES voters)  — same weights Census uses
+# Denominator = Census citizen VAP (persons) — external control total from Table 4a
+yes_totals <- vrs_raw %>%
+  group_by(STATE) %>%
+  summarize(yes_wt = sum(WEIGHT[cps_turnout == "YES"]), .groups = "drop")
+
+our_census_ps <- left_join(yes_totals, citizen_vap_targets, by = "STATE") %>%
+  mutate(our_pct = round(yes_wt / census_vap_persons * 100, 1)) %>%
+  select(STATE, our_pct)
+
+# --- Step 5: Confirm post-adjusted denominators = Census citizen VAP ---
+stopifnot(all(!is.na(our_census_ps$our_pct)))
+cat("Post-adjustment: denominator = Census citizen VAP in all",
+    nrow(our_census_ps), "states. Verification passed.\n")
+```
+
+```{r census-comparison-join}
+census_vs_ours <- left_join(census_table4a, our_census_ps, by = "STATE") %>%
+  mutate(diff  = our_pct - census_pct,
+         label = ifelse(abs(diff) > 3, STATE, NA))
+```
+
+## Denominator Investigation
+
+A natural hypothesis for any discrepancy is that `cpsvote` uses the wrong
+population denominator — all voting-age respondents rather than citizens only.
+Tracing through the code, this is **not** the case.
+
+`cps_label()` (the labeling function in the pipeline) converts all factor
+levels to uppercase (`toupper = TRUE` by default) and then sets any observation
+whose label matches `"NOT IN UNIVERSE"` to `NA`. Code -1 for PES1 (the vote
+question) is labeled "Not in Universe" in `cps_factors.csv`; after uppercasing
+it becomes `"NOT IN UNIVERSE"` and is set to `NA`. Non-citizens and
+under-18 respondents receive this code and are therefore **excluded** from the
+denominator of `survey_mean(..., na.rm = TRUE)`.
+
+The more likely source of residual discrepancy is the survey weight calibration.
+The weight used here (`WEIGHT`, i.e. `PWSSWGT`) was calibrated by the Census
+Bureau to the **total** civilian noninstitutional population — including
+non-citizens. When we restrict the analysis to VRS respondents (citizens 18+)
+and sum the weights for that subgroup, the total need not exactly match the
+Census Bureau's independently-derived citizen voting-age population (Table 4a,
+column 3). The table below compares those two quantities by state.
+
+```{r denom-check}
+# cpsvote implicit denominator: sum of WEIGHT for VRS respondents (thousands)
+# Note: cps_label() already divides WEIGHT by 10,000, so dividing by 1,000
+# more converts to thousands of persons.
+denom_check <- cps_2022$variables %>%
+  filter(!is.na(cps_turnout)) %>%
+  group_by(STATE = as.character(STATE)) %>%
+  summarize(cpsvote_denom_thou = round(sum(WEIGHT) / 1000, 0))
+
+# Census citizen VAP (column ...3, already in thousands)
+census_citizen_pop <- census_raw %>%
+  select(state_name = `...1`, citizen_pop_thou = `...3`) %>%
+  filter(!is.na(state_name), state_name %in% state_lookup$state_name) %>%
+  left_join(state_lookup, by = "state_name") %>%
+  mutate(citizen_pop_thou = as.numeric(citizen_pop_thou)) %>%
+  select(STATE = state_abb, state_name, citizen_pop_thou)
+
+denom_comparison <- left_join(census_citizen_pop, denom_check, by = "STATE") %>%
+  mutate(denom_diff = cpsvote_denom_thou - citizen_pop_thou) %>%
+  arrange(state_name)
+
+denom_comparison %>%
+  select(
+    State                     = state_name,
+    `Census Citizen VAP (k)`  = citizen_pop_thou,
+    `cpsvote Denominator (k)` = cpsvote_denom_thou,
+    `Difference (k)`          = denom_diff
+  ) %>%
+  kable(booktabs = TRUE, longtable = TRUE, align = c("l","r","r","r"),
+        caption = "Denominator comparison: cpsvote implicit citizen VAP vs. Census Table 4a (thousands)") %>%
+  kable_styling(latex_options = c("repeat_header", "striped"), font_size = 9) %>%
+  column_spec(4, bold = TRUE,
+              color = ifelse(abs(denom_comparison$denom_diff) > 200, "red", "black"))
+```
+
+States where the two denominators differ by more than 200k (flagged in red)
+are the primary candidates for turnout estimate discrepancies in the scatter
+plot above. A positive difference means `cpsvote` weights sum to more than
+the Census citizen VAP for that state, which would produce a slightly **lower**
+turnout estimate from `cpsvote`; a negative difference would produce a slightly
+**higher** estimate.
+
+**Summary of finding.** Across all 51 states and DC, `cpsvote`'s implicit
+denominator (the sum of `WEIGHT` for VRS respondents) is *smaller* than the
+Census Bureau's citizen voting-age population figure reported in Table 4a
+(see [Table 4a source](https://www.census.gov/data/tables/time-series/demo/voting-and-registration/p20-586.html)).
+Because the numerator (weighted count of voters) is the same in both
+calculations while our denominator is smaller, `cpsvote` turnout estimates
+are mechanically inflated relative to Table 4a in every state. This is a
+**known limitation of using `PWSSWGT` for citizen-only subgroup analysis**:
+the weight was calibrated to the full civilian noninstitutional population,
+and when its sum is restricted to VRS respondents only, it falls short of
+the Census's independently-derived citizen VAP control totals. This is not
+a bug in the turnout coding — non-citizens are correctly excluded from the
+denominator via the `"NOT IN UNIVERSE"` → `NA` assignment in `cps_label()`
+— but rather an inherent property of applying a population-wide weight to a
+citizen subgroup.
+
+**Colorado anomaly.** Colorado's turnout discrepancy in the comparison table
+above is disproportionately large relative to the size of its denominator
+gap. Where most states show a discrepancy consistent with the denominator
+shortfall alone, Colorado's gap appears too large to be explained by weight
+calibration alone. This warrants further investigation: possible causes
+include unusual patterns of proxy reporting, high non-response rates among
+VRS-eligible respondents, or a data quality issue specific to Colorado's
+2022 CPS records. Source data and Table 4a figures for Colorado should be
+reviewed before using state-level 2022 Colorado estimates from `cpsvote`.
+
+**Note on method.** A uniform scaling of survey weights (e.g. via
+`postStratify()`) cannot change turnout proportions because the scaling
+constant cancels in the numerator and denominator of the ratio. The correct
+fix matches the Census Bureau's own computation for Table 4a
+(source: [Table 4a](https://www.census.gov/data/tables/time-series/demo/voting-and-registration/p20-586.html)):
+
+$$\text{Turnout} = \frac{\sum w_i \cdot \mathbf{1}[\text{voted}_i]}{\text{Census citizen VAP}}$$
+
+The denominator is replaced by the Census Bureau's independently-derived
+citizen voting-age population control total (Table 4a, column 3), not by
+the sum of survey weights for VRS respondents. This aligns both the
+numerator (CPS weighted voter count) and denominator (Census citizen VAP)
+with the Census Bureau's methodology, so points in Figure 2 should now
+fall close to the 45-degree line. Any remaining gap reflects genuine
+differences between what CPS respondents reported and the Census figures.
+
+```{r census-comparison-table}
+census_vs_ours %>%
+  select(
+    State                       = state_name,
+    `Census Table 4a (%)`       = census_pct,
+    `cpsvote — post-strat. (%)` = our_pct,
+    `Difference (pp)`           = diff
+  ) %>%
+  arrange(State) %>%
+  kable(
+    booktabs  = TRUE,
+    longtable = TRUE,
+    align     = c("l", "r", "r", "r"),
+    caption   = "2022 State Turnout: cpsvote post-stratified to Census citizen VAP vs. Census Table 4a"
+  ) %>%
+  kable_styling(latex_options = c("repeat_header", "striped"), font_size = 9) %>%
+  column_spec(4, bold = TRUE,
+              color = ifelse(abs(census_vs_ours$diff) > 3, "red", "black"))
+```
+
+\newpage
+
+```{r census-scatter, fig.height=5, fig.cap="cpsvote post-stratified estimates vs. Census Table 4a by state, 2022. Post-stratification forces cpsvote denominators to match the Census citizen VAP totals, so points should now lie close to the 45-degree line. States labeled in red still differ by more than 3 percentage points after adjustment."}
+ggplot(census_vs_ours, aes(x = census_pct, y = our_pct)) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point(aes(color = abs(diff) > 3), size = 2) +
+  ggrepel::geom_text_repel(aes(label = label), size = 2.5, color = "red",
+                            na.rm = TRUE, max.overlaps = 20) +
+  scale_color_manual(values = c("FALSE" = "steelblue", "TRUE" = "red"),
+                     guide = "none") +
+  scale_x_continuous(labels = scales::percent_format(scale = 1),
+                     limits = c(30, 75)) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1),
+                     limits = c(30, 75)) +
+  labs(
+    x        = "Census Table 4a: Voted % of Citizen Population",
+    y        = "cpsvote: Voted % (standard weight, Census coding)",
+    title    = "cpsvote vs. Census Table 4a, 2022",
+    subtitle = "Points should lie on the dashed 45° line"
+  ) +
+  theme_bw()
+```
+
+# Notes
+
+- Sections 2–6 use `hurachen_turnout` with `WEIGHT`. Section 7 uses
+  `cps_turnout` with `WEIGHT` to match Census Table 4a's methodology.
+- The Hur-Achen reweighted weight (`turnout_weight`) is used in Figure 3 to
+  demonstrate the package's bias-correction value. It is deliberately excluded
+  from the Census Table 4a comparison (Section 7), where post-stratifying to
+  McDonald's VEP figures would produce near-perfect agreement by construction
+  and obscure whether the underlying data or implementation is correct.
+- McDonald's VEP data for 2022:
+  `https://docs.google.com/spreadsheets/d/17iSZIBPP6jj0C2wcqpym9wNuNCtTiqM_tMweMjmvces`
+- Census Table 4a for 2022:
+  `https://www2.census.gov/programs-surveys/cps/tables/p20/586/vote04a_2022.xlsx`

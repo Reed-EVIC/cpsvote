@@ -15,6 +15,11 @@ library(magick)
 
 #cps <- cps_load_basic()
 
+# States to highlight in a different color. Use two-letter abbreviations, e.g. c("OR", "WA", "CO").
+# Leave as c() for no highlighting.
+highlight_states <- c()
+highlight_color  <- "red"
+
 # It is necessary to use sample weights to obtain proper estimates from the CPS
 cps_weighted <- cps %>%
   filter(YEAR > 1995) %>%
@@ -22,7 +27,7 @@ cps_weighted <- cps %>%
 
 vote_mode <- cps_weighted %>%
   select(YEAR, STATE, VRS_VOTEMETHOD_CON) %>%
-  filter(across(everything(), function (x) !is.na(x))) %>%
+  filter(if_all(everything(), ~ !is.na(.x))) %>%
   group_by(YEAR, STATE, VRS_VOTEMETHOD_CON) %>%
   summarize(survey_mean(na.rm = TRUE)) %>%
   select(-ends_with('_se')) %>%
@@ -31,13 +36,15 @@ vote_mode <- cps_weighted %>%
 
 # This first plot is left in place in order to visually check the individual years
 # size may not work correctly, so check output
-ggplot(filter(vote_mode, YEAR == 2020), aes(y = `ELECTION DAY`, x = `BY MAIL`, z = EARLY, label = STATE)) +
-  geom_text(vjust = "inward", hjust = "inward", size = 1.5) +
+ggplot(filter(vote_mode, YEAR == 2020) %>% mutate(highlight = STATE %in% highlight_states),
+       aes(y = `ELECTION DAY`, x = `BY MAIL`, z = `EARLY`, label = STATE, colour = highlight)) +
+  geom_text(vjust = 0.5, hjust = 0.5, size = 1.5, position = "identity") +
+  scale_colour_manual(values = c("FALSE" = "black", "TRUE" = highlight_color), guide = "none") +
   coord_tern() +
   labs(x = "Mail",
        y = "Election Day",
        z = "Early",
-       title = "The Move Away From Election Day Voting in America: 1996-2020",
+       title = "The Move Away From Election Day Voting in America: 1996-2024",
        subtitle = paste("Share of votes cast in federal elections, by mode",
                         "\nYear:", unique(filter(vote_mode, YEAR == 2020)$YEAR))) +
   theme_classic() +
@@ -76,20 +83,36 @@ tweened_data <- filter(vote_mode, YEAR == 1996) %>%
   keep_state(10) %>%
   tween_state(filter(vote_mode, YEAR == 2020), 'linear', id = STATE, nframes = 10) %>%
   keep_state(10) %>%
+  tween_state(filter(vote_mode, YEAR == 2022), 'linear', id = STATE, nframes = 10) %>%
+  keep_state(10) %>%
+  tween_state(filter(vote_mode, YEAR == 2024), 'linear', id = STATE, nframes = 10) %>%
+  keep_state(10) %>%
   mutate(YEAR = floor(YEAR / 2) * 2,
-         check2 = `ELECTION DAY` + `BY MAIL` + EARLY)
+         check2 = `ELECTION DAY` + `BY MAIL` + EARLY,
+         highlight = STATE %in% highlight_states)
 
 # add the write directory, if it doesn't exist
 dir.create(here('img', 'plot_frames'), showWarnings = FALSE)
 
+# pre-compute the travel trail for a single highlighted state (NULL = no trail)
+trail_data <- if (length(highlight_states) == 1) {
+  tweened_data %>%
+    ungroup() %>%
+    filter(STATE == highlight_states[1]) %>%
+    select(.frame, `ELECTION DAY`, `BY MAIL`, EARLY)
+} else {
+  NULL
+}
+
 for (frame in unique(tweened_data$.frame)) {
-  ggplot(filter(tweened_data, .frame == frame), aes(y = `ELECTION DAY`, x = `BY MAIL`, z = EARLY, label = STATE)) +
-    geom_text(vjust = "inward", hjust = "inward", size = 1.5) +
+  p <- ggplot(filter(tweened_data, .frame == frame), aes(y = `ELECTION DAY`, x = `BY MAIL`, z = EARLY, label = STATE, colour = highlight)) +
+    geom_text(vjust = 0.5, hjust = 0.5, size = 1.5, position = "identity") +
+    scale_colour_manual(values = c("FALSE" = "black", "TRUE" = highlight_color), guide = "none") +
     coord_tern() +
     labs(x = "Mail",
          y = "Election Day",
          z = "Early",
-         title = "The Move Away From Election Day Voting in America: 1996-2020",
+         title = "The Move Away From Election Day Voting in America: 1996-2024",
          subtitle = paste("Share of votes cast in federal elections, by mode",
                           "\nYear:", unique(filter(tweened_data, .frame == frame)$YEAR))) +
     theme_classic() +
@@ -97,7 +120,13 @@ for (frame in unique(tweened_data$.frame)) {
           plot.subtitle = element_text(hjust = 0.5, size = 6),
           axis.title = element_text(size = 5),
           axis.text = element_text(size = 4))
-  ggsave(filename = here('img', 
+  if (!is.null(trail_data)) {
+    p <- p + geom_path(data = filter(trail_data, .frame <= frame),
+                       aes(y = `ELECTION DAY`, x = `BY MAIL`, z = EARLY, group = 1),
+                       colour = highlight_color, inherit.aes = FALSE, linewidth = 0.5)
+  }
+  ggsave(plot = p,
+         filename = here('img',
                          'plot_frames',
                          paste0('frame', stringr::str_pad(frame, width = 3, pad = "0"), '.png')),
          width = 4.25, height = 3.5)
@@ -111,7 +140,7 @@ list.files(path = here('img', 'plot_frames'), pattern = "\\.png$", full.names = 
   purrr::map(image_read) %>% # reads each path file
   image_join() %>% # joins image
   image_animate(fps=10) %>% # animates, can opt for number of loops
-  image_write(here('img', 'vote_mode.gif')) # write to output directory
+  image_write(here('img', 'MDvote_mode.gif')) # write to output directory
 
 # optimize the gif, ImageMagick terminal
 #system('convert img/vote_mode.gif -coalesce  -layers OptimizeFrame  img/vote_mode.gif')

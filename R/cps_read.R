@@ -122,7 +122,7 @@ cps_read_year <- function(file,
 #' @examples \dontrun{cps_read(years = 2016, names_col = "new_name")}
 #' 
 #' @export
-cps_read <- function(years = seq(1994, 2022, 2),
+cps_read <- function(years = seq(1994, 2024, 2),
                      dir = "cps_data",
                      cols = cpsvote::cps_cols,
                      names_col = "new_name",
@@ -146,24 +146,24 @@ cps_read <- function(years = seq(1994, 2022, 2),
     years <- years[years >= 1994]
   }
   
-  # years must be before 2022
-  if (any(years > 2022)) {
-    warning(paste0("The Census Bureau has not yet released CPS data for years after 2022. The remaining years listed (",
-                   paste(years[years <= 2022], collapse = ", "),
+  # years must be before 2024
+  if (any(years > 2024)) {
+    warning(paste0("The Census Bureau has not yet released CPS data for years after 2024. The remaining years listed (",
+                   paste(years[years <= 2024], collapse = ", "),
                    ") will be loaded."),
             immediate. = T)
-    years <- years[years <= 2022]
+    years <- years[years <= 2024]
   }
   
   # years must be in survey coverage zone
-  if (!all(years %in% seq(1964, 2022, 2))) {
+  if (!all(years %in% seq(1964, 2024, 2))) {
     warning(paste0("The VRS was not conducted in the following years: ",
-                   paste(years[!(years %in% seq(1964, 2022, 2))], collapse = ", "),
+                   paste(years[!(years %in% seq(1964, 2024, 2))], collapse = ", "),
                    ". The remaining years listed (",
-                   paste(years[years %in% seq(1964, 2022, 2)], collapse = ", "),
+                   paste(years[years %in% seq(1964, 2024, 2)], collapse = ", "),
                    ") will be loaded."),
             immediate. = T)
-    years <- years[years %in% seq(1964, 2022, 2)]
+    years <- years[years %in% seq(1964, 2024, 2)]
   }
   
   # if they're all gone, stop
