@@ -1,4 +1,4 @@
-^cpsvote\.Rproj$
+^.*\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^README\.Rmd$
@@ -22,3 +22,5 @@
 ^vignettes/README.md$
 ^\.positai$
 ^\.claude$
+^CC_deploymentplan.*$
+^CONTRIBUTING\.md$
