@@ -1,6 +1,6 @@
 Package: cpsvote
 Title: A Toolbox for Using the CPS’s Voting and Registration Supplement
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: 
     c(person(given = "Jay",
            family = "Lee",
@@ -9,9 +9,13 @@ Authors@R:
     person(given = "Paul",
            family = "Gronke",
            role = c("aut")),
+    person(given = "Frank",
+            family = "Adonteng",
+            role = c("ctb")),       
     person(given = "John",
            family = "Curiel",
-           role = c("ctb")))
+           role = c("ctb"))
+           )
 Description: Provides automated methods for downloading, recoding, and merging 
     selected years of the Current Population Survey's Voting and Registration 
     Supplement <https://www.nber.org/research/data/current-population-survey-cps-supplements-voting-and-registration>, 
