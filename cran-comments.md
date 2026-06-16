@@ -1,31 +1,26 @@
-## Summary
+## R CMD check results
 
-This is a minor update that includes newly released data from the 2020 election, 
-as well as some bug fixes and stylistic changes.
+0 errors | 0 warnings | 1 note
+
+* NOTE: unable to verify current time
+  This is a transient network issue during the check and is not a problem
+  with the package.
 
 ## Test environments
-* local OS X install, R 4.0.2
-* ubuntu 16.04 (on travis-ci), R 4.0.2
-* Windows Server 2008 R2 SP1, R-devel, 32/64 bit
 
-## R CMD check results
-There were no ERRORs or WARNINGs. There was 1 NOTE:
+* local macOS (aarch64), R 4.5.2
+* win-builder (R-devel)
+* GitHub Actions: macOS-latest, windows-latest, ubuntu-latest (R release + devel)
 
-> checking CRAN incoming feasibility ... NOTE
-  Maintainer: ‘Jay Lee <jay.lee.tx@gmail.com>’
-  
-  New maintainer:
-    Jay Lee <jay.lee.tx@gmail.com>
-  Old maintainer(s):
-    Jay Lee <jaylee@reed.edu>
-  
-  Found the following (possibly) invalid DOIs:
-    DOI: 10.1093/poq/nft042
-      From: DESCRIPTION
-      Status: Forbidden
-      Message: 403
+## Submission notes
 
-The author has submitted this package before; their institution and email has 
-changed. The DOI is correct; it resolves as expected from (https://www.doi.org) 
-and is identical to the DOI listed at the current source link 
-(https://academic.oup.com/poq/article-abstract/77/4/985/1843466?redirectedFrom=fulltext).
+This is a resubmission. Changes since the last CRAN release (0.1.0):
+
+- Added CPS VRS data for 2020, 2022, and 2024
+- 2024 microdata sourced from Census Bureau (not NBER); VEP reweighting data
+  from University of Florida Election Lab
+- Added 10k-row sample dataset of the 2020 CPS VRS
+- Added turnout validation vignette comparing estimates to Census Bureau figures
+- Updated maintainer from Jay Lee to Paul Gronke (gronkep@reed.edu)
+- Changed PDF download method for Windows compatibility
+- Replaced Travis CI with GitHub Actions

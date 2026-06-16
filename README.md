@@ -72,7 +72,7 @@ relative path “./cps\_data”). This can take some time depending on your
 internet speeds. In future instances, R will just read from the data
 files that have already been downloaded (defaulting to the same
 “cps\_data” folder), as long as you correctly specify where these are
-stored. See `?cps_allyears_10k` for a description of the columns and
+stored. See `?cps_allyears_100k` for a description of the columns and
 fields that `cps_load_basic()` outputs.
 
 We recommend using a single [R
@@ -84,16 +84,16 @@ If you specify a location that does not have the correct files, these
 functions will attempt to re-download the data from NBER, which can take
 up noticeable time and storage space.
 
-We have also included a 10,000 row sample of the full VRS data, which
-comes with the package as `cps_allyears_10k`. This is particularly
+We have also included a 100,000 row sample of the full VRS data, which
+comes with the package as `cps_allyears_100k`. This is particularly
 useful for planning out a given analysis before you download the full
 data sets.
 
 ``` r
 library(dplyr)
-data("cps_allyears_10k")
+data("cps_allyears_100k")
 
-cps_allyears_10k %>%
+cps_allyears_100k %>%
   select(1:3, VRS_VOTE:VRS_REG, VRS_VOTEMETHOD_CON, turnout_weight) %>%
   sample_n(10)
 ```

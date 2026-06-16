@@ -22,9 +22,9 @@ knitr::opts_chunk$set(
 library(cpsvote)
 ```
 
-## Why We Created `cpsvote`
+## Why EVIC Created `cpsvote`
 
-The United States Census Bureau has collected information about voter registration and turnout since 1964 as part of the Current Population Survey (CPS). The surveys are conducted every November during federal election years, and are generally referred to as the Voting and Registration Supplement (VRS). The official website for the CPS VRS is located at https://www.census.gov/topics/public-sector/voting.html, and the ["About Me"](https://www.census.gov/topics/public-sector/voting/about.html) page  provides more detailed information on the history of this data collection project (a 175 page document, ["Design and Methodology: Current Population Survey"](https://www.census.gov/prod/2006pubs/tp-66.pdf), provides a very deep dive in the history and methodology of the CPS).
+The United States Census Bureau has collected information about voter registration and turnout since 1964 as part of the Current Population Survey (CPS). The surveys are conducted every November during federal election years, and are generally referred to as the Voting and Registration Supplement (VRS). The official website for the CPS VRS is located at https://www.census.gov/topics/public-sector/voting.html, and the ["About Me"](https://www.census.gov/topics/public-sector/voting/about.html) page  provides more detailed information on the history of this data collection project (a 175 page document, ["Design and Methodology: Current Population Survey"](https://www2.census.gov/programs-surveys/cps/methodology/tp-66.pdf), provides a very deep dive in the history and methodology of the CPS).
 
 The CPS VRS is an important resource to understand voter registration and voter turnout in the United States. The sample size, data quality, and consistency of the VRS makes it an invaluable resource to compare registration and turnout rates over time, within states, and among subgroups. Other high-quality national surveys like the [American National Election Study](https://electionstudies.org/) or the [General Social Survey](https://gss.norc.org/) have also been administered over decades, but their samples are not designed for state level analyses, and neither includes the same kinds of questions about voter registration and voting that are part of the CPS VRS. 
 
@@ -55,7 +55,7 @@ We have made (what we consider) sensible decisions about which columns from the 
 
 Most surveys provide a sample weight that allows the survey results to be generalized to the target population. Typically, survey weights are provided because the sampling design may have included survey strata, or there may have been oversampling applied to specific groups. Survey weights can also adjust for simple deviations in the sampled population and the target population, either due to non-responses or even just as a result of randomization. 
 
-The CPS uses a particularly complex survey design. As described in the ["Design and Methodology: Current Population Survey" document](https://www.census.gov/prod/2006pubs/tp-66.pdf), "The CPS sample is a multistage stratified sample of approximately 72,000 assigned housing units from 824 sample areas designed to measure demographic and labor force characteristics of the civilian noninstitutionalized population 16 years of age and older." 
+The CPS uses a particularly complex survey design. As described in the ["Design and Methodology: Current Population Survey" document](https://www2.census.gov/programs-surveys/cps/methodology/tp-66.pdf), "The CPS sample is a multistage stratified sample of approximately 72,000 assigned housing units from 824 sample areas designed to measure demographic and labor force characteristics of the civilian noninstitutionalized population 16 years of age and older." 
 
 Critically, the CPS is designed to generate national *and* state estimates, and samples *households*, not individuals. These two considerations both mean that individual respondents are not sampled with equal probability, i.e. a Montanan living in a single-person household will have a much higher probability of being sampled than a Californian living in a six-person household. The sample weight provided by the CPS adjusts your estimates so as to take into account these different probabilities of being sampled, and is needed to produce statistically valid estimates. 
 
@@ -64,14 +64,14 @@ Critically, the CPS is designed to generate national *and* state estimates, and 
 ```{r eval = FALSE}
 library(cpsvote)
 cps_survey <- survey::svydesign(ids = ~1, # simple weights, no clusters
-                                data = cps_allyears_10k, # data set
+                                data = cps_allyears_100k, # data set
                                 weights = ~turnout_weight) # weight column
 ```
 
 A recently released package, `srvyr`, provides "`dplyr`-like syntax for summary statistics of survey data" ([`srvyr` at CRAN](https://cran.r-project.org/package=srvyr)). `srvyr` acts as a wrapper around `survey` and makes many of the commands easier to implement. The following code will create a weighted data object using `srvyr`:
 
 ```{r eval = FALSE}
-cps_srvyr <- srvyr::as_survey_design(.data = cps_allyears_10k, # data set
+cps_srvyr <- srvyr::as_survey_design(.data = cps_allyears_100k, # data set
                                      weights = turnout_weight) # weight column
 ```
 
@@ -116,13 +116,13 @@ Hur and Achen (2013) describe the problem in their abstract:
 
 **The `cpsvote` package provides the original Census coding scheme in the `cps_turnout` variable that is produced by the default functions.**
 
-A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper and at the [United States Elections Project's CPS Over-Report and Non-Response Bias Correction](http://www.electproject.org/home/voter-turnout/cps-methodology) page is that, over time, two biases have crept into the CPS - one from increasing non-response rates, the second from over-reports of turnout (Michael McDonald, 2014, "What's Wrong with the CPS?", paper presented at the Annual Meeting of the American Political Science Association).
+A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper and at the [United States Elections Project's CPS Over-Report and Non-Response Bias Correction](https://www.electproject.org/election-data/cps-vote-over-report-and-non-response-bias-correction) page is that, over time, two biases have crept into the CPS - one from increasing non-response rates, the second from over-reports of turnout (Michael McDonald, 2014, "What's Wrong with the CPS?", paper presented at the Annual Meeting of the American Political Science Association).
 
 Hur and Achen suggest a complex post-stratification adjustment to the data that will adjust for these biases:
 
 >We recommend dropping all categories of missing turnout response, and then poststratifying the remaining CPS sample so that the survey turnout rate in each state matches the corresponding state VEP turnout.
 
-The Hur-Achen post-stratification weight relies on the authoritative estimates for state-level turnout as calculated by the United States Election Project, directed by Professor Michael McDonald of the University of Florida. Professor McDonald helpfully provides guidance on this complex weighting procedure. Stata code is provided at his website: [Commentary, Guidelines, and Stata Code](http://www.electproject.org/home/voter-turnout/cps-methodology).
+The Hur-Achen post-stratification weight relies on the authoritative estimates for state-level turnout as calculated by the United States Election Project, directed by Professor Michael McDonald of the University of Florida. Professor McDonald helpfully provides guidance on this complex weighting procedure. Stata code is provided at his website: [Commentary, Guidelines, and Stata Code](https://www.electproject.org/election-data/cps-vote-over-report-and-non-response-bias-correction).
 
 We have integrated the Hur and Achen recoding into the `cpsvote` package, contained in the variable `hurachen_turnout` that is produced by the default functions. The original CPS weight is provided in the variable `WEIGHT`, and a weight adjusted for proper turnout coding and post-stratification for over-reporting is provided in the variable `turnout_weight`.
 
@@ -163,7 +163,7 @@ turnout_estimates <- dplyr::bind_rows(cps20_unweighted,
   dplyr::transmute('Method' = type,
                    'Turnout Estimate' = scales::percent(turnout, .1))
 
-knitr::kable(turnout_estimates)
+knitr::kable(turnout_estimates, align = c('l', 'c'))
 ```
 
 The table shows the underestimate of turnout using the Census method, because it fails to account for changes in non-response bias.

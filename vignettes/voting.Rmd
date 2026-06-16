@@ -76,7 +76,7 @@ Hur and Achen recommend coding the variable according to a scheme familiar to mo
 
 **The `cpsvote` package applies these two coding schemes to create two new columns, `cps_turnout` and `hurachen_turnout`.**
 
-A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper and at the [United States Elections Project's CPS Over-Report and Non-Response Bias Correction](http://www.electproject.org/home/voter-turnout/cps-methodology) page is that, over time, two biases have crept into the CPS: one from increasing non-response rates, the second from over-reports of turnout (Michael McDonald, 2014, "What's Wrong with the CPS?", paper presented at the Annual Meeting of the American Political Science Association). 
+A related problem with the CPS turnout estimate, documented carefully by Professor Michael McDonald in a 2014 working paper and at the [United States Elections Project's CPS Over-Report and Non-Response Bias Correction](https://www.electproject.org/election-data/cps-vote-over-report-and-non-response-bias-correction) page is that, over time, two biases have crept into the CPS: one from increasing non-response rates, the second from over-reports of turnout (Michael McDonald, 2014, "What's Wrong with the CPS?", paper presented at the Annual Meeting of the American Political Science Association). 
 
 From the Hur and Achen (2013) abstract:
 
@@ -86,7 +86,7 @@ Hur and Achen suggest a complex post-stratification adjustment to the data that 
 
 >We recommend dropping all categories of missing turnout response, and then poststratifying the remaining CPS sample so that the survey turnout rate in each state matches the corresponding state VEP turnout.
 
-Professor Michael McDonald of the University of Florida helpfully provides guidance on this more complex procedure. [Commentary, Guidelines, and Stata Code](http://www.electproject.org/home/voter-turnout/cps-methodology) is available at the US Elections website. We have adapted this code for `R` and have integrated it into the `cpsvote` package in the function `cps_reweight_turnout()`. 
+Professor Michael McDonald of the University of Florida helpfully provides guidance on this more complex procedure. [Commentary, Guidelines, and Stata Code](https://www.electproject.org/election-data/cps-vote-over-report-and-non-response-bias-correction) is available at the US Elections website. We have adapted this code for `R` and have integrated it into the `cpsvote` package in the function `cps_reweight_turnout()`. 
 
 **The Hur and Achen corrections have been integrated into the `cpsvote` package.**
 
@@ -140,13 +140,14 @@ cps20 %>%
   summarize(turnout = survey_mean(hurachen_turnout == "YES", na.rm = TRUE)) %>%
   ggplot(aes(x = RACE, y = turnout)) +
   geom_col() + 
-  scale_x_discrete(labels = c("WHITE"= "White",
+  scale_x_discrete(labels = c("WHITE" = "White",
                               "BLACK" = "Black",
-                              "AMERICAN INDIAN OR ALASKA NATIVE" = "AI/AN",
-                              "ASIAN, PACIFIC ISLANDER, OR NATIVE HAWAIIAN" = "A/PI")) +
+                              "AMERICAN INDIAN OR ALASKA NATIVE" = "American Indian\nor Alaska Native",
+                              "ASIAN, PACIFIC ISLANDER, OR NATIVE HAWAIIAN" = "Asian and\nPacific Islander")) +
   scale_y_continuous(labels = scales::percent) +
   labs(x = "", y = "Turnout", title = "Turnout among Eligible Voters by Race, 2020") +
-  theme_bw()
+  theme_bw() +
+  theme(axis.text.x = element_text(hjust = 0.5))
 ```
 
 ## Example: A Simple Map of Voter Turnout by State {#map2020}
@@ -160,7 +161,7 @@ cps20 %>%
   group_by(state) %>%
   summarize(turnout = survey_mean(hurachen_turnout == "YES", na.rm = TRUE)) %>%
   plot_usmap(data = ., values = "turnout", color = "black", size = 0.1) +
-  scale_fill_continuous(low = "white", high = "blue", name = "Turnout Rate", 
+  scale_fill_continuous(low = "lightblue", high = "darkblue", name = "Turnout Rate",
                         labels = scales::percent_format(accuracy = 1)) +
   theme(legend.position = "right") + labs(title = "Voter Turnout in the United States, 2020")
 ```
@@ -192,11 +193,11 @@ The `cpsvote` package creates a column labeled `VRS_VOTEMETHOD_CON` (vote method
 
 ## Example: Growth in Alternative Voting Modes {#modegrowth}
 
-The use of early in-person voting and voting by mail has grown enormously in the past quarter century, with distinct regional patterns to the use of different modes of voting. In the code below, we first create a column labeled `census_region` that will allow us to make regional comparisons, and apply the survey weights to `cps_allyears_10k`, the 10,000 row random sample of the CPS included with `cpsvote`.
+The use of early in-person voting and voting by mail has grown enormously in the past quarter century, with distinct regional patterns to the use of different modes of voting. In the code below, we first create a column labeled `census_region` that will allow us to make regional comparisons, and apply the survey weights to the full CPS dataset.
 
 
 ```{r earlyvoting_data_load, include = TRUE}
-cps_region <-  cps_allyears_10k %>% 
+cps_region <- cps_load_basic(datadir = here::here('cps_data')) %>%
   # since this is only among voters, either weight can be used equivalently
   as_survey_design(weights = turnout_weight) %>%
   mutate(census_region = case_when(
@@ -234,11 +235,12 @@ cps_region %>%
        y = "",
        x = "") +
   theme_minimal() +
-  theme(plot.title = element_text(size = 20, family = "serif", 
+  theme(plot.title = element_text(size = 20, family = "serif",
                                   face = "bold.italic", colour = "red"),
-        legend.background = element_rect(), 
+        legend.background = element_rect(),
         legend.title = element_text(size = 8, face = "bold"),
-        legend.text = element_text(size = 6)) 
+        legend.text = element_text(size = 6),
+        axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 ## Example: Growth in Vote By Mail Concentrated in the West {#vbmgrowth}
@@ -259,11 +261,12 @@ cps_region %>%
   labs(title = "Regional Use of Vote At Home, 1996 - 2024",
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        color = "Region") +
-  theme(plot.title = element_text(size = 20, family = "serif", 
+  theme(plot.title = element_text(size = 20, family = "serif",
                                   face = "bold.italic", colour = "red"),
-        legend.background = element_rect(),  
+        legend.background = element_rect(),
         legend.title = element_text(size = 8, face = "bold"),
-        legend.text = element_text(size = 6)) +
+        legend.text = element_text(size = 6),
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
   ylab("") + xlab("")  
 ```
 

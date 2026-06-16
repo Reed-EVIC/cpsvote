@@ -30,7 +30,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.6.0)
-Suggests: 
+Suggests:
     knitr,
     rmarkdown,
     survey,
@@ -42,7 +42,7 @@ Suggests:
     ggthemes
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports: 
     magrittr,
     readr,

@@ -58,10 +58,10 @@
 "cps_reweight"
 
 #' A sample of the full CPS dataset
-#' 
-#' This is a 10,000 row sample of the data that comes out of 
+#'
+#' This is a 100,000 row sample of the data that comes out of
 #' `cpsvote::cps_load_basic`.
-#' @format A tibble with 10,000 rows and 25 columns:
+#' @format A tibble with 100,000 rows and 25 columns:
 #' \describe{
 #' \item{FILE}{Which default file the case came from}
 #' \item{YEAR}{Year of interview}
@@ -95,7 +95,7 @@
 #' \item{turnout_weight}{Adjusted weight for calculating voter turnout (per 
 #' Hur & Achen)}
 #' }
-"cps_allyears_10k"
+"cps_allyears_100k"
 
 #' A sample of the raw 2016 CPS dataset
 #' 

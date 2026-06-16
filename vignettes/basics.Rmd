@@ -60,26 +60,26 @@ cps <- cps_load_basic()
 cps <- cps_load_basic(years = c(2006, 2008))
 ```
 
-This will load the prepared VRS data into your environment as a tibble called `cps`. The first time you try to load a given year of data, the raw data file will be downloaded to your computer (defaulting to the relative path "./cps_data"). This can take some time depending on your internet speeds. In future instances, R will just read from the data files that have already been downloaded (defaulting to the same "cps_data" folder), as long as you correctly specify where these are stored. See `?cps_allyears_10k` for a description of the columns and fields that `cps_load_basic()` outputs.
+This will load the prepared VRS data into your environment as a tibble called `cps`. The first time you try to load a given year of data, the raw data file will be downloaded to your computer (defaulting to the relative path "./cps_data"). This can take some time depending on your internet speeds. In future instances, R will just read from the data files that have already been downloaded (defaulting to the same "cps_data" folder), as long as you correctly specify where these are stored. See `?cps_allyears_100k` for a description of the columns and fields that `cps_load_basic()` outputs.
 
 We recommend using a single [R project](https://r4ds.had.co.nz/workflow-projects.html) for your CPS analysis where these files can be stored (this will work with the default options), or storing one set of CPS files in a steady location and specifying this absolute file path each time you load in the data. If you specify a location that does not have the correct files, these functions will attempt to re-download the data from NBER, which can take up noticeable time and storage space.
 
-We have also included a 10,000 row sample of the full VRS data, which comes with the package as `cps_allyears_10k`. This is particularly useful for planning out a given analysis before you download the full data sets.
+We have also included a 100,000 row sample of the full VRS data, which comes with the package as `cps_allyears_100k`. This is particularly useful for planning out a given analysis before you download the full data sets.
 
 ```{r eval = F, message = F}
 library(dplyr)
-data("cps_allyears_10k")
+data("cps_allyears_100k")
 
-cps_allyears_10k %>%
+cps_allyears_100k %>%
   select(1:3, VRS_VOTE:VRS_REG, VRS_VOTEMETHOD_CON, turnout_weight) %>%
   sample_n(10)
 ```
 
 ```{r echo = F, message = F}
 library(dplyr)
-data("cps_allyears_10k")
+data("cps_allyears_100k")
 
-cps_allyears_10k %>%
+cps_allyears_100k %>%
   select(1:3, VRS_VOTE:VRS_REG, VRS_VOTEMETHOD_CON, turnout_weight) %>%
   sample_n(10) %>%
   kable()
@@ -178,11 +178,9 @@ Note that some features (like `cps_refactor()`) won't work on certain customized
   + `vignette("add-variables")` describes how additional variables from the CPS can be merged with the default dataset
   + `vignette("voting")` does a deep dive into how to use the CPS and the default datasets from `cpsvote` to look at voter turnout and mode of voting
 - Aram Hur, Christopher H. Achen. _Coding Voter Turnout Responses in the Current Population Survey_. Public Opinion Quarterly, Volume 77, Issue 4, Winter 2013, Pages 985–993. https://doi.org/10.1093/poq/nft042
-- Michael McDonald. _What's Wrong with the CPS?_ Presented at the 2014 American Political Science Association Conference, Washington, D.C., August 27-31. http://www.electproject.org/home/voter-turnout/cps-methodology
+- Michael McDonald. _What's Wrong with the CPS?_ Presented at the 2014 American Political Science Association Conference, Washington, D.C., August 27-31. https://www.electproject.org/election-data/cps-vote-over-report-and-non-response-bias-correction
 - The [Current Population Survey](https://www.census.gov/programs-surveys/cps.html) is conducted monthly by the U.S. Census Bureau and the Bureau of Labor Statistics, and the Voting and Registration Supplement is administered as part of this survey after each federal election. The [CPS data](http://data.nber.org/data/current-population-survey-data.html) that this package downloads is provided by the [National Bureau of Economic Research](https://www.nber.org/about-nber).
 
 ## Acknowledgements
 
-The `cpsvote` package was originally created at the [Early Voting Information Center at Reed College](https://evic.reed.edu/). We are indebted
-to support from the [Elections Team at the Democracy Fund](https://democracyfund.org/) and [Reed College](https://www.reed.edu/) for supporting
-the work of EVIC. 
+The `cpsvote` package was originally created at the [Elections & Voting Information Center at Reed College](https://evic.reed.edu/), now colocated at [Center for Public Service at Portland State University](http://electionsandvoting.org). 
