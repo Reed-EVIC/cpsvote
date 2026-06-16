@@ -6,7 +6,7 @@
 \usage{
 cps_read(
   years = seq(1994, 2024, 2),
-  dir = "cps_data",
+  dir = cps_data_dir(),
   cols = cpsvote::cps_cols,
   names_col = "new_name",
   join_dfs = TRUE
@@ -18,7 +18,9 @@ in \code{dir} whose names contain these 4-digit years.}
 
 \item{dir}{The folder where the CPS data files live. These files should
 follow a naming scheme that contains the 4-digit year of the results in
-question, and have a ".zip" or ".gz" extension.}
+question, and have a ".zip" or ".gz" extension. Defaults to \code{\link[=cps_data_dir]{cps_data_dir()}},
+which returns \verb{~/cps_data} unless overridden via
+\code{options(cpsvote.datadir = "your/path")}.}
 
 \item{cols}{Which columns to read. This must be a data frame, with required
 columns \code{start_pos},\code{end_pos}, and \code{year}. The default value is \code{cps_cols},

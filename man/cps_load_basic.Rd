@@ -4,13 +4,18 @@
 \alias{cps_load_basic}
 \title{load some basic/default CPS data into the environment}
 \usage{
-cps_load_basic(years = seq(1994, 2024, 2), datadir = "cps_data", outdir = NULL)
+cps_load_basic(
+  years = seq(1994, 2024, 2),
+  datadir = cps_data_dir(),
+  outdir = NULL
+)
 }
 \arguments{
 \item{years}{Which years should be read}
 
 \item{datadir}{The location where the CPS zip files live (or should be
-downloaded to)}
+downloaded to). Defaults to \code{\link[=cps_data_dir]{cps_data_dir()}}, which returns \verb{~/cps_data}
+unless overridden via \code{options(cpsvote.datadir = "your/path")}.}
 
 \item{outdir}{The location where the final data file should be saved to}
 }
@@ -24,6 +29,6 @@ the option to save this data locally for future ease. A sample of the data
 that comes out of this function is provided as \code{cpsvote::cps_allyears_100k}.
 }
 \examples{
-\dontrun{cps_load-basic(years = 2016, outdir = "data")}
+\dontrun{cps_load_basic(years = 2016, outdir = "data")}
 
 }

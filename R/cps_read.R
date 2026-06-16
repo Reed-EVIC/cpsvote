@@ -107,9 +107,11 @@ cps_read_year <- function(file,
 #' 
 #' @param years Which years to read in. Thie function will read data from files 
 #' in `dir` whose names contain these 4-digit years.
-#' @param dir The folder where the CPS data files live. These files should  
-#' follow a naming scheme that contains the 4-digit year of the results in 
-#' question, and have a ".zip" or ".gz" extension.
+#' @param dir The folder where the CPS data files live. These files should
+#' follow a naming scheme that contains the 4-digit year of the results in
+#' question, and have a ".zip" or ".gz" extension. Defaults to [cps_data_dir()],
+#' which returns `~/cps_data` unless overridden via
+#' `options(cpsvote.datadir = "your/path")`.
 #' @param cols Which columns to read. This must be a data frame, with required 
 #' columns `start_pos`,`end_pos`, and `year`. The default value is `cps_cols`, 
 #' which reads from the list `cpsvote::cps_cols`. See `vignette("add-variables")` 
@@ -123,7 +125,7 @@ cps_read_year <- function(file,
 #' 
 #' @export
 cps_read <- function(years = seq(1994, 2024, 2),
-                     dir = "cps_data",
+                     dir = cps_data_dir(),
                      cols = cpsvote::cps_cols,
                      names_col = "new_name",
                      join_dfs = TRUE) {
