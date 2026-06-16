@@ -1,0 +1,201 @@
+---
+title: "Using the CPS and `cpsvote` to Understand Voting Part 2"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{vote_method_trends}
+  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE, echo = FALSE}
+options(rmarkdown.html_vignette.check_title = FALSE)
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  message = FALSE, warning = FALSE,
+  fig.width = 6, fig.height = 3,
+  purl = NOT_CRAN,
+  eval = NOT_CRAN
+)
+library(knitr)
+library(cpsvote)
+```
+
+```{r eval = FALSE}
+library(cpsvote)
+```
+
+One of the most striking trends in American elections over the past three decades is the steady decline in in-person election day voting in federal elections. In 1996, the first year that the Current Population Survey asked about voting method, 89% of Americans were voting at physical polling locations on election day. By 2018, that figure had declined to 60%, a drop of nearly 30 percentage points. In 2020, the COVID-19 pandemic and the voting reforms that took place as a result led to by far the lowest rate of in-person election day voting in American history, 31%.
+
+Looking over the past 30 years, a clear pattern of movement from in-person election day voting toward early and mail voting emerges.
+
+```{r setup, message = FALSE, warning = FALSE}
+library(srvyr)
+library(ggplot2)
+library(ggthemes)
+library(scales)
+library(dplyr)
+library(here)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, results='asis')
+cps <- cps_load_basic(datadir = here::here('cps_data'))
+
+cps <- cps %>% 
+  mutate(
+    census_region = case_when(
+      STATE %in% c("ME", "NH", "VT", "MA", "CT", "RI", 
+                       "NY", "PA", "NJ") ~ "Northeast",
+      STATE %in% c("ME", "DE", "WV", "DC", "VA", "NC", "SC", "GA", "FL",
+                       "KY", "TN", "MS", "AL", 
+                       "OK", "AR", "LA", "TX") ~ "South",
+      STATE %in% c("WI", "MI", "IL", "IN", "OH", 
+                       "ND", "MN", "SD", "IA", "NE", "MO", "KS") ~ "Midwest",
+      STATE %in% c("MT", "ID", "WY", "NV", "UT", "CO", "AZ", "NM", 
+                       "WA", "OR", "CA", "AK", "HI") ~ "West")) %>%
+  filter(YEAR > 1994)
+```
+
+```{r fig.width=8,fig.height = 5}
+cps %>%
+  as_survey_design(weight = turnout_weight) %>%
+  filter(!is.na(VRS_VOTEMETHOD_CON)) %>%
+  group_by(YEAR, VRS_VOTEMETHOD_CON) %>%
+  summarise(pct = survey_mean(na.rm = T)) %>%
+  ggplot(aes(x = YEAR, y = pct, color = VRS_VOTEMETHOD_CON)) +
+  geom_point(size = 2) +
+  geom_line(size = 1) +
+  theme_minimal(base_size = 12) +
+  scale_x_continuous(breaks = seq(1996, 2024, by = 2)) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "Voting method in the United States, 1996 - 2024",
+       subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
+       fill = "Mode of Voting") +
+  theme(plot.title = element_text(size = 16, family = "serif", face = "bold.italic", colour = "red"),
+        legend.background = element_rect(),
+        legend.title = element_text(size = 10, face = "bold"),
+        legend.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Year", y = "") +
+  scale_color_discrete(name = "Vote method: ")
+
+```
+
+The geographic distribution of this trend is striking. In 2020, states with full vote-by-mail systems had particularly low rates of in-person election day voting. Five states had plans for permanent systems prior to 2020 (CO, HI, OR, UT, WA), and several others sent all (or almost all, in Montana) voters a mail ballot in the wake of the COVID-19 pandemic (CA, DC, MT, NV, NJ, VT). Some states in the South and particularly the Southwest also reported low rates of in-person election day voting. The Northeast stands out as maintaining high rates of in-person election day voting, as do states like Alabama and Mississippi.
+
+```{r fig.width=8,fig.height = 5}
+cps_2020_10k %>%
+  cps_label() %>%
+  cps_refactor() %>%
+  cps_recode_vote() %>%
+  cps_reweight_turnout() %>%
+  as_survey_design(weight = turnout_weight) %>%
+  filter(YEAR == 2020 & !is.na(VRS_VOTEMETHOD_CON)) %>%
+  group_by(STATE) %>%
+  summarise(pct = survey_mean(VRS_VOTEMETHOD_CON %in% c("ELECTION DAY"), na.rm = T)) %>%
+  mutate(state = STATE) %>%
+  usmap::plot_usmap(data = ., values = "pct") +
+  scale_fill_continuous(low = "sky blue",
+                        high = "navy",
+                        name = "Election day voting:",
+                        labels = scales::percent,
+                        guide = "colourbar") +
+  labs(title = "Election day voting in the United States, 2020",
+       subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
+       fill = "Mode of Voting") +
+  theme(plot.title = element_text(size = 16, family = "serif", face = "bold.italic", colour = "red"),
+        plot.subtitle = element_text(size = 10, family = "serif"),
+        legend.position = "right",
+        legend.background = element_rect(),
+        legend.title = element_text(size = 10, family = "serif"),
+        legend.text = element_text(size = 9)) +
+  guides(fill = guide_colourbar(barheight = 5, barwidth = 1.5))
+```
+
+Breaking down the trend by region and year makes the picture clearer. While the Northeast has only seems a mild decline of about 5% (from 96% to 91%) in in-person election day voting, and the Midwest experienced modest decline from 92% in 1996 to 72%. The real change came in the West and the South. The Western states saw an enormous drop  from 78% to 28% and the South declined from 90% to 55%.
+
+```{r fig.width=8,fig.height = 5}
+cps %>%
+  as_survey_design(weight = turnout_weight) %>%
+  filter(!is.na(VRS_VOTEMETHOD_CON),
+         !is.na(census_region)) %>%
+  group_by(census_region, YEAR, VRS_VOTEMETHOD_CON) %>%
+  summarise(pct = survey_mean(na.rm = T)) %>%
+  filter(VRS_VOTEMETHOD_CON == "ELECTION DAY") %>%
+  ggplot(aes(x = YEAR, y = pct, color = census_region)) +
+  geom_point(size = 2) +
+  geom_line(size = 1) +
+  theme_minimal(base_size = 12) +
+  scale_x_continuous(breaks = seq(1996, 2024, by = 2)) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "Election day voting usage by US Census Region, 1996 - 2024",
+       subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
+       fill = "Mode of Voting") +
+  theme(plot.title = element_text(size = 16, family = "serif", face = "bold.italic", colour = "red"),
+        legend.background = element_rect(),
+        legend.title = element_text(size = 10, face = "bold"),
+        legend.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Year", y = "") +
+  scale_color_discrete(name = "Census Region: ")
+
+```
+
+
+The source of these changes were not evenly distributed across regions. The decline of in-person election day voting in the South was driven almost entirely by the ascent of early in-person voting, which rose from just 6% in 1996 to 48% in 2020. None of the other regions saw increases of more than 20%.
+
+```{r fig.width=8,fig.height = 5}
+cps %>%
+  as_survey_design(weight = turnout_weight) %>%
+  filter(!is.na(VRS_VOTEMETHOD_CON),
+         !is.na(census_region)) %>%
+  group_by(census_region, YEAR, VRS_VOTEMETHOD_CON) %>%
+  summarise(pct = survey_mean(na.rm = T)) %>%
+  filter(VRS_VOTEMETHOD_CON == "EARLY") %>%
+  ggplot(aes(x = YEAR, y = pct, color = census_region)) +
+  geom_point(size = 2) +
+  geom_line(size = 1) +
+  theme_minimal(base_size = 12) +
+  scale_x_continuous(breaks = seq(1996, 2024, by = 2)) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "Early voting usage by US Census Region, 1996 - 2024",
+       subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
+       fill = "Mode of Voting") +
+  theme(plot.title = element_text(size = 16, family = "serif", face = "bold.italic", colour = "red"),
+        legend.background = element_rect(),
+        legend.title = element_text(size = 10, face = "bold"),
+        legend.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Year", y = "") +
+  scale_color_discrete(name = "Census Region: ")
+```
+
+The story is analogous but even more pronounced in the West. Instead of early voting, the Western states have seen a massive increase in vote-by-mail, rising from 20% in 1996 to 66% in 2020. This change was driven by the adoption of universal vote-by-mail systems in Oregon, Washington, and Colorado, and more recently by the increase in mail voting in California. As with the South and early voting, none of the other census regions saw more than a modest increase in mail voting.
+
+```{r fig.width=8,fig.height = 5}
+cps %>%
+  as_survey_design(weight = turnout_weight) %>%
+  filter(!is.na(VRS_VOTEMETHOD_CON),
+         !is.na(census_region)) %>%
+  group_by(census_region, YEAR, VRS_VOTEMETHOD_CON) %>%
+  summarise(pct = survey_mean(na.rm = T)) %>%
+  filter(VRS_VOTEMETHOD_CON == "BY MAIL") %>%
+  ggplot(aes(x = YEAR, y = pct, color = census_region)) +
+  geom_point(size = 2) +
+  geom_line(size = 1) +
+  theme_minimal(base_size = 12) +
+  scale_x_continuous(breaks = seq(1996, 2024, by = 2)) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "Vote-by-mail usage by US Census Region, 1996 - 2024",
+       subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
+       fill = "Mode of Voting") +
+  theme(plot.title = element_text(size = 16, family = "serif", face = "bold.italic", colour = "red"),
+        legend.background = element_rect(),
+        legend.title = element_text(size = 10, face = "bold"),
+        legend.text = element_text(size = 9),
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Year", y = "") +
+  scale_color_discrete(name = "Census Region: ")
+```

@@ -16,10 +16,6 @@ cps_docs/*
 tmp/cpsvrs.RDS
 *Icon?
 
-doc
-!inst/doc
-!inst/doc/**
-Meta
 
 img/plot_frames/*
 img/plot_frames18/*
