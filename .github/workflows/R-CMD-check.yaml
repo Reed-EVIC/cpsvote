@@ -18,6 +18,7 @@ jobs:
           - {os: macos-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
           - {os: ubuntu-latest,  r: 'release'}
+          - {os: ubuntu-latest, r: 'devel', http-user-agent: 'release'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -40,5 +41,5 @@ jobs:
 
       - uses: r-lib/actions/check-r-package@v2
         with:
-          build-args: 'c("--no-manual", "--no-build-vignettes")'
+          build-args: 'c("--no-manual")'
           args: 'c("--no-manual", "--as-cran")'
