@@ -38,7 +38,6 @@ Suggests:
     ggthemes
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 Imports: 
     magrittr,
     readr,
@@ -46,3 +45,4 @@ Imports:
     stringr,
     forcats (>= 1.0.0),
     rlang
+Config/roxygen2/version: 8.0.0

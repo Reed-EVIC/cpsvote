@@ -60,9 +60,21 @@ cps <- cps_load_basic()
 cps <- cps_load_basic(years = c(2006, 2008))
 ```
 
-This will load the prepared VRS data into your environment as a tibble called `cps`. The first time you try to load a given year of data, the raw data file will be downloaded to your computer (defaulting to the relative path "./cps_data"). This can take some time depending on your internet speeds. In future instances, R will just read from the data files that have already been downloaded (defaulting to the same "cps_data" folder), as long as you correctly specify where these are stored. See `?cps_allyears_10k` for a description of the columns and fields that `cps_load_basic()` outputs.
+This will load the prepared VRS data into your environment as a tibble called `cps`. The first time you try to load a given year of data, the raw data file will be downloaded to your computer. This can take some time depending on your internet speeds. In future instances, R will just read from the data files that have already been downloaded, as long as they are in the same location. See `?cps_allyears_10k` for a description of the columns and fields that `cps_load_basic()` outputs.
 
-We recommend using a single [R project](https://r4ds.had.co.nz/workflow-projects.html) for your CPS analysis where these files can be stored (this will work with the default options), or storing one set of CPS files in a steady location and specifying this absolute file path each time you load in the data. If you specify a location that does not have the correct files, these functions will attempt to re-download the data from NBER, which can take up noticeable time and storage space.
+**Data directory:** By default, CPS files are stored in `~/cps_data` (your home directory). You can check the current default with `cps_data_dir()`. To use a different location, pass it directly:
+
+```r
+cps <- cps_load_basic(datadir = "/your/path/to/cps_data")
+```
+
+To make a custom path persist across sessions without typing it each time, add this line to your `.Rprofile` (run `usethis::edit_r_profile()` to open it):
+
+```r
+options(cpsvote.datadir = "~/my/path/to/cps_data")
+```
+
+After restarting R, all `cpsvote` data-loading functions will use that path automatically. If you specify a location that does not have the correct files, these functions will attempt to re-download the data from NBER, which can take up noticeable time and storage space.
 
 We have also included a 10,000 row sample of the full VRS data, which comes with the package as `cps_allyears_10k`. This is particularly useful for planning out a given analysis before you download the full data sets.
 

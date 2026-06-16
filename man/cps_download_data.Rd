@@ -5,13 +5,15 @@
 \title{Download CPS microdata}
 \usage{
 cps_download_data(
-  path = "cps_data",
+  path = cps_data_dir(),
   years = seq(1994, 2024, 2),
   overwrite = FALSE
 )
 }
 \arguments{
-\item{path}{A file path (relative or absolute) where the downloads should go.}
+\item{path}{A file path (relative or absolute) where the downloads should go.
+Defaults to \code{\link[=cps_data_dir]{cps_data_dir()}}, which returns \verb{~/cps_data} unless overridden
+via \code{options(cpsvote.datadir = "your/path")}.}
 
 \item{years}{Which years of data to download. Defaults to all
 even-numbered years from 1994 to 2024.}

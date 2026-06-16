@@ -24,3 +24,4 @@
 ^\.claude$
 ^CC_deploymentplan.*$
 ^CONTRIBUTING\.md$
+^\.github$

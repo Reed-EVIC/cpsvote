@@ -1,31 +1,25 @@
-## Summary
+## R CMD check results
 
-This is a minor update that includes newly released data from the 2020 election, 
-as well as some bug fixes and stylistic changes.
+0 errors | 0 warnings | 2 notes
+
+* NOTE: Maintainer email changed from jaylee@reed.edu to jay.lee.tx@gmail.com.
+  The author's institutional email is no longer active; the Gmail address
+  is the correct current contact. This package has been submitted before
+  under the same maintainer name.
+
+* NOTE: unable to verify current time (local network issue; not a package problem)
 
 ## Test environments
-* local OS X install, R 4.0.2
-* ubuntu 16.04 (on travis-ci), R 4.0.2
-* Windows Server 2008 R2 SP1, R-devel, 32/64 bit
+* local macOS Sequoia 15.6, R 4.4.3 (x86_64-apple-darwin20)
 
-## R CMD check results
-There were no ERRORs or WARNINGs. There was 1 NOTE:
+## Submission notes
 
-> checking CRAN incoming feasibility ... NOTE
-  Maintainer: ‘Jay Lee <jay.lee.tx@gmail.com>’
-  
-  New maintainer:
-    Jay Lee <jay.lee.tx@gmail.com>
-  Old maintainer(s):
-    Jay Lee <jaylee@reed.edu>
-  
-  Found the following (possibly) invalid DOIs:
-    DOI: 10.1093/poq/nft042
-      From: DESCRIPTION
-      Status: Forbidden
-      Message: 403
-
-The author has submitted this package before; their institution and email has 
-changed. The DOI is correct; it resolves as expected from (https://www.doi.org) 
-and is identical to the DOI listed at the current source link 
-(https://academic.oup.com/poq/article-abstract/77/4/985/1843466?redirectedFrom=fulltext).
+This is a resubmission of cpsvote. Changes since last CRAN release (0.1.0):
+- Added 2022 and 2024 CPS Voting and Registration Supplement data
+- Updated all vignettes to reflect data coverage through 2024
+- Added 10k-row sample datasets for 2022 and 2024
+- Fixed factor recoding bug (fct_recode → fct_collapse for NULL levels)
+- Added 2022 turnout validation report
+- Replaced Travis CI with GitHub Actions
+- Pre-built vignette HTML committed to inst/doc/ (vignettes use NOT_CRAN
+  guard so figures would not render on CRAN servers without pre-built output)
