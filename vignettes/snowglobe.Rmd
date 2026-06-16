@@ -179,6 +179,10 @@ png_files %>%
 system(paste0('magick ', here('vignettes', 'snowglobe.gif'),
               ' -coalesce -layers OptimizeFrame ',
               here('vignettes', 'snowglobe.gif')))
+
+file.copy(here('vignettes', 'snowglobe.gif'),
+          here('img', 'snowglobe.gif'),
+          overwrite = TRUE)
 ```
 
 ## Result
