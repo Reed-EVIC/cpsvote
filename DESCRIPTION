@@ -1,14 +1,14 @@
 Package: cpsvote
 Title: A Toolbox for Using the CPS’s Voting and Registration Supplement
-Version: 0.3.0
+Version: 0.2.0
 Authors@R: 
     c(person(given = "Jay",
            family = "Lee",
-           role = c("aut", "cre"),
-           email = "jay.lee.tx@gmail.com"),
+           role = c("aut")),
     person(given = "Paul",
            family = "Gronke",
-           role = c("aut")),
+           role = c("aut", "cre"),
+           email = "gronkep@reed.edu"),
     person(given = "Frank",
             family = "Adonteng",
             role = c("ctb")),       
