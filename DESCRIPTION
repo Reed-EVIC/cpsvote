@@ -32,6 +32,7 @@ LazyData: true
 Depends: R (>= 3.6.0)
 Suggests:
     knitr,
+    tidyverse,
     rmarkdown,
     survey,
     srvyr,
