@@ -1,4 +1,6 @@
 url: https://reed-evic.github.io/cpsvote/
+build:
+    vignettes: false
 template:
   bootstrap: 5
 
