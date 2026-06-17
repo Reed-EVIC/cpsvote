@@ -48,9 +48,8 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -61,7 +60,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -341,8 +340,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<div id="why-evic-created-cpsvote" class="section level2">
-<h2>Why EVIC Created <code>cpsvote</code></h2>
+<div id="why-we-created-cpsvote" class="section level2">
+<h2>Why We Created <code>cpsvote</code></h2>
 <p>The United States Census Bureau has collected information about voter
 registration and turnout since 1964 as part of the Current Population
 Survey (CPS). The surveys are conducted every November during federal
@@ -351,9 +350,9 @@ Registration Supplement (VRS). The official website for the CPS VRS is
 located at <a href="https://www.census.gov/topics/public-sector/voting.html" class="uri">https://www.census.gov/topics/public-sector/voting.html</a>,
 and the <a href="https://www.census.gov/topics/public-sector/voting/about.html">“About
 Me”</a> page provides more detailed information on the history of this
-data collection project (a 175 page document, <a href="https://www2.census.gov/programs-surveys/cps/methodology/tp-66.pdf">“Design
-and Methodology: Current Population Survey”</a>, provides a very deep
-dive in the history and methodology of the CPS).</p>
+data collection project (a 175 page document, <a href="https://www.census.gov/prod/2006pubs/tp-66.pdf">“Design and
+Methodology: Current Population Survey”</a>, provides a very deep dive
+in the history and methodology of the CPS).</p>
 <p>The CPS VRS is an important resource to understand voter registration
 and voter turnout in the United States. The sample size, data quality,
 and consistency of the VRS makes it an invaluable resource to compare
@@ -421,12 +420,12 @@ Survey weights can also adjust for simple deviations in the sampled
 population and the target population, either due to non-responses or
 even just as a result of randomization.</p>
 <p>The CPS uses a particularly complex survey design. As described in
-the <a href="https://www2.census.gov/programs-surveys/cps/methodology/tp-66.pdf">“Design
-and Methodology: Current Population Survey” document</a>, “The CPS
-sample is a multistage stratified sample of approximately 72,000
-assigned housing units from 824 sample areas designed to measure
-demographic and labor force characteristics of the civilian
-noninstitutionalized population 16 years of age and older.”</p>
+the <a href="https://www.census.gov/prod/2006pubs/tp-66.pdf">“Design and
+Methodology: Current Population Survey” document</a>, “The CPS sample is
+a multistage stratified sample of approximately 72,000 assigned housing
+units from 824 sample areas designed to measure demographic and labor
+force characteristics of the civilian noninstitutionalized population 16
+years of age and older.”</p>
 <p>Critically, the CPS is designed to generate national <em>and</em>
 state estimates, and samples <em>households</em>, not individuals. These
 two considerations both mean that individual respondents are not sampled
@@ -444,7 +443,7 @@ survey data in <code>R</code>. The following code will create a weighted
 data object using <code>survey</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(cpsvote)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>cps_survey <span class="ot">&lt;-</span> survey<span class="sc">::</span><span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, <span class="co"># simple weights, no clusters</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>                                <span class="at">data =</span> cps_allyears_100k, <span class="co"># data set</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>                                <span class="at">data =</span> cps_allyears_10k, <span class="co"># data set</span></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>                                <span class="at">weights =</span> <span class="sc">~</span>turnout_weight) <span class="co"># weight column</span></span></code></pre></div>
 <p>A recently released package, <code>srvyr</code>, provides
 “<code>dplyr</code>-like syntax for summary statistics of survey data”
@@ -453,7 +452,7 @@ at CRAN</a>). <code>srvyr</code> acts as a wrapper around
 <code>survey</code> and makes many of the commands easier to implement.
 The following code will create a weighted data object using
 <code>srvyr</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>cps_srvyr <span class="ot">&lt;-</span> srvyr<span class="sc">::</span><span class="fu">as_survey_design</span>(<span class="at">.data =</span> cps_allyears_100k, <span class="co"># data set</span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>cps_srvyr <span class="ot">&lt;-</span> srvyr<span class="sc">::</span><span class="fu">as_survey_design</span>(<span class="at">.data =</span> cps_allyears_10k, <span class="co"># data set</span></span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>                                     <span class="at">weights =</span> turnout_weight) <span class="co"># weight column</span></span></code></pre></div>
 <p>In most of the examples provided in this documentation, we use the
 <code>srvyr</code> command syntax, but some <code>survey</code> examples
@@ -595,7 +594,7 @@ should weight it to reflect actual state vote counts.”</p>
 coding scheme in the <code>cps_turnout</code> variable that is produced
 by the default functions.</strong></p>
 <p>A related problem with the CPS turnout estimate, documented carefully
-by Professor Michael McDonald in a 2014 working paper and at the <a href="https://www.electproject.org/election-data/cps-vote-over-report-and-non-response-bias-correction">United
+by Professor Michael McDonald in a 2014 working paper and at the <a href="http://www.electproject.org/home/voter-turnout/cps-methodology">United
 States Elections Project’s CPS Over-Report and Non-Response Bias
 Correction</a> page is that, over time, two biases have crept into the
 CPS - one from increasing non-response rates, the second from
@@ -614,7 +613,7 @@ estimates for state-level turnout as calculated by the United States
 Election Project, directed by Professor Michael McDonald of the
 University of Florida. Professor McDonald helpfully provides guidance on
 this complex weighting procedure. Stata code is provided at his website:
-<a href="https://www.electproject.org/election-data/cps-vote-over-report-and-non-response-bias-correction">Commentary,
+<a href="http://www.electproject.org/home/voter-turnout/cps-methodology">Commentary,
 Guidelines, and Stata Code</a>.</p>
 <p>We have integrated the Hur and Achen recoding into the
 <code>cpsvote</code> package, contained in the variable
@@ -663,29 +662,7 @@ election year by changing the <code>years</code> argument in
 <span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">transmute</span>(<span class="st">&#39;Method&#39;</span> <span class="ot">=</span> type,</span>
 <span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>                   <span class="st">&#39;Turnout Estimate&#39;</span> <span class="ot">=</span> scales<span class="sc">::</span><span class="fu">percent</span>(turnout, .<span class="dv">1</span>))</span>
 <span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(turnout_estimates, <span class="at">align =</span> <span class="fu">c</span>(<span class="st">&#39;l&#39;</span>, <span class="st">&#39;c&#39;</span>))</span></code></pre></div>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Method</th>
-<th align="center">Turnout Estimate</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Unweighted</td>
-<td align="center">67.4%</td>
-</tr>
-<tr class="even">
-<td align="left">Census</td>
-<td align="center">66.8%</td>
-</tr>
-<tr class="odd">
-<td align="left">Hur &amp; Achen</td>
-<td align="center">56.7%</td>
-</tr>
-</tbody>
-</table>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(turnout_estimates)</span></code></pre></div>
 <p>The table shows the underestimate of turnout using the Census method,
 because it fails to account for changes in non-response bias.</p>
 </div>

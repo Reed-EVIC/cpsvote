@@ -48,9 +48,8 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -61,7 +60,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -381,144 +380,36 @@ access the data is with the <code>cps_load_basic()</code> command:</p>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>cps <span class="ot">&lt;-</span> <span class="fu">cps_load_basic</span>(<span class="at">years =</span> <span class="fu">c</span>(<span class="dv">2006</span>, <span class="dv">2008</span>))</span></code></pre></div>
 <p>This will load the prepared VRS data into your environment as a
 tibble called <code>cps</code>. The first time you try to load a given
-year of data, the raw data file will be downloaded to your computer
-(defaulting to the relative path “./cps_data”). This can take some time
-depending on your internet speeds. In future instances, R will just read
-from the data files that have already been downloaded (defaulting to the
-same “cps_data” folder), as long as you correctly specify where these
-are stored. See <code>?cps_allyears_100k</code> for a description of the
-columns and fields that <code>cps_load_basic()</code> outputs.</p>
-<p>We recommend using a single <a href="https://r4ds.had.co.nz/workflow-projects.html">R project</a> for
-your CPS analysis where these files can be stored (this will work with
-the default options), or storing one set of CPS files in a steady
-location and specifying this absolute file path each time you load in
-the data. If you specify a location that does not have the correct
-files, these functions will attempt to re-download the data from NBER,
-which can take up noticeable time and storage space.</p>
-<p>We have also included a 100,000 row sample of the full VRS data,
-which comes with the package as <code>cps_allyears_100k</code>. This is
+year of data, the raw data file will be downloaded to your computer.
+This can take some time depending on your internet speeds. In future
+instances, R will just read from the data files that have already been
+downloaded, as long as they are in the same location. See
+<code>?cps_allyears_10k</code> for a description of the columns and
+fields that <code>cps_load_basic()</code> outputs.</p>
+<p><strong>Data directory:</strong> By default, CPS files are stored in
+<code>~/cps_data</code> (your home directory). You can check the current
+default with <code>cps_data_dir()</code>. To use a different location,
+pass it directly:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>cps <span class="ot">&lt;-</span> <span class="fu">cps_load_basic</span>(<span class="at">datadir =</span> <span class="st">&quot;/your/path/to/cps_data&quot;</span>)</span></code></pre></div>
+<p>To make a custom path persist across sessions without typing it each
+time, add this line to your <code>.Rprofile</code> (run
+<code>usethis::edit_r_profile()</code> to open it):</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">cpsvote.datadir =</span> <span class="st">&quot;~/my/path/to/cps_data&quot;</span>)</span></code></pre></div>
+<p>After restarting R, all <code>cpsvote</code> data-loading functions
+will use that path automatically. If you specify a location that does
+not have the correct files, these functions will attempt to re-download
+the data from NBER, which can take up noticeable time and storage
+space.</p>
+<p>We have also included a 10,000 row sample of the full VRS data, which
+comes with the package as <code>cps_allyears_10k</code>. This is
 particularly useful for planning out a given analysis before you
 download the full data sets.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;cps_allyears_100k&quot;</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>cps_allyears_100k <span class="sc">%&gt;%</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, VRS_VOTE<span class="sc">:</span>VRS_REG, VRS_VOTEMETHOD_CON, turnout_weight) <span class="sc">%&gt;%</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">10</span>)</span></code></pre></div>
-<table>
-<colgroup>
-<col width="18%" />
-<col width="5%" />
-<col width="7%" />
-<col width="14%" />
-<col width="14%" />
-<col width="22%" />
-<col width="17%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">FILE</th>
-<th align="right">YEAR</th>
-<th align="left">STATE</th>
-<th align="left">VRS_VOTE</th>
-<th align="left">VRS_REG</th>
-<th align="left">VRS_VOTEMETHOD_CON</th>
-<th align="right">turnout_weight</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">cps_nov2018.zip</td>
-<td align="right">2018</td>
-<td align="left">NJ</td>
-<td align="left">NO RESPONSE</td>
-<td align="left">NO RESPONSE</td>
-<td align="left">NA</td>
-<td align="right">3378.0841</td>
-</tr>
-<tr class="even">
-<td align="left">cps_nov1994.zip</td>
-<td align="right">1994</td>
-<td align="left">MI</td>
-<td align="left">NO</td>
-<td align="left">YES</td>
-<td align="left">NA</td>
-<td align="right">1784.3059</td>
-</tr>
-<tr class="odd">
-<td align="left">cps_nov2000.zip</td>
-<td align="right">2000</td>
-<td align="left">CT</td>
-<td align="left">NO RESPONSE</td>
-<td align="left">NO RESPONSE</td>
-<td align="left">NA</td>
-<td align="right">2444.6010</td>
-</tr>
-<tr class="even">
-<td align="left">cps_nov2014.zip</td>
-<td align="right">2014</td>
-<td align="left">VT</td>
-<td align="left">YES</td>
-<td align="left">NA</td>
-<td align="left">ELECTION DAY</td>
-<td align="right">253.6059</td>
-</tr>
-<tr class="odd">
-<td align="left">cps_nov2024.zip</td>
-<td align="right">2024</td>
-<td align="left">KS</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">2041.8559</td>
-</tr>
-<tr class="even">
-<td align="left">cps_nov2000.zip</td>
-<td align="right">2000</td>
-<td align="left">AK</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">495.0288</td>
-</tr>
-<tr class="odd">
-<td align="left">cps_nov2020.zip</td>
-<td align="right">2020</td>
-<td align="left">IA</td>
-<td align="left">YES</td>
-<td align="left">NA</td>
-<td align="left">ELECTION DAY</td>
-<td align="right">1783.2662</td>
-</tr>
-<tr class="even">
-<td align="left">cps_nov2006.zip</td>
-<td align="right">2006</td>
-<td align="left">VT</td>
-<td align="left">YES</td>
-<td align="left">NA</td>
-<td align="left">ELECTION DAY</td>
-<td align="right">261.6553</td>
-</tr>
-<tr class="odd">
-<td align="left">cps_nov2002.zip</td>
-<td align="right">2002</td>
-<td align="left">NY</td>
-<td align="left">NO</td>
-<td align="left">YES</td>
-<td align="left">NA</td>
-<td align="right">3623.6069</td>
-</tr>
-<tr class="even">
-<td align="left">cps_nov2008.zip</td>
-<td align="right">2008</td>
-<td align="left">AR</td>
-<td align="left">YES</td>
-<td align="left">NA</td>
-<td align="left">ELECTION DAY</td>
-<td align="right">1789.3102</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;cps_allyears_10k&quot;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>cps_allyears_10k <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, VRS_VOTE<span class="sc">:</span>VRS_REG, VRS_VOTEMETHOD_CON, turnout_weight) <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">10</span>)</span></code></pre></div>
 <p>The CPS has survey weights that are necessary to calculate accurate
 estimates about the US population. Two R packages that work with survey
 weighting are <a href="http://r-survey.r-forge.r-project.org/survey/"><code>survey</code></a>
@@ -527,77 +418,16 @@ and <a href="https://github.com/gergness/srvyr"><code>srvyr</code></a>
 more examples and details on weighting in <a href="voting.html"><code>vignette(&quot;voting&quot;)</code></a>, but here is one
 example of using <code>srvyr</code> to calculate state-level voter
 turnout among eligible voters in 2020.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>cps20_weighted <span class="ot">&lt;-</span> <span class="fu">cps_load_basic</span>(<span class="at">years =</span> <span class="dv">2020</span>, <span class="at">datadir =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&#39;cps_data&#39;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="fu">as_survey_design</span>(<span class="at">weights =</span> turnout_weight)</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>turnout20 <span class="ot">&lt;-</span> cps20_weighted <span class="sc">%&gt;%</span></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>  <span class="fu">group_by</span>(STATE) <span class="sc">%&gt;%</span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">turnout =</span> <span class="fu">survey_mean</span>(hurachen_turnout <span class="sc">==</span> <span class="st">&quot;YES&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="fu">head</span>(turnout20, <span class="dv">10</span>)</span></code></pre></div>
-<table>
-<thead>
-<tr class="header">
-<th align="left">STATE</th>
-<th align="right">turnout</th>
-<th align="right">turnout_se</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">AL</td>
-<td align="right">0.4827207</td>
-<td align="right">0.0123850</td>
-</tr>
-<tr class="even">
-<td align="left">AK</td>
-<td align="right">0.5670961</td>
-<td align="right">0.0178198</td>
-</tr>
-<tr class="odd">
-<td align="left">AZ</td>
-<td align="right">0.5997274</td>
-<td align="right">0.0154234</td>
-</tr>
-<tr class="even">
-<td align="left">AR</td>
-<td align="right">0.4270782</td>
-<td align="right">0.0131359</td>
-</tr>
-<tr class="odd">
-<td align="left">CA</td>
-<td align="right">0.5554578</td>
-<td align="right">0.0066525</td>
-</tr>
-<tr class="even">
-<td align="left">CO</td>
-<td align="right">0.5998372</td>
-<td align="right">0.0173296</td>
-</tr>
-<tr class="odd">
-<td align="left">CT</td>
-<td align="right">0.5806014</td>
-<td align="right">0.0191721</td>
-</tr>
-<tr class="even">
-<td align="left">DE</td>
-<td align="right">0.5926931</td>
-<td align="right">0.0174831</td>
-</tr>
-<tr class="odd">
-<td align="left">DC</td>
-<td align="right">0.5937632</td>
-<td align="right">0.0234803</td>
-</tr>
-<tr class="even">
-<td align="left">FL</td>
-<td align="right">0.5534077</td>
-<td align="right">0.0085969</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>cps20_weighted <span class="ot">&lt;-</span> <span class="fu">cps_load_basic</span>(<span class="at">years =</span> <span class="dv">2020</span>, <span class="at">datadir =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&#39;cps_data&#39;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="fu">as_survey_design</span>(<span class="at">weights =</span> turnout_weight)</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>turnout20 <span class="ot">&lt;-</span> cps20_weighted <span class="sc">%&gt;%</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="fu">group_by</span>(STATE) <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">turnout =</span> <span class="fu">survey_mean</span>(hurachen_turnout <span class="sc">==</span> <span class="st">&quot;YES&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="fu">head</span>(turnout20, <span class="dv">10</span>)</span></code></pre></div>
 <p>These estimates follow closely Dr. Michael McDonald’s <a href="http://www.electproject.org/2020g">estimates of turnout</a> among
 eligible voters in the November 2020 General Election. For a detailed
 examination of how non-response bias has affected the use of CPS for
@@ -621,26 +451,26 @@ text-based), so they are not easy to search through.</p>
 <p><code>cps_load_basic()</code> is a wrapper for several constituent
 steps that have their own parameters and assumptions. We’ve detailed the
 changes made to get from the raw data file to the cleaned file in <a href="add-variables.html"><code>vignette(&quot;add-variables&quot;)</code></a>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">cps_download_data</span>(<span class="at">path =</span> <span class="st">&quot;cps_data&quot;</span>,</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>                  <span class="at">years =</span> <span class="fu">seq</span>(<span class="dv">1994</span>, <span class="dv">2024</span>, <span class="dv">2</span>))</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">cps_download_docs</span>(<span class="at">path =</span> <span class="st">&quot;cps_data&quot;</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>                  <span class="at">years =</span> <span class="fu">seq</span>(<span class="dv">1994</span>, <span class="dv">2024</span>, <span class="dv">2</span>))</span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="fu">cps_read</span>(<span class="at">years =</span> <span class="fu">seq</span>(<span class="dv">1994</span>, <span class="dv">2024</span>, <span class="dv">2</span>),</span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>         <span class="at">dir =</span> <span class="st">&quot;cps_data&quot;</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>         <span class="at">cols =</span> cpsvote<span class="sc">::</span>cps_cols,</span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>         <span class="at">names_col =</span> <span class="st">&quot;new_name&quot;</span>,</span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>         <span class="at">join_dfs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>    <span class="fu">cps_label</span>(<span class="at">factors =</span> cpsvote<span class="sc">::</span>cps_factors,</span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>              <span class="at">names_col =</span> <span class="st">&quot;new_name&quot;</span>,</span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>              <span class="at">na_vals =</span> <span class="fu">c</span>(<span class="st">&quot;-1&quot;</span>, <span class="st">&quot;BLANK&quot;</span>, <span class="st">&quot;NOT IN UNIVERSE&quot;</span>),</span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>              <span class="at">expand_year =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>              <span class="at">rescale_weight =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>              <span class="at">toupper =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>    <span class="fu">cps_refactor</span>(<span class="at">move_levels =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>    <span class="fu">cps_recode_vote</span>(<span class="at">vote_col =</span> <span class="st">&quot;VRS_VOTE&quot;</span>,</span>
-<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>                    <span class="at">items =</span> <span class="fu">c</span>(<span class="st">&quot;DON&#39;T KNOW&quot;</span>, <span class="st">&quot;REFUSED&quot;</span>, <span class="st">&quot;NO RESPONSE&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>    <span class="fu">cps_reweight_turnout</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">cps_download_data</span>(<span class="at">path =</span> <span class="st">&quot;cps_data&quot;</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>                  <span class="at">years =</span> <span class="fu">seq</span>(<span class="dv">1994</span>, <span class="dv">2024</span>, <span class="dv">2</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="fu">cps_download_docs</span>(<span class="at">path =</span> <span class="st">&quot;cps_data&quot;</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>                  <span class="at">years =</span> <span class="fu">seq</span>(<span class="dv">1994</span>, <span class="dv">2024</span>, <span class="dv">2</span>))</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="fu">cps_read</span>(<span class="at">years =</span> <span class="fu">seq</span>(<span class="dv">1994</span>, <span class="dv">2024</span>, <span class="dv">2</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>         <span class="at">dir =</span> <span class="st">&quot;cps_data&quot;</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>         <span class="at">cols =</span> cpsvote<span class="sc">::</span>cps_cols,</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>         <span class="at">names_col =</span> <span class="st">&quot;new_name&quot;</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>         <span class="at">join_dfs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>    <span class="fu">cps_label</span>(<span class="at">factors =</span> cpsvote<span class="sc">::</span>cps_factors,</span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>              <span class="at">names_col =</span> <span class="st">&quot;new_name&quot;</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>              <span class="at">na_vals =</span> <span class="fu">c</span>(<span class="st">&quot;-1&quot;</span>, <span class="st">&quot;BLANK&quot;</span>, <span class="st">&quot;NOT IN UNIVERSE&quot;</span>),</span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>              <span class="at">expand_year =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>              <span class="at">rescale_weight =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>              <span class="at">toupper =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a>    <span class="fu">cps_refactor</span>(<span class="at">move_levels =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a>    <span class="fu">cps_recode_vote</span>(<span class="at">vote_col =</span> <span class="st">&quot;VRS_VOTE&quot;</span>,</span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a>                    <span class="at">items =</span> <span class="fu">c</span>(<span class="st">&quot;DON&#39;T KNOW&quot;</span>, <span class="st">&quot;REFUSED&quot;</span>, <span class="st">&quot;NO RESPONSE&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a>    <span class="fu">cps_reweight_turnout</span>()</span></code></pre></div>
 <ul>
 <li><code>cps_download_data()</code> will download the data files from
 NBER according to <code>years</code> into the folder at
@@ -721,9 +551,9 @@ details.</li>
 <p>You can use different combinations of these functions to customize
 which CPS data is read in. For example, this code would load the 2014
 VRS data with the original column names and numeric data.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>cps14 <span class="ot">&lt;-</span> <span class="fu">cps_read</span>(<span class="dv">2014</span>, <span class="at">names_col =</span> <span class="st">&quot;cps_name&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>cps14 <span class="ot">&lt;-</span> <span class="fu">cps_read</span>(<span class="dv">2014</span>, <span class="at">names_col =</span> <span class="st">&quot;cps_name&quot;</span>)</span></code></pre></div>
 <p>You can then apply factor labels to this data.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>cps14_lab <span class="ot">&lt;-</span> <span class="fu">cps_label</span>(cps14, <span class="at">names_col =</span> <span class="st">&quot;cps_name&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>cps14_lab <span class="ot">&lt;-</span> <span class="fu">cps_label</span>(cps14, <span class="at">names_col =</span> <span class="st">&quot;cps_name&quot;</span>)</span></code></pre></div>
 <p>Note that some features (like <code>cps_refactor()</code>) won’t work
 on certain customized versions of the data, because they are relatively
 hard-coded based on specific column names. For example, correcting
@@ -751,7 +581,7 @@ in the Current Population Survey</em>. Public Opinion Quarterly, Volume
 77, Issue 4, Winter 2013, Pages 985–993. <a href="https://doi.org/10.1093/poq/nft042" class="uri">https://doi.org/10.1093/poq/nft042</a></li>
 <li>Michael McDonald. <em>What’s Wrong with the CPS?</em> Presented at
 the 2014 American Political Science Association Conference, Washington,
-D.C., August 27-31. <a href="https://www.electproject.org/election-data/cps-vote-over-report-and-non-response-bias-correction" class="uri">https://www.electproject.org/election-data/cps-vote-over-report-and-non-response-bias-correction</a></li>
+D.C., August 27-31. <a href="http://www.electproject.org/home/voter-turnout/cps-methodology" class="uri">http://www.electproject.org/home/voter-turnout/cps-methodology</a></li>
 <li>The <a href="https://www.census.gov/programs-surveys/cps.html">Current
 Population Survey</a> is conducted monthly by the U.S. Census Bureau and
 the Bureau of Labor Statistics, and the Voting and Registration
@@ -763,9 +593,10 @@ Research</a>.</li>
 </div>
 <div id="acknowledgements" class="section level2">
 <h2>Acknowledgements</h2>
-<p>The <code>cpsvote</code> package was originally created at the <a href="https://evic.reed.edu/">Elections &amp; Voting Information Center
-at Reed College</a>, now colocated at <a href="http://electionsandvoting.org">Center for Public Service at
-Portland State University</a>.</p>
+<p>The <code>cpsvote</code> package was originally created at the <a href="https://evic.reed.edu/">Early Voting Information Center at Reed
+College</a>. We are indebted to support from the <a href="https://democracyfund.org/">Elections Team at the Democracy
+Fund</a> and <a href="https://www.reed.edu/">Reed College</a> for
+supporting the work of EVIC.</p>
 </div>
 
 
