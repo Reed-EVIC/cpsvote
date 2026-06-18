@@ -28,7 +28,7 @@ library(cpsvote)
 library(cpsvote)
 ```
 
-```{r packages, message = FALSE, warning = FALSE}
+```{r packages, message = FALSE, warning = FALSE, eval = !nzchar(Sys.getenv("GITHUB_ACTIONS"))}
 library(tidyverse)
 library(here)
 library(dplyr)
@@ -88,7 +88,7 @@ The animation works by interpolating smoothly between each election year using t
 
 Note: this chunk takes approximately 5 minutes to run.
 
-```{r animate, results = 'hide'}
+```{r animate, results = 'hide', eval = !nzchar(Sys.getenv("GITHUB_ACTIONS"))}
 tweened_data <- filter(vote_mode, YEAR == 1996) %>%
   keep_state(10) %>%
   tween_state(filter(vote_mode, YEAR == 1998), 'linear', id = STATE, nframes = 10) %>%
