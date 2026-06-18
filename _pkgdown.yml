@@ -1,4 +1,6 @@
 url: https://reed-evic.github.io/cpsvote/
+name: Install extra packages
+  run: Rscript -e 'install.packages("tweenr")'
 build:
   vignettes: false
 template:
