@@ -34,7 +34,7 @@ library(here)
 library(dplyr)
 library(srvyr)
 #library(tweenr)
-library(ggtern)
+#library(ggtern)
 library(rlang)
 #library(magick)
 ```
@@ -42,6 +42,7 @@ library(rlang)
 ```{r packages2, eval=!nzchar(Sys.getenv("GITHUB_ACTIONS"))}
 library(tweenr)
 library(magick)
+library(ggtern)
  
 # This is done to allow website creation on GitHub without requiring a 
 # tweener install
