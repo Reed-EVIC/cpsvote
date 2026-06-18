@@ -1,10 +1,10 @@
 ---
-title: "The Move Away From Election Day Voting in America"
+title: "The Move Away From Election Day Voting in America: The Snowglobe Plot"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{snowglobe}
   %\VignetteEncoding{UTF-8}
   \usepackage[utf8]{inputenc}
+  %\VignetteIndexEntry{The Move Away From Election Day Voting in America: The Snowglobe Plot}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options:
   chunk_output_type: console
@@ -33,19 +33,10 @@ library(tidyverse)
 library(here)
 library(dplyr)
 library(srvyr)
-#library(tweenr)
-#library(ggtern)
-library(rlang)
-#library(magick)
-```
-
-```{r packages2, eval=!nzchar(Sys.getenv("GITHUB_ACTIONS"))}
 library(tweenr)
-library(magick)
 library(ggtern)
- 
-# This is done to allow website creation on GitHub without requiring a 
-# tweener install
+library(rlang)
+library(magick)
 ```
 
 In 1996, the first year the Current Population Survey asked about voting method, 89% of Americans cast their ballot in person on Election Day. By 2020, that figure had fallen to 31% — a drop of nearly 60 percentage points in a quarter century. Early in-person voting and voting by mail have filled the gap, with distinct regional patterns driving the change.
@@ -183,13 +174,13 @@ png_files %>%
   purrr::map(image_read) %>%
   image_join() %>%
   image_animate(fps = 10) %>%
-  image_write(here('vignettes', 'snowglobe.gif'))
+  image_write(here('vignettes', 'articles', 'snowglobe.gif'))
 
-system(paste0('magick ', here('vignettes', 'snowglobe.gif'),
+system(paste0('magick ', here('vignettes', 'articles', 'snowglobe.gif'),
               ' -coalesce -layers OptimizeFrame ',
-              here('vignettes', 'snowglobe.gif')))
+              here('vignettes', 'articles', 'snowglobe.gif')))
 
-file.copy(here('vignettes', 'snowglobe.gif'),
+file.copy(here('vignettes', 'articles', 'snowglobe.gif'),
           here('img', 'snowglobe.gif'),
           overwrite = TRUE)
 ```
