@@ -13,12 +13,13 @@ editor_options:
 ```{r, include = FALSE, echo = FALSE}
 options(rmarkdown.html_vignette.check_title = FALSE)
 NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+ON_GITHUB <- nzchar(Sys.getenv("GITHUB_ACTIONS"))
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   message = FALSE, warning = FALSE,
   purl = NOT_CRAN,
-  eval = NOT_CRAN
+  eval = NOT_CRAN && !ON_GITHUB
 )
 library(knitr)
 library(cpsvote)
@@ -28,7 +29,7 @@ library(cpsvote)
 library(cpsvote)
 ```
 
-```{r packages, message = FALSE, warning = FALSE, eval = !nzchar(Sys.getenv("GITHUB_ACTIONS"))}
+```{r packages, message = FALSE, warning = FALSE}
 library(tidyverse)
 library(here)
 library(dplyr)
@@ -88,7 +89,7 @@ The animation works by interpolating smoothly between each election year using t
 
 Note: this chunk takes approximately 5 minutes to run.
 
-```{r animate, results = 'hide', eval = !nzchar(Sys.getenv("GITHUB_ACTIONS"))}
+```{r animate, results = 'hide'}
 tweened_data <- filter(vote_mode, YEAR == 1996) %>%
   keep_state(10) %>%
   tween_state(filter(vote_mode, YEAR == 1998), 'linear', id = STATE, nframes = 10) %>%
