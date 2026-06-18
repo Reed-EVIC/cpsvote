@@ -33,10 +33,18 @@ library(tidyverse)
 library(here)
 library(dplyr)
 library(srvyr)
-library(tweenr)
+#library(tweenr)
 library(ggtern)
 library(rlang)
+#library(magick)
+
+```
+
+```{r packages, eval=!nzchar(Sys.getenv("GITHUB_ACTIONS"))}
+library(tweenr)
 library(magick)
+# This is done to allow website creation on GitHub without requiring a 
+# tweener install
 ```
 
 In 1996, the first year the Current Population Survey asked about voting method, 89% of Americans cast their ballot in person on Election Day. By 2020, that figure had fallen to 31% — a drop of nearly 60 percentage points in a quarter century. Early in-person voting and voting by mail have filled the gap, with distinct regional patterns driving the change.
@@ -88,7 +96,7 @@ The animation works by interpolating smoothly between each election year using t
 
 Note: this chunk takes approximately 5 minutes to run.
 
-```{r animate, results = 'hide'}
+```{r animate, results = 'hide', eval=!nzchar(Sys.getenv("GITHUB_ACTIONS"))}
 tweened_data <- filter(vote_mode, YEAR == 1996) %>%
   keep_state(10) %>%
   tween_state(filter(vote_mode, YEAR == 1998), 'linear', id = STATE, nframes = 10) %>%
