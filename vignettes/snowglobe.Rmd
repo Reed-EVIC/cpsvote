@@ -39,7 +39,7 @@ library(rlang)
 #library(magick)
 ```
 
-```{r packages, eval=!nzchar(Sys.getenv("GITHUB_ACTIONS"))}
+```{r packages2, eval=!nzchar(Sys.getenv("GITHUB_ACTIONS"))}
 library(tweenr)
 library(magick)
  

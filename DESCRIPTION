@@ -40,7 +40,8 @@ Suggests:
     scales,
     ggplot2,
     usmap,
-    ggthemes
+    ggthemes,
+    tweenr
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
