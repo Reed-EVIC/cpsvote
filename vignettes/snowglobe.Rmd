@@ -33,10 +33,18 @@ library(tidyverse)
 library(here)
 library(dplyr)
 library(srvyr)
-library(tweenr)
+#library(tweenr)
 library(ggtern)
 library(rlang)
+#library(magick)
+```
+
+```{r packages, eval=!nzchar(Sys.getenv("GITHUB_ACTIONS"))}
+library(tweenr)
 library(magick)
+ 
+# This is done to allow website creation on GitHub without requiring a 
+# tweener install
 ```
 
 In 1996, the first year the Current Population Survey asked about voting method, 89% of Americans cast their ballot in person on Election Day. By 2020, that figure had fallen to 31% — a drop of nearly 60 percentage points in a quarter century. Early in-person voting and voting by mail have filled the gap, with distinct regional patterns driving the change.
