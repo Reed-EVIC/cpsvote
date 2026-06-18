@@ -43,6 +43,7 @@ library(rlang)
 ```{r packages, eval=!nzchar(Sys.getenv("GITHUB_ACTIONS"))}
 library(tweenr)
 library(magick)
+ 
 # This is done to allow website creation on GitHub without requiring a 
 # tweener install
 ```
