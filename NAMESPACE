@@ -2,6 +2,7 @@
 
 export("%>%")
 export(cps_data_dir)
+export(cps_docs_dir)
 export(cps_download_data)
 export(cps_download_docs)
 export(cps_label)

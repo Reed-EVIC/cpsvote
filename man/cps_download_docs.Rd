@@ -5,13 +5,15 @@
 \title{Download CPS technical documentation}
 \usage{
 cps_download_docs(
-  path = "cps_docs",
+  path = cps_docs_dir(),
   years = seq(1994, 2024, 2),
   overwrite = FALSE
 )
 }
 \arguments{
-\item{path}{A file path (relative or absolute) where the downloads should go.}
+\item{path}{A file path (relative or absolute) where the downloads should go.
+Defaults to \code{\link[=cps_docs_dir]{cps_docs_dir()}}, which returns \verb{~/cps_docs} unless overridden
+via \code{options(cpsvote.docsdir = "your/path")}.}
 
 \item{years}{Which years of documentation to download. Defaults to all
 even-numbered years from 1994 to 2024.}
@@ -34,7 +36,7 @@ entry in \code{years} before 1994 will be skipped.
 }
 \examples{
 \dontrun{
-cps_download_docs(path = "cps_docs", years = 2016, overwrite = TRUE)
+cps_download_docs(years = 2016, overwrite = TRUE)
 }
 
 }

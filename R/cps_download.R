@@ -1,24 +1,26 @@
 #' Download CPS technical documentation
 #' 
 #' @param path A file path (relative or absolute) where the downloads should go.
-#' @param years Which years of documentation to download. Defaults to all 
+#' Defaults to [cps_docs_dir()], which returns `~/cps_docs` unless overridden
+#' via `options(cpsvote.docsdir = "your/path")`.
+#' @param years Which years of documentation to download. Defaults to all
 #' even-numbered years from 1994 to 2024.
-#' @param overwrite Logical, whether to write over existing files or not. 
+#' @param overwrite Logical, whether to write over existing files or not.
 #' Defaults to FALSE.
-#' @details 
-#' * File names will be written in the style "cps_nov2024.pdf", with the 
+#' @details
+#' * File names will be written in the style "cps_nov2024.pdf", with the
 #' appropriate years.
-#' * The Voting and Registration Supplement is only conducted in even-numbered 
+#' * The Voting and Registration Supplement is only conducted in even-numbered
 #' years (since 1964), so any entry in `years` outside of this will be skipped.
-#' * Currently the package only supports downloads from 1994 onwards, so any 
+#' * Currently the package only supports downloads from 1994 onwards, so any
 #' entry in `years` before 1994 will be skipped.
 #' @examples
 #' \dontrun{
-#' cps_download_docs(path = "cps_docs", years = 2016, overwrite = TRUE)
+#' cps_download_docs(years = 2016, overwrite = TRUE)
 #' }
-#' 
+#'
 #' @export
-cps_download_docs <- function(path = "cps_docs", 
+cps_download_docs <- function(path = cps_docs_dir(),
                           years = seq(1994, 2024, 2),
                           overwrite = FALSE) {
   
@@ -132,7 +134,7 @@ cps_download_docs <- function(path = "cps_docs",
 #' entry in `years` before 1994 will be skipped.
 #' @examples
 #' \dontrun{
-#' cps_download_data(path = "cps_docs", years = 2016, overwrite = TRUE)
+#' cps_download_data(years = 2016, overwrite = TRUE)
 #' }
 #'
 #' @export

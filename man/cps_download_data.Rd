@@ -36,7 +36,7 @@ entry in \code{years} before 1994 will be skipped.
 }
 \examples{
 \dontrun{
-cps_download_data(path = "cps_docs", years = 2016, overwrite = TRUE)
+cps_download_data(years = 2016, overwrite = TRUE)
 }
 
 }
