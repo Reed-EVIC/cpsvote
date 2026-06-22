@@ -54,7 +54,7 @@
 #' \item{cps_turnout}{proportion of turnout indicator, calculated by CPS}
 #' \item{reweight}{the factor by which to scale original CPS weights}
 #' }
-#' @source Turnout data from \url{http://www.electproject.org/home/voter-turnout/voter-turnout-data}
+#' @source Turnout data from \url{https://www.electproject.org/home/voter-turnout/voter-turnout-data}
 "cps_reweight"
 
 #' A sample of the full CPS dataset

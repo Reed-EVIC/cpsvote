@@ -17,7 +17,7 @@ Statistics. This high-quality, large-sample survey has been conducted
 after every federal election (in November of even years) since 1964,
 surveying Americans about their voting practices and registration. The
 raw data, archived by the [National Bureau of Economic
-Research](http://data.nber.org/data/current-population-survey-data.html),
+Research](https://www.nber.org/research/data/current-population-survey-cps-supplements-voting-and-registration),
 is spread across several fixed-width files with different question
 locations and formats.
 
@@ -150,7 +150,7 @@ head(turnout20, 10)
 | FL    | 0.5534077 |  0.0085969 |
 
 These estimates follow closely Dr. Michael McDonald’s [estimates of
-turnout](http://www.electproject.org/2020g) among eligible voters in the
+turnout](https://www.electproject.org/2020g) among eligible voters in the
 November 2020 General Election. For a detailed examination of how
 non-response bias has affected the use of CPS for estimating turnout,
 see `vignette("voting")`. We thank the U.S. Elections Project at the
@@ -306,15 +306,15 @@ based on your own column names.
 - Michael McDonald. *What’s Wrong with the CPS?* Presented at the 2014
   American Political Science Association Conference, Washington, D.C.,
   August 27-31.
-  <http://www.electproject.org/home/voter-turnout/cps-methodology>
+  <https://www.electproject.org/home/voter-turnout/cps-methodology>
 - The [Current Population
   Survey](https://www.census.gov/programs-surveys/cps.html) is conducted
   monthly by the U.S. Census Bureau and the Bureau of Labor Statistics,
   and the Voting and Registration Supplement is administered as part of
   this survey after each federal election. The [CPS
-  data](http://data.nber.org/data/current-population-survey-data.html)
+  data](https://www.nber.org/research/data/current-population-survey-cps-supplements-voting-and-registration)
   that this package downloads is provided by the [National Bureau of
-  Economic Research](https://data.nber.org/info.html).
+  Economic Research](https://www.nber.org).
 - This is an animated ternary plot made using vote mode data from
   `cpsvote`. The code that created this in available in the “The Move
   Away From Election Day Voting in America: The Snowglobe Plot”
