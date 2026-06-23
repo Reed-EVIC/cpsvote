@@ -23,7 +23,7 @@ library(cpsvote)
 set.seed(20201012)
 ```
 
-`cpsvote` helps you work with data from the Current Population Survey's (CPS) [Voting and Registration Supplement](https://www.census.gov/topics/public-sector/voting/about.html) (VRS), published by the U.S. Census Bureau and Bureau of Labor Statistics. This high-quality, large-sample survey has been conducted after every federal election (in November of even years) since 1964, surveying Americans about their voting practices and registration. The raw data, archived by the [National Bureau of Economic Research](http://data.nber.org/data/current-population-survey-data.html), is spread across several fixed-width files with different question locations and formats.
+`cpsvote` helps you work with data from the Current Population Survey's (CPS) [Voting and Registration Supplement](https://www.census.gov/topics/public-sector/voting/about.html) (VRS), published by the U.S. Census Bureau and Bureau of Labor Statistics. This high-quality, large-sample survey has been conducted after every federal election (in November of even years) since 1964, surveying Americans about their voting practices and registration. The raw data, archived by the [National Bureau of Economic Research](https://www.nber.org/research/data/current-population-survey-cps-supplements-voting-and-registration), is spread across several fixed-width files with different question locations and formats.
 
 This package consolidates common questions and provides the data in a structure that is much easier to work with and interpret, since much of the basic factor recoding has already been done. We also calculate alternative sample weights based on demonstrated changes in non-response bias over the decades, recommended by several elections researchers as a best practice. Documentation of this reweighting is provided in [`vignette("voting")`](voting.html).
 
@@ -60,9 +60,21 @@ cps <- cps_load_basic()
 cps <- cps_load_basic(years = c(2006, 2008))
 ```
 
-This will load the prepared VRS data into your environment as a tibble called `cps`. The first time you try to load a given year of data, the raw data file will be downloaded to your computer (defaulting to the relative path "./cps_data"). This can take some time depending on your internet speeds. In future instances, R will just read from the data files that have already been downloaded (defaulting to the same "cps_data" folder), as long as you correctly specify where these are stored. See `?cps_allyears_100k` for a description of the columns and fields that `cps_load_basic()` outputs.
+This will load the prepared VRS data into your environment as a tibble called `cps`. The first time you try to load a given year of data, the raw data file will be downloaded to your computer. This can take some time depending on your internet speeds. In future instances, R will just read from the data files that have already been downloaded, as long as they are in the same location. See `?cps_allyears_100k` for a description of the columns and fields that `cps_load_basic()` outputs.
 
-We recommend using a single [R project](https://r4ds.had.co.nz/workflow-projects.html) for your CPS analysis where these files can be stored (this will work with the default options), or storing one set of CPS files in a steady location and specifying this absolute file path each time you load in the data. If you specify a location that does not have the correct files, these functions will attempt to re-download the data from NBER, which can take up noticeable time and storage space.
+**Data directory:** By default, CPS files are stored in `~/cps_data` (your home directory). You can check the current default with `cps_data_dir()`. To use a different location, pass it directly:
+
+```r
+cps <- cps_load_basic(datadir = "/your/path/to/cps_data")
+```
+
+To make a custom path persist across sessions without typing it each time, add this line to your `.Rprofile` (run `usethis::edit_r_profile()` to open it):
+
+```r
+options(cpsvote.datadir = "~/my/path/to/cps_data")
+```
+
+After restarting R, all `cpsvote` data-loading functions will use that path automatically. If you specify a location that does not have the correct files, these functions will attempt to re-download the data from NBER, which can take up noticeable time and storage space.
 
 We have also included a 100,000 row sample of the full VRS data, which comes with the package as `cps_allyears_100k`. This is particularly useful for planning out a given analysis before you download the full data sets.
 
@@ -115,7 +127,7 @@ head(turnout20, 10) %>%
   kable()
 ```
 
-These estimates follow closely Dr. Michael McDonald's [estimates of turnout](http://www.electproject.org/2020g) among eligible voters in the November 2020 General Election. For a detailed examination of how non-response bias has affected the use of CPS for estimating turnout, see [`vignette("voting")`](voting.html). We thank the U.S. Elections Project at the University of Florida for the turnout estimates.
+These estimates follow closely Dr. Michael McDonald's [estimates of turnout](https://www.electproject.org/2020g) among eligible voters in the November 2020 General Election. For a detailed examination of how non-response bias has affected the use of CPS for estimating turnout, see [`vignette("voting")`](voting.html). We thank the U.S. Elections Project at the University of Florida for the turnout estimates.
 
 ## Advanced Use
 
@@ -179,7 +191,7 @@ Note that some features (like `cps_refactor()`) won't work on certain customized
   + `vignette("voting")` does a deep dive into how to use the CPS and the default datasets from `cpsvote` to look at voter turnout and mode of voting
 - Aram Hur, Christopher H. Achen. _Coding Voter Turnout Responses in the Current Population Survey_. Public Opinion Quarterly, Volume 77, Issue 4, Winter 2013, Pages 985–993. https://doi.org/10.1093/poq/nft042
 - Michael McDonald. _What's Wrong with the CPS?_ Presented at the 2014 American Political Science Association Conference, Washington, D.C., August 27-31. https://www.electproject.org/election-data/cps-vote-over-report-and-non-response-bias-correction
-- The [Current Population Survey](https://www.census.gov/programs-surveys/cps.html) is conducted monthly by the U.S. Census Bureau and the Bureau of Labor Statistics, and the Voting and Registration Supplement is administered as part of this survey after each federal election. The [CPS data](http://data.nber.org/data/current-population-survey-data.html) that this package downloads is provided by the [National Bureau of Economic Research](https://www.nber.org/about-nber).
+- The [Current Population Survey](https://www.census.gov/programs-surveys/cps.html) is conducted monthly by the U.S. Census Bureau and the Bureau of Labor Statistics, and the Voting and Registration Supplement is administered as part of this survey after each federal election. The [CPS data](https://www.nber.org/research/data/current-population-survey-cps-supplements-voting-and-registration) that this package downloads is provided by the [National Bureau of Economic Research](https://www.nber.org/about-nber).
 
 ## Acknowledgements
 
