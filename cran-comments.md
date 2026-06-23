@@ -19,7 +19,7 @@ browser:
 ## Test environments
 
 * local macOS (aarch64), R 4.5.2
-* win-builder (R-devel)
+* win-builder (R-devel), 0 errors, 0 warnings, 1 note
 * GitHub Actions: macOS-latest, windows-latest, ubuntu-latest (R release + devel)
 
 ## Submission notes
