@@ -83,7 +83,7 @@ In most of the examples provided in this documentation, we use the `srvyr` comma
 
 There are two final, and related, challenges to use the CPS VRS for estimating voter turnout. Both of these adjustments need to be made in order to produce statistically valid estimates of turnout. The `cpsvote` packages provides turnout measures that incorporate the correct coding, and we document a method to adjust for biases in turnout. 
 
-First, the CPS has long used an "idiosyncratic" coding rule that has been recognized over time and was carefully documented by two scholars, Aram Hur and Christopher Achen, in a 2013 article titled ["Coding Voter Turnout Responses in the Current Population Survey"](https://academic.oup.com/poq/article/77/4/985/1843466/). 
+First, the CPS has long used an "idiosyncratic" coding rule that has been recognized over time and was carefully documented by two scholars, Aram Hur and Christopher Achen, in a 2013 article titled ["Coding Voter Turnout Responses in the Current Population Survey"](https://doi.org/10.1093/poq/nft042). 
 
 The coding rule is not at all clear from the CPS documentation, and without correct coding, any turnout estimates that are produced will not match those in official Census communications. 
 

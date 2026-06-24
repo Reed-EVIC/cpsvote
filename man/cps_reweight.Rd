@@ -16,7 +16,7 @@ A tibble with 1,428 rows and 6 columns:
 }
 }
 \source{
-Turnout data from \url{https://www.electproject.org/home/voter-turnout/voter-turnout-data}
+Turnout data from \url{https://electproject.org/election-data/voter-turnout-data}
 }
 \usage{
 cps_reweight

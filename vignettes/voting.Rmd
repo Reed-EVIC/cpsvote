@@ -66,7 +66,7 @@ Third, the CPS changed the way that it asked about _mode of voting_, using a sin
 
 The CPS has long used an "idiosyncratic" coding rule for reporting turnout, derived from the answer to question "PES1" since 1996 (in 1994, the question was labeled "PES3").  The coding rule is not clear from the CPS documentation, and without making the appropriate data transformations, any turnout estimates that are produced will not match those in official Census communications.
 
-In short, the Census chose to code three categories of nonresponse as nonvoters: "Don't Know", "Refused", and "No Response". The rule was carefully documented by two scholars, Aram Hur and Christopher Achen, in a 2013 article titled ["Coding Voter Turnout Responses in the Current Population Survey"](https://academic.oup.com/poq/article/77/4/985/1843466/). See `vignettes("background")` for more details.
+In short, the Census chose to code three categories of nonresponse as nonvoters: "Don't Know", "Refused", and "No Response". The rule was carefully documented by two scholars, Aram Hur and Christopher Achen, in a 2013 article titled ["Coding Voter Turnout Responses in the Current Population Survey"](https://doi.org/10.1093/poq/nft042). See `vignettes("background")` for more details.
 
 Because some users of the `cpsvote` package may not be able to access this article, we reproduce the critical section from Hur and Achen (2013) that describes the coding choices below:
 
