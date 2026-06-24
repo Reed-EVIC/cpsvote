@@ -23,6 +23,10 @@ library(cpsvote)
 set.seed(20201012)
 ```
 
+```{r cran-note, echo=FALSE, results='asis'}
+if (!NOT_CRAN) cat("> **Note:** Figures are not shown in this version of the vignette because building them requires downloading the full CPS microdata files. For the complete vignette with all figures, either visit the [package website](https://reed-evic.github.io/cpsvote/), or build the vignettes locally by running `Sys.setenv(NOT_CRAN = \"true\")` followed by `devtools::build_vignettes()` in your R console.\n")
+```
+
 `cpsvote` helps you work with data from the Current Population Survey's (CPS) [Voting and Registration Supplement](https://www.census.gov/topics/public-sector/voting/about.html) (VRS), published by the U.S. Census Bureau and Bureau of Labor Statistics. This high-quality, large-sample survey has been conducted after every federal election (in November of even years) since 1964, surveying Americans about their voting practices and registration. The raw data, archived by the [National Bureau of Economic Research](https://www.nber.org/research/data/current-population-survey-cps-supplements-voting-and-registration), is spread across several fixed-width files with different question locations and formats.
 
 This package consolidates common questions and provides the data in a structure that is much easier to work with and interpret, since much of the basic factor recoding has already been done. We also calculate alternative sample weights based on demonstrated changes in non-response bias over the decades, recommended by several elections researchers as a best practice. Documentation of this reweighting is provided in [`vignette("voting")`](voting.html).

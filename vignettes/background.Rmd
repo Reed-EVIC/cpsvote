@@ -22,6 +22,10 @@ knitr::opts_chunk$set(
 library(cpsvote)
 ```
 
+```{r cran-note, echo=FALSE, results='asis'}
+if (!NOT_CRAN) cat("> **Note:** Figures are not shown in this version of the vignette because building them requires downloading the full CPS microdata files. For the complete vignette with all figures, either visit the [package website](https://reed-evic.github.io/cpsvote/), or build the vignettes locally by running `Sys.setenv(NOT_CRAN = \"true\")` followed by `devtools::build_vignettes()` in your R console.\n")
+```
+
 ## Why EVIC Created `cpsvote`
 
 The United States Census Bureau has collected information about voter registration and turnout since 1964 as part of the Current Population Survey (CPS). The surveys are conducted every November during federal election years, and are generally referred to as the Voting and Registration Supplement (VRS). The official website for the CPS VRS is located at https://www.census.gov/topics/public-sector/voting.html, and the ["About Me"](https://www.census.gov/topics/public-sector/voting/about.html) page  provides more detailed information on the history of this data collection project (a 175 page document, ["Design and Methodology: Current Population Survey"](https://www2.census.gov/programs-surveys/cps/methodology/tp-66.pdf), provides a very deep dive in the history and methodology of the CPS).

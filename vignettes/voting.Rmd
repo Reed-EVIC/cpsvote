@@ -25,6 +25,10 @@ library(knitr)
 library(cpsvote)
 ```
 
+```{r cran-note, echo=FALSE, results='asis'}
+if (!NOT_CRAN) cat("> **Note:** Figures are not shown in this version of the vignette because building them requires downloading the full CPS microdata files. For the complete vignette with all figures, either visit the [package website](https://reed-evic.github.io/cpsvote/), or build the vignettes locally by running `Sys.setenv(NOT_CRAN = \"true\")` followed by `devtools::build_vignettes()` in your R console.\n")
+```
+
 ```{r eval = FALSE}
 library(cpsvote)
 ```
