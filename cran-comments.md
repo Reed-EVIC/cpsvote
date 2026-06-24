@@ -1,10 +1,14 @@
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 2 notes
 
 * NOTE: unable to verify current time
   This is a transient network issue during the check and is not a problem
   with the package.
+
+* NOTE: New maintainer
+  Paul Gronke <gronkep@reed.edu> is replacing Jay Lee <jaylee@reed.edu>
+  as maintainer. Both are affiliated with Reed College.
 
 ## URL check notes
 
