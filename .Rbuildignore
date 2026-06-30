@@ -18,6 +18,7 @@
 ^data/cps.rda$
 ^cran-comments.md$
 ^vignettes/README.md$
+^build$
 ^vignettes/articles$
 ^vignettes/snowglobe\.gif$
 ^vignettes/.*\.html$
