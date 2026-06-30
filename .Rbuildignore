@@ -18,6 +18,10 @@
 ^data/cps.rda$
 ^cran-comments.md$
 ^vignettes/README.md$
+^vignettes/articles$
+^vignettes/snowglobe\.gif$
+^vignettes/.*\.html$
+^inst/extdata$
 ^\.positai$
 ^\.claude$
 ^CC_deploymentplan.*$

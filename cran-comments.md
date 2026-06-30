@@ -1,42 +1,29 @@
 ## R CMD check results
 
-0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 1 note
 
-* NOTE: unable to verify current time
-  This is a transient network issue during the check and is not a problem
-  with the package.
-
-* NOTE: New maintainer
-  Paul Gronke <gronkep@reed.edu> is replacing Jay Lee <jaylee@reed.edu>
-  as maintainer. Both are affiliated with Reed College.
-
-## URL check notes
-
-Some URLs return 403 Forbidden when checked by urlchecker due to server-side
-access restrictions on automated requests; they are valid and accessible in a
-browser:
-
-- https://doi.org/10.1093/poq/nft042 (Hur & Achen 2013, Public Opinion Quarterly)
-- https://www.nber.org/research/data/current-population-survey-cps-supplements-voting-and-registration
-- https://academic.oup.com/poq/article/77/4/985/1843466/
+* NOTE: Days since last update: 5
+  We are submitting a patch release shortly after 0.2.0 because the
+  vignettes in that release did not render on CRAN's servers (they
+  required downloading external data files not available in the check
+  environment). This patch fixes that by switching all vignettes to use
+  the built-in sample dataset, making them self-contained. As a result,
+  the package tarball is now 2.5 MB (down from ~12 MB). We apologize
+  for the rapid resubmission.
 
 ## Test environments
 
 * local macOS (aarch64), R 4.5.2
-* win-builder (R-devel), 0 errors, 0 warnings, 1 note
+* win-builder (R-devel), 0 errors, 0 warnings, 1 note (days since last update)
 * GitHub Actions: macOS-latest, windows-latest, ubuntu-latest (R release + devel)
 
 ## Submission notes
 
-This is a resubmission. Changes since the last CRAN release (0.1.0):
+This is a patch release (0.2.1). Changes since 0.2.0:
 
-- Added CPS VRS data for 2020, 2022, and 2024
-- 2024 microdata sourced from Census Bureau (not NBER); VEP reweighting data
-  from University of Florida Election Lab
-- Added 10k-row sample datasets for 2020, 2022, and 2024 CPS VRS
-- Added turnout validation vignette comparing estimates to Census Bureau figures
-- Added cps_data_dir() and cps_docs_dir() helpers for user-configurable
-  download directories (overridable via options() in .Rprofile)
-- Updated maintainer from Jay Lee to Paul Gronke (gronkep@reed.edu)
-- Changed PDF download method for Windows compatibility
-- Replaced Travis CI with GitHub Actions
+- All vignettes now use the built-in cps_allyears_100k sample dataset and
+  render without requiring a full CPS data download. This allows vignettes
+  to build on CRAN's servers directly and removes the need for pre-built
+  vignette output in inst/doc/.
+- Reduced oversized plot title fonts in two vignettes that were causing
+  titles to be clipped in rendered HTML output.

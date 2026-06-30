@@ -12,26 +12,21 @@ editor_options:
 
 ```{r, include = FALSE, echo = FALSE}
 options(rmarkdown.html_vignette.check_title = FALSE)
-NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>", 
+  comment = "#>",
   message = FALSE, warning = FALSE,
-  fig.width = 6, fig.height = 3,
-  purl = NOT_CRAN,
-  eval = NOT_CRAN
+  fig.width = 6, fig.height = 3
 )
 library(knitr)
 library(cpsvote)
 ```
 
-```{r cran-note, echo=FALSE, results='asis'}
-if (!NOT_CRAN) cat("> **Note:** Figures are not shown in this version of the vignette because building them requires downloading the full CPS microdata files. For the complete vignette with all figures, either visit the [package website](https://reed-evic.github.io/cpsvote/), or build the vignettes locally by running `Sys.setenv(NOT_CRAN = \"true\")` followed by `devtools::build_vignettes()` in your R console.\n")
-```
-
 ```{r eval = FALSE}
 library(cpsvote)
 ```
+
+> **Note:** The examples in this vignette use the built-in `cps_allyears_100k` sample dataset (100,000 rows across all years). Estimates may differ slightly from analyses using the full CPS dataset. To work with the full data, use `cps_load_basic()`.
 
 One of the most striking trends in American elections over the past three decades is the steady decline in in-person election day voting in federal elections. In 1996, the first year that the Current Population Survey asked about voting method, 89% of Americans were voting at physical polling locations on election day. By 2018, that figure had declined to 60%, a drop of nearly 30 percentage points. In 2020, the COVID-19 pandemic and the voting reforms that took place as a result led to by far the lowest rate of in-person election day voting in American history, 31%.
 
@@ -43,9 +38,9 @@ library(ggplot2)
 library(ggthemes)
 library(scales)
 library(dplyr)
-library(here)
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, results='asis')
-cps <- cps_load_basic(datadir = here::here('cps_data'))
+data("cps_allyears_100k")
+cps <- cps_allyears_100k
 
 cps <- cps %>% 
   mutate(
@@ -109,7 +104,7 @@ cps_2020_10k %>%
   labs(title = "Election day voting in the United States, 2020",
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        fill = "Mode of Voting") +
-  theme(plot.title = element_text(size = 16, family = "serif", face = "bold.italic", colour = "red"),
+  theme(plot.title = element_text(size = 12, family = "serif", face = "bold.italic", colour = "red"),
         plot.subtitle = element_text(size = 10, family = "serif"),
         legend.position = "right",
         legend.background = element_rect(),

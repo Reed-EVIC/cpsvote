@@ -9,20 +9,13 @@ vignette: >
 
 ```{r, include = FALSE}
 options(rmarkdown.html_vignette.check_title = FALSE)
-NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  purl = NOT_CRAN,
-  eval = NOT_CRAN
+  comment = "#>"
 )
 library(knitr)
 library(cpsvote)
 library(dplyr)
-```
-
-```{r cran-note, echo=FALSE, results='asis'}
-if (!NOT_CRAN) cat("> **Note:** Figures are not shown in this version of the vignette because building them requires downloading the full CPS microdata files. For the complete vignette with all figures, either visit the [package website](https://reed-evic.github.io/cpsvote/), or build the vignettes locally by running `Sys.setenv(NOT_CRAN = \"true\")` followed by `devtools::build_vignettes()` in your R console.\n")
 ```
 
 ```{r setup, message=FALSE, eval = FALSE}
@@ -97,7 +90,7 @@ my_factors <- bind_rows(cps_factors, income_factors)
 
 Then we can read in the CPS data with our new column specifications and factor it according to the updated factors.
 
-```{r message=F}
+```{r message=F, eval = FALSE}
 cps_income <- cps_read(years = c(2006, 2008),
                        dir = here::here("cps_data"),
                        cols = my_cols) %>%
@@ -114,7 +107,7 @@ This is an unweighted breakdown of family income responses in 2006 and 2008.
 table(cps_income$FAM_INCOME, cps_income$YEAR)
 ```
 
-```{r echo = FALSE}
+```{r echo = FALSE, eval = FALSE}
 table(cps_income$FAM_INCOME, cps_income$YEAR) %>%
   kable()
 ```

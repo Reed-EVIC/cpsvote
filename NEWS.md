@@ -1,3 +1,9 @@
+# cpsvote 0.2.1
+
+- Vignettes now render on GitHub without requiring a full CPS data download
+- All vignettes (except snowglobe) use the built-in `cps_allyears_100k` sample dataset
+- Removes `NOT_CRAN` environment variable gating from vignettes
+
 # cpsvote 0.2
 
 - Include new 2020, 2022, and 2024 CPS VRS data

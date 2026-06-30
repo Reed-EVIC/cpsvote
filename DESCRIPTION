@@ -1,6 +1,6 @@
 Package: cpsvote
 Title: A Toolbox for Using the CPS’s Voting and Registration Supplement
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: 
     c(person(given = "Jay",
            family = "Lee",
@@ -44,7 +44,7 @@ Suggests:
     tweenr
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
+RoxygenNote: 8.0.0
 Imports: 
     magrittr,
     readr,

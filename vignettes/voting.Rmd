@@ -12,21 +12,14 @@ editor_options:
 
 ```{r, include = FALSE, echo = FALSE}
 options(rmarkdown.html_vignette.check_title = FALSE)
-NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>", 
+  comment = "#>",
   message = FALSE, warning = FALSE,
-  fig.width = 6, fig.height = 3,
-  purl = NOT_CRAN,
-  eval = NOT_CRAN
+  fig.width = 6, fig.height = 3
 )
 library(knitr)
 library(cpsvote)
-```
-
-```{r cran-note, echo=FALSE, results='asis'}
-if (!NOT_CRAN) cat("> **Note:** Figures are not shown in this version of the vignette because building them requires downloading the full CPS microdata files. For the complete vignette with all figures, either visit the [package website](https://reed-evic.github.io/cpsvote/), or build the vignettes locally by running `Sys.setenv(NOT_CRAN = \"true\")` followed by `devtools::build_vignettes()` in your R console.\n")
 ```
 
 ```{r eval = FALSE}
@@ -36,9 +29,10 @@ library(cpsvote)
 ```{r packages, message = FALSE, warning = FALSE}
 library(dplyr)
 library(ggplot2)
-library(here)
 library(usmap)
 ```
+
+> **Note:** The examples in this vignette use the built-in `cps_allyears_100k` sample dataset (100,000 rows across all years). Estimates may differ slightly from analyses using the full CPS dataset. To work with the full data, use `cps_load_basic()`.
 
 The Current Population Survey's Voting and Registration Supplement (CPS VRS), collected in November of every federal election year since 1964, is an important source to understand many aspects of the American elections system. Because of its relative stability over time, large sample sizes, and quality of administration, the CPS is a uniquely valuable data resource to estimate voter turnout in the United States, in individual states and regions, and among key demographic groups. The CPS is one of the primary ways we understand voter registration, voter turnout, and use of different modes of voting (Election Day, Early In-Person, By Mail) in the United States since 1996.
 
@@ -101,7 +95,8 @@ library(cpsvote)
 library(srvyr)
 library(dplyr)
 
-cps20 <- cps_load_basic(years = 2020, datadir = here::here('cps_data'))
+data("cps_allyears_100k")
+cps20 <- cps_allyears_100k %>% filter(YEAR == 2020)
 
 # unweighted, using the census turnout coding
 cps20_unweighted <- cps20 %>%
@@ -201,7 +196,7 @@ The use of early in-person voting and voting by mail has grown enormously in the
 
 
 ```{r earlyvoting_data_load, include = TRUE}
-cps_region <- cps_load_basic(datadir = here::here('cps_data')) %>%
+cps_region <- cps_allyears_100k %>%
   # since this is only among voters, either weight can be used equivalently
   as_survey_design(weights = turnout_weight) %>%
   mutate(census_region = case_when(
@@ -239,7 +234,7 @@ cps_region %>%
        y = "",
        x = "") +
   theme_minimal() +
-  theme(plot.title = element_text(size = 20, family = "serif",
+  theme(plot.title = element_text(size = 12, family = "serif",
                                   face = "bold.italic", colour = "red"),
         legend.background = element_rect(),
         legend.title = element_text(size = 8, face = "bold"),
@@ -265,7 +260,7 @@ cps_region %>%
   labs(title = "Regional Use of Vote At Home, 1996 - 2024",
        subtitle = "Source: Current Population Survey, Voting and Registration Supplement",
        color = "Region") +
-  theme(plot.title = element_text(size = 20, family = "serif",
+  theme(plot.title = element_text(size = 12, family = "serif",
                                   face = "bold.italic", colour = "red"),
         legend.background = element_rect(),
         legend.title = element_text(size = 8, face = "bold"),

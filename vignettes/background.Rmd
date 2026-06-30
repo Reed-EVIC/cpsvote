@@ -9,21 +9,14 @@ vignette: >
 
 ```{r, include = FALSE}
 options(rmarkdown.html_vignette.check_title = FALSE)
-NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  warning = FALSE, 
-  message = FALSE,
-  purl = NOT_CRAN,
-  eval = NOT_CRAN
+  warning = FALSE,
+  message = FALSE
 )
 
 library(cpsvote)
-```
-
-```{r cran-note, echo=FALSE, results='asis'}
-if (!NOT_CRAN) cat("> **Note:** Figures are not shown in this version of the vignette because building them requires downloading the full CPS microdata files. For the complete vignette with all figures, either visit the [package website](https://reed-evic.github.io/cpsvote/), or build the vignettes locally by running `Sys.setenv(NOT_CRAN = \"true\")` followed by `devtools::build_vignettes()` in your R console.\n")
 ```
 
 ## Why EVIC Created `cpsvote`
@@ -142,7 +135,8 @@ The example below uses 2020 data to illustrate how the three estimation approach
 library(cpsvote)
 library(srvyr)
 
-cps20 <- cps_load_basic(years = 2020, datadir = here::here('cps_data'))
+data("cps_allyears_100k")
+cps20 <- cps_allyears_100k %>% dplyr::filter(YEAR == 2020)
 
 # unweighted, using the census turnout coding
 cps20_unweighted <- cps20 %>%
