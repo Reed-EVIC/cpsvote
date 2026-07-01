@@ -7,12 +7,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>A Toolbox for Using the CPS’s Voting and Registration Supplement • cpsvote</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="A Toolbox for Using the CPS’s Voting and Registration Supplement">
-<meta name="description" content="Provides automated methods for downloading, recoding, and merging selected years of the Current Population Survey's Voting and Registration Supplement &lt;https://www.nber.org/research/data/current-population-survey-cps-supplements-voting-and-registration&gt;, a large N national survey about registration, voting, and non-voting in United States federal elections. Provides documentation for appropriate use of sample weights to generate statistical estimates, drawing from Hur &amp; Achen (2013) &lt;doi:10.1093/poq/nft042&gt; and McDonald (2018) &lt;http://www.electproject.org/home/voter-turnout/voter-turnout-data&gt;.">
-<meta property="og:description" content="Provides automated methods for downloading, recoding, and merging selected years of the Current Population Survey's Voting and Registration Supplement &lt;https://www.nber.org/research/data/current-population-survey-cps-supplements-voting-and-registration&gt;, a large N national survey about registration, voting, and non-voting in United States federal elections. Provides documentation for appropriate use of sample weights to generate statistical estimates, drawing from Hur &amp; Achen (2013) &lt;doi:10.1093/poq/nft042&gt; and McDonald (2018) &lt;http://www.electproject.org/home/voter-turnout/voter-turnout-data&gt;.">
+<meta name="description" content="Provides automated methods for downloading, recoding, and merging selected years of the Current Population Survey's Voting and Registration Supplement &lt;https://www.nber.org/research/data/current-population-survey-cps-supplements-voting-and-registration&gt;, a large N national survey about registration, voting, and non-voting in United States federal elections. Provides documentation for appropriate use of sample weights to generate statistical estimates, drawing from Hur &amp; Achen (2013) &lt;doi:10.1093/poq/nft042&gt; and McDonald (2018) &lt;https://www.electproject.org/election-data/voter-turnout-data&gt;.">
+<meta property="og:description" content="Provides automated methods for downloading, recoding, and merging selected years of the Current Population Survey's Voting and Registration Supplement &lt;https://www.nber.org/research/data/current-population-survey-cps-supplements-voting-and-registration&gt;, a large N national survey about registration, voting, and non-voting in United States federal elections. Provides documentation for appropriate use of sample weights to generate statistical estimates, drawing from Hur &amp; Achen (2013) &lt;doi:10.1093/poq/nft042&gt; and McDonald (2018) &lt;https://www.electproject.org/election-data/voter-turnout-data&gt;.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">cpsvote</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p><code>cpsvote</code> helps you work with data from the Current Population Survey’s (CPS) <a href="https://www.census.gov/topics/public-sector/voting/about.html" class="external-link">Voting and Registration Supplement</a> (VRS), published by the U.S. Census Bureau and Bureau of Labor Statistics. This high-quality, large-sample survey has been conducted after every federal election (in November of even years) since 1964, surveying Americans about their voting practices and registration. The raw data, archived by the <a href="http://data.nber.org/data/current-population-survey-data.html" class="external-link">National Bureau of Economic Research</a>, is spread across several fixed-width files with different question locations and formats.</p>
+<p><code>cpsvote</code> helps you work with data from the Current Population Survey’s (CPS) <a href="https://www.census.gov/topics/public-sector/voting/about.html" class="external-link">Voting and Registration Supplement</a> (VRS), published by the U.S. Census Bureau and Bureau of Labor Statistics. This high-quality, large-sample survey has been conducted after every federal election (in November of even years) since 1964, surveying Americans about their voting practices and registration. The raw data, archived by the <a href="https://www.nber.org/research/data/current-population-survey-cps-supplements-voting-and-registration" class="external-link">National Bureau of Economic Research</a>, is spread across several fixed-width files with different question locations and formats.</p>
 <p>This package consolidates common questions and provides the data in a structure that is much easier to work with and interpret, since much of the basic factor recoding has already been done. We also calculate alternative sample weights based on demonstrated changes in non-response bias over the decades, recommended by several elections researchers as a best practice. Documentation of this reweighting is provided in <code><a href="articles/voting.html">vignette("voting")</a></code>.</p>
 <p>We have provided access to VRS data from 1994 to 2024.</p>
 <div class="section level2">
@@ -75,7 +75,7 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Reed-EVIC/cpsvote" class="external-link">cpsvote</a></span><span class="op">)</span></span></code></pre></div>
 <p>You can also install the development version from our <a href="https://github.com/Reed-EVIC/cpsvote" class="external-link">GitHub repository</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Reed-EVIC/cpsvote"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Reed-EVIC/cpsvote"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Reed-EVIC/cpsvote" class="external-link">cpsvote</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -89,10 +89,12 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Just load 2006 and 2008</span></span>
 <span><span class="va">cps</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cps_load_basic.html">cps_load_basic</a></span><span class="op">(</span>years <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2006</span>, <span class="fl">2008</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>This will load the prepared VRS data into your environment as a tibble called <code>cps</code>. The first time you try to load a given year of data, the raw data file will be downloaded to your computer (defaulting to the relative path “./cps_data”). This can take some time depending on your internet speeds. In future instances, R will just read from the data files that have already been downloaded (defaulting to the same “cps_data” folder), as long as you correctly specify where these are stored. See <code><a href="reference/cps_allyears_100k.html">?cps_allyears_100k</a></code> for a description of the columns and fields that <code><a href="reference/cps_load_basic.html">cps_load_basic()</a></code> outputs.</p>
-<p>We recommend using a single <a href="https://r4ds.had.co.nz/workflow-projects.html" class="external-link">R project</a> for your CPS analysis where these files can be stored (this will work with the default options), or storing one set of CPS files in a steady location and specifying this absolute file path each time you load in the data. If you specify a location that does not have the correct files, these functions will attempt to re-download the data from NBER, which can take up noticeable time and storage space.</p>
+<p>This will load the prepared VRS data into your environment as a tibble called <code>cps</code>. The first time you try to load a given year of data, the raw data file will be downloaded to your computer. This can take some time depending on your internet speeds. In future instances, R will just read from the data files that have already been downloaded. See <code><a href="reference/cps_allyears_100k.html">?cps_allyears_100k</a></code> for a description of the columns and fields that <code><a href="reference/cps_load_basic.html">cps_load_basic()</a></code> outputs.</p>
+<p><strong>Data directory:</strong> By default, CPS files are stored in <code>~/cps_data</code> (your home directory). You can check the current default with <code><a href="reference/cps_data_dir.html">cps_data_dir()</a></code>. To use a persistent custom location, add this to your <code>.Rprofile</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">cpsvote.datadir =</span> “<span class="sc">~</span><span class="er">/</span>my<span class="sc">/</span>path<span class="sc">/</span>to<span class="sc">/</span>cps_data”)</span></code></pre></div>
+<p>After restarting R, all <code>cpsvote</code> data-loading functions will use that path automatically. If you specify a location that does not have the correct files, these functions will attempt to re-download the data from NBER, which can take up noticeable time and storage space.</p>
 <p>We have also included a 100,000 row sample of the full VRS data, which comes with the package as <code>cps_allyears_100k</code>. This is particularly useful for planning out a given analysis before you download the full data sets.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"cps_allyears_100k"</span><span class="op">)</span></span>
 <span></span>
@@ -212,7 +214,7 @@
 </tbody>
 </table>
 <p>The CPS has survey weights that are necessary to calculate accurate estimates about the US population. Two R packages that work with survey weighting are <a href="http://r-survey.r-forge.r-project.org/survey/" class="external-link"><code>survey</code></a> and <a href="https://github.com/gergness/srvyr" class="external-link"><code>srvyr</code></a> (a tidyverse-compatible wrapper for <code>survey</code>). You can see more examples and details on weighting in <code><a href="articles/voting.html">vignette("voting")</a></code>, but here is one example of using <code>srvyr</code> to calculate state-level voter turnout among eligible voters in 2020.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://gdfe.co/srvyr/" class="external-link">srvyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">cps20_weighted</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cps_load_basic.html">cps_load_basic</a></span><span class="op">(</span>years <span class="op">=</span> <span class="fl">2020</span>, datadir <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">'cps_data'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
@@ -282,7 +284,7 @@
 </tr>
 </tbody>
 </table>
-<p>These estimates follow closely Dr. Michael McDonald’s <a href="http://www.electproject.org/2020g" class="external-link">estimates of turnout</a> among eligible voters in the November 2020 General Election. For a detailed examination of how non-response bias has affected the use of CPS for estimating turnout, see <code><a href="articles/voting.html">vignette("voting")</a></code>. We thank the U.S. Elections Project at the University of Florida for the turnout estimates.</p>
+<p>These estimates follow closely Dr. Michael McDonald’s <a href="https://www.electproject.org/2020g" class="external-link">estimates of turnout</a> among eligible voters in the November 2020 General Election. For a detailed examination of how non-response bias has affected the use of CPS for estimating turnout, see <code><a href="articles/voting.html">vignette("voting")</a></code>. We thank the U.S. Elections Project at the University of Florida for the turnout estimates.</p>
 </div>
 <div class="section level2">
 <h2 id="advanced-use">Advanced Use<a class="anchor" aria-label="anchor" href="#advanced-use"></a>
@@ -290,7 +292,7 @@
 <p>In addition to the basic function listed above, you can customize several steps in the process of reading in the VRS data. If you’ve worked with the CPS before, you may already have some code to read in analyze this survey data. We still hope that this package can help you organize your workflow or ease some of the more tedious steps necessary to work with the CPS.</p>
 <p>Be sure to refer to the CPS documentation files when working with alternative versions of the VRS data. We have included the function <code><a href="reference/cps_download_docs.html">cps_download_docs()</a></code> to provide the documentation versions that match this data. These are all in PDF format (and several are not text-based), so they are not easy to search through.</p>
 <p><code><a href="reference/cps_load_basic.html">cps_load_basic()</a></code> is a wrapper for several constituent steps that have their own parameters and assumptions. We’ve detailed the changes made to get from the raw data file to the cleaned file in <code><a href="articles/add-variables.html">vignette("add-variables")</a></code>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/cps_download_data.html">cps_download_data</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"cps_data"</span>,</span>
 <span>                  years <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1994</span>, <span class="fl">2020</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/cps_download_docs.html">cps_download_docs</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"cps_data"</span>,</span>
@@ -328,10 +330,10 @@
 <code><a href="reference/cps_reweight_turnout.html">cps_reweight_turnout()</a></code> adds a new variable, <code>turnout_weight</code>, that reweights the original <code>WEIGHT</code> according to Hur &amp; Achen (2013) to account for the adjusted turnout measure. This corrects for increased nonresponse to the VRS over time, as well as a general pattern of respondents overreporting their personal voting history (though the CPS sees less overreporting than other surveys). See <code><a href="articles/background.html">vignette("background")</a></code> for details.</li>
 </ul>
 <p>You can use different combinations of these functions to customize which CPS data is read in. For example, this code would load the 2014 VRS data with the original column names and numeric data.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cps14</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cps_read.html">cps_read</a></span><span class="op">(</span><span class="fl">2014</span>, names_col <span class="op">=</span> <span class="st">"cps_name"</span><span class="op">)</span></span></code></pre></div>
 <p>You can then apply factor labels to this data.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cps14_lab</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cps_label.html">cps_label</a></span><span class="op">(</span><span class="va">cps14</span>, names_col <span class="op">=</span> <span class="st">"cps_name"</span><span class="op">)</span></span></code></pre></div>
 <p>Note that some features (like <code><a href="reference/cps_refactor.html">cps_refactor()</a></code>) won’t work on certain customized versions of the data, because they are relatively hard-coded based on specific column names. For example, correcting “HIPSANIC” to “HISPANIC” only works if you know which column represents the Hispanic flag. Feel free to take the code from functions like this and adapt based on your own column names.</p>
 </div>
@@ -354,9 +356,9 @@
 </li>
 <li>Aram Hur, Christopher H. Achen. <em>Coding Voter Turnout Responses in the Current Population Survey</em>. Public Opinion Quarterly, Volume 77, Issue 4, Winter 2013, Pages 985–993. <a href="https://doi.org/10.1093/poq/nft042" class="external-link uri">https://doi.org/10.1093/poq/nft042</a>
 </li>
-<li>Michael McDonald. <em>What’s Wrong with the CPS?</em> Presented at the 2014 American Political Science Association Conference, Washington, D.C., August 27-31. <a href="http://www.electproject.org/home/voter-turnout/cps-methodology" class="external-link uri">http://www.electproject.org/home/voter-turnout/cps-methodology</a>
+<li>Michael McDonald. <em>What’s Wrong with the CPS?</em> Presented at the 2014 American Political Science Association Conference, Washington, D.C., August 27-31. <a href="https://www.electproject.org/home/voter-turnout/cps-methodology" class="external-link uri">https://www.electproject.org/home/voter-turnout/cps-methodology</a>
 </li>
-<li>The <a href="https://www.census.gov/programs-surveys/cps.html" class="external-link">Current Population Survey</a> is conducted monthly by the U.S. Census Bureau and the Bureau of Labor Statistics, and the Voting and Registration Supplement is administered as part of this survey after each federal election. The <a href="http://data.nber.org/data/current-population-survey-data.html" class="external-link">CPS data</a> that this package downloads is provided by the <a href="https://data.nber.org/info.html" class="external-link">National Bureau of Economic Research</a>.</li>
+<li>The <a href="https://www.census.gov/programs-surveys/cps.html" class="external-link">Current Population Survey</a> is conducted monthly by the U.S. Census Bureau and the Bureau of Labor Statistics, and the Voting and Registration Supplement is administered as part of this survey after each federal election. The <a href="https://www.nber.org/research/data/current-population-survey-cps-supplements-voting-and-registration" class="external-link">CPS data</a> that this package downloads is provided by the <a href="https://www.nber.org" class="external-link">National Bureau of Economic Research</a>.</li>
 <li>This is an animated ternary plot made using vote mode data from <code>cpsvote</code>. The code that created this in available in the “The Move Away From Election Day Voting in America: The Snowglobe Plot” vignette.</li>
 </ul>
 <p><img src="img/snowglobe.gif"></p>
@@ -423,7 +425,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
