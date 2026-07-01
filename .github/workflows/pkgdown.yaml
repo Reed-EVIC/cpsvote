@@ -39,6 +39,7 @@ jobs:
           pkgdown::init_site()
           pkgdown::build_home()
           pkgdown::build_reference(devel = FALSE)
+          pkgdown::build_articles()
           pkgdown::build_news()
           pkgdown::build_search()
         shell: Rscript {0}
