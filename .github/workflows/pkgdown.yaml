@@ -43,10 +43,9 @@ jobs:
           pkgdown::build_search()
         shell: Rscript {0}
 
-      - name: Deploy to GitHub pages 🚀
+      - name: Commit built site to docs/ 🚀
         if: github.event_name != 'pull_request'
-        uses: JamesIves/github-pages-deploy-action@d92aa235d04922e8f08b40ce78cc5442fcfbfa2f # v4.8.0
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          clean: false
-          branch: gh-pages
-          folder: docs
+          commit_message: "Rebuild pkgdown site"
+          file_pattern: docs/**
