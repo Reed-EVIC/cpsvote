@@ -148,20 +148,26 @@ cps_refactor <- function(data, move_levels = TRUE) {
 #' where multiple categories map to "No", and one which follows the guidelines 
 #' from Hur & Achen (2013) of setting these categories to `NA`. See the Vignette 
 #' for more information on this process.
+#' @details Before recoding, this function calls [cps_check_codes()], which
+#' warns if any of `items` is documented in the codebook for a given year but
+#' never actually observed in the data -- as happens with the `-9` ("No
+#' Response") code starting in 2022. See `vignette("voting")` for details.
 #' @param data the input data set
 #' @param vote_col which column contains the voting variable
-#' @param items which items should be "No" in the CPS coding and `NA` in the 
+#' @param items which items should be "No" in the CPS coding and `NA` in the
 #' Hur & Achen coding
-#' 
+#'
 #' @return `data` with two columns attached, `cps_turnout` and `hurachen_turnout`,
 #' voting variables recoded according to the process above
 #' @importFrom rlang .data
 #' @examples cps_recode_vote(cps_refactor(cps_label(cps_2016_10k)))
-#' 
+#'
 #' @export
-cps_recode_vote <- function(data, 
+cps_recode_vote <- function(data,
                             vote_col = "VRS_VOTE",
                             items = c("DON'T KNOW", "REFUSED", "NO RESPONSE")) {
+  cps_check_codes(data, vote_col = vote_col, check_labels = items)
+
   if (is.numeric(data[[vote_col]])) {
     output <- dplyr::mutate(data,
                             cps_turnout = dplyr::case_when(
