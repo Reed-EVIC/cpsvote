@@ -15,6 +15,33 @@ knitr::opts_chunk$set(
 # not using here::here(), which resolves inconsistently under pkgdown's build
 # subprocess
 cps_data_dir <- normalizePath(file.path("..", "..", "cps_data"), mustWork = FALSE)
+
+# This article downloads full raw CPS microdata (several years, tens of
+# thousands of rows each) plus external McDonald VEP and Census Table 4a
+# data over the network. None of that is available on the pkgdown CI
+# runner -- there's no cached cps_data/ there, and pulling it fresh from
+# Census/NBER/Google Sheets on every CI build would be slow and fragile
+# (the pre-2020 NBER mirror cps_read() falls back to is no longer reliably
+# reachable). So: skip the data-heavy chunks entirely when running in CI,
+# or when the local raw-data cache isn't present, and say so explicitly
+# rather than silently producing an empty article.
+IN_CI <- identical(Sys.getenv("CI"), "true")
+HAS_CPS_DATA <- dir.exists(cps_data_dir) &&
+  length(list.files(cps_data_dir, pattern = "\\.zip$")) > 0
+RUN_LIVE <- !IN_CI && HAS_CPS_DATA
+
+knitr::opts_chunk$set(eval = RUN_LIVE)
+```
+
+```{r, echo = FALSE, eval = !RUN_LIVE, results = "asis"}
+cat(
+  "> **Note:** this article computes its tables and figures from full raw",
+  "CPS microdata files and live downloads (Census Bureau, Google Sheets)",
+  "that aren't available in the environment used to build this site",
+  "automatically. The code below is shown for reference; render this",
+  "article locally with a populated `cps_data/` cache (see `cps_download_data()`)",
+  "to reproduce its output.\n"
+)
 ```
 
 ```{r setup}
