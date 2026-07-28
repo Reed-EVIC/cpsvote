@@ -236,6 +236,7 @@ cps_region %>%
   theme_minimal() +
   theme(plot.title = element_text(size = 12, family = "serif",
                                   face = "bold.italic", colour = "red"),
+        plot.subtitle = element_text(size = 10),
         legend.background = element_rect(),
         legend.title = element_text(size = 8, face = "bold"),
         legend.text = element_text(size = 6),
@@ -262,6 +263,7 @@ cps_region %>%
        color = "Region") +
   theme(plot.title = element_text(size = 12, family = "serif",
                                   face = "bold.italic", colour = "red"),
+        plot.subtitle = element_text(size = 10),
         legend.background = element_rect(),
         legend.title = element_text(size = 8, face = "bold"),
         legend.text = element_text(size = 6),
