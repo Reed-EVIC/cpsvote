@@ -1,5 +1,5 @@
 pandoc: 3.8.3
-pkgdown: 2.2.0
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   add-variables: add-variables.html
@@ -8,7 +8,7 @@ articles:
   articles/snowglobe: snowglobe.html
   vote_method_trends: vote_method_trends.html
   voting: voting.html
-last_built: 2026-07-01T17:59Z
+last_built: 2026-07-28T03:02Z
 urls:
   reference: https://reed-evic.github.io/cpsvote/reference
   article: https://reed-evic.github.io/cpsvote/articles
