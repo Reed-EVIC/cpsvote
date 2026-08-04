@@ -88,6 +88,18 @@ Professor Michael McDonald of the University of Florida helpfully provides guida
 
 **The Hur and Achen corrections have been integrated into the `cpsvote` package.**
 
+### A 2022+ Discontinuity in the `-9` "No Response" Code {#noresponse2022}
+
+Starting with the 2022 VRS, the Census Bureau's public-use file no longer contains any respondents coded `-9` ("No Response") for `PES1`/`VRS_VOTE`. This code is present in every release from 1994 through 2020 (2020 alone has over 10,000 such cases), and the CPS's own codebook still documents `-9` as a valid value for 2022 and 2024 -- but no respondent actually receives that code in either year's data.
+
+Looking at the age composition of respondents coded `-1` ("Not in Universe") is informative here: in 2016-2020, only about 12-13% of the `-1` group is 18 or older, consistent with that code overwhelmingly capturing people who were never asked the question (e.g. minors). In 2022 and 2024, that share roughly doubles to 22-23%, while the `-1` group grows by about the number of respondents who used to be coded `-9`. This strongly suggests that the Census Bureau folded "No Response" adults into the generic "Not in Universe" bucket starting in 2022, rather than that these respondents actually vanished from the survey.
+
+This matters because `cps_label()` treats `-1` as missing data by default (via its `na_vals` argument) *before* `cps_recode_vote()` ever runs. In years through 2020, a `-9` respondent was a real observation that got coded "No" for `cps_turnout` (per the Census's own convention) and correctly dropped to `NA` for `hurachen_turnout`. Starting in 2022, that same person -- now coded `-1` -- is wiped out to `NA` at the labelling stage and never reaches `cps_recode_vote()` at all. The practical effect is that `cps_turnout`'s denominator silently loses these respondents rather than counting them as nonvoters, which inflates the naive, uncorrected turnout estimate for 2022 and 2024 (pushing it toward the "topline"/overreported rate rather than the Census's reported rate). `hurachen_turnout` is comparatively less affected, since Don't Know/Refused/No Response respondents were already excluded from it regardless of the exact numeric code, but the composition of the state-level reweighting calibration may be subtly affected too.
+
+Neither `cps_label()` nor `cps_recode_vote()` will error or otherwise flag this -- they simply proceed with fewer respondents. To help catch this kind of silent coding change, `cps_recode_vote()` now calls [cps_check_codes()] automatically, which compares the codebook's documented responses for a given year against what's actually observed in the data and issues a warning when one is entirely missing (as with `-9` in 2022 and 2024). You can also call `cps_check_codes()` directly to audit a data set on its own.
+
+As of this writing, `cpsvote` does not attempt to algorithmically recover the lost `-9` responses (e.g. by using respondent age to split the `-1` bucket back into "Not in Universe" versus "No Response"); that would be a methodological change to the package's core turnout coding and needs further discussion before being adopted. If you are working with 2022 or later data and rely on `cps_turnout`, treat the resulting turnout estimate for those years with caution.
+
 ## Example: Estimating Voter Turnout in 2020 {#sample2020}
 
 ```{r setup2, echo = TRUE}

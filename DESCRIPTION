@@ -41,7 +41,11 @@ Suggests:
     ggplot2,
     usmap,
     ggthemes,
-    tweenr
+    tweenr,
+    kableExtra,
+    ggrepel,
+    googlesheets4,
+    readxl
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 8.0.0
